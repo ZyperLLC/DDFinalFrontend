@@ -1,0 +1,711 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ========= Base Resets ========= */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100%;
+}
+
+/* ========= Logo Styles ========= */
+.logo-container {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: hidden;
+}
+
+.logo-image {
+  max-height: 170px;
+  width: auto;
+  object-fit: contain;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 9999px;
+}
+
+/* Progress bar wrapper */
+.progress-wrapper {
+  margin-bottom: 80px; /* Shifted up from bottom */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1rem;
+  z-index: 10;
+}
+
+/* Outer progress container (oval shape) */
+.progress-oval {
+  width: 60%;
+  max-width: 300px;
+  height: 36px; /* Thicker bar */
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 9999px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+}
+
+/* Actual progress fill */
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #f72585, #7209b7);
+  transition: width 0.2s ease-in-out;
+  width: 0%;
+  border-radius: inherit;
+}
+
+
+/* ========= Floating Logo ========= */
+.animated-logo {
+  width: 250px;
+  margin-top: 2rem;
+  margin-bottom: 1.25rem;
+  display: block;
+  margin-inline: auto;
+  padding-top: 60px;
+  animation: floatUpDown 2.5s ease-in-out infinite;
+}
+
+@keyframes floatUpDown {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+/* ========= Home Page ========= */
+.page {
+  min-height: 100vh;
+  padding-bottom: 80px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.page-logo {
+  margin: 2rem auto 1rem;
+  width: 180px;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.combined-card {
+  background: rgba(0, 0, 50, 0.088);
+  padding: 1rem 1.5rem;
+  margin-bottom: 1rem;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 480px;
+  text-align: center;
+}
+
+.card-subtitle {
+  font-size: 0.9rem;
+  margin-bottom: 1.2rem;
+  color: #ccc;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  color: white;
+  text-align: left;
+  padding-left: 0.25rem;
+}
+
+/* ========= Timer Component ========= */
+.timer-box {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+
+.progress-bar {
+  height: 32px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(44, 11, 192, 0.353);
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #f72585, #7209b7);
+  width: 0%;
+  border-radius: inherit;
+  transition: width 0.3s ease;
+}
+
+.timer-text {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #eee;
+}
+
+/* ========= Dolphin Grid ========= */
+.dolphin-header {
+  text-align: left;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 1rem auto 0.5rem;
+  width: 90%;
+  max-width: 500px;
+  color: #fff;
+}
+
+.dolphin-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  width: 100%;
+}
+
+.dolphin {
+  width: 100%;
+  max-width: 90px;
+  height: auto;
+  border-radius: 10px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+  margin: auto;
+}
+
+.dolphin:hover {
+  transform: scale(1.05);
+  border-color: #fff;
+}
+
+/* ========= Bottom Navbar ========= */
+.navbar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #0f0f3d;
+  display: flex;
+  justify-content: space-around;
+  padding: 0.5rem 0;
+  border-top: 1px solid #333;
+  z-index: 1000;
+}
+
+.nav-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #aaa;
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.nav-icon svg {
+  margin-bottom: 4px;
+}
+
+.nav-icon.active,
+.nav-icon:hover {
+  color: #fff;
+}
+
+/* ========= Welcome Popup ========= */
+.welcome-popup-image-bg {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 90%;
+  max-width: 400px;
+  transform: translate(-50%, -50%);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  aspect-ratio: 3 / 4;
+  border-radius: 20px;
+  overflow: hidden;
+  color: #fff;
+  z-index: 9990;
+  animation: popupFade 0.4s ease, popupGrow 0.4s ease;
+  background-color: transparent;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.popup-content {
+  background: rgba(0, 0, 0, 0);
+  padding: 1.5rem 1.2rem;
+  text-align: center;
+}
+
+.popup-content h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.popup-content ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.popup-content ul li {
+  margin-bottom: 0.8rem;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.connect-wallet-btn {
+  background: linear-gradient(90deg, #f72585, #7209b7);
+  border: none;
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.connect-wallet-btn:hover {
+  transform: scale(1.05);
+}
+
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  z-index: 10;
+}
+
+/* ========= TonConnect Modal Priority ========= */
+#ton-connect-modal {
+  position: fixed !important;
+  z-index: 99999 !important;
+}
+
+/* ========= Stake Page ========= */
+.stake-page-container {
+  color: white;
+  padding: 0 1rem;
+  min-height: 100vh;
+}
+
+@media (min-width: 640px) {
+  .stake-page-container {
+    padding: 0 2rem;
+  }
+
+  .stake-dolphin-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    max-width: 600px;
+  }
+}
+
+@media (min-width: 768px) {
+  .stake-page-container {
+    padding: 0 3rem;
+  }
+
+  .stake-dolphin-grid {
+    grid-template-columns: repeat(5, 1fr);
+    max-width: 700px;
+  }
+
+  .stake-dolphin {
+    max-width: 100px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .stake-page-container {
+    padding: 0 4rem;
+  }
+
+  .stake-dolphin-grid {
+    grid-template-columns: repeat(6, 1fr);
+    max-width: 850px;
+  }
+
+  .stake-dolphin {
+    max-width: 110px;
+  }
+}
+
+.stake-dolphin-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 1rem;
+  width: 90%;
+  max-width: 500px;
+}
+
+.stake-dolphin {
+  width: 100%;
+  max-width: 90px;
+  height: auto;
+  border-radius: 10px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+  margin: auto;
+}
+
+.stake-dolphin:hover {
+  transform: scale(1.05);
+  border-color: #fff;
+}
+
+.stake-card {
+  color: white;
+  box-shadow: none;
+}
+
+.staking-grid-card {
+  background: rgba(0, 0, 50, 0.088);
+  padding: 1.5rem;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 100%;
+  margin-inline: auto;
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* ========= Profile Page ========= */
+.profile-heading {
+  color: white;
+  font-size: 2rem;
+  margin-top: 0rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.profile-subheading {
+  color: white;
+  font-size: 1rem;
+  margin-top: 0;
+  max-width: 90%;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.connect-wallet-button {
+  margin-top: 1.5rem;
+  background: linear-gradient(90deg, #f72585, #7209b7);
+  color: white;
+  padding: 0.75rem 4.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: block;
+  margin-inline: auto;
+  transition: transform 0.2s ease;
+}
+
+.connect-wallet-button:hover {
+  transform: scale(1.05);
+}
+
+.profile-card {
+  background: rgba(255, 255, 255, 0);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 1.5rem 1.25rem;
+  margin: 1rem auto;
+  max-width: 500px;
+  min-height: 100px;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.section-box {
+  background: rgba(255, 255, 255, 0);
+  border-radius: 16px;
+  padding: 1.5rem 1.2rem;
+  margin: 1rem auto;
+  max-width: 500px;
+  min-height: 100px;
+  width: 80%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+}
+
+/* ========= Profile Page > Staked NFTs ========= */
+.staked-heading {
+  color: white;
+  text-align: left;
+  width: 90%;
+  max-width: 500px;
+  margin: 1rem auto 0.5rem;
+}
+
+.staked-nft-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 1rem;
+}
+
+.nft-card {
+  display: flex;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 1rem;
+  align-items: center;
+  backdrop-filter: blur(2px);
+}
+
+.nft-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+  margin-right: 1rem;
+  object-fit: cover;
+}
+
+.nft-info {
+  color: white;
+  flex: 1;
+}
+
+.nft-name {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.nft-detail {
+  margin: 0.25rem 0;
+  font-size: 0.80rem;
+}
+
+.result-tag {
+  align-self: center;
+  margin-left: auto;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-weight: bold;
+  font-size: 0.85rem;
+  color: white;
+  position: absolute;
+  top: 12px;
+  right: 16px;
+}
+
+.result-tag.win {
+  background-color: #22c55e;
+}
+
+.result-tag.lose {
+  background-color: #ef4444;
+}
+
+.history-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ========= Invite / Referral Page ========= */
+.invite-container {
+  background-color: rgba(255, 255, 255, 0.08);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  backdrop-filter: blur(10px);
+}
+
+.invite-heading {
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: 0;
+  text-align: center;
+}
+
+.invite-subheading {
+  color: white;
+  font-size: 1rem;
+  text-align: center;
+  margin-top: 0.25rem;
+  margin-bottom: 1rem;
+  max-width: 90%;
+}
+
+.invite-box {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 0.25rem;
+}
+
+.invite-input {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.invite-copy-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background: linear-gradient(90deg, #f72585, #7209b7);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+
+
+.invite-copy-btn:hover {
+  background-color: #e0e0e0;
+  color: #ffffff;
+}
+
+/* ========= Friends Leaderboard ========= */
+.leaderboard-container {
+  background-color: rgba(255, 255, 255, 0.08);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 420px;
+  color: white;
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.leaderboard-heading {
+  color: white;
+  font-size: 1.5rem;
+  margin-bottom: 1.2rem;
+  text-align: left;
+  align-self: flex-start;
+}
+
+.leaderboard-header,
+.leaderboard-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.95rem 0;
+  font-size: 1rem;
+}
+
+.leaderboard-header {
+  font-weight: bold;
+  background-color: rgba(36, 66, 187, 0.6);
+  border-radius: 8px;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.leaderboard-row {
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* ========= Mobile Responsiveness ========= */
+@media (max-width: 600px) {
+  .page-logo {
+    width: 70%;
+  }
+
+  .dolphin-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .combined-card {
+    padding: 1rem;
+  }
+
+  .progress-bar {
+    height: 14px;
+  }
+
+  .progress-oval {
+    width: 80%;
+    height: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-heading {
+    font-size: 1.6rem;
+  }
+
+  .profile-subheading {
+    font-size: 0.95rem;
+  }
+
+  .connect-wallet-button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.95rem;
+  }
+}
+
+.main-content-wrapper {
+  transition: filter 0.3s ease;
+}
+
+.blurred {
+  filter: blur(5px);
+  pointer-events: none; /* Optional: block clicks while blurred */
+  user-select: none;
+}
