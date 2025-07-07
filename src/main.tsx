@@ -10,9 +10,10 @@ import Profile from './Profile';
 import Friend from './Friend';
 import './index.css';
 
+const manifestUrl = import.meta.env.VITE_MANIFEST_JSON;
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <TonConnectUIProvider manifestUrl="https://demo.tonconnect.dev/tonconnect-manifest.json">
+    <TonConnectUIProvider manifestUrl={manifestUrl}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<App />} />

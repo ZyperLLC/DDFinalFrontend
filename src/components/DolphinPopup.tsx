@@ -15,7 +15,7 @@ export default function DolphinPopup({
   name: string;
   onClose: () => void;
 }) {
-  const [_tonConnectUI] = useTonConnectUI();
+  const [tonConnectUI] = useTonConnectUI();
   const [selectedCurrency, setSelectedCurrency] = useState('TON');
   const [dropdownOpen, setDropdownOpen] = useState(false);
 

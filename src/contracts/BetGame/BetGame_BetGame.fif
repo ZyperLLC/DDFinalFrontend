@@ -1,0 +1,503 @@
+// automatically generated from `@stdlib/std/stdlib.fc` `C:/Users/saksh/OneDrive/Desktop/Projects/Blockchain/ZyperLLC/Zyper-contracts/DolphinDash-Bet/build/BetGame/BetGame_BetGame.fc` 
+PROGRAM{
+  DECLPROC __tact_context_get
+  DECLPROC __tact_context_get_sender
+  DECLPROC __tact_dict_min_int_cell
+  DECLPROC __tact_dict_next_int_cell
+  DECLPROC $ChangeOwnerOk$_store
+  DECLPROC $ChangeOwnerOk$_store_cell
+  DECLPROC $Bet$_load
+  DECLPROC $Bet$_as_optional
+  DECLPROC $Bet$_load_opt
+  DECLPROC $BetGame$_store
+  DECLPROC $BetGame$_load
+  DECLPROC $Context$_get_value
+  DECLPROC $Bet$_not_null
+  DECLPROC $BetGame$_contract_load
+  DECLPROC $BetGame$_contract_store
+  DECLPROC $BetGame$_fun_bettingRound
+  DECLPROC $BetGame$_fun_contractBalance
+  DECLPROC $MessageParameters$_constructor_bounce_to_value_mode_body
+  DECLPROC $BetGame$_fun_reply
+  DECLPROC $BetGame$_fun_requireOwner
+  DECLPROC $BetGame$_fun_owner
+  DECLPROC $MessageParameters$_constructor_to_value_mode_bounce
+  DECLPROC $MessageParameters$_constructor_to_value_mode_body_bounce
+  DECLPROC $ChangeOwnerOk$_constructor_queryId_newOwner
+  114211 DECLMETHOD %bettingRound
+  110221 DECLMETHOD %contractBalance
+  83229 DECLMETHOD %owner
+  DECLPROC recv_internal
+  65535 DECLMETHOD __tact_selector_hack
+  DECLGLOBVAR __tact_context
+  DECLGLOBVAR __tact_context_sender
+  DECLGLOBVAR __tact_child_contract_codes
+  DECLGLOBVAR __tact_randomized
+  __tact_context_get PROCINLINE:<{
+    __tact_context GETGLOB
+    4 UNTUPLE
+  }>
+  __tact_context_get_sender PROCINLINE:<{
+    __tact_context_sender GETGLOB
+  }>
+  __tact_dict_min_int_cell PROCINLINE:<{
+    DICTIMINREF
+    NULLSWAPIFNOT2
+    DUP
+    IF:<{
+      s1 s2 XCHG
+    }>ELSE<{
+      NIP
+      PUSHNULL
+      s2 POP
+      PUSHNULL
+      SWAP
+    }>
+  }>
+  __tact_dict_next_int_cell PROCINLINE:<{
+    -ROT
+    DICTIGETNEXT
+    NULLSWAPIFNOT2
+    DUP
+    IF:<{
+      s0 s2 XCHG
+      LDREF
+      DROP
+      ROT
+    }>ELSE<{
+      NIP
+      PUSHNULL
+      s2 POP
+      PUSHNULL
+      SWAP
+    }>
+  }>
+  $ChangeOwnerOk$_store PROCINLINE:<{
+    846932810 PUSHINT
+    s0 s3 XCHG2
+    32 STU
+    64 STU
+    STSLICE
+  }>
+  $ChangeOwnerOk$_store_cell PROCINLINE:<{
+    -ROT
+    $ChangeOwnerOk$_store INLINECALLDICT
+    ENDC
+  }>
+  $Bet$_load PROCINLINE:<{
+    LDMSGADDR
+    1 LDI
+    LDVARUINT16
+    3 -ROLL
+  }>
+  $Bet$_as_optional PROCINLINE:<{
+        3 TUPLE
+  }>
+  $Bet$_load_opt PROCINLINE:<{
+    DUP
+    ISNULL
+    IF:<{
+      DROP
+      PUSHNULL
+    }>ELSE<{
+      CTOS
+      $Bet$_load INLINECALLDICT
+      1 3 BLKDROP2
+      $Bet$_as_optional INLINECALLDICT
+    }>
+  }>
+  $BetGame$_store PROCINLINE:<{
+    s2 s3 XCHG2
+    STSLICE
+    1 STI
+    257 PUSHINT
+    STIX
+  }>
+  $BetGame$_load PROCINLINE:<{
+    LDMSGADDR
+    1 LDI
+    257 PUSHINT
+    LDIX
+    3 -ROLL
+  }>
+  $Context$_get_value PROCINLINE:<{
+    s1 s3 XCHG
+    3 BLKDROP
+  }>
+  $Bet$_not_null PROCINLINE:<{
+    DUP
+    ISNULL
+    128 THROWIF
+        3 UNTUPLE
+  }>
+  $BetGame$_contract_load PROCINLINE:<{
+    c4 PUSH
+    CTOS
+    $BetGame$_load INLINECALLDICT
+    1 3 BLKDROP2
+  }>
+  $BetGame$_contract_store PROCINLINE:<{
+    NEWC
+    3 -ROLL
+    $BetGame$_store INLINECALLDICT
+    ENDC
+    c4 POP
+  }>
+  $BetGame$_fun_bettingRound PROCREF:<{
+    DUP
+  }>
+  $BetGame$_fun_contractBalance PROCREF:<{
+        BALANCE FIRST
+  }>
+  $MessageParameters$_constructor_bounce_to_value_mode_body PROCINLINE:<{
+    s3 s3 XCHG2
+    s0 s4 XCHG
+  }>
+  $BetGame$_fun_reply PROCINLINE:<{
+    __tact_context_get_sender INLINECALLDICT
+    TRUE
+    0 PUSHINT
+    s0 s3 XCHG2
+    66 PUSHINT
+    SWAP
+    $MessageParameters$_constructor_bounce_to_value_mode_body INLINECALLDICT
+        NEWC
+        b{01} STSLICECONST  // store tag = $0 and ihr_disabled = true
+        1 STI               // store `bounce`
+        b{000} STSLICECONST // store bounced = false and src = addr_none
+        STSLICE             // store `to`
+        SWAP
+        STGRAMS             // store `value`
+        106 PUSHINT         // 1 + 4 + 4 + 64 + 32 + 1
+        STZEROES
+        // → Stack state
+        // s0: Builder
+        // s1: `body`
+        // s2: `mode`
+        STDICT
+        ENDC
+        SWAP
+        SENDRAWMSG
+  }>
+  $BetGame$_fun_requireOwner PROCREF:<{
+    __tact_context_get_sender INLINECALLDICT
+    s3 PUSH
+    SDEQ
+    132 THROWIFNOT
+  }>
+  $BetGame$_fun_owner PROCREF:<{
+    s2 PUSH
+  }>
+  $MessageParameters$_constructor_to_value_mode_bounce PROCINLINE:<{
+    s1 s3 XCHG
+    PUSHNULL
+    3 -ROLL
+  }>
+  $MessageParameters$_constructor_to_value_mode_body_bounce PROCINLINE:<{
+    s4 s3 s0 XCHG3
+    s1 s2 XCHG
+  }>
+  $ChangeOwnerOk$_constructor_queryId_newOwner PROCINLINE:<{
+  }>
+  %bettingRound PROC:<{
+    $BetGame$_contract_load INLINECALLDICT
+    $BetGame$_fun_bettingRound INLINECALLDICT
+    3 1 BLKDROP2
+  }>
+  %contractBalance PROC:<{
+    $BetGame$_contract_load INLINECALLDICT
+    $BetGame$_fun_contractBalance INLINECALLDICT
+    3 1 BLKDROP2
+  }>
+  %owner PROC:<{
+    $BetGame$_contract_load INLINECALLDICT
+    $BetGame$_fun_owner INLINECALLDICT
+    3 1 BLKDROP2
+  }>
+  recv_internal PROC:<{
+    c2 SAVE
+    SAMEALTSAVE
+    SWAP
+    CTOS
+    2 PUSHINT
+    SDSKIPFIRST
+    1 LDI
+    1 LDI
+    LDMSGADDR
+    OVER
+    s3 s4 XCHG
+    s6 s6 XCHG2
+    4 TUPLE
+    __tact_context SETGLOB
+    s0 s2 XCHG
+    __tact_context_sender SETGLOB
+    $BetGame$_contract_load INLINECALLDICT
+    s0 s4 XCHG
+    IFJMP:<{
+      4 BLKDROP
+    }>
+    0 PUSHINT
+    s3 PUSH
+    SBITS
+    DUP
+    31 GTINT
+    IF:<{
+      NIP
+      s0 s3 XCHG
+      32 LDU
+      OVER
+      1448266692 PUSHINT
+      EQUAL
+      IFJMP:<{
+        NIP
+        s3 POP
+        s0 s2 XCHG
+        LDDICT
+        DROP
+        s2 s3 XCHG2
+        $BetGame$_fun_requireOwner INLINECALLDICT
+        3 BLKDROP
+        DUP
+        257 PUSHINT
+        __tact_dict_min_int_cell INLINECALLDICT
+        WHILE:<{
+        }>DO<{
+          $Bet$_load_opt INLINECALLDICT
+          $Bet$_not_null INLINECALLDICT
+          SWAP
+          IF:<{
+            770 PUSHINT
+            MUL
+            100 PUSHINT
+            DIV
+          }>ELSE<{
+            7 MULCONST
+          }>
+          2 PUSHINT
+          FALSE
+          $MessageParameters$_constructor_to_value_mode_bounce INLINECALLDICT
+              NEWC
+              b{01} STSLICECONST  // store tag = $0 and ihr_disabled = true
+              1 STI               // store `bounce`
+              b{000} STSLICECONST // store bounced = false and src = addr_none
+              STSLICE             // store `to`
+              SWAP
+              STGRAMS             // store `value`
+              106 PUSHINT         // 1 + 4 + 4 + 64 + 32 + 1
+              STZEROES
+              // → Stack state
+              // s0: Builder
+              // s1: `body`
+              // s2: `mode`
+              STDICT
+              ENDC
+              SWAP
+              SENDRAWMSG
+          257 PUSHINT
+          s2 PUSH
+          s0 s2 XCHG
+          __tact_dict_next_int_cell INLINECALLDICT
+        }>
+        3 BLKDROP
+            MYADDR
+        0 PUSHINT
+        64 PUSHINT
+            B{b5ee9c7241010101000e000018000000007374617274626574625e5c81} B>boc PUSHREF
+        FALSE
+        $MessageParameters$_constructor_to_value_mode_body_bounce INLINECALLDICT
+            NEWC
+            b{01} STSLICECONST  // store tag = $0 and ihr_disabled = true
+            1 STI               // store `bounce`
+            b{000} STSLICECONST // store bounced = false and src = addr_none
+            STSLICE             // store `to`
+            SWAP
+            STGRAMS             // store `value`
+            106 PUSHINT         // 1 + 4 + 4 + 64 + 32 + 1
+            STZEROES
+            // → Stack state
+            // s0: Builder
+            // s1: `body`
+            // s2: `mode`
+            STDICT
+            ENDC
+            SWAP
+            SENDRAWMSG
+        RETALT
+      }>
+      OVER
+      4206811366 PUSHINT
+      EQUAL
+      IFJMP:<{
+        NIP
+        s3 POP
+        s0 s2 XCHG
+        LDVARUINT16
+        DROP
+        s2 s3 XCHG2
+        $BetGame$_fun_requireOwner INLINECALLDICT
+        2DROP
+        SWAP
+        2 PUSHINT
+        FALSE
+        $MessageParameters$_constructor_to_value_mode_bounce INLINECALLDICT
+            NEWC
+            b{01} STSLICECONST  // store tag = $0 and ihr_disabled = true
+            1 STI               // store `bounce`
+            b{000} STSLICECONST // store bounced = false and src = addr_none
+            STSLICE             // store `to`
+            SWAP
+            STGRAMS             // store `value`
+            106 PUSHINT         // 1 + 4 + 4 + 64 + 32 + 1
+            STZEROES
+            // → Stack state
+            // s0: Builder
+            // s1: `body`
+            // s2: `mode`
+            STDICT
+            ENDC
+            SWAP
+            SENDRAWMSG
+        RETALT
+      }>
+      OVER
+      2174598809 PUSHINT
+      EQUAL
+      IFJMP:<{
+        NIP
+        s3 POP
+        s0 s2 XCHG
+        64 LDU
+        LDMSGADDR
+        DROP
+        s3 s4 XCHG2
+        $BetGame$_fun_requireOwner INLINECALLDICT
+        s2 POP
+        s2 s3 XCPU
+        $ChangeOwnerOk$_constructor_queryId_newOwner INLINECALLDICT
+        NEWC
+        $ChangeOwnerOk$_store_cell INLINECALLDICT
+        $BetGame$_fun_reply INLINECALLDICT
+        $BetGame$_contract_store INLINECALLDICT
+        RETALT
+      }>
+      s0 s4 XCHG
+    }>
+    SWAP
+    0 EQINT
+    SWAP
+    33 LESSINT
+    AND
+    IFJMP:<{
+      4 BLKDROP
+      __tact_context_get_sender INLINECALLDICT
+          NEWC
+          x{42_} STSLICECONST // .storeUint(0x10, 6)
+          STSLICE          // .storeAddress(to)
+          0 PUSHINT        // 0
+          111 STUR         // .storeUint(0, 111)
+                           // 4 zeros for coins and 107 zeros for lt, fees, etc.
+          ENDC
+          66 PUSHINT       // SendRemainingValue | SendIgnoreErrors
+          SENDRAWMSG
+    }>
+    s0 s2 XCHG
+    HASHSU
+    DUP
+    39904194974004187977027677709927647994012702889743961088493894213076080277351 PUSHINT
+    EQUAL
+    IFJMP:<{
+      DROP
+      s0 s2 XCHG
+      $BetGame$_fun_requireOwner INLINECALLDICT
+      TRUE
+      s2 POP
+      INC
+      __tact_context_get_sender INLINECALLDICT
+          NEWC
+          x{42_} STSLICECONST // .storeUint(0x10, 6)
+          STSLICE          // .storeAddress(to)
+          0 PUSHINT        // 0
+          111 STUR         // .storeUint(0, 111)
+                           // 4 zeros for coins and 107 zeros for lt, fees, etc.
+          ENDC
+          66 PUSHINT       // SendRemainingValue | SendIgnoreErrors
+          SENDRAWMSG
+      $BetGame$_contract_store INLINECALLDICT
+    }>
+    3 1 BLKDROP2
+    73858242524008305939088254811929519407378950508592632371790050150231649188216 PUSHINT
+    EQUAL
+    IFJMP:<{
+    }>
+    130 THROW
+  }>
+  __tact_selector_hack PROC:<{
+    @atend @ 1 {
+            execute current@ context@ current!
+            {
+                // The core idea of this function is to save gas by avoiding unnecessary dict jump, when recv_internal/recv_external is called
+                // We want to extract recv_internal/recv_external from the dict and select needed function
+                // not by jumping to the needed function by it's index, but by using usual IF statements.
+                }END> b> // Close previous builder, now we have a cell of previous code on top of the stack
+                <{ // Start of the new code builder
+                    SETCP0
+                    // Swap the new code builder with the previous code, now we have previous code on top of the stack
+                    swap
+                    // Transform cell to slice and load first ref from the previous code, now we have the dict on top of the stack
+                    <s ref@
+                    // Extract the recv_internal from the dict
+                    dup 0 swap @procdictkeylen idict@ { "internal shortcut error" abort } ifnot
+                    swap
+                    // Delete the recv_internal from the dict
+                    0 swap @procdictkeylen idict- drop
+                    // Delete the recv_external from the dict (it's okay if it's not there)
+                    -1 swap @procdictkeylen idict- drop
+                    // Delete the __tact_selector_hack from the dict
+                    65535 swap @procdictkeylen idict- drop
+                    // Bring the code builder from the bottom of the stack
+                    // because if recv_external extraction is optional, and the number of elements on the stack is not fixed
+                    depth 1- roll
+                    // Swap with the dict from which we extracted recv_internal and (maybe) recv_external
+                    swap
+                    // Check if the dict is empty
+                    dup null?
+                    // Store a copy of this flag in the bottom of the stack
+                    dup depth 1- -roll
+                    {
+                        // If the dict is empty, just drop it (it will be null if it's empty)
+                        drop
+                    }
+                    {
+                        // If the dict is not empty, prepare continuation to be stored in c3
+                        <{
+                            // Save this dict as first ref in this continuation, it will be pushed in runtime by DICTPUSHCONST
+                            swap @procdictkeylen DICTPUSHCONST
+                            // Jump to the needed function by it's index
+                            DICTIGETJMPZ
+                            // If such key is not found, throw 11 along with the key as an argument
+                            11 THROWARG
+                        }> PUSHCONT
+                        // Store the continuation in c3
+                        c3 POP
+                    } cond
+                    // Function id is on top of the (runtime) stack
+                    DUP IFNOTJMP:<{
+                        // place recv_internal here
+                        DROP swap @addop
+                    }>
+                    // Bring back the flag, indicating if the dict is empty or not from the bottom of the stack
+                    depth 1- roll
+                    {
+                        // If the dict is empty, throw 11
+                        11 THROWARG
+                    }
+                    {
+                        // If the dict is not empty, jump to continuation from c3
+                        c3 PUSH JMPX
+                    } cond
+                }> b>
+            } : }END>c
+            current@ context! current!
+        } does @atend !
+  }>
+}END>c
