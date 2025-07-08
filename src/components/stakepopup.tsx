@@ -18,6 +18,7 @@ export default function StakePopup({
   const [_selectedCurrency, _setSelectedCurrency] = useState('TON');
   const [_dropdownOpen, _setDropdownOpen] = useState(false);
   const [showCompletePopup, setShowCompletePopup] = useState(false);
+  const [isBuffering, setIsBuffering] = useState(false); // ⬅️ NEW
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -37,8 +38,23 @@ export default function StakePopup({
     };
   }, []);
 
+  const handleStake = () => {
+    setIsBuffering(true);
+    setTimeout(() => {
+      setIsBuffering(false);
+      setShowCompletePopup(true);
+    }, 2000); // 2 second delay
+  };
+
   return (
     <>
+      {/* Buffering Overlay */}
+      {isBuffering && (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black bg-opacity-40 backdrop-blur-sm">
+          <div className="w-14 h-14 border-4 border-t-white border-white/30 rounded-full animate-spin"></div>
+        </div>
+      )}
+
       <div
         className="fixed inset-0 z-50 flex justify-center items-center"
         style={{
@@ -91,9 +107,9 @@ export default function StakePopup({
             style={{
               backgroundImage: `url(${background1})`,
               backgroundSize: 'cover',
-              backgroundPosition: 'center',
+              backgroundPosition: 'top',
               color: 'white',
-              filter: 'brightness(1.4)',
+              filter: 'brightness(1.1)',
               padding: '4rem 1.5rem 2rem',
               overflowY: 'auto',
               flex: 1,
@@ -111,7 +127,10 @@ export default function StakePopup({
               }}
             />
             <h2 className="text-xl font-bold text-center">{name}</h2>
-            <p className="text-sm text-center mt-2" style={{ opacity: 0.9 }}>
+            <p
+              className="text-sm text-center mt-2"
+              style={{ opacity: 0.9, lineHeight: '1.4rem' }}
+            >
               Crowned before he could swim straight, {name} turned the Dolphin Dash into his personal kingdom — staked $TON, seven rings, and a throne of broken dreams. Other dolphins call it luck — he just calls it Tuesday.
             </p>
 
@@ -153,9 +172,10 @@ export default function StakePopup({
                   fontSize: '1rem',
                   cursor: 'pointer',
                 }}
-                onClick={() => setShowCompletePopup(true)}
+                onClick={handleStake}
+                disabled={isBuffering}
               >
-                Stake
+                {isBuffering ? 'Staking...' : 'Stake'}
               </button>
             </div>
           </div>

@@ -15,7 +15,8 @@ export default function DolphinPopup({
   name: string;
   onClose: () => void;
 }) {
-  const [tonConnectUI] = useTonConnectUI();
+  useTonConnectUI(); // intentionally not using value to avoid TS error
+
   const [selectedCurrency, setSelectedCurrency] = useState('TON');
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -90,7 +91,7 @@ export default function DolphinPopup({
           style={{
             backgroundImage: `url(${background1})`,
             backgroundSize: 'cover',
-            backgroundPosition: 'center',
+            backgroundPosition: 'top',
             color: 'white',
             filter: 'brightness(1.4)',
             padding: '4rem 1.5rem 2rem',

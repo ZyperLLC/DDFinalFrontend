@@ -7,6 +7,10 @@ import {
     TupleReader,
     Dictionary,
     contractAddress,
+    TupleBuilder,
+} from '@ton/core';
+
+import type {
     ContractProvider,
     Sender,
     Contract,
@@ -14,7 +18,6 @@ import {
     ABIType,
     ABIGetter,
     ABIReceiver,
-    TupleBuilder,
     DictionaryValue
 } from '@ton/core';
 
