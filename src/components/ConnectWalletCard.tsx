@@ -10,7 +10,7 @@ interface Props {
   tonBalance?: number;
 }
 
-const ConnectWalletCard: React.FC<Props> = ({
+export const ConnectWalletCard: React.FC<Props> = ({
   onConnect,
   onDisconnect,
   isWalletConnected,
@@ -182,7 +182,4 @@ const ConnectWalletCard: React.FC<Props> = ({
         </>
       )}
     </>
-  );
-};
-
-export default ConnectWalletCard;
+)}

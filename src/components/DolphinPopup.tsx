@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useTonConnectUI } from '@tonconnect/ui-react';
 import { X } from 'lucide-react';
 
 import background1 from '../assets/background1.jpg';
@@ -78,8 +77,6 @@ export default function DolphinPopup({
   name: string;
   onClose: () => void;
 }) {
-  useTonConnectUI(); // intentionally not using value
-
   const [selectedCurrency, setSelectedCurrency] = useState('TON');
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [showStakeComplete, setShowStakeComplete] = useState(false);

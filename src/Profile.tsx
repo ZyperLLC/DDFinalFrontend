@@ -1,8 +1,6 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import Navbar from './components/Navbar';
 import { useTonConnectUI, useTonWallet } from '@tonconnect/ui-react';
 
-import Navbar from './components/Navbar';
 import background1 from './assets/background1.jpg';
 import dolphin1 from './assets/dolphins/dolphin1.jpg';
 import dolphin2 from './assets/dolphins/dolphin2.jpg';
@@ -19,41 +17,18 @@ import SectionBox from './components/SectionBox';
 import StakePopup from './components/stakenftpopup'; // ⬅️ Add this import
 
 import './index.css';
+import { ConnectButton } from './components/ConnectButton';
+import { useContext } from 'react';
+import { UserContext } from './Context/UserContextProvider';
+import { useReadBalance } from './hooks/useReadBalance';
 
 export default function Profile() {
   const [tonConnectUI] = useTonConnectUI();
   const wallet = useTonWallet();
-
-  const [isWalletConnected, setIsWalletConnected] = useState(false);
-  const [walletAddress, setWalletAddress] = useState<string | undefined>(undefined);
-
-  const [popupOpen, setPopupOpen] = useState(false);
-  const [selectedNFT, setSelectedNFT] = useState<{ image: string; name: string } | null>(null);
-
-  useEffect(() => {
-    if (wallet?.account?.address) {
-      setIsWalletConnected(true);
-      setWalletAddress(wallet.account.address);
-    }
-  }, [wallet]);
+  const isWalletConnected = !!wallet?.account?.address;
 
   const handleConnectWallet = () => {
     tonConnectUI.openModal();
-  };
-
-  const handleDisconnectWallet = () => {
-    setIsWalletConnected(false);
-    setWalletAddress(undefined);
-  };
-
-  const openStakePopup = (image: string, name: string) => {
-    setSelectedNFT({ image, name });
-    setPopupOpen(true);
-  };
-
-  const closeStakePopup = () => {
-    setPopupOpen(false);
-    setSelectedNFT(null);
   };
 
   return (
@@ -70,14 +45,47 @@ export default function Profile() {
       transition={{ duration: 0.5, ease: 'easeOut' }}
     >
       <LogoDisplay />
+      <ConnectWalletCard onConnect={handleConnectWallet} />
 
-      <ConnectWalletCard
-        onConnect={handleConnectWallet}
-        onDisconnect={handleDisconnectWallet}
-        isWalletConnected={isWalletConnected}
-        walletAddress={walletAddress ?? '0xCa1e...e094'}
-        tonBalance={3.5}
-      />
+      {/* Wallet Info Section - only visible if wallet is connected */}
+      {isWalletConnected && (
+        <div className="w-full mt-4 px-4">
+          <div
+            className="w-[80%] max-w-[360px] mx-auto flex flex-col items-center gap-3"
+          >
+            {/* Wallet Address Box */}
+            <div className="w-full bg-white text-[#6C2BD9] text-center py-3 px-4 rounded-[12px] font-semibold">
+              {wallet.account.address.slice(0, 6) + '...' + wallet.account.address.slice(-4)}
+            </div>
+
+            {/* TON Input Box */}
+            <div className="w-full bg-white text-black flex justify-between items-center px-4 py-3 rounded-[12px]">
+              <span>3.5</span>
+              <div className="flex items-center gap-2">
+                <img
+                  src={tonSymbol}
+                  alt="TON"
+                  className="rounded-full opacity-80"
+                  width={20}
+                  height={20}
+                />
+                <span>TON</span>
+              </div>
+            </div>
+
+            {/* Deposit Button */}
+            <button
+              className="w-full py-3 rounded-[12px] font-semibold"
+              style={{
+                background: 'linear-gradient(to right, #D93CE6, #7B3FE4)',
+                color: 'white',
+              }}
+            >
+              Deposit
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Balance Section */}
       <div className="w-full mt-4 mb-6 px-4">
@@ -130,7 +138,7 @@ export default function Profile() {
                 opacity: isWalletConnected ? 1 : 0.4,
               }}
             >
-              {isWalletConnected ? '0' : 'Connect wallet'}
+              {isWalletConnected ? data : 'Connect wallet'}
             </span>
           </div>
 
