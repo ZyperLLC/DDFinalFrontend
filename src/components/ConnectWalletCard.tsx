@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import tonSymbol from '../assets/ton_symbol.jpg';
+import { X } from 'lucide-react';
 
 interface Props {
   onConnect: () => void;
@@ -137,6 +138,23 @@ const ConnectWalletCard: React.FC<Props> = ({
               }}
               onClick={(e) => e.stopPropagation()}
             >
+              {/* ❌ Close Button */}
+<button
+  onClick={() => setShowModal(false)}
+  className="absolute"
+  style={{
+    top: '0px',
+    right: '0px',
+    padding: '10px',
+    background: 'transparent',
+    border: 'none',
+    cursor: 'pointer',
+  }}
+>
+  <X size={18} color="#333" />
+</button>
+
+
               <h2 className="text-xl font-bold mb-2 text-[#7b3fe4]">Wallet Check</h2>
               <p className="text-sm mb-6 text-[#7b3fe4]">
                 You’ve disconnected your wallet. That’s totally fine — just remember you’ll need to reconnect
@@ -155,6 +173,7 @@ const ConnectWalletCard: React.FC<Props> = ({
                   color: '#ffffff',
                   borderRadius: '7px',
                 }}
+
               >
                 Disconnect
               </button>

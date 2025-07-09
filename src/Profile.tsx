@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { useTonConnectUI, useTonWallet } from '@tonconnect/ui-react';
 
 import Navbar from './components/Navbar';
@@ -15,6 +16,7 @@ import ConnectWalletCard from './components/ConnectWalletCard';
 import StakedNFTCard from './components/StakedNFTCard';
 import GameHistoryCard from './components/GameHistoryCard';
 import SectionBox from './components/SectionBox';
+import StakePopup from './components/stakenftpopup'; // ⬅️ Add this import
 
 import './index.css';
 
@@ -22,11 +24,12 @@ export default function Profile() {
   const [tonConnectUI] = useTonConnectUI();
   const wallet = useTonWallet();
 
-  // Control app-level wallet UI connection state
   const [isWalletConnected, setIsWalletConnected] = useState(false);
   const [walletAddress, setWalletAddress] = useState<string | undefined>(undefined);
 
-  // Effect: monitor TonConnect wallet changes
+  const [popupOpen, setPopupOpen] = useState(false);
+  const [selectedNFT, setSelectedNFT] = useState<{ image: string; name: string } | null>(null);
+
   useEffect(() => {
     if (wallet?.account?.address) {
       setIsWalletConnected(true);
@@ -35,7 +38,7 @@ export default function Profile() {
   }, [wallet]);
 
   const handleConnectWallet = () => {
-    tonConnectUI.openModal(); // Open the TON modal
+    tonConnectUI.openModal();
   };
 
   const handleDisconnectWallet = () => {
@@ -43,8 +46,18 @@ export default function Profile() {
     setWalletAddress(undefined);
   };
 
+  const openStakePopup = (image: string, name: string) => {
+    setSelectedNFT({ image, name });
+    setPopupOpen(true);
+  };
+
+  const closeStakePopup = () => {
+    setPopupOpen(false);
+    setSelectedNFT(null);
+  };
+
   return (
-    <div
+    <motion.div
       className="page profile-page"
       style={{
         backgroundImage: `url(${background1})`,
@@ -52,6 +65,9 @@ export default function Profile() {
         backgroundPosition: 'center',
         minHeight: '120vh',
       }}
+      initial={{ opacity: 0.8, scale: 0.98 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
     >
       <LogoDisplay />
 
@@ -80,7 +96,6 @@ export default function Profile() {
             Balance
           </h2>
 
-          {/* Credit Row */}
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-3">
               <img src={creditIcon} alt="Credit" className="rounded-full" width={26} height={26} />
@@ -89,7 +104,6 @@ export default function Profile() {
             <span style={{ fontSize: '1rem', fontWeight: '600' }}>234</span>
           </div>
 
-          {/* TON Row */}
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-3">
               <img
@@ -137,8 +151,12 @@ export default function Profile() {
 
       {/* Staked NFTs Section */}
       <SectionBox title="Staked NFT's">
-        <StakedNFTCard image={dolphin2} name="NFT NAME" time="13d 3h 12m" reward="2 TON" />
-        <StakedNFTCard image={dolphin1} name="NFT NAME" time="7d 12h 34m" reward="3.2 TON" />
+        <div onClick={() => openStakePopup(dolphin2, 'NFT NAME')}>
+          <StakedNFTCard image={dolphin2} name="NFT NAME" time="13d 3h 12m" reward="2 TON" />
+        </div>
+        <div onClick={() => openStakePopup(dolphin1, 'NFT NAME')}>
+          <StakedNFTCard image={dolphin1} name="NFT NAME" time="7d 12h 34m" reward="3.2 TON" />
+        </div>
       </SectionBox>
 
       {/* Game History Section */}
@@ -149,6 +167,15 @@ export default function Profile() {
       </SectionBox>
 
       <Navbar />
-    </div>
+
+      {/* Stake Popup */}
+      {popupOpen && selectedNFT && (
+        <StakePopup
+          image={selectedNFT.image}
+          name={selectedNFT.name}
+          onClose={closeStakePopup}
+        />
+      )}
+    </motion.div>
   );
 }

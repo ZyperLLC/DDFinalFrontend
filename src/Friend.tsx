@@ -1,5 +1,4 @@
-// src/Friend.tsx
-
+import { motion } from 'framer-motion';
 import Navbar from './components/Navbar';
 import background1 from './assets/background1.jpg';
 import logo from './assets/logo.jpg';
@@ -15,7 +14,10 @@ export default function Friend() {
   };
 
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0.8, scale: 0.98 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
       className="page profile-page"
       style={{
         backgroundImage: `url(${background1})`,
@@ -31,7 +33,6 @@ export default function Friend() {
         paddingRight: '4rem',
       }}
     >
-      {/* Logo */}
       <img
         src={logo}
         alt="Logo"
@@ -42,7 +43,6 @@ export default function Friend() {
         }}
       />
 
-      {/* Invite Section */}
       <div className="invite-container">
         <h1 className="invite-heading">Invite a Friend</h1>
         <p className="invite-subheading">
@@ -63,10 +63,9 @@ export default function Friend() {
         </div>
       </div>
 
-      {/* Friends Leaderboard Component */}
       <FriendsLeaderBoard />
 
       <Navbar />
-    </div>
+    </motion.div>
   );
 }

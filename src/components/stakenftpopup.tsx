@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
-import {  useTonWallet } from '@tonconnect/ui-react';
+import { useTonWallet } from '@tonconnect/ui-react'; // Removed unused useTonConnectUI
 import { X } from 'lucide-react';
 
 import background1 from '../assets/background1.jpg';
-import StakeComplete from './stakecomplete';
-import ConnectWalletPopup from './ConnectWalletPopup'; // ⬅️ NEW
+import StakeComplete from './unstakepopup'; // ✅ Your custom popup component
 
 export default function StakePopup({
   image,
@@ -15,13 +14,10 @@ export default function StakePopup({
   name: string;
   onClose: () => void;
 }) {
-  const wallet = useTonWallet(); // ⬅️ Get wallet object
+  const wallet = useTonWallet(); // ✅ still in use
 
-  const [_selectedCurrency, _setSelectedCurrency] = useState('TON');
-  const [_dropdownOpen, _setDropdownOpen] = useState(false);
   const [showCompletePopup, setShowCompletePopup] = useState(false);
-  const [showWalletPopup, setShowWalletPopup] = useState(false); // ⬅️ NEW
-  const [isBuffering, setIsBuffering] = useState(false);
+  const [isBuffering, setIsBuffering] = useState(false); // ✅ still in use
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -43,8 +39,7 @@ export default function StakePopup({
 
   const handleStake = () => {
     if (!wallet) {
-      setShowWalletPopup(true); // Show wallet not connected popup
-      return;
+      return; // No popup, just return if wallet is not connected
     }
 
     setIsBuffering(true);
@@ -68,13 +63,13 @@ export default function StakePopup({
         className="fixed inset-0 z-50 flex justify-center items-center"
         style={{
           width: '100vw',
-          maxWidth: '100vw',
           height: '100vh',
           padding: '1rem',
           overflow: 'hidden',
           boxSizing: 'border-box',
         }}
       >
+        {/* Blur Background */}
         <div
           style={{
             position: 'fixed',
@@ -85,6 +80,7 @@ export default function StakePopup({
           }}
         ></div>
 
+        {/* Content */}
         <div
           style={{
             width: '100%',
@@ -184,16 +180,15 @@ export default function StakePopup({
                 onClick={handleStake}
                 disabled={isBuffering}
               >
-                {isBuffering ? 'Staking...' : 'Stake'}
+                {isBuffering ? 'Unstaking...' : 'Unstake'}
               </button>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Conditionally Render Popups */}
+      {/* Success Popup */}
       {showCompletePopup && <StakeComplete onClose={() => setShowCompletePopup(false)} />}
-      {showWalletPopup && <ConnectWalletPopup onClose={() => setShowWalletPopup(false)} />}
     </>
   );
 }

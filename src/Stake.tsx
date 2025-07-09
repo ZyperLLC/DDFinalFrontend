@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import Navbar from './components/Navbar';
 import BackgroundOverlay from './components/BackgroundOverlay';
 import Logo from './components/Logo';
@@ -9,7 +10,12 @@ export default function Stake() {
   const NAVBAR_HEIGHT_PX = 80;
 
   return (
-    <div className="relative min-h-screen flex flex-col">
+    <motion.div
+      className="relative min-h-screen flex flex-col"
+      initial={{ opacity: 0.8, scale: 0.98 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
+    >
       <BackgroundOverlay />
 
       <div
@@ -27,6 +33,6 @@ export default function Stake() {
       >
         <Navbar />
       </div>
-    </div>
+    </motion.div>
   );
 }
