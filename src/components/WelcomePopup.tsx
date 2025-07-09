@@ -1,6 +1,6 @@
 import { X } from 'lucide-react';
 import popupImage from '../assets/popupbg.jpg';
-import { TonConnectButton } from '@tonconnect/ui-react';
+import { ConnectButton } from './ConnectButton';
 
 export default function WelcomePopup({ onClose }: { onClose: () => void }) {
   return (
@@ -18,9 +18,7 @@ export default function WelcomePopup({ onClose }: { onClose: () => void }) {
           <li>🟣 Stake your dolphins, fuel the tide with TON, and test your luck in the arena.</li>
           <li>🟣 Connect your wallet. Your journey begins.</li>
         </ul>
-        <div id="connect-button">
-       <TonConnectButton/>
-       </div>
+        <ConnectButton/>
       </div>
     </div>
   );

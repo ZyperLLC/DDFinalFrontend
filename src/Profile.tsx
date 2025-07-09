@@ -1,6 +1,4 @@
 import Navbar from './components/Navbar';
-import { useTonConnectUI, useTonWallet } from '@tonconnect/ui-react';
-
 import background1 from './assets/background1.jpg';
 import dolphin1 from './assets/dolphins/dolphin1.jpg';
 import dolphin2 from './assets/dolphins/dolphin2.jpg';
@@ -16,16 +14,15 @@ import GameHistoryCard from './components/GameHistoryCard';
 import SectionBox from './components/SectionBox';
 
 import './index.css';
+import { ConnectButton } from './components/ConnectButton';
+import { useContext } from 'react';
+import { UserContext } from './Context/UserContextProvider';
+import { useReadBalance } from './hooks/useReadBalance';
 
 export default function Profile() {
-  const [tonConnectUI] = useTonConnectUI();
-  const wallet = useTonWallet();
-  const isWalletConnected = !!wallet?.account?.address;
-
-  const handleConnectWallet = () => {
-    tonConnectUI.openModal();
-  };
-
+  const context = useContext(UserContext);
+  const isWalletConnected = context?.user.walletAddress;
+  const {data} = useReadBalance();
   return (
     <div
       className="page profile-page"
@@ -37,22 +34,20 @@ export default function Profile() {
       }}
     >
       <LogoDisplay />
-      <ConnectWalletCard onConnect={handleConnectWallet} />
+      <ConnectWalletCard />
 
       {/* Wallet Info Section - only visible if wallet is connected */}
-      {isWalletConnected && (
+    
         <div className="w-full mt-4 px-4">
           <div
             className="w-[80%] max-w-[360px] mx-auto flex flex-col items-center gap-3"
           >
             {/* Wallet Address Box */}
-            <div className="w-full bg-white text-[#6C2BD9] text-center py-3 px-4 rounded-[12px] font-semibold">
-              {wallet.account.address.slice(0, 6) + '...' + wallet.account.address.slice(-4)}
-            </div>
+            <ConnectButton/>
 
             {/* TON Input Box */}
             <div className="w-full bg-white text-black flex justify-between items-center px-4 py-3 rounded-[12px]">
-              <span>3.5</span>
+              <span>{}</span>
               <div className="flex items-center gap-2">
                 <img
                   src={tonSymbol}
@@ -77,7 +72,7 @@ export default function Profile() {
             </button>
           </div>
         </div>
-      )}
+  
 
       {/* Balance Section */}
       <div className="w-full mt-4 mb-6 px-4">
@@ -138,7 +133,7 @@ export default function Profile() {
                 opacity: isWalletConnected ? 1 : 0.4,
               }}
             >
-              {isWalletConnected ? '0' : 'Connect wallet'}
+              {isWalletConnected ? data : 'Connect wallet'}
             </span>
           </div>
 

@@ -1,10 +1,6 @@
-import React from 'react';
+import { ConnectButton } from './ConnectButton';
 
-interface Props {
-  onConnect: () => void;
-}
-
-const ConnectWalletCard: React.FC<Props> = ({ onConnect }) => {
+const ConnectWalletCard = () => {
   return (
     <div className="profile-card">
       <h1 className="profile-heading">Step in the Game</h1>
@@ -12,9 +8,7 @@ const ConnectWalletCard: React.FC<Props> = ({ onConnect }) => {
         Connect your wallet to unlock staking,<br />
         betting and daily prizes.
       </p>
-      <button className="connect-wallet-button" onClick={onConnect}>
-        Connect Wallet
-      </button>
+      <ConnectButton/>
     </div>
   );
 };
