@@ -58,10 +58,10 @@ export default function StakeComplete({ onClose }: { onClose: () => void }) {
         <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>✅</div>
 
         <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1rem' }}>
-          Staked Successfully
+          Unstaked Successfully
         </h2>
 
-        <p>Your dolphin is now earning rewards. Track staking progress in your Profile.</p>
+        <p>You have removed your dolphin from the ocean. That's totally fine - Just remember you'll need to reconnect to stake, space, play, and receive rewards. Swim back in anytime. The ocean's still open.</p>
       </div>
     </div>
   );

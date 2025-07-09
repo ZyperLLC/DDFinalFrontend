@@ -1,4 +1,6 @@
 import Navbar from './components/Navbar';
+import { useTonConnectUI, useTonWallet } from '@tonconnect/ui-react';
+
 import background1 from './assets/background1.jpg';
 import dolphin1 from './assets/dolphins/dolphin1.jpg';
 import dolphin2 from './assets/dolphins/dolphin2.jpg';
@@ -12,6 +14,7 @@ import ConnectWalletCard from './components/ConnectWalletCard';
 import StakedNFTCard from './components/StakedNFTCard';
 import GameHistoryCard from './components/GameHistoryCard';
 import SectionBox from './components/SectionBox';
+import StakePopup from './components/stakenftpopup'; // ⬅️ Add this import
 
 import './index.css';
 import { ConnectButton } from './components/ConnectButton';
@@ -20,11 +23,16 @@ import { UserContext } from './Context/UserContextProvider';
 import { useReadBalance } from './hooks/useReadBalance';
 
 export default function Profile() {
-  const context = useContext(UserContext);
-  const isWalletConnected = context?.user.walletAddress;
-  const {data} = useReadBalance();
+  const [tonConnectUI] = useTonConnectUI();
+  const wallet = useTonWallet();
+  const isWalletConnected = !!wallet?.account?.address;
+
+  const handleConnectWallet = () => {
+    tonConnectUI.openModal();
+  };
+
   return (
-    <div
+    <motion.div
       className="page profile-page"
       style={{
         backgroundImage: `url(${background1})`,
@@ -32,22 +40,27 @@ export default function Profile() {
         backgroundPosition: 'center',
         minHeight: '120vh',
       }}
+      initial={{ opacity: 0.8, scale: 0.98 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
     >
       <LogoDisplay />
-      <ConnectWalletCard />
+      <ConnectWalletCard onConnect={handleConnectWallet} />
 
       {/* Wallet Info Section - only visible if wallet is connected */}
-    
+      {isWalletConnected && (
         <div className="w-full mt-4 px-4">
           <div
             className="w-[80%] max-w-[360px] mx-auto flex flex-col items-center gap-3"
           >
             {/* Wallet Address Box */}
-            <ConnectButton/>
+            <div className="w-full bg-white text-[#6C2BD9] text-center py-3 px-4 rounded-[12px] font-semibold">
+              {wallet.account.address.slice(0, 6) + '...' + wallet.account.address.slice(-4)}
+            </div>
 
             {/* TON Input Box */}
             <div className="w-full bg-white text-black flex justify-between items-center px-4 py-3 rounded-[12px]">
-              <span>{}</span>
+              <span>3.5</span>
               <div className="flex items-center gap-2">
                 <img
                   src={tonSymbol}
@@ -72,7 +85,7 @@ export default function Profile() {
             </button>
           </div>
         </div>
-  
+      )}
 
       {/* Balance Section */}
       <div className="w-full mt-4 mb-6 px-4">
@@ -91,22 +104,14 @@ export default function Profile() {
             Balance
           </h2>
 
-          {/* Credit Row */}
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-3">
-              <img
-                src={creditIcon}
-                alt="Credit"
-                className="rounded-full"
-                width={26}
-                height={26}
-              />
+              <img src={creditIcon} alt="Credit" className="rounded-full" width={26} height={26} />
               <span style={{ fontSize: '1rem' }}>Credit</span>
             </div>
             <span style={{ fontSize: '1rem', fontWeight: '600' }}>234</span>
           </div>
 
-          {/* TON Row */}
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-3">
               <img
@@ -137,13 +142,13 @@ export default function Profile() {
             </span>
           </div>
 
-          {/* Send TON Button */}
           {isWalletConnected && (
             <button
-              className="w-full mt-2 py-3 rounded-[12px] font-semibold"
+              className="w-full max-w-[320px] h-[52px] sm:h-[60px] mt-2 text-lg font-semibold rounded-[12px] shadow-md hover:scale-105 transition-transform"
               style={{
-                background: 'linear-gradient(to right, #D93CE6, #7B3FE4)',
+                background: 'linear-gradient(to right, #f72585, #7209b7)',
                 color: 'white',
+                alignSelf: 'center',
               }}
             >
               Send TON to Wallet
@@ -154,8 +159,12 @@ export default function Profile() {
 
       {/* Staked NFTs Section */}
       <SectionBox title="Staked NFT's">
-        <StakedNFTCard image={dolphin2} name="NFT NAME" time="13d 3h 12m" reward="2 TON" />
-        <StakedNFTCard image={dolphin1} name="NFT NAME" time="7d 12h 34m" reward="3.2 TON" />
+        <div onClick={() => openStakePopup(dolphin2, 'NFT NAME')}>
+          <StakedNFTCard image={dolphin2} name="NFT NAME" time="13d 3h 12m" reward="2 TON" />
+        </div>
+        <div onClick={() => openStakePopup(dolphin1, 'NFT NAME')}>
+          <StakedNFTCard image={dolphin1} name="NFT NAME" time="7d 12h 34m" reward="3.2 TON" />
+        </div>
       </SectionBox>
 
       {/* Game History Section */}
@@ -166,6 +175,15 @@ export default function Profile() {
       </SectionBox>
 
       <Navbar />
-    </div>
+
+      {/* Stake Popup */}
+      {popupOpen && selectedNFT && (
+        <StakePopup
+          image={selectedNFT.image}
+          name={selectedNFT.name}
+          onClose={closeStakePopup}
+        />
+      )}
+    </motion.div>
   );
 }

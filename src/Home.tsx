@@ -65,6 +65,7 @@ function Home() {
   const [timer, setTimer] = useState(0);
   const [showPopup, setShowPopup] = useState(true);
   const [selectedDolphin, setSelectedDolphin] = useState<null | { image: string; name: string }>(null);
+  const [isLoadingDolphin, setIsLoadingDolphin] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem('dolphin_timer_start');
@@ -86,6 +87,17 @@ function Home() {
     return () => clearInterval(interval);
   }, []);
 
+  const handleDolphinClick = (index: number) => {
+    setIsLoadingDolphin(true);
+    setTimeout(() => {
+      setSelectedDolphin({
+        image: dolphins[index].image,
+        name: dolphins[index].name,
+      });
+      setIsLoadingDolphin(false);
+    }, 2000);
+  };
+
   return (
     <div className="page" style={{ backgroundImage: `url(${background1})` }}>
       {showPopup && <WelcomePopup onClose={() => setShowPopup(false)} />}
@@ -98,19 +110,21 @@ function Home() {
 
         <DolphinGrid
           dolphins={dolphins.map((d) => d.image)}
-          onDolphinClick={(index) => {
-            setSelectedDolphin({
-              image: dolphins[index].image,
-              name: dolphins[index].name,
-            });
-          }}
+          onDolphinClick={handleDolphinClick}
         />
 
         <Navbar />
       </div>
 
-      {/* DolphinPopup stays OUTSIDE blur, unaffected */}
-      {selectedDolphin && (
+      {/* Spinner overlay while dolphin popup is preparing */}
+      {isLoadingDolphin && (
+        <div className="spinner-overlay">
+          <div className="custom-spinner" />
+        </div>
+      )}
+
+      {/* DolphinPopup stays OUTSIDE blur */}
+      {selectedDolphin && !isLoadingDolphin && (
         <DolphinPopup
           image={selectedDolphin.image}
           name={selectedDolphin.name}

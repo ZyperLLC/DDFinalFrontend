@@ -9,12 +9,12 @@ html, body {
   width: 100%;
   min-height: 100vh;
   overflow-x: hidden;
+  font-family: "SF Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
 }
 
 #root {
   min-height: 100%;
 }
-
 /* ========= Logo Styles ========= */
 .logo-container {
   padding-top: 1rem;
@@ -713,3 +713,30 @@ html, body {
   pointer-events: none; /* Optional: block clicks while blurred */
   user-select: none;
 }
+
+.custom-spinner {
+  width: 64px;
+  height: 64px;
+  border: 6px dotted white;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Spinner full-screen wrapper */
+.spinner-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
