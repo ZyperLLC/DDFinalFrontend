@@ -1,3 +1,8 @@
+// import React, { useState, useContext } from 'react';
+import  { useState} from 'react';
+
+import { motion } from 'framer-motion';
+
 import Navbar from './components/Navbar';
 import { useTonConnectUI, useTonWallet } from '@tonconnect/ui-react';
 
@@ -10,26 +15,43 @@ import creditIcon from './assets/credit.jpg';
 import tonSymbol from './assets/ton_symbol.jpg';
 
 import LogoDisplay from './components/LogoDisplay';
-import ConnectWalletCard from './components/ConnectWalletCard';
+import { ConnectWalletCard } from './components/ConnectWalletCard';
 import StakedNFTCard from './components/StakedNFTCard';
 import GameHistoryCard from './components/GameHistoryCard';
 import SectionBox from './components/SectionBox';
-import StakePopup from './components/stakenftpopup'; // ⬅️ Add this import
+import StakePopup from './components/stakenftpopup';
 
 import './index.css';
-import { ConnectButton } from './components/ConnectButton';
-import { useContext } from 'react';
-import { UserContext } from './Context/UserContextProvider';
-import { useReadBalance } from './hooks/useReadBalance';
+// import { ConnectButton } from './components/ConnectButton';
+// import { UserContext } from './Context/UserContextProvider';
+// import { useReadBalance } from './hooks/useReadBalance';
 
 export default function Profile() {
   const [tonConnectUI] = useTonConnectUI();
   const wallet = useTonWallet();
   const isWalletConnected = !!wallet?.account?.address;
 
+  
+  const [popupOpen, setPopupOpen] = useState(false);
+  const [selectedNFT, setSelectedNFT] = useState<{ image: string; name: string } | null>(null);
+
   const handleConnectWallet = () => {
     tonConnectUI.openModal();
   };
+
+
+  const openStakePopup = (image: string, name: string) => {
+    setSelectedNFT({ image, name });
+    setPopupOpen(true);
+  };
+
+  const closeStakePopup = () => {
+    setPopupOpen(false);
+    setSelectedNFT(null);
+  };
+
+
+  const tonBalance = 3.5;
 
   return (
     <motion.div
@@ -45,22 +67,24 @@ export default function Profile() {
       transition={{ duration: 0.5, ease: 'easeOut' }}
     >
       <LogoDisplay />
-      <ConnectWalletCard onConnect={handleConnectWallet} />
 
-      {/* Wallet Info Section - only visible if wallet is connected */}
+      <ConnectWalletCard
+        onConnect={handleConnectWallet}
+        onDisconnect={() => {}}
+        isWalletConnected={isWalletConnected}
+        walletAddress={wallet?.account?.address}
+        tonBalance={tonBalance}
+      />
+
       {isWalletConnected && (
         <div className="w-full mt-4 px-4">
-          <div
-            className="w-[80%] max-w-[360px] mx-auto flex flex-col items-center gap-3"
-          >
-            {/* Wallet Address Box */}
+          <div className="w-[80%] max-w-[360px] mx-auto flex flex-col items-center gap-3">
             <div className="w-full bg-white text-[#6C2BD9] text-center py-3 px-4 rounded-[12px] font-semibold">
               {wallet.account.address.slice(0, 6) + '...' + wallet.account.address.slice(-4)}
             </div>
 
-            {/* TON Input Box */}
             <div className="w-full bg-white text-black flex justify-between items-center px-4 py-3 rounded-[12px]">
-              <span>3.5</span>
+              <span>{tonBalance}</span>
               <div className="flex items-center gap-2">
                 <img
                   src={tonSymbol}
@@ -73,7 +97,6 @@ export default function Profile() {
               </div>
             </div>
 
-            {/* Deposit Button */}
             <button
               className="w-full py-3 rounded-[12px] font-semibold"
               style={{
@@ -87,7 +110,6 @@ export default function Profile() {
         </div>
       )}
 
-      {/* Balance Section */}
       <div className="w-full mt-4 mb-6 px-4">
         <div
           className="w-[80%] max-w-[360px] mx-auto rounded-[16px] shadow-[0_4px_20px_rgba(0,0,0,0.3)] backdrop-blur-[10px]"
@@ -138,7 +160,7 @@ export default function Profile() {
                 opacity: isWalletConnected ? 1 : 0.4,
               }}
             >
-              {isWalletConnected ? data : 'Connect wallet'}
+              {isWalletConnected ? tonBalance : 'Connect wallet'}
             </span>
           </div>
 
@@ -157,7 +179,6 @@ export default function Profile() {
         </div>
       </div>
 
-      {/* Staked NFTs Section */}
       <SectionBox title="Staked NFT's">
         <div onClick={() => openStakePopup(dolphin2, 'NFT NAME')}>
           <StakedNFTCard image={dolphin2} name="NFT NAME" time="13d 3h 12m" reward="2 TON" />
@@ -167,7 +188,6 @@ export default function Profile() {
         </div>
       </SectionBox>
 
-      {/* Game History Section */}
       <SectionBox title="Game History">
         <GameHistoryCard image={dolphin1} day="DAY 1" cost="1 TON" prize="7 TON" result="win" />
         <GameHistoryCard image={dolphin2} day="DAY 2" cost="1 TON" prize="0 TON" result="lose" />
@@ -176,7 +196,6 @@ export default function Profile() {
 
       <Navbar />
 
-      {/* Stake Popup */}
       {popupOpen && selectedNFT && (
         <StakePopup
           image={selectedNFT.image}
