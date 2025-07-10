@@ -5,7 +5,7 @@ import { BASE_URL } from '../constants';
  * Register a new user
  */
 export const registerUser = async (userData: Partial<User>) => {
-  const res = await axios.post<{ user: User }>(`${BASE_URL}/user/register`, userData);
+  const res = await axios.post<{ user: User }>(`${BASE_URL}/api/users/register`, userData);
   return res.data.user;
 };
 
@@ -13,7 +13,7 @@ export const registerUser = async (userData: Partial<User>) => {
  * Place a bet
  */
 export const placeBet = async (telegramId: string, betData: Partial<Bet>) => {
-  const res = await axios.post<{ user: User }>(`${BASE_URL}/user/placebet/${telegramId}`, betData);
+  const res = await axios.post<{ user: User }>(`${BASE_URL}/api/users/placebet/${telegramId}`, betData);
   return res.data.user;
 };
 
@@ -21,7 +21,7 @@ export const placeBet = async (telegramId: string, betData: Partial<Bet>) => {
  * Stake an NFT
  */
 export const stakeNFT = async (telegramId: string, nftAddress: string) => {
-  const res = await axios.post<{ user: User }>(`${BASE_URL}/user/stakenft/${telegramId}`, { nftAddress });
+  const res = await axios.post<{ user: User }>(`${BASE_URL}/api/users/stakenft/${telegramId}`, { nftAddress });
   return res.data.user;
 };
 
@@ -29,7 +29,7 @@ export const stakeNFT = async (telegramId: string, nftAddress: string) => {
  * Send an invite code
  */
 export const sendInvite = async (telegramId: string, inviteCode: string) => {
-  const res = await axios.post<{ user: User }>(`${BASE_URL}/user/invite/${telegramId}`, { inviteCode });
+  const res = await axios.post<{ user: User }>(`${BASE_URL}/api/users/invite/${telegramId}`, { inviteCode });
   return res.data.user;
 };
 
@@ -37,7 +37,7 @@ export const sendInvite = async (telegramId: string, inviteCode: string) => {
  * Fetch user by Telegram ID
  */
 export const getUser = async (telegramId: string) => {
-  const res = await axios.get<{ user: User }>(`${BASE_URL}/user/getuser/${telegramId}`);
+  const res = await axios.get<{ user: User }>(`${BASE_URL}/api/users/getuser/${telegramId}`);
   return res.data.user;
 };
 
@@ -45,7 +45,7 @@ export const getUser = async (telegramId: string) => {
  * Get all bets by a user
  */
 export const getGameHistory = async (telegramId: string): Promise<Bet[]> => {
-  const res = await axios.get<{ bets: Bet[] }>(`${BASE_URL}/user/getbetsbyuser/${telegramId}`);
+  const res = await axios.get<{ bets: Bet[] }>(`${BASE_URL}/api/users/getbetsbyuser/${telegramId}`);
   return res.data.bets;
 };
 
@@ -53,6 +53,6 @@ export const getGameHistory = async (telegramId: string): Promise<Bet[]> => {
  * Get all staked NFTs by a user
  */
 export const getStakedNFTs = async (telegramId: string): Promise<NFT[]> => {
-  const res = await axios.get<{ nfts: NFT[] }>(`${BASE_URL}/user/getstakednfts/${telegramId}`);
+  const res = await axios.get<{ nfts: NFT[] }>(`${BASE_URL}/api/users/getstakednfts/${telegramId}`);
   return res.data.nfts;
 };
