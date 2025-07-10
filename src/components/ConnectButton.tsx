@@ -8,7 +8,8 @@ import { useUser } from '../hooks/useUser';
 
 export const ConnectButton = ()=>{
     const {tgWebAppData} = retrieveLaunchParams();
-        
+    console.log("Launch Params:",tgWebAppData);
+
     const {tonConnectUI:tonConnectUiInstance} = useTonConnectUiContext();
     const context = useContext(UserContext);
     
@@ -18,9 +19,14 @@ export const ConnectButton = ()=>{
     const checkRegisteredUser = async (address:string)=>{
         if(context){
             try{
+                console.log("Checking registered user with address:",address);
+                console.log("user context:",context.user);
                 if(tgWebAppData?.user?.id && tgWebAppData.user?.username){
                     const userData = await fetchUser(tgWebAppData?.user?.id);
+                    console.log("Fetched User Data:",userData);
+
                     if(userData){
+                        console.log("User already registered:",userData);
                         toast.success("Welcome Back " + userData?.username);
                     }else{
                         const newUser: Partial<User> = {
@@ -34,7 +40,6 @@ export const ConnectButton = ()=>{
                     }
                     context.setTelegramId(tgWebAppData?.user?.id.toString());
                     context.setWalletAddress(address);
-                    console.log("User Context Updated",context.user);
                 }
             }catch{
                 console.log(error);
