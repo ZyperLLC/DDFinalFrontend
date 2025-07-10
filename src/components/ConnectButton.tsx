@@ -8,11 +8,11 @@ import { useUser } from '../hooks/useUser';
 
 export const ConnectButton = ()=>{
     const {tgWebAppData} = retrieveLaunchParams();
-    
+        
     const {tonConnectUI:tonConnectUiInstance} = useTonConnectUiContext();
     const context = useContext(UserContext);
     
-    const [address,setAddress] = useState<string|null>(null);
+    const [address,setAddress] = useState<string|null>(tonConnectUiInstance?.account?.address ?? null);
     const {register,fetchUser,error} = useUser();
 
     const checkRegisteredUser = async (address:string)=>{
