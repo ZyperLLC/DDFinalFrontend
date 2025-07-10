@@ -37,6 +37,8 @@ export const ConnectButton = ()=>{
                     }
                     context?.setTelegramId(tgWebAppData?.user?.id.toString());
                     context?.setWalletAddress(address);
+                    context?.setTonBalance(userData?.tonBalance ?? BigInt(0)); 
+                    context?.setCreditBalance(userData?.creditBalance ?? 0); 
                 }
             }catch{
                 console.log(error);
@@ -45,8 +47,12 @@ export const ConnectButton = ()=>{
         }else{
             const userData = await fetchUser(tgWebAppData?.user?.id.toString()??"");
             console.log("Fetched User Data:",userData);
-            context?.setTelegramId(tgWebAppData?.user?.id.toString()??"");
+            
+            context?.setTelegramId(tgWebAppData?.user?.id.toString() ?? "");
             context?.setWalletAddress(address);
+            context?.setTonBalance(userData?.tonBalance ?? BigInt(0)); 
+            context?.setCreditBalance(userData?.creditBalance ?? 0); 
+            
             toast.success("Welcome Back " + userData?.username);
         }
     }

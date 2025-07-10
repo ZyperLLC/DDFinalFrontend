@@ -18,11 +18,12 @@ import { ConnectButton } from './components/ConnectButton';
 import { useContext } from 'react';
 import { UserContext } from './Context/UserContextProvider';
 import { useReadBalance } from './hooks/useReadBalance';
+import { fromNano } from '@ton/ton';
 
 export default function Profile() {
   const context = useContext(UserContext);
   const isWalletConnected = context?.user.walletAddress;
-  const {data} = useReadBalance();
+  
   return (
     <div
       className="page profile-page"
@@ -103,7 +104,7 @@ export default function Profile() {
               />
               <span style={{ fontSize: '1rem' }}>Credit</span>
             </div>
-            <span style={{ fontSize: '1rem', fontWeight: '600' }}>234</span>
+            <span style={{ fontSize: '1rem', fontWeight: '600' }}>{context?.user.creditBalance}</span>
           </div>
 
           {/* TON Row */}
@@ -133,7 +134,7 @@ export default function Profile() {
                 opacity: isWalletConnected ? 1 : 0.4,
               }}
             >
-              {isWalletConnected ? data : 'Connect wallet'}
+              {isWalletConnected ? fromNano(context?.user.tonBalance??0n) : 'Connect wallet'}
             </span>
           </div>
 
