@@ -13,15 +13,15 @@ export const ConnectButton = ()=>{
     const context = useContext(UserContext);
     
     const [address,setAddress] = useState<string|null>(null);
-    const {register,fetchUser,user,error} = useUser();
+    const {register,fetchUser,error} = useUser();
 
     const checkRegisteredUser = async (address:string)=>{
         if(context){
             try{
                 if(tgWebAppData?.user?.id && tgWebAppData.user?.username){
-                    await fetchUser(tgWebAppData?.user?.id);
-                    if(user){
-                        toast.success("Welcome Back " + user?.username);
+                    const userData = await fetchUser(tgWebAppData?.user?.id);
+                    if(userData){
+                        toast.success("Welcome Back " + userData?.username);
                     }else{
                         const newUser: Partial<User> = {
                             telegramId: tgWebAppData?.user?.id.toString(),
@@ -34,6 +34,7 @@ export const ConnectButton = ()=>{
                     }
                     context.setTelegramId(tgWebAppData?.user?.id.toString());
                     context.setWalletAddress(address);
+                    console.log("User Context Updated",context.user);
                 }
             }catch{
                 console.log(error);
