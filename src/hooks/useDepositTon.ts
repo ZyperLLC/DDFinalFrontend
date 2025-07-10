@@ -24,7 +24,6 @@ export const useDepositTon = ()=>{
       }catch(err){
         toast.error("Error Occured");
         console.log(err);
-
       }
       }
       return {

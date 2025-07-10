@@ -37,6 +37,4 @@ export interface Bet {
     betsPlace: Bet[];
     stakedNFTs: StakedNFT[];
     friends: string[];
-    createdAt?: string;
-    updatedAt?: string;
   }

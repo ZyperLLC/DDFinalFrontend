@@ -2,12 +2,47 @@ import { useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { UserContext } from '../Context/UserContextProvider';
 import { useTonConnectUiContext } from '../Context/TonConnectUiContext';
+import { retrieveLaunchParams  } from '@telegram-apps/sdk'
+import { User } from '../types';
+import { getUser } from '../api/userApi';
+import { useUser } from '../hooks/useUser';
 
 export const ConnectButton = ()=>{
+    const {tgWebAppData} = retrieveLaunchParams();
+    
     const {tonConnectUI:tonConnectUiInstance} = useTonConnectUiContext();
     const context = useContext(UserContext);
-    const [address,setAddress] = useState<string|null>(tonConnectUiInstance?.account?.address??null);
     
+    const [address,setAddress] = useState<string|null>(null);
+    const {register,fetchUser,user,error} = useUser();
+
+    const checkRegisteredUser = async (address:string)=>{
+        if(context){
+            try{
+                if(tgWebAppData?.user?.id && tgWebAppData.user?.username){
+                    await fetchUser(tgWebAppData?.user?.id);
+                    if(user){
+                        toast.success("Welcome Back " + user?.username);
+                    }else{
+                        const newUser: Partial<User> = {
+                            telegramId: tgWebAppData?.user?.id.toString(),
+                            walletAddress: address,
+                            username: tgWebAppData?.user?.username,
+                        };
+                        await register(newUser);
+                        
+                        toast.success("User Registered Successfully");
+                    }
+                    context.setTelegramId(tgWebAppData?.user?.id.toString());
+                    context.setWalletAddress(address);
+                }
+            }catch{
+                console.log(error);
+                toast.error("Failed to fetch user data");
+            }
+        }
+    }
+
     useEffect(()=>{
         if(tonConnectUiInstance){
         const unsubscribe = tonConnectUiInstance?.onStatusChange(async (wallet)=>{
@@ -15,6 +50,7 @@ export const ConnectButton = ()=>{
                 if(wallet){
                 setAddress(wallet?.account.address);
                 toast.success("Wallet Connected Successfully");
+                checkRegisteredUser(wallet?.account.address);
                 }   
         }catch(err){
             console.log(err);

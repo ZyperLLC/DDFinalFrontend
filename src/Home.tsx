@@ -89,13 +89,10 @@ function Home() {
   return (
     <div className="page" style={{ backgroundImage: `url(${background1})` }}>
       {showPopup && <WelcomePopup onClose={() => setShowPopup(false)} />}
-
       {/* Blur wrapper for the main content */}
       <div className={`main-content-wrapper ${showPopup ? 'blurred' : ''}`}>
         <img src={logo} alt="Logo" className="page-logo" />
-
         <TimerCard timer={timer} />
-
         <DolphinGrid
           dolphins={dolphins.map((d) => d.image)}
           onDolphinClick={(index) => {
