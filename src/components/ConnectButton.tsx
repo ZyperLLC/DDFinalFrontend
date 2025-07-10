@@ -4,7 +4,6 @@ import { UserContext } from '../Context/UserContextProvider';
 import { useTonConnectUiContext } from '../Context/TonConnectUiContext';
 import { retrieveLaunchParams  } from '@telegram-apps/sdk'
 import { User } from '../types';
-import { getUser } from '../api/userApi';
 import { useUser } from '../hooks/useUser';
 
 export const ConnectButton = ()=>{
