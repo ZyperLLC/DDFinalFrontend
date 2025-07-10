@@ -33,6 +33,7 @@ import dolphin21 from './assets/dolphins/dolphin21.jpg';
 import dolphin22 from './assets/dolphins/dolphin22.jpg';
 import dolphin23 from './assets/dolphins/dolphin23.jpg';
 import dolphin24 from './assets/dolphins/dolphin24.jpg';
+import { useUser } from './hooks/useUser';
 
 const dolphins = [
   { image: dolphin1, name: 'RUGPULL RAY' },
@@ -65,6 +66,7 @@ function Home() {
   const [timer, setTimer] = useState(0);
   const [showPopup, setShowPopup] = useState(true);
   const [selectedDolphin, setSelectedDolphin] = useState<null | { image: string; name: string }>(null);
+  const {fetchUser} = useUser();
 
   useEffect(() => {
     const saved = localStorage.getItem('dolphin_timer_start');
@@ -86,6 +88,19 @@ function Home() {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    // Fetch user data when component mounts
+    const fetchUserData = async () => {
+      try {
+        const userData = await fetchUser();
+        console.log("Fetched User Data:", userData);
+      } catch (error) {
+        console.error("Failed to fetch user data:", error);
+      }
+    };
+
+    fetchUserData();
+  }, [fetchUser]);
   return (
     <div className="page" style={{ backgroundImage: `url(${background1})` }}>
       {showPopup && <WelcomePopup onClose={() => setShowPopup(false)} />}
