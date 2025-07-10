@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import logo from './assets/logo.jpg';
 import background1 from './assets/background1.jpg';
 import './index.css';
@@ -33,7 +33,7 @@ import dolphin21 from './assets/dolphins/dolphin21.jpg';
 import dolphin22 from './assets/dolphins/dolphin22.jpg';
 import dolphin23 from './assets/dolphins/dolphin23.jpg';
 import dolphin24 from './assets/dolphins/dolphin24.jpg';
-import { useUser } from './hooks/useUser';
+import { UserContext } from './Context/UserContextProvider';
 
 const dolphins = [
   { image: dolphin1, name: 'RUGPULL RAY' },
@@ -66,7 +66,7 @@ function Home() {
   const [timer, setTimer] = useState(0);
   const [showPopup, setShowPopup] = useState(true);
   const [selectedDolphin, setSelectedDolphin] = useState<null | { image: string; name: string }>(null);
-  const {fetchUser} = useUser();
+  const context = useContext(UserContext);
   
   useEffect(() => {
     const saved = localStorage.getItem('dolphin_timer_start');
@@ -88,19 +88,7 @@ function Home() {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    // Fetch user data when component mounts
-    const fetchUserData = async () => {
-      try {
-        const userData = await fetchUser();
-        console.log("Fetched User Data:", userData);
-      } catch (error) {
-        console.error("Failed to fetch user data:", error);
-      }
-    };
-
-    fetchUserData();
-  });
+  
   return (
     <div className="page" style={{ backgroundImage: `url(${background1})` }}>
       {showPopup && <WelcomePopup onClose={() => setShowPopup(false)} />}
@@ -108,6 +96,7 @@ function Home() {
       <div className={`main-content-wrapper ${showPopup ? 'blurred' : ''}`}>
         <img src={logo} alt="Logo" className="page-logo" />
         <TimerCard timer={timer} />
+        <h1>{context?.user.telegramId}</h1>
         <DolphinGrid
           dolphins={dolphins.map((d) => d.image)}
           onDolphinClick={(index) => {
