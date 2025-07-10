@@ -19,11 +19,11 @@ export function useUser() {
       setLoading(false);
     }
   };
-  const fetchUser = async () => {
+  const fetchUser = async (telegramId:string) => {
     try {
       setLoading(true);
       setError(null);
-      const data = await userApi.getUser("5465005005"); // must return User object
+      const data = await userApi.getUser(telegramId); // must return User object
       return data // ✅ correct usage
     } catch (err: any) {
       setError(err.message || 'Failed to fetch user');

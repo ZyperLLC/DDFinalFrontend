@@ -16,12 +16,10 @@ export const ConnectButton = ()=>{
     const {register,fetchUser,error} = useUser();
 
     const checkRegisteredUser = async (address:string)=>{
-        if(context){
+        if(!context?.user.walletAddress){
             try{
-                console.log("Checking registered user with address:",address);
-                console.log("user context:",context.user);
                 if(tgWebAppData?.user?.id && tgWebAppData.user?.username){
-                    const userData = await fetchUser();
+                    const userData = await fetchUser(tgWebAppData?.user?.id.toString());
                     console.log("Fetched User Data:",userData);
 
                     if(userData){
@@ -37,13 +35,17 @@ export const ConnectButton = ()=>{
                         
                         toast.success("User Registered Successfully");
                     }
-                    context.setTelegramId(tgWebAppData?.user?.id.toString());
-                    context.setWalletAddress(address);
+                    context?.setTelegramId(tgWebAppData?.user?.id.toString());
+                    context?.setWalletAddress(address);
                 }
             }catch{
                 console.log(error);
                 toast.error("Failed to fetch user data");
             }
+        }else{
+            const userData = await fetchUser(tgWebAppData?.user?.id.toString()??"");
+            console.log("Fetched User Data:",userData);
+            toast.success("Welcome Back " + userData?.username);
         }
     }
 
