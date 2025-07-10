@@ -37,8 +37,8 @@ export const sendInvite = async (telegramId: string, inviteCode: string) => {
  * Fetch user by Telegram ID
  */
 export const getUser = async (telegramId: string) => {
-  const res = await axios.get<{ user: User }>(`${BASE_URL}/api/users/getuser/${telegramId}`);
-  return res.data.user;
+  const res = await axios.get(`${BASE_URL}/api/users/getuser/${telegramId}`);
+  return res.data;
 };
 
 /**

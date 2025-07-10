@@ -67,7 +67,7 @@ function Home() {
   const [showPopup, setShowPopup] = useState(true);
   const [selectedDolphin, setSelectedDolphin] = useState<null | { image: string; name: string }>(null);
   const {fetchUser} = useUser();
-
+  
   useEffect(() => {
     const saved = localStorage.getItem('dolphin_timer_start');
     let start = saved ? parseInt(saved) : Date.now();
