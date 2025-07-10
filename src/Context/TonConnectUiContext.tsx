@@ -1,15 +1,26 @@
-import { createContext, useContext, ReactNode,  } from "react";
+import { createContext, useContext, ReactNode, useMemo } from "react";
 import { TonConnectUI } from "@tonconnect/ui";
 
 type TonConnectUiContextType = {
-  tonConnectUI: TonConnectUI | null;
+  tonConnectUI: TonConnectUI;
 };
 
 const TonConnectUiContext = createContext<TonConnectUiContextType | undefined>(undefined);
-const tonConnectUI = new TonConnectUI({
-    manifestUrl:import.meta.env.VITE_MANIFEST_JSON,
-})
-export const TonConnectUiProvider = ({ children }: { children: ReactNode }) => {
+
+interface TonConnectUiProviderProps {
+  children: ReactNode;
+  manifestUrl: string;
+}
+
+let tonConnectUIInstance: TonConnectUI | null = null;
+
+export const TonConnectUiProvider = ({ children, manifestUrl }: TonConnectUiProviderProps) => {
+  const tonConnectUI = useMemo(() => {
+    if (!tonConnectUIInstance) {
+      tonConnectUIInstance = new TonConnectUI({ manifestUrl });
+    }
+    return tonConnectUIInstance;
+  }, [manifestUrl]);
 
   return (
     <TonConnectUiContext.Provider value={{ tonConnectUI }}>
