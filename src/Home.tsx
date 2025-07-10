@@ -100,7 +100,7 @@ function Home() {
     };
 
     fetchUserData();
-  }, [fetchUser]);
+  });
   return (
     <div className="page" style={{ backgroundImage: `url(${background1})` }}>
       {showPopup && <WelcomePopup onClose={() => setShowPopup(false)} />}
