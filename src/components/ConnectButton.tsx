@@ -65,6 +65,7 @@ export const ConnectButton = ()=>{
             toast.error("Some Error Occured!");
         }         
         })
+        checkRegisteredUser(tonConnectUiInstance?.account?.address??"");
         return ()=>{
             unsubscribe();
         }
