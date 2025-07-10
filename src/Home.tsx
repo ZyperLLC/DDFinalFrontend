@@ -64,9 +64,9 @@ const dolphins = [
 
 function Home() {
   const [timer, setTimer] = useState(0);
-  const [showPopup, setShowPopup] = useState(true);
-  const [selectedDolphin, setSelectedDolphin] = useState<null | { image: string; name: string }>(null);
   const context = useContext(UserContext);
+  const [showPopup, setShowPopup] = useState(context?.user.telegramId ? false : true);
+  const [selectedDolphin, setSelectedDolphin] = useState<null | { image: string; name: string }>(null);
   
   useEffect(() => {
     const saved = localStorage.getItem('dolphin_timer_start');
@@ -96,7 +96,6 @@ function Home() {
       <div className={`main-content-wrapper ${showPopup ? 'blurred' : ''}`}>
         <img src={logo} alt="Logo" className="page-logo" />
         <TimerCard timer={timer} />
-        <h1>{context?.user.telegramId}</h1>
         <DolphinGrid
           dolphins={dolphins.map((d) => d.image)}
           onDolphinClick={(index) => {
