@@ -101,7 +101,7 @@ function Home() {
           dolphins={dolphins.map((d) => d.image)}
           onDolphinClick={(index) => {
             setSelectedDolphin({
-              id:index+1,
+              id:index,
               image: dolphins[index].image,
               name: dolphins[index].name,
             });
