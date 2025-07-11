@@ -113,7 +113,7 @@ function Home() {
       {/* DolphinPopup stays OUTSIDE blur, unaffected */}
       {selectedDolphin && (
         <DolphinPopup
-          key={selectedDolphin.id}
+          id={selectedDolphin.id}
           image={selectedDolphin.image}
           name={selectedDolphin.name}
           onClose={() => setSelectedDolphin(null)}

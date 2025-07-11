@@ -10,12 +10,12 @@ import { UserContext } from '../Context/UserContextProvider';
 import toast from 'react-hot-toast';
 
 export default function DolphinPopup({
-  key,
+  id,
   image,
   name,
   onClose,
 }: {
-  key: number;
+  id: number;
   image: string;
   name: string;
   onClose: () => void;
@@ -24,7 +24,7 @@ export default function DolphinPopup({
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [amount,setAmount] = useState(0);
   const context = useContext(UserContext);
-  console.log("key",key);
+  console.log("key",id);
 
   async function handlePlayClick(noBettedOn:number){
     console.log("handlePlayClick called with amount:", amount, "and noBettedOn:", noBettedOn);
@@ -247,7 +247,7 @@ export default function DolphinPopup({
                 fontSize: '1rem',
                 cursor: 'pointer',
               }}
-              onClick={() => handlePlayClick(key)} 
+              onClick={() => handlePlayClick(id + 1)} // Assuming id is the number to bet on
             >
               Play
             </button>
