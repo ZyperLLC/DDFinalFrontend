@@ -3,7 +3,7 @@ export default function DolphinGrid({
   onDolphinClick,
 }: {
   dolphins: string[];
-  onDolphinClick?: (index: number) => void;
+  onDolphinClick: (index: number) => void;
 }) {
   return (
     <>
@@ -15,7 +15,7 @@ export default function DolphinGrid({
             src={src}
             alt={`Dolphin ${i + 1}`}
             className="dolphin"
-            onClick={() => onDolphinClick?.(i)}
+            onClick={() => onDolphinClick(i)}
           />
         ))}
       </div>
