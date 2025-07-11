@@ -95,7 +95,7 @@ function Home() {
       if (context?.user.walletAddress) {
         const nfts = await fetchNFTs(context.user.walletAddress);
         if (nfts) {
-          for (const nft of nfts.nft_items) {
+          for (const nft of nfts) {
             console.log('Dolphin NFT:', nft.metadata?.name);
           }
         }
