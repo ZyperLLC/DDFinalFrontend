@@ -20,7 +20,7 @@ export const depositAmount = async (amount: string,isTon:boolean,tgId:number) =>
  * Place a bet
  */
 export const placeBet = async (telegramId: string, betData: Partial<Bet>) => {
-  const res = await axios.post<{ user: User }>(`${BASE_URL}/api/users/placebet/${telegramId}`, betData);
+  const res = await axios.post(`${BASE_URL}/api/users/placebet/${telegramId}`, betData);
   return res.data.user;
 };
 
@@ -63,3 +63,12 @@ export const getStakedNFTs = async (telegramId: string): Promise<NFT[]> => {
   const res = await axios.get<{ nfts: NFT[] }>(`${BASE_URL}/api/users/getstakednfts/${telegramId}`);
   return res.data.nfts;
 };
+
+/**
+ * Get all bettingrounds
+ */
+
+export const getBettingRounds = async () => {
+  const res = await axios.get<{ bettingRounds: Bet[] }>(`${BASE_URL}/api/bets`);
+  return res.data;
+}

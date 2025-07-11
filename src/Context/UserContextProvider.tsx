@@ -5,6 +5,7 @@ type User = {
   walletAddress?: string | null;
   tonBalance?: bigint | null;
   creditBalance?: number | null;
+  holdingNFTs?:boolean|null;
 };
 
 type UserContextType = {
@@ -14,6 +15,7 @@ type UserContextType = {
   resetUser: () => void;
   setTonBalance: (tonBalance: bigint | null) => void;
   setCreditBalance: (creditBalance: number | null) => void;
+  setHoldingNFTs: (holdingNFTs: boolean | null) => void;
 };
 
 export const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -24,6 +26,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     walletAddress: null,
     tonBalance: null,
     creditBalance: null,
+    holdingNFTs: null,
   });
 
   const setTelegramId = (telegramId: string | null) => {
@@ -51,6 +54,12 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       creditBalance,
     }));
   };
+  const setHoldingNFTs = (holdingNFTs: boolean | null) => {
+    setUser((prev) => ({
+      ...prev,
+      holdingNFTs
+    }));
+  };
 
   const resetUser = () => {
     setUser({
@@ -58,6 +67,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       walletAddress: null,
       tonBalance: null,
       creditBalance: null,
+      holdingNFTs: null,
     });
   };
 
@@ -70,6 +80,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         resetUser,
         setTonBalance,
         setCreditBalance,
+        setHoldingNFTs
       }}
     >
       {children}

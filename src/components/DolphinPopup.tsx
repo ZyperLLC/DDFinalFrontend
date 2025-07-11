@@ -1,9 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { X } from 'lucide-react';
 
 import background1 from '../assets/background1.jpg';
 import tonSymbol from '../assets/ton_symbol.jpg';
 import creditIcon from '../assets/credit.jpg';
+import { Bet } from '../types';
+import { getBettingRounds, placeBet } from '../api/userApi';
+import { UserContext } from '../Context/UserContextProvider';
+import toast from 'react-hot-toast';
 
 export default function DolphinPopup({
   image,
@@ -16,7 +20,40 @@ export default function DolphinPopup({
 }) {
   const [selectedCurrency, setSelectedCurrency] = useState('TON');
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [amount,setAmount] = useState(0);
+  const context = useContext(UserContext);
 
+  async function handlePlayClick(noBettedOn:number){
+    console.log("handlePlayClick called with amount:", amount, "and noBettedOn:", noBettedOn);
+    if (!(amount >= 0.1 && amount <= 10)) {
+      toast.error("Amount must be between 0.1 and 10");
+      return;
+    }
+    if(noBettedOn < 1 || noBettedOn > 36){
+      toast.error("Please select a number between 1 and 36");
+      return;
+    }
+    const bets = await getBettingRounds();
+    if (!bets || bets.bettingRounds.length === 0) {
+      toast.error("No betting rounds available");
+      return;
+    }
+    const betData: Partial<Bet> = {
+      betId: bets.bettingRounds.length - 1 ,
+      amountBet: amount, // This should be set based on user input
+      numberBettedOn: noBettedOn,
+      hasWon: false,
+      amountWon: 0,
+      useTon: selectedCurrency === 'TON',
+      holdingNFT: context?.user.holdingNFTs ?? false, // This should be set based on user state
+    }
+    console.log("Bet Data:", betData);
+    const result = await placeBet(context?.user.telegramId ?? '', betData);
+    console.log("Bet Result:", result);
+    if(result){
+      toast.success("Amount placed successfully");
+    }
+  }
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     document.body.style.position = 'fixed';
@@ -114,6 +151,7 @@ export default function DolphinPopup({
           <div className="flex justify-center gap-3 mt-6 flex-wrap">
             <input
               type="number"
+              onChange={(e) => setAmount(Number(e.target.value))}
               style={{
                 height: '44px',
                 width: '120px',
@@ -124,6 +162,7 @@ export default function DolphinPopup({
                 fontWeight: 'bold',
                 marginBottom: '10px',
                 marginRight: '10px',
+                color: '#000000',
               }}
             />
             <div
@@ -202,7 +241,7 @@ export default function DolphinPopup({
                 fontSize: '1rem',
                 cursor: 'pointer',
               }}
-              onClick={() => alert('Start button clicked!')}
+              onClick={() => handlePlayClick(1)} 
             >
               Play
             </button>
