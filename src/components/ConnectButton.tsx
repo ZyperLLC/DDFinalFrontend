@@ -41,11 +41,11 @@ export const ConnectButton = ()=>{
     const checkRegisteredUser = async (address:string)=>{
         //if addess is empty return
         if(!address || address.trim() === ""){
+            console.log("Address is empty");
             return;
         }else{
             try{
                 let creditBalance=0;
-                let hasNft = false;
                 if(tgWebAppData?.user?.id && tgWebAppData.user?.username){
                     
                     //if address is not empty , check if user is registered                    
@@ -64,7 +64,9 @@ export const ConnectButton = ()=>{
                             else{
                                 creditBalance = (nft.totalNfts??1) * 4.5;
                             }
-                            hasNft = true;
+                             context?.setHoldingNFTs(true);
+                        }else{
+                            context?.setHoldingNFTs(false);
                         }
                         const newUser: Partial<User> = {
                             telegramId: tgWebAppData?.user?.id.toString(),
@@ -80,7 +82,7 @@ export const ConnectButton = ()=>{
                     context?.setWalletAddress(address);
                     context?.setTonBalance(userData?.tonBalance ?? BigInt(0)); 
                     context?.setCreditBalance(userData?.creditBalance ?? creditBalance); 
-                    context?.setHoldingNFTs(hasNft);
+                   
                 }
             }catch{
                 console.log("Error fetching user data");

@@ -25,6 +25,7 @@ export default function DolphinPopup({
 
   async function handlePlayClick(noBettedOn:number){
     console.log("handlePlayClick called with amount:", amount, "and noBettedOn:", noBettedOn);
+    console.log("Context:",context?.user);
     if (!(amount >= 0.1 && amount <= 10)) {
       toast.error("Amount must be between 0.1 and 10");
       return;
