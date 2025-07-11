@@ -31,7 +31,7 @@ export const ConnectButton = ()=>{
                     const userData = await fetchUser(tgWebAppData?.user?.id.toString());
                     console.log("Fetched User Data:",userData);
 
-                    if(userData){
+                    if(userData!=undefined ){
                         console.log("User already registered:",userData);
                         toast.success("Welcome Back " + userData?.username);
                     }else{
