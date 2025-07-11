@@ -8,6 +8,13 @@ export const registerUser = async (userData: Partial<User>) => {
   const res = await axios.post(`${BASE_URL}/api/users/register`, userData);
   return res.data.user;
 };
+/**
+ * Deposit Ton
+ */
+export const depositAmount = async (amount: string,isTon:boolean,tgId:number) => {
+  const res = await axios.post(`${BASE_URL}/api/users/deposit/${tgId}`, { amount, isTon });
+  return res.data;
+};
 
 /**
  * Place a bet

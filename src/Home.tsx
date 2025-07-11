@@ -67,7 +67,7 @@ function Home() {
   const context = useContext(UserContext);
   const [showPopup, setShowPopup] = useState(context?.user.telegramId ? false : true);
   const [selectedDolphin, setSelectedDolphin] = useState<null | { image: string; name: string }>(null);
-  
+
   useEffect(() => {
     const saved = localStorage.getItem('dolphin_timer_start');
     let start = saved ? parseInt(saved) : Date.now();
@@ -106,7 +106,6 @@ function Home() {
             });
           }}
         />
-
         <Navbar />
       </div>
 
