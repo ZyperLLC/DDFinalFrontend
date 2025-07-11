@@ -21,7 +21,7 @@ export const depositAmount = async (amount: string,isTon:boolean,tgId:number) =>
  */
 export const placeBet = async (telegramId: string, betData: Partial<Bet>) => {
   const res = await axios.post(`${BASE_URL}/api/users/placebet/${telegramId}`, betData);
-  return res.data.user;
+  return res.data;
 };
 
 /**
