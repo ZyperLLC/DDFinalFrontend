@@ -66,7 +66,7 @@ function Home() {
   const [timer, setTimer] = useState(0);
   const context = useContext(UserContext);
   const [showPopup, setShowPopup] = useState(context?.user.telegramId ? false : true);
-  const [selectedDolphin, setSelectedDolphin] = useState<null | { image: string; name: string }>(null);
+  const [selectedDolphin, setSelectedDolphin] = useState<null | { id:number,image: string; name: string }>(null);
 
   useEffect(() => {
     const saved = localStorage.getItem('dolphin_timer_start');
@@ -101,6 +101,7 @@ function Home() {
           dolphins={dolphins.map((d) => d.image)}
           onDolphinClick={(index) => {
             setSelectedDolphin({
+              id:index+1,
               image: dolphins[index].image,
               name: dolphins[index].name,
             });
@@ -112,6 +113,7 @@ function Home() {
       {/* DolphinPopup stays OUTSIDE blur, unaffected */}
       {selectedDolphin && (
         <DolphinPopup
+          key={selectedDolphin.id}
           image={selectedDolphin.image}
           name={selectedDolphin.name}
           onClose={() => setSelectedDolphin(null)}

@@ -10,10 +10,12 @@ import { UserContext } from '../Context/UserContextProvider';
 import toast from 'react-hot-toast';
 
 export default function DolphinPopup({
+  key,
   image,
   name,
   onClose,
 }: {
+  key: number;
   image: string;
   name: string;
   onClose: () => void;
@@ -244,7 +246,7 @@ export default function DolphinPopup({
                 fontSize: '1rem',
                 cursor: 'pointer',
               }}
-              onClick={() => handlePlayClick(1)} 
+              onClick={() => handlePlayClick(key)} 
             >
               Play
             </button>
