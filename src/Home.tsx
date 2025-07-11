@@ -34,6 +34,7 @@ import dolphin22 from './assets/dolphins/dolphin22.jpg';
 import dolphin23 from './assets/dolphins/dolphin23.jpg';
 import dolphin24 from './assets/dolphins/dolphin24.jpg';
 import { UserContext } from './Context/UserContextProvider';
+import { useDepositTon } from './hooks/useDepositTon';
 
 const dolphins = [
   { image: dolphin1, name: 'RUGPULL RAY' },
@@ -67,7 +68,8 @@ function Home() {
   const context = useContext(UserContext);
   const [showPopup, setShowPopup] = useState(context?.user.telegramId ? false : true);
   const [selectedDolphin, setSelectedDolphin] = useState<null | { image: string; name: string }>(null);
-  
+  const {depositTon} = useDepositTon();
+
   useEffect(() => {
     const saved = localStorage.getItem('dolphin_timer_start');
     let start = saved ? parseInt(saved) : Date.now();
@@ -106,7 +108,7 @@ function Home() {
             });
           }}
         />
-
+        <button onClick={()=>depositTon(0.1)}>Deposit Ton</button>
         <Navbar />
       </div>
 
