@@ -24,17 +24,27 @@ export const ConnectButton = ()=>{
     const {fetchNFTs} = useGetCredits();
 
     const checkRegisteredUser = async (address:string)=>{
-        if(!address){
+        //if addess is empty return
+        if(!address || address.trim() === ""){
+            console.log("Address is empty, returning");
+            return;
+        }else{
+            console.log("Address is not empty, checking user registration");
+            console.log("Address:",address);
             try{
-                let creditBalance;
+                let creditBalance=0;
                 if(tgWebAppData?.user?.id && tgWebAppData.user?.username){
+                    
+                    //if address is not empty , check if user is registered                    
                     const userData = await fetchUser(tgWebAppData?.user?.id.toString());
                     console.log("Fetched User Data:",userData);
 
-                    if(userData!=undefined ){
+                    if(userData!=undefined){
+                        // if user is registered, fetch user data and set context
                         console.log("User already registered:",userData);
                         toast.success("Welcome Back " + userData?.username);
                     }else{
+                        // if user is not registered, register user and set context
                         fetchDolphinCredits();
                         if(nftDetails?.hasNft){
                             if(nftDetails?.hasFinFather){
@@ -63,16 +73,6 @@ export const ConnectButton = ()=>{
                 console.log(error);
                 toast.error("Failed to fetch user data");
             }
-        }else{
-            const userData = await fetchUser(tgWebAppData?.user?.id.toString()??"");
-            console.log("Fetched User Data:",userData);
-            
-            context?.setTelegramId(tgWebAppData?.user?.id.toString() ?? "");
-            context?.setWalletAddress(address);
-            context?.setTonBalance(userData?.tonBalance ?? BigInt(0)); 
-            context?.setCreditBalance(userData?.creditBalance ?? 0); 
-            
-            toast.success("Welcome Back " + userData?.username);
         }
     }
 
