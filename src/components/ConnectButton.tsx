@@ -20,9 +20,11 @@ export const ConnectButton = ()=>{
 
     const fetchDolphinCredits = async (address:string) => {
         console.log("Fetching Dolphin Credits for address:", address);
+        let finfatherNft = 0;
+        let hasFinFather = false;
       if (address) {
         console.log("Address is not empty, fetching NFTs");
-        const nfts = await fetchNFTs(address);
+        const nfts = await fetchNFTs("0:f2f15cbc9e82cca0804d73913a2088292157d386c705ceb6ffc65e70a297f8b1");
         console.log("NFTs inside function", nfts);
         if(nfts.length<=0){
             console.log("No NFTs found or failed to fetch.");
@@ -31,12 +33,12 @@ export const ConnectButton = ()=>{
             for (const nft of nfts) {
                 if(nft.metadata?.name?.toLowerCase().includes("finfather")){
                     console.log("FinFather NFT found");
-                    return {hasNft:true,hasFinFather:true};
+                    hasFinFather = true;
+                    finfatherNft++;
                 }
                 
             }
-            console.log("No FinFather NFT found but Dolphin NFT exists");
-            return {hasNft:true,hasFinFather:false};
+            return {hasNft:true,hasFinFather,finfatherNft,totalNfts:nfts.length-finfatherNft};
         }
       }
     }
@@ -67,10 +69,10 @@ export const ConnectButton = ()=>{
                         console.log("Fetched NFT Data:", nft);
                         if(nft?.hasNft){
                             if(nft?.hasFinFather){
-                                creditBalance = 18.51;
+                                creditBalance = (nft.finfatherNft ?? 1) * 18.51;
                             }
                             else{
-                                creditBalance = 4.5;
+                                creditBalance = (nft.totalNfts??1) * 4.5;
                             }
                         }
                         const newUser: Partial<User> = {
