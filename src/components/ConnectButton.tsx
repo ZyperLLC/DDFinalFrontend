@@ -41,6 +41,7 @@ export const ConnectButton = ()=>{
                     }else{
                         // if user is not registered, register user and set context
                         const nft = await fetchDolphinCredits();
+                        console.log("Fetched NFT Data:", nft);
                         if(nft?.hasNft){
                             if(nft?.hasFinFather){
                                 creditBalance = 18.51;
