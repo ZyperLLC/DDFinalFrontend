@@ -28,7 +28,7 @@ export const useDepositTon = ()=>{
           messages: [
             {
               address: contractAddress,
-              amount: toNano(`${amount+0.005}`).toString(),
+              amount: toNano(`${(amount+0.005).toFixed(3)}`).toString(),
               payload: beginCell().storeUint(0, 32).storeStringTail('depositton').endCell().toBoc().toString('base64'),
             },
           ],
