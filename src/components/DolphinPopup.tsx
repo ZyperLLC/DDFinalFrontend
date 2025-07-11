@@ -35,12 +35,12 @@ export default function DolphinPopup({
     }
     const bets = await getBettingRounds();
     console.log("Bets:", bets);
-    if (!bets || bets.bettingRounds.length === 0) {
+    if (!bets || bets.length === 0) {
       toast.error("No betting rounds available");
       return;
     }
     const betData: Partial<Bet> = {
-      betId: bets.bettingRounds.length - 1 ,
+      betId: bets.length - 1 ,
       amountBet: amount, // This should be set based on user input
       numberBettedOn: noBettedOn,
       hasWon: false,

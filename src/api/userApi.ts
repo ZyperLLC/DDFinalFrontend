@@ -69,6 +69,6 @@ export const getStakedNFTs = async (telegramId: string): Promise<NFT[]> => {
  */
 
 export const getBettingRounds = async () => {
-  const res = await axios.get<{ bettingRounds: Bet[] }>(`${BASE_URL}/api/bets`);
+  const res = await axios.get(`${BASE_URL}/api/bets`);
   return res.data;
 }
