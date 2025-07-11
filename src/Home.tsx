@@ -1,4 +1,4 @@
-import { use, useContext, useEffect, useState } from 'react';
+import {useContext, useEffect, useState } from 'react';
 import logo from './assets/logo.jpg';
 import background1 from './assets/background1.jpg';
 import './index.css';
@@ -95,7 +95,7 @@ function Home() {
       if (context?.user.walletAddress) {
         const nfts = await fetchNFTs(context.user.walletAddress);
         if (nfts) {
-          for (const nft of nfts) {
+          for (const nft of nfts.nft_items) {
             console.log('Dolphin NFT:', nft.metadata?.name);
           }
         }
