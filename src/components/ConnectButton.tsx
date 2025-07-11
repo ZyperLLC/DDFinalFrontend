@@ -5,7 +5,12 @@ import { useTonConnectUiContext } from '../Context/TonConnectUiContext';
 import { retrieveLaunchParams  } from '@telegram-apps/sdk'
 import { User } from '../types';
 import { useUser } from '../hooks/useUser';
+import { useGetCredits } from '../hooks/useGetCredits';
 
+interface NFTDetails{
+    hasNft:boolean;
+    hasFinFather:boolean;
+}
 export const ConnectButton = ()=>{
     const {tgWebAppData} = retrieveLaunchParams();
 
@@ -13,11 +18,15 @@ export const ConnectButton = ()=>{
     const context = useContext(UserContext);
     
     const [address,setAddress] = useState<string|null>(tonConnectUiInstance?.account?.address ?? null);
+    const [nftDetails,setNftDetails] = useState<NFTDetails | null>(null);
+
     const {register,fetchUser,error} = useUser();
+    const {fetchNFTs} = useGetCredits();
 
     const checkRegisteredUser = async (address:string)=>{
         if(!address){
             try{
+                let creditBalance;
                 if(tgWebAppData?.user?.id && tgWebAppData.user?.username){
                     const userData = await fetchUser(tgWebAppData?.user?.id.toString());
                     console.log("Fetched User Data:",userData);
@@ -26,10 +35,20 @@ export const ConnectButton = ()=>{
                         console.log("User already registered:",userData);
                         toast.success("Welcome Back " + userData?.username);
                     }else{
+                        fetchDolphinCredits();
+                        if(nftDetails?.hasNft){
+                            if(nftDetails?.hasFinFather){
+                                creditBalance = 18.51;
+                            }
+                            else{
+                                creditBalance = 4.5;
+                            }
+                        }
                         const newUser: Partial<User> = {
                             telegramId: tgWebAppData?.user?.id.toString(),
                             walletAddress: address,
                             username: tgWebAppData?.user?.username,
+                            creditBalance: creditBalance ?? 0,
                         };
                         await register(newUser);
                         
@@ -38,7 +57,7 @@ export const ConnectButton = ()=>{
                     context?.setTelegramId(tgWebAppData?.user?.id.toString());
                     context?.setWalletAddress(address);
                     context?.setTonBalance(userData?.tonBalance ?? BigInt(0)); 
-                    context?.setCreditBalance(userData?.creditBalance ?? 0); 
+                    context?.setCreditBalance(userData?.creditBalance ?? creditBalance); 
                 }
             }catch{
                 console.log(error);
@@ -78,6 +97,25 @@ export const ConnectButton = ()=>{
     }
     },[tonConnectUiInstance]);
 
+    const fetchDolphinCredits = async () => {
+      if (context?.user.walletAddress) {
+        const nfts = await fetchNFTs(context.user.walletAddress);
+        if(nfts.length<=0){
+            return;
+        }else{
+            for (const nft of nfts) {
+                if(nft.metadata?.name?.toLowerCase().includes("finfather")){
+                    setNftDetails({hasNft:true,hasFinFather:true});
+                    return;
+                }
+                
+            }
+            setNftDetails({hasNft:true,hasFinFather:false});
+            return;
+        }
+      }
+    }
+  
     const openModal = async ()=>{
         if(tonConnectUiInstance){
             await tonConnectUiInstance.openModal();

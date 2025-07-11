@@ -34,7 +34,6 @@ import dolphin22 from './assets/dolphins/dolphin22.jpg';
 import dolphin23 from './assets/dolphins/dolphin23.jpg';
 import dolphin24 from './assets/dolphins/dolphin24.jpg';
 import { UserContext } from './Context/UserContextProvider';
-import { useGetCredits } from './hooks/useGetCredits';
 
 const dolphins = [
   { image: dolphin1, name: 'RUGPULL RAY' },
@@ -68,7 +67,6 @@ function Home() {
   const context = useContext(UserContext);
   const [showPopup, setShowPopup] = useState(context?.user.telegramId ? false : true);
   const [selectedDolphin, setSelectedDolphin] = useState<null | { image: string; name: string }>(null);
-  const {fetchNFTs} = useGetCredits();
   
   useEffect(() => {
     const saved = localStorage.getItem('dolphin_timer_start');
@@ -90,19 +88,7 @@ function Home() {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    const fetchDolphinCredits = async () => {
-      if (context?.user.walletAddress) {
-        const nfts = await fetchNFTs(context.user.walletAddress);
-        if (nfts) {
-          for (const nft of nfts) {
-            console.log('Dolphin NFT:', nft.metadata?.name);
-          }
-        }
-      }
-    }
-    fetchDolphinCredits();
-  }, [context?.user.walletAddress]);
+
   
   return (
     <div className="page" style={{ backgroundImage: `url(${background1})` }}>
