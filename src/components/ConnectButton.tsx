@@ -19,10 +19,10 @@ export const ConnectButton = ()=>{
     const {fetchNFTs} = useGetCredits();
 
     const fetchDolphinCredits = async () => {
-        console.log("Fetching Dolphin Credits for address:", context?.user.walletAddress);
-      if (context?.user.walletAddress) {
+        console.log("Fetching Dolphin Credits for address:", address);
+      if (address) {
         console.log("Address is not empty, fetching NFTs");
-        const nfts = await fetchNFTs(context.user.walletAddress);
+        const nfts = await fetchNFTs(address);
         console.log("NFTs inside function", nfts);
         if(nfts.length<=0){
             console.log("No NFTs found or failed to fetch.");
