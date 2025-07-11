@@ -7,10 +7,6 @@ import { User } from '../types';
 import { useUser } from '../hooks/useUser';
 import { useGetCredits } from '../hooks/useGetCredits';
 
-interface NFTDetails{
-    hasNft:boolean;
-    hasFinFather:boolean;
-}
 export const ConnectButton = ()=>{
     const {tgWebAppData} = retrieveLaunchParams();
 
