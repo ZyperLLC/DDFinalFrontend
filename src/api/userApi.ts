@@ -5,7 +5,7 @@ import { BASE_URL } from '../constants';
  * Register a new user
  */
 export const registerUser = async (userData: Partial<User>) => {
-  const res = await axios.post<{ user: User }>(`${BASE_URL}/api/users/register`, userData);
+  const res = await axios.post(`${BASE_URL}/api/users/register`, userData);
   return res.data.user;
 };
 

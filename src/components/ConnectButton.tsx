@@ -18,7 +18,6 @@ export const ConnectButton = ()=>{
     const context = useContext(UserContext);
     
     const [address,setAddress] = useState<string|null>(tonConnectUiInstance?.account?.address ?? null);
-    const [nftDetails,setNftDetails] = useState<NFTDetails | null>(null);
 
     const {register,fetchUser,error} = useUser();
     const {fetchNFTs} = useGetCredits();
@@ -45,9 +44,9 @@ export const ConnectButton = ()=>{
                         toast.success("Welcome Back " + userData?.username);
                     }else{
                         // if user is not registered, register user and set context
-                        fetchDolphinCredits();
-                        if(nftDetails?.hasNft){
-                            if(nftDetails?.hasFinFather){
+                        const nft = await fetchDolphinCredits();
+                        if(nft?.hasNft){
+                            if(nft?.hasFinFather){
                                 creditBalance = 18.51;
                             }
                             else{
@@ -101,17 +100,15 @@ export const ConnectButton = ()=>{
       if (context?.user.walletAddress) {
         const nfts = await fetchNFTs(context.user.walletAddress);
         if(nfts.length<=0){
-            return;
+            return {hasNft:false,hasFinFather:false};
         }else{
             for (const nft of nfts) {
                 if(nft.metadata?.name?.toLowerCase().includes("finfather")){
-                    setNftDetails({hasNft:true,hasFinFather:true});
-                    return;
+                    return {hasNft:true,hasFinFather:true};
                 }
                 
             }
-            setNftDetails({hasNft:true,hasFinFather:false});
-            return;
+            return {hasNft:true,hasFinFather:false};
         }
       }
     }
