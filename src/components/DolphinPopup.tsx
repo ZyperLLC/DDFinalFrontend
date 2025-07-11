@@ -34,6 +34,7 @@ export default function DolphinPopup({
       return;
     }
     const bets = await getBettingRounds();
+    console.log("Bets:", bets);
     if (!bets || bets.bettingRounds.length === 0) {
       toast.error("No betting rounds available");
       return;
