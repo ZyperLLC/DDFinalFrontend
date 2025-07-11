@@ -54,6 +54,7 @@ export default function DolphinPopup({
     console.log("Bet Result:", result);
     if(result){
       toast.success("Amount placed successfully");
+      onClose();
     }
   }
   useEffect(() => {
