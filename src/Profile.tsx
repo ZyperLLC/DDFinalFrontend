@@ -17,7 +17,6 @@ import './index.css';
 import { ConnectButton } from './components/ConnectButton';
 import { useContext } from 'react';
 import { UserContext } from './Context/UserContextProvider';
-import { fromNano } from '@ton/ton';
 
 export default function Profile() {
   const context = useContext(UserContext);
