@@ -80,6 +80,8 @@ export const ConnectButton = ()=>{
                     context?.setCreditBalance(userData?.creditBalance ?? creditBalance); 
                 }
             }catch{
+                console.log("Error fetching user data");
+                console.error(error);
                 toast.error("Failed to fetch user data");
             }
         }
