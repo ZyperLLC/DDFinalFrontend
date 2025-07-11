@@ -96,15 +96,19 @@ export const ConnectButton = ()=>{
     const fetchDolphinCredits = async () => {
       if (context?.user.walletAddress) {
         const nfts = await fetchNFTs(context.user.walletAddress);
+        console.log("NFTs inside function", nfts);
         if(nfts.length<=0){
+            console.log("No NFTs found or failed to fetch.");
             return {hasNft:false,hasFinFather:false};
         }else{
             for (const nft of nfts) {
                 if(nft.metadata?.name?.toLowerCase().includes("finfather")){
+                    console.log("FinFather NFT found");
                     return {hasNft:true,hasFinFather:true};
                 }
                 
             }
+            console.log("No FinFather NFT found but Dolphin NFT exists");
             return {hasNft:true,hasFinFather:false};
         }
       }
