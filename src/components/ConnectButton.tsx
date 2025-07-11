@@ -18,7 +18,7 @@ export const ConnectButton = ()=>{
     const {register,fetchUser,error} = useUser();
     const {fetchNFTs} = useGetCredits();
 
-    const fetchDolphinCredits = async () => {
+    const fetchDolphinCredits = async (address:string) => {
         console.log("Fetching Dolphin Credits for address:", address);
       if (address) {
         console.log("Address is not empty, fetching NFTs");
@@ -63,7 +63,7 @@ export const ConnectButton = ()=>{
                         toast.success("Welcome Back " + userData?.username);
                     }else{
                         // if user is not registered, register user and set context
-                        const nft = await fetchDolphinCredits();
+                        const nft = await fetchDolphinCredits(address);
                         console.log("Fetched NFT Data:", nft);
                         if(nft?.hasNft){
                             if(nft?.hasFinFather){
