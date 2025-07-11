@@ -18,6 +18,29 @@ export const ConnectButton = ()=>{
     const {register,fetchUser,error} = useUser();
     const {fetchNFTs} = useGetCredits();
 
+    const fetchDolphinCredits = async () => {
+        console.log("Fetching Dolphin Credits for address:", context?.user.walletAddress);
+      if (context?.user.walletAddress) {
+        console.log("Address is not empty, fetching NFTs");
+        const nfts = await fetchNFTs(context.user.walletAddress);
+        console.log("NFTs inside function", nfts);
+        if(nfts.length<=0){
+            console.log("No NFTs found or failed to fetch.");
+            return {hasNft:false,hasFinFather:false};
+        }else{
+            for (const nft of nfts) {
+                if(nft.metadata?.name?.toLowerCase().includes("finfather")){
+                    console.log("FinFather NFT found");
+                    return {hasNft:true,hasFinFather:true};
+                }
+                
+            }
+            console.log("No FinFather NFT found but Dolphin NFT exists");
+            return {hasNft:true,hasFinFather:false};
+        }
+      }
+    }
+
     const checkRegisteredUser = async (address:string)=>{
         //if addess is empty return
         if(!address || address.trim() === ""){
@@ -93,26 +116,7 @@ export const ConnectButton = ()=>{
     }
     },[tonConnectUiInstance]);
 
-    const fetchDolphinCredits = async () => {
-      if (context?.user.walletAddress) {
-        const nfts = await fetchNFTs(context.user.walletAddress);
-        console.log("NFTs inside function", nfts);
-        if(nfts.length<=0){
-            console.log("No NFTs found or failed to fetch.");
-            return {hasNft:false,hasFinFather:false};
-        }else{
-            for (const nft of nfts) {
-                if(nft.metadata?.name?.toLowerCase().includes("finfather")){
-                    console.log("FinFather NFT found");
-                    return {hasNft:true,hasFinFather:true};
-                }
-                
-            }
-            console.log("No FinFather NFT found but Dolphin NFT exists");
-            return {hasNft:true,hasFinFather:false};
-        }
-      }
-    }
+    
   
     const openModal = async ()=>{
         if(tonConnectUiInstance){
