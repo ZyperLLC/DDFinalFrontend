@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import {useContext, useEffect, useState } from 'react';
 import logo from './assets/logo.jpg';
 import background1 from './assets/background1.jpg';
 import './index.css';
@@ -33,6 +33,7 @@ import dolphin21 from './assets/dolphins/dolphin21.jpg';
 import dolphin22 from './assets/dolphins/dolphin22.jpg';
 import dolphin23 from './assets/dolphins/dolphin23.jpg';
 import dolphin24 from './assets/dolphins/dolphin24.jpg';
+import { UserContext } from './Context/UserContextProvider';
 
 const dolphins = [
   { image: dolphin1, name: 'RUGPULL RAY' },
@@ -63,14 +64,15 @@ const dolphins = [
 
 function Home() {
   const [timer, setTimer] = useState(0);
-  const [showPopup, setShowPopup] = useState(true);
+  const context = useContext(UserContext);
+  const [showPopup, setShowPopup] = useState(context?.user.telegramId ? false : true);
   const [selectedDolphin, setSelectedDolphin] = useState<null | { image: string; name: string }>(null);
-
+  
   useEffect(() => {
     const saved = localStorage.getItem('dolphin_timer_start');
     let start = saved ? parseInt(saved) : Date.now();
     if (!saved) localStorage.setItem('dolphin_timer_start', `${start}`);
-
+    
     const interval = setInterval(() => {
       const now = Date.now();
       const elapsed = Math.floor((now - start) / 1000);
@@ -86,6 +88,8 @@ function Home() {
     return () => clearInterval(interval);
   }, []);
 
+
+  
   return (
     <div className="page" style={{ backgroundImage: `url(${background1})` }}>
       {showPopup && <WelcomePopup onClose={() => setShowPopup(false)} />}
