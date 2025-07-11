@@ -108,7 +108,7 @@ function Home() {
             });
           }}
         />
-        <button onClick={()=>depositTon(1)}>Deposit Ton</button>
+        <button onClick={()=>depositTon(0.1)}>Deposit Ton</button>
         <Navbar />
       </div>
 

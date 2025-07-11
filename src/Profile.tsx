@@ -133,7 +133,7 @@ export default function Profile() {
                 opacity: isWalletConnected ? 1 : 0.4,
               }}
             >
-              {isWalletConnected ? fromNano(context?.user.tonBalance??0n) : 'Connect wallet'}
+              {isWalletConnected ? context?.user.tonBalance : 'Connect wallet'}
             </span>
           </div>
 
