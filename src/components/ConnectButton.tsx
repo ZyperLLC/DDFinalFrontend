@@ -79,7 +79,7 @@ export const ConnectButton = ()=>{
                         console.log("start param",tgWebAppStartParam);
 
                         if(tgWebAppStartParam!== undefined && tgWebAppStartParam !== null && tgWebAppStartParam !== ""){
-                        await addFriend(tgWebAppStartParam,tgWebAppData?.user?.username ?? "");
+                        await addFriend(tgWebAppStartParam.trim(),tgWebAppData?.user?.username ?? "");
                         }
                         toast.success("User Registered Successfully");
                     }
