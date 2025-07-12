@@ -125,13 +125,16 @@
     "close": "Cerrar ventana de éxito",
     "success": "Apostado con éxito",
     "description": "Tu delfín ya está generando recompensas. Revisa el progreso de staking en tu perfil."
+  },
+
+  "gameHistory": {
+    "entryCost": "Costo de entrada",
+    "prize": "Premio",
+    "result": {
+      "win": "Ganó",
+      "lose": "Perdió"
+    }
   }
-
-
-
-
-
-
 
 
 }

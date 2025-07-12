@@ -121,17 +121,19 @@
     "close": "Close success modal",
     "success": "Staked Successfully",
     "description": "Your dolphin is now earning rewards. Track staking progress in your Profile."
-  }
+  },
 
+
+  "gameHistory": {
+    "entryCost": "Entry Cost",
+    "prize": "Prize",
+    "result": {
+      "win": "Win",
+      "lose": "Lose"
+    }
 
 }
 
 
 
-
-
-
-
-
-
-
+}
