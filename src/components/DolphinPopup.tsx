@@ -20,13 +20,11 @@ export default function DolphinPopup({
   const { t } = useTranslation();
   const [selectedCurrency, setSelectedCurrency] = useState('TON');
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(false); // false initially
 
   const { tonConnectUI } = useTonConnectUiContext();
   const isWalletConnected = !!tonConnectUI?.account?.address;
 
   useEffect(() => {
-    // Lock scroll
     document.body.style.overflow = 'hidden';
     document.body.style.position = 'fixed';
     document.body.style.width = '100%';
@@ -34,11 +32,7 @@ export default function DolphinPopup({
     document.body.style.left = '0';
     document.body.style.right = '0';
 
-    // Fade in on mount
-    const timeout = setTimeout(() => setIsVisible(true), 10);
-
     return () => {
-      clearTimeout(timeout);
       document.body.style.overflow = 'auto';
       document.body.style.position = '';
       document.body.style.width = '';
@@ -48,20 +42,8 @@ export default function DolphinPopup({
     };
   }, []);
 
-  const handleClose = () => {
-    setIsVisible(false);
-    setTimeout(() => {
-      onClose();
-    }, 300); // matches transition duration
-  };
-
   return (
-    <div
-      className={`fixed inset-0 z-50 flex justify-center items-center p-4 overflow-y-auto transition-opacity duration-300 ${
-        isVisible ? 'opacity-100' : 'opacity-0'
-      }`}
-    >
-      {/* Overlay */}
+    <div className="fixed inset-0 z-50 flex justify-center items-center" style={{ padding: '1rem' }}>
       <div
         style={{
           position: 'fixed',
@@ -72,7 +54,6 @@ export default function DolphinPopup({
         }}
       ></div>
 
-      {/* Modal */}
       <div
         style={{
           width: '100%',
@@ -86,8 +67,8 @@ export default function DolphinPopup({
         }}
       >
         <button
-          className="absolute right-2 top-2 z-10"
-          onClick={handleClose}
+          className="close-btn absolute right-2 top-2 z-10"
+          onClick={onClose}
           style={{
             background: 'transparent',
             border: 'none',
@@ -98,7 +79,6 @@ export default function DolphinPopup({
           <X size={22} />
         </button>
 
-        {/* Content */}
         <div
           style={{
             backgroundImage: `url(${background1})`,
@@ -113,6 +93,7 @@ export default function DolphinPopup({
           <img
             src={image}
             alt={name}
+            className="page-logo"
             style={{
               width: '100%',
               maxWidth: '160px',
@@ -126,7 +107,6 @@ export default function DolphinPopup({
             {t('dolphin_popup.description', { name })}
           </p>
 
-          {/* Spinner */}
           {tonConnectUI == null ? (
             <div style={{ marginTop: '1.5rem', display: 'flex', justifyContent: 'center' }}>
               <div
@@ -148,7 +128,6 @@ export default function DolphinPopup({
             </div>
           ) : isWalletConnected ? (
             <>
-              {/* Input & Dropdown */}
               <div className="flex justify-center gap-3 mt-6 flex-wrap">
                 <input
                   type="number"
@@ -227,7 +206,6 @@ export default function DolphinPopup({
                 </div>
               </div>
 
-              {/* Play Button */}
               <div className="mt-6 flex justify-center">
                 <button
                   style={{
