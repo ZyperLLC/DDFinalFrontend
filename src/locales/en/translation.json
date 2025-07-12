@@ -48,9 +48,28 @@
   "languageSwitcher": {
     "label": "Language",
     "ariaLabel": "Select Language"
+  },
+
+  "stakeHeader": {
+    "title": "Stake It",
+    "description": "Pick your NFT, lock it in staking, and watch the rewards roll in — even while you're offline"
+  },
+
+
+  "stakeGrid": {
+    "title": "Available for Staking",
+    "names": [
+      "RUGPULL RAY",
+      "HARMONIX",
+      "DND",
+      "D.O.A.T.",
+      "ANDRE BAIT",
+      "ELLE TUSK",
+      "DOLFIE TRUNK",
+      "JELLY THE JEET",
+      "FINTALIK"
+    ]
   }
-
-
 
 
 

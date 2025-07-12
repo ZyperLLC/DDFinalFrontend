@@ -48,7 +48,31 @@
   "languageSwitcher": {
     "label": "Idioma",
     "ariaLabel": "Seleccionar idioma"
+  },
+
+
+  "stakeHeader": {
+    "title": "Apuesta",
+    "description": "Elige tu NFT, bloquéalo en staking y mira cómo llegan las recompensas, incluso cuando estás desconectado"
+  },
+
+
+  "stakeGrid": {
+    "title": "Disponible para apostar",
+    "names": [
+      "RUGPULL RAY",
+      "HARMONIX",
+      "DND",
+      "D.O.A.T.",
+      "ANDRE BAIT",
+      "ELLE TUSK",
+      "DOLFIE TRUNK",
+      "JELLY THE JEET",
+      "FINTALIK"
+    ]
   }
+
+
 
 
 }

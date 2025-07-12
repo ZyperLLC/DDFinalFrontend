@@ -43,8 +43,28 @@
   "languageSwitcher": {
     "label": "Язык",
     "ariaLabel": "Выберите язык"
-  }
+  },
 
+  "stakeHeader": {
+    "title": "Ставь",
+    "description": "Выберите свой NFT, заблокируйте его в стейкинге и получайте награды — даже когда вы не в сети"
+  },
+
+  
+  "stakeGrid": {
+    "title": "Доступно для стейкинга",
+    "names": [
+      "RUGPULL RAY",
+      "HARMONIX",
+      "DND",
+      "D.O.A.T.",
+      "ANDRE BAIT",
+      "ELLE TUSK",
+      "DOLFIE TRUNK",
+      "JELLY THE JEET",
+      "FINTALIK"
+    ]
+  }
 
 
 
