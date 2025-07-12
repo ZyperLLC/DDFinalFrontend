@@ -4,6 +4,7 @@ import background1 from './assets/background1.jpg';
 import './index.css';
 
 import WelcomePopup from './components/WelcomePopup';
+import { LanguageSwitcher } from './components/LanguageSwitcher';
 import TimerCard from './components/TimerCard';
 import DolphinGrid from './components/DolphinGrid';
 import Navbar from './components/Navbar';
@@ -72,7 +73,7 @@ function Home() {
     const saved = localStorage.getItem('dolphin_timer_start');
     let start = saved ? parseInt(saved) : Date.now();
     if (!saved) localStorage.setItem('dolphin_timer_start', `${start}`);
-    
+
     const interval = setInterval(() => {
       const now = Date.now();
       const elapsed = Math.floor((now - start) / 1000);
@@ -89,13 +90,14 @@ function Home() {
   }, []);
 
 
-  
+
   return (
     <div className="page" style={{ backgroundImage: `url(${background1})` }}>
       {showPopup && <WelcomePopup onClose={() => setShowPopup(false)} />}
       {/* Blur wrapper for the main content */}
       <div className={`main-content-wrapper ${showPopup ? 'blurred' : ''}`}>
         <img src={logo} alt="Logo" className="page-logo" />
+          <LanguageSwitcher/>
         <TimerCard timer={timer} />
         <DolphinGrid
           dolphins={dolphins.map((d) => d.image)}
