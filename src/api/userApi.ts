@@ -72,3 +72,12 @@ export const getBettingRounds = async () => {
   const res = await axios.get(`${BASE_URL}/api/bets`);
   return res.data;
 }
+
+/**
+ * Adding friend to invite list
+ */
+
+export const addFriend = async (telegramId: string, friendUsername: string) => {
+  const res = await axios.post(`${BASE_URL}/api/users/invite/${telegramId}}`, { friendUsername });
+  return res.data;
+}

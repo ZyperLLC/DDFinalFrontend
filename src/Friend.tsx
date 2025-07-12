@@ -6,9 +6,12 @@ import logo from './assets/logo.jpg';
 import './index.css';
 import FriendsLeaderBoard from './components/FriendsLeaderBoard';
 import toast from 'react-hot-toast';
+import { UserContext } from './Context/UserContextProvider';
+import { useContext } from 'react';
 
 export default function Friend() {
-  const inviteLink = '';
+  const context = useContext(UserContext);
+  const inviteLink = `https://t.me/ddtimertestbot/site?startapp=${context?.user.telegramId}`;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(inviteLink);

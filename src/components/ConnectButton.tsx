@@ -6,9 +6,10 @@ import { retrieveLaunchParams  } from '@telegram-apps/sdk'
 import { User } from '../types';
 import { useUser } from '../hooks/useUser';
 import { useGetCredits } from '../hooks/useGetCredits';
+import { addFriend } from '../api/userApi';
 
 export const ConnectButton = ()=>{
-    const {tgWebAppData} = retrieveLaunchParams();
+    const {tgWebAppData,tgWebAppStartParam} = retrieveLaunchParams();
 
     const {tonConnectUI:tonConnectUiInstance} = useTonConnectUiContext();
     const context = useContext(UserContext);
@@ -75,7 +76,9 @@ export const ConnectButton = ()=>{
                             creditBalance: creditBalance ?? 0,
                         };
                         await register(newUser);
-                        
+                        if(tgWebAppStartParam){
+                            await addFriend(tgWebAppStartParam,tgWebAppData?.user?.username ?? "");
+                        }
                         toast.success("User Registered Successfully");
                     }
                     context?.setTelegramId(tgWebAppData?.user?.id.toString());
