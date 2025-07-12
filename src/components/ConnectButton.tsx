@@ -52,7 +52,7 @@ export const ConnectButton = ()=>{
                     //if address is not empty , check if user is registered                    
                     const userData = await fetchUser(tgWebAppData?.user?.id.toString());
 
-                    if(userData!=undefined){
+                    if(userData!=undefined && userData!=null){
                         // if user is registered, fetch user data and set context
                         toast.success("Welcome Back " + userData?.username);
                     }else{
@@ -76,8 +76,10 @@ export const ConnectButton = ()=>{
                             creditBalance: creditBalance ?? 0,
                         };
                         await register(newUser);
+                        console.log("start param",tgWebAppStartParam);
+
                         if(tgWebAppStartParam){
-                            await addFriend(tgWebAppStartParam,tgWebAppData?.user?.username ?? "");
+                        await addFriend(tgWebAppStartParam,tgWebAppData?.user?.username ?? "");
                         }
                         toast.success("User Registered Successfully");
                     }
