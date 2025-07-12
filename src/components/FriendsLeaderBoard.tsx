@@ -9,7 +9,7 @@ export default function FriendsLeaderBoard() {
   
   return (
     <div className="leaderboard-container">
-      <h2 className="leaderboard-heading">Friends Leaderboard</h2>
+      <h2 className="leaderboard-heading">Referred Friends </h2>
 
       <div className="leaderboard-header">
         <span>SNo.</span>
@@ -20,7 +20,7 @@ export default function FriendsLeaderBoard() {
       {friendsList.map((username, index) => (
         <div key={index} className="leaderboard-row">
           <span>{index+1}</span>
-          <span>{username}</span>
+          <span>{username.slice(0,10) }{username.length>10?"...":""}</span>
           <span>0.01</span>
         </div>
       ))}
