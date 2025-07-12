@@ -34,8 +34,6 @@ import dolphin22 from './assets/dolphins/dolphin22.jpg';
 import dolphin23 from './assets/dolphins/dolphin23.jpg';
 import dolphin24 from './assets/dolphins/dolphin24.jpg';
 import { UserContext } from './Context/UserContextProvider';
-import { getBettingRounds } from './api/userApi';
-import { start } from 'repl';
 
 const dolphins = [
   { image: dolphin1, name: 'RUGPULL RAY' },
