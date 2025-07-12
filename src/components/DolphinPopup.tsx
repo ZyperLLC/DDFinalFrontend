@@ -103,6 +103,7 @@ export default function DolphinPopup({
           <img
             src={image}
             alt={name}
+            className="page-logo"
             style={{
               width: '100%',
               maxWidth: '160px',
