@@ -5,13 +5,14 @@ import background1 from './assets/background1.jpg';
 import logo from './assets/logo.jpg';
 import './index.css';
 import FriendsLeaderBoard from './components/FriendsLeaderBoard';
+import toast from 'react-hot-toast';
 
 export default function Friend() {
   const inviteLink = '';
 
   const handleCopy = () => {
     navigator.clipboard.writeText(inviteLink);
-    alert('Invite link copied!');
+    toast.success('Invite link copied to clipboard!');
   };
 
   return (

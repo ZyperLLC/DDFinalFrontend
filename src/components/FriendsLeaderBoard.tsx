@@ -1,28 +1,23 @@
 // src/components/FriendsLeaderboard.tsx
+import { useContext } from 'react';
 import '../index.css';
-
-const leaderboardData = [
-  { user: '@usernameuser…', reward: '3 123' },
-  { user: '@usernameuser…', reward: '1 532 345' },
-  { user: '@usernameuser…', reward: '22 432' },
-  { user: '@usernameuser…', reward: '234 153' },
-  { user: '@usernameuser…', reward: '23 421' },
-];
+import { UserContext } from '../Context/UserContextProvider';
 
 export default function FriendsLeaderBoard() {
+  const context = useContext(UserContext);
+  const friendsList = context?.user.friends || [];
+  
   return (
     <div className="leaderboard-container">
       <h2 className="leaderboard-heading">Friends Leaderboard</h2>
 
       <div className="leaderboard-header">
         <span>Username</span>
-        <span>Reward</span>
       </div>
 
-      {leaderboardData.map((entry, index) => (
+      {friendsList.map((username, index) => (
         <div key={index} className="leaderboard-row">
-          <span>{entry.user}</span>
-          <span>{entry.reward}</span>
+          <span>{username}</span>
         </div>
       ))}
     </div>

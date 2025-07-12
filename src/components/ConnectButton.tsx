@@ -82,7 +82,7 @@ export const ConnectButton = ()=>{
                     context?.setWalletAddress(address);
                     context?.setTonBalance(userData?.tonBalance ?? BigInt(0)); 
                     context?.setCreditBalance(userData?.creditBalance ?? creditBalance); 
-                   
+                    context?.setFriends(userData?.friends);
                 }
             }catch{
                 console.log("Error fetching user data");
