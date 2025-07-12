@@ -648,6 +648,7 @@ html, body {
 .leaderboard-row {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
   padding: 0.95rem 0;
   font-size: 1rem;

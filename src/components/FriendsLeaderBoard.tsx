@@ -12,11 +12,13 @@ export default function FriendsLeaderBoard() {
       <h2 className="leaderboard-heading">Friends Leaderboard</h2>
 
       <div className="leaderboard-header">
+        <span>SNo.</span>
         <span>Username</span>
       </div>
 
       {friendsList.map((username, index) => (
         <div key={index} className="leaderboard-row">
+          <span>{index}</span>
           <span>{username}</span>
         </div>
       ))}
