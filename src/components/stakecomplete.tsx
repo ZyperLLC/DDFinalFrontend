@@ -1,14 +1,17 @@
 import { useEffect } from 'react';
 import { X } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import background1 from '../assets/background1.jpg';
 
 export default function StakeComplete({ onClose }: { onClose: () => void }) {
+  const { t } = useTranslation();
+
   useEffect(() => {
     const timer = setTimeout(() => {
       onClose();
-    }, 2000); // auto-close after 3 seconds
+    }, 2000); // auto-close after 2 seconds
 
-    return () => clearTimeout(timer); // clear on unmount
+    return () => clearTimeout(timer);
   }, [onClose]);
 
   return (
@@ -38,9 +41,9 @@ export default function StakeComplete({ onClose }: { onClose: () => void }) {
           filter: 'brightness(1.4)',
         }}
       >
-        {/* Close Button */}
         <button
           onClick={onClose}
+          aria-label={t('stakeComplete.close')}
           style={{
             position: 'absolute',
             top: '10px',
@@ -54,14 +57,13 @@ export default function StakeComplete({ onClose }: { onClose: () => void }) {
           <X size={20} />
         </button>
 
-        {/* Tick Icon */}
         <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>✅</div>
 
         <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1rem' }}>
-          Staked Successfully
+          {t('stakeComplete.success')}
         </h2>
 
-        <p>Your dolphin is now earning rewards. Track staking progress in your Profile.</p>
+        <p>{t('stakeComplete.description')}</p>
       </div>
     </div>
   );

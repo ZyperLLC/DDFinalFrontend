@@ -86,7 +86,50 @@
     "heading": "Clasificación de Amigos",
     "username": "Nombre de usuario",
     "reward": "Recompensa"
+  },
+
+  "profile": {
+    "deposit": "Depositar",
+    "balance": "Saldo",
+    "credit": "Crédito",
+    "connectWallet": "Conectar billetera",
+    "sendTon": "Enviar TON a la billetera",
+    "stakedNfts": "NFTs en staking",
+    "gameHistory": "Historial de Juegos"
+  },
+
+  "connectCard": {
+    "heading": "Entra al Juego",
+    "description": {
+      "line1": "Conecta tu billetera para desbloquear staking,",
+      "line2": "apuestas y premios diarios."
+    }
+  },
+
+
+  "stakedNFT": {
+    "remainingTime": "Tiempo restante",
+    "earn": "Ganarás"
+  },
+
+
+  "popup": {
+    "close": "Cerrar ventana",
+    "description": "Coronado antes de poder nadar recto, {{name}} convirtió Dolphin Dash en su reino personal — apostó $TON, siete anillos y un trono de sueños rotos. Otros delfines lo llaman suerte — él lo llama martes.",
+    "apy": "APY",
+    "stakeButton": "Apostar"
+  },
+
+
+  "stakeComplete": {
+    "close": "Cerrar ventana de éxito",
+    "success": "Apostado con éxito",
+    "description": "Tu delfín ya está generando recompensas. Revisa el progreso de staking en tu perfil."
   }
+
+
+
+
 
 
 

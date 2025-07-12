@@ -83,12 +83,45 @@
     "heading": "Friends Leaderboard",
     "username": "Username",
     "reward": "Reward"
+  },
+
+  "profile": {
+    "deposit": "Deposit",
+    "balance": "Balance",
+    "credit": "Credit",
+    "connectWallet": "Connect wallet",
+    "sendTon": "Send TON to Wallet",
+    "stakedNfts": "Staked NFT's",
+    "gameHistory": "Game History"
+
+},
+
+  "connectCard": {
+    "heading": "Step in the Game",
+    "description": {
+      "line1": "Connect your wallet to unlock staking,",
+      "line2": "betting and daily prizes."
+    }
+  },
+
+  "stakedNFT": {
+    "remainingTime": "Remaining time",
+    "earn": "You'll earn"
+  },
+
+
+  "popup": {
+    "close": "Close popup",
+    "description": "Crowned before he could swim straight, {{name}} turned the Dolphin Dash into his personal kingdom — staked $TON, seven rings, and a throne of broken dreams. Other dolphins call it luck — he just calls it Tuesday.",
+    "apy": "APY",
+    "stakeButton": "Stake"
+  },
+
+  "stakeComplete": {
+    "close": "Close success modal",
+    "success": "Staked Successfully",
+    "description": "Your dolphin is now earning rewards. Track staking progress in your Profile."
   }
-
-
-
-
-
 
 
 }

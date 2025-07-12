@@ -1,14 +1,17 @@
+import { useTranslation } from 'react-i18next';
 import { ConnectButton } from './ConnectButton';
 
 const ConnectWalletCard = () => {
+  const { t } = useTranslation();
+
   return (
     <div className="profile-card">
-      <h1 className="profile-heading">Step in the Game</h1>
+      <h1 className="profile-heading">{t('connectCard.heading')}</h1>
       <p className="profile-subheading">
-        Connect your wallet to unlock staking,<br />
-        betting and daily prizes.
+        {t('connectCard.description.line1')}<br />
+        {t('connectCard.description.line2')}
       </p>
-      <ConnectButton/>
+      <ConnectButton />
     </div>
   );
 };
