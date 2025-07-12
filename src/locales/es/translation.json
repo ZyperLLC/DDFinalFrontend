@@ -12,7 +12,24 @@
   "welcome_back": "Bienvenido de nuevo {{name}}",
   "user_registered": "Usuario registrado exitosamente",
   "fetch_user_failed": "Error al obtener los datos del usuario",
-  "error_occurred": "¡Ocurrió un error!"
+  "error_occurred": "¡Ocurrió un error!",
+  "choose_dolphin": "Elige tu Delfín",
+  "place_ton_bets": "Apuesta TON en uno o más NFTs. ¡Si tu delfín acierta, ganas con un multiplicador!",
+  "time_until_end": "Tiempo restante: {{hours}}h {{minutes}}m {{seconds}}s",
+  "dolphin_alt": "Delfín {{number}}",
+
+
+
+  "dolphin_popup": {
+    "description": "Coronado antes de poder nadar recto, {{name}} convirtió Dolphin Dash en su reino personal — apostó $TON, siete anillos y un trono de sueños rotos. Otros lo llaman suerte — él solo lo llama martes.",
+    "play": "Jugar",
+    "credit": "Crédito",
+    "amount": "Ingresa cantidad"
+
 }
+
+}
+
+
 
 

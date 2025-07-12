@@ -12,8 +12,27 @@
   "welcome_back": "Welcome Back {{name}}",
   "user_registered": "User Registered Successfully",
   "fetch_user_failed": "Failed to fetch user data",
-  "error_occurred": "Some Error Occurred!"
+  "error_occurred": "Some Error Occurred!",
+  "choose_dolphin": "Choose Your Dolphin",
+  "place_ton_bets": "Place TON bets on one or more NFTs. If your Dolphin hits, you win with a multiplier!",
+  "time_until_end": "Time Until The End: {{hours}}h {{minutes}}m {{seconds}}s",
+  "dolphin_alt": "Dolphin {{number}}",
+
+ "dolphin_popup": {
+    "description": "Crowned before he could swim straight, {{name}} turned the Dolphin Dash into his personal kingdom — staked $TON, seven rings, and a throne of broken dreams. Other dolphins call it luck — he just calls it Tuesday.",
+    "play": "Play",
+    "credit": "Credit",
+    "amount": "Enter amount"
+
+
 }
+
+}
+
+
+
+
+
 
 
 

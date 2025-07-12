@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { X } from 'lucide-react';
 import { useTonConnectUiContext } from '../Context/TonConnectUiContext';
 import { ConnectButton } from './ConnectButton';
+import { useTranslation } from 'react-i18next';
 
 import background1 from '../assets/background1.jpg';
 import tonSymbol from '../assets/ton_symbol.jpg';
@@ -16,6 +17,7 @@ export default function DolphinPopup({
   name: string;
   onClose: () => void;
 }) {
+  const { t } = useTranslation();
   const [selectedCurrency, setSelectedCurrency] = useState('TON');
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -41,17 +43,7 @@ export default function DolphinPopup({
   }, []);
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex justify-center items-center"
-      style={{
-        width: '100vw',
-        maxWidth: '100vw',
-        height: '100vh',
-        padding: '1rem',
-        overflow: 'hidden',
-        boxSizing: 'border-box',
-      }}
-    >
+    <div className="fixed inset-0 z-50 flex justify-center items-center" style={{ padding: '1rem' }}>
       <div
         style={{
           position: 'fixed',
@@ -69,8 +61,6 @@ export default function DolphinPopup({
           borderRadius: '1rem',
           background: '#000',
           overflow: 'hidden',
-          boxSizing: 'border-box',
-          maxHeight: '90vh',
           display: 'flex',
           flexDirection: 'column',
           position: 'relative',
@@ -114,10 +104,9 @@ export default function DolphinPopup({
           />
           <h2 className="text-xl font-bold text-center">{name}</h2>
           <p className="text-sm text-center mt-2" style={{ opacity: 0.9 }}>
-            Crowned before he could swim straight, {name} turned the Dolphin Dash into his personal kingdom — staked $TON, seven rings, and a throne of broken dreams. Other dolphins call it luck — he just calls it Tuesday.
+            {t('dolphin_popup.description', { name })}
           </p>
 
-          {/* 🌀 Loading Spinner */}
           {tonConnectUI == null ? (
             <div style={{ marginTop: '1.5rem', display: 'flex', justifyContent: 'center' }}>
               <div
@@ -142,6 +131,7 @@ export default function DolphinPopup({
               <div className="flex justify-center gap-3 mt-6 flex-wrap">
                 <input
                   type="number"
+                  placeholder={t('dolphin_popup.amount')}
                   style={{
                     height: '44px',
                     width: '120px',
@@ -209,7 +199,7 @@ export default function DolphinPopup({
                         style={{ padding: '0.5rem', display: 'flex', alignItems: 'center' }}
                       >
                         <img src={creditIcon} alt="Credit" style={{ width: '18px', marginRight: '6px' }} />
-                        Credit
+                        {t('dolphin_popup.credit')}
                       </div>
                     </div>
                   )}
@@ -232,7 +222,7 @@ export default function DolphinPopup({
                   }}
                   onClick={() => alert('Start button clicked!')}
                 >
-                  Play
+                  {t('dolphin_popup.play')}
                 </button>
               </div>
             </>
