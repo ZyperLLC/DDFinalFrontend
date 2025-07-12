@@ -14,12 +14,14 @@ export default function FriendsLeaderBoard() {
       <div className="leaderboard-header">
         <span>SNo.</span>
         <span>Username</span>
+        <span>Credits</span>
       </div>
 
       {friendsList.map((username, index) => (
         <div key={index} className="leaderboard-row">
-          <span>{index}</span>
+          <span>{index+1}</span>
           <span>{username}</span>
+          <span>0.01</span>
         </div>
       ))}
     </div>
