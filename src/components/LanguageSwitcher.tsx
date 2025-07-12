@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
 export const LanguageSwitcher = () => {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     i18n.changeLanguage(event.target.value);
@@ -12,7 +12,7 @@ export const LanguageSwitcher = () => {
       style={{
         display: 'flex',
         alignItems: 'center',
-        marginTop: '1rem', 
+        marginTop: '1rem',
         marginBottom: '10px',
       }}
     >
@@ -21,11 +21,11 @@ export const LanguageSwitcher = () => {
         className="dolphin-header"
         style={{ marginRight: '0.5rem' }}
       >
-        🌐 Language:
+        🌐 {t('languageSwitcher.label')}
       </label>
       <select
         id="language-select"
-        aria-label="Select Language"
+        aria-label={t('languageSwitcher.ariaLabel')}
         value={i18n.language}
         onChange={handleChange}
         style={{

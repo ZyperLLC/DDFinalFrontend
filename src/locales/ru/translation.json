@@ -37,7 +37,14 @@
     "stake": "Ставка",
     "friends": "Друзья",
     "profile": "Профиль"
+  },
+
+
+  "languageSwitcher": {
+    "label": "Язык",
+    "ariaLabel": "Выберите язык"
   }
+
 
 
 

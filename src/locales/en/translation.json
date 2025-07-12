@@ -42,8 +42,15 @@
     "stake": "Stake",
     "friends": "Friends",
     "profile": "Profile"
-  
-}
+
+},
+
+  "languageSwitcher": {
+    "label": "Language",
+    "ariaLabel": "Select Language"
+  }
+
+
 
 
 

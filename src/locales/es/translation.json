@@ -42,7 +42,14 @@
     "stake": "Apostar",
     "friends": "Amigos",
     "profile": "Perfil"
+  },
+
+
+  "languageSwitcher": {
+    "label": "Idioma",
+    "ariaLabel": "Seleccionar idioma"
   }
+
 
 }
 
