@@ -1,4 +1,4 @@
-// src/components/FriendsLeaderboard.tsx
+import { useTranslation } from 'react-i18next';
 import '../index.css';
 
 const leaderboardData = [
@@ -10,13 +10,15 @@ const leaderboardData = [
 ];
 
 export default function FriendsLeaderBoard() {
+  const { t } = useTranslation();
+
   return (
     <div className="leaderboard-container">
-      <h2 className="leaderboard-heading">Friends Leaderboard</h2>
+      <h2 className="leaderboard-heading">{t('friends.heading')}</h2>
 
       <div className="leaderboard-header">
-        <span>Username</span>
-        <span>Reward</span>
+        <span>{t('friends.username')}</span>
+        <span>{t('friends.reward')}</span>
       </div>
 
       {leaderboardData.map((entry, index) => (

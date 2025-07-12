@@ -69,7 +69,25 @@
       "JELLY THE JEET",
       "FINTALIK"
     ]
+  },
+
+  "friend": {
+    "title": "Invite a Friend",
+    "description": "Connect your wallet to unlock staking, betting and daily prizes.",
+    "placeholder": "Your invite link will appear here",
+    "copy": "Copy",
+    "inviteCopied": "Invite link copied!"
+  },
+
+  "friends": {
+    "heading": "Friends Leaderboard",
+    "username": "Username",
+    "reward": "Reward"
   }
+
+
+
+
 
 
 

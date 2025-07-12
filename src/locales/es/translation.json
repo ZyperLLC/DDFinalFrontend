@@ -70,6 +70,22 @@
       "JELLY THE JEET",
       "FINTALIK"
     ]
+  },
+
+
+  "friend": {
+    "title": "Invita a un amigo",
+    "description": "Conecta tu billetera para desbloquear staking, apuestas y premios diarios.",
+    "placeholder": "Tu enlace de invitación aparecerá aquí",
+    "copy": "Copiar",
+    "inviteCopied": "¡Enlace de invitación copiado!"
+  },
+
+
+  "friends": {
+    "heading": "Clasificación de Amigos",
+    "username": "Nombre de usuario",
+    "reward": "Recompensa"
   }
 
 
