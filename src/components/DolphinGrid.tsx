@@ -14,7 +14,7 @@ export default function DolphinGrid({
             key={i}
             src={src}
             alt={`Dolphin ${i + 1}`}
-            className="dolphin"
+            className="dolphin page-logo"
             onClick={() => onDolphinClick?.(i)}
           />
         ))}
