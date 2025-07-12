@@ -34,6 +34,8 @@ import dolphin22 from './assets/dolphins/dolphin22.jpg';
 import dolphin23 from './assets/dolphins/dolphin23.jpg';
 import dolphin24 from './assets/dolphins/dolphin24.jpg';
 import { UserContext } from './Context/UserContextProvider';
+import { getBettingRounds } from './api/userApi';
+import { start } from 'repl';
 
 const dolphins = [
   { image: dolphin1, name: 'RUGPULL RAY' },
@@ -69,16 +71,21 @@ function Home() {
   const [selectedDolphin, setSelectedDolphin] = useState<null | { id:number,image: string; name: string }>(null);
 
   useEffect(() => {
-    const saved = localStorage.getItem('dolphin_timer_start');
-    let start = saved ? parseInt(saved) : Date.now();
-    if (!saved) localStorage.setItem('dolphin_timer_start', `${start}`);
-    
+    function getLast8PMUTC(now: Date) {
+      const last8pm = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 20, 0, 0, 0));
+      if (now.getUTCHours() < 20 || (now.getUTCHours() === 20 && now.getUTCMinutes() === 0 && now.getUTCSeconds() === 0)) {
+        // If before 8pm UTC today, last 8pm was yesterday
+        last8pm.setUTCDate(last8pm.getUTCDate() - 1);
+      }
+      return last8pm;
+    }
+
     const interval = setInterval(() => {
-      const now = Date.now();
-      const elapsed = Math.floor((now - start) / 1000);
-      if (elapsed >= 86400) {
-        start = Date.now();
-        localStorage.setItem('dolphin_timer_start', `${start}`);
+      const now = new Date();
+      const last8pm = getLast8PMUTC(now);
+      const elapsed = Math.floor((now.getTime() - last8pm.getTime()) / 1000);
+      // If it's exactly 8pm UTC, reset timer
+      if (now.getUTCHours() === 20 && now.getUTCMinutes() === 0 && now.getUTCSeconds() === 0) {
         setTimer(0);
       } else {
         setTimer(elapsed);
