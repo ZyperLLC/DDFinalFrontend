@@ -50,13 +50,7 @@ export default function Friend() {
         </p>
 
         <div className="invite-box">
-          <input
-            type="text"
-            value={inviteLink}
-            readOnly
-            className="invite-input"
-            placeholder="Your invite link will appear here"
-          />
+          <div className='w-full bg-white text-red-300 text-md text-center  rounded-md'>{inviteLink}</div>
           <button className="invite-copy-btn" onClick={handleCopy}>
             Copy
           </button>
