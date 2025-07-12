@@ -18,16 +18,38 @@
   "time_until_end": "Time Until The End: {{hours}}h {{minutes}}m {{seconds}}s",
   "dolphin_alt": "Dolphin {{number}}",
 
+
  "dolphin_popup": {
     "description": "Crowned before he could swim straight, {{name}} turned the Dolphin Dash into his personal kingdom — staked $TON, seven rings, and a throne of broken dreams. Other dolphins call it luck — he just calls it Tuesday.",
     "play": "Play",
     "credit": "Credit",
     "amount": "Enter amount"
 
+},
+
+
+  "welcome_popup": {
+    "title": "Welcome to Dolphin Dash!",
+    "line1": "In the world of Dolphin Dash, legends are chosen daily.",
+    "line2": "Stake your dolphins, fuel the tide with TON, and test your luck in the arena.",
+    "line3": "Connect your wallet. Your journey begins."
+  },
+
+
+
+  "navbar": {
+    "game": "Game",
+    "stake": "Stake",
+    "friends": "Friends",
+    "profile": "Profile"
+  
+}
+
+
 
 }
 
-}
+
 
 
 

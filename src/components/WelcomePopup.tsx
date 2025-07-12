@@ -1,8 +1,11 @@
 import { X } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import popupImage from '../assets/popupbg.jpg';
 import { ConnectButton } from './ConnectButton';
 
 export default function WelcomePopup({ onClose }: { onClose: () => void }) {
+  const { t } = useTranslation();
+
   return (
     <div
       className="welcome-popup-image-bg"
@@ -12,13 +15,13 @@ export default function WelcomePopup({ onClose }: { onClose: () => void }) {
         <X size={22} />
       </button>
       <div className="popup-content">
-        <h2>Welcome to Dolphin Dash!</h2>
+        <h2>{t('welcome_popup.title')}</h2>
         <ul>
-          <li>🟣 In the world of Dolphin Dash, legends are chosen daily.</li>
-          <li>🟣 Stake your dolphins, fuel the tide with TON, and test your luck in the arena.</li>
-          <li>🟣 Connect your wallet. Your journey begins.</li>
+          <li>🟣 {t('welcome_popup.line1')}</li>
+          <li>🟣 {t('welcome_popup.line2')}</li>
+          <li>🟣 {t('welcome_popup.line3')}</li>
         </ul>
-        <ConnectButton/>
+        <ConnectButton />
       </div>
     </div>
   );
