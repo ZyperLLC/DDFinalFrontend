@@ -1,5 +1,15 @@
 {
   "connect_wallet": "Подключить кошелек",
   "play": "Играть",
-  "welcome_message": "Добро пожаловать в Dolphin Dash!"
+  "welcome_message": "Добро пожаловать в Dolphin Dash!",
+  "loading": "Загрузка...",
+  "wallet_connected": "Кошелёк успешно подключен",
+  "wallet_disconnected": "Кошелёк отключён",
+  "open_modal_failed": "Не удалось открыть окно",
+  "welcome_back": "С возвращением, {{name}}",
+  "user_registered": "Пользователь успешно зарегистрирован",
+  "fetch_user_failed": "Не удалось получить данные пользователя",
+  "error_occurred": "Произошла ошибка!"
 }
+
+

@@ -4,5 +4,16 @@
   "play": "Play",
   "amount": "Amount",
   "select_currency": "Select Currency",
-  "welcome": "Welcome to Dolphin Dash"
+  "welcome": "Welcome to Dolphin Dash",
+  "loading": "Loading...",
+  "wallet_connected": "Wallet Connected Successfully",
+  "wallet_disconnected": "Wallet Disconnected",
+  "open_modal_failed": "Failed to open modal",
+  "welcome_back": "Welcome Back {{name}}",
+  "user_registered": "User Registered Successfully",
+  "fetch_user_failed": "Failed to fetch user data",
+  "error_occurred": "Some Error Occurred!"
 }
+
+
+

@@ -8,15 +8,35 @@ export const LanguageSwitcher = () => {
   };
 
   return (
-    <div>
-      <label htmlFor="language-select" style={{ marginRight: '0.5rem' }}>
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        marginTop: '1rem', 
+        marginBottom: '10px',
+      }}
+    >
+      <label
+        htmlFor="language-select"
+        className="dolphin-header"
+        style={{ marginRight: '0.5rem' }}
+      >
         🌐 Language:
       </label>
       <select
         id="language-select"
+        aria-label="Select Language"
         value={i18n.language}
         onChange={handleChange}
-        style={{ padding: '0.25rem', borderRadius: '4px' }}
+        style={{
+          padding: '0.25rem',
+          background: '#fff',
+          borderRadius: '8px',
+          border: 'none',
+          textAlign: 'center',
+          fontWeight: 'bold',
+          marginRight: '10px',
+        }}
       >
         <option value="en">English</option>
         <option value="es">Español</option>

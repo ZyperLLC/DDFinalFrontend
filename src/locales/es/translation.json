@@ -4,5 +4,15 @@
   "play": "Jugar",
   "amount": "Cantidad",
   "select_currency": "Seleccionar Moneda",
-  "welcome": "¡Bienvenido a Dolphin Dash!"
+  "welcome": "¡Bienvenido a Dolphin Dash!",
+  "loading": "Cargando...",
+  "wallet_connected": "Billetera conectada exitosamente",
+  "wallet_disconnected": "Billetera desconectada",
+  "open_modal_failed": "Error al abrir el modal",
+  "welcome_back": "Bienvenido de nuevo {{name}}",
+  "user_registered": "Usuario registrado exitosamente",
+  "fetch_user_failed": "Error al obtener los datos del usuario",
+  "error_occurred": "¡Ocurrió un error!"
 }
+
+
