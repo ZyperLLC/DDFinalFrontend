@@ -3,20 +3,18 @@ import { useTranslation } from 'react-i18next';
 
 interface Props {
   image: string;
-  day: string;
   cost: string;
   prize: string;
   result: 'win' | 'lose';
 }
 
-const GameHistoryCard: React.FC<Props> = ({ image, day, cost, prize, result }) => {
+const GameHistoryCard: React.FC<Props> = ({ image, cost, prize, result }:Props) => {
   const { t } = useTranslation();
 
   return (
     <div className="nft-card history-card">
-      <img src={image} alt={day} className="nft-image" />
+      <img src={image} alt={"dolphin_image"} className="nft-image" />
       <div className="nft-info text-left">
-        <h3 className="nft-name">{day}</h3>
         <p className="nft-detail">
           <strong>{t('gameHistory.entryCost')}:</strong> {cost}
         </p>

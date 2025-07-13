@@ -6,6 +6,27 @@ import background1 from './assets/background1.jpg';
 import dolphin1 from './assets/dolphins/dolphin1.jpg';
 import dolphin2 from './assets/dolphins/dolphin2.jpg';
 import dolphin3 from './assets/dolphins/dolphin3.jpg';
+import dolphin4 from './assets/dolphins/dolphin4.jpg';
+import dolphin5 from './assets/dolphins/dolphin5.jpg';
+import dolphin6 from './assets/dolphins/dolphin6.jpg';
+import dolphin7 from './assets/dolphins/dolphin7.jpg';
+import dolphin8 from './assets/dolphins/dolphin8.jpg';
+import dolphin9 from './assets/dolphins/dolphin9.jpg';
+import dolphin10 from './assets/dolphins/dolphin10.jpg';
+import dolphin11 from './assets/dolphins/dolphin11.jpg';
+import dolphin12 from './assets/dolphins/dolphin12.jpg';
+import dolphin13 from './assets/dolphins/dolphin13.jpg';
+import dolphin14 from './assets/dolphins/dolphin14.jpg';
+import dolphin15 from './assets/dolphins/dolphin15.jpg';
+import dolphin16 from './assets/dolphins/dolphin16.jpg';
+import dolphin17 from './assets/dolphins/dolphin17.jpg';
+import dolphin18 from './assets/dolphins/dolphin18.jpg';
+import dolphin19 from './assets/dolphins/dolphin19.jpg';
+import dolphin20 from './assets/dolphins/dolphin20.jpg';
+import dolphin21 from './assets/dolphins/dolphin21.jpg';
+import dolphin22 from './assets/dolphins/dolphin22.jpg';
+import dolphin23 from './assets/dolphins/dolphin23.jpg';
+import dolphin24 from './assets/dolphins/dolphin24.jpg';
 
 import creditIcon from './assets/credit.jpg';
 import tonSymbol from './assets/ton_symbol.jpg';
@@ -24,6 +45,32 @@ export default function Profile() {
   const context = useContext(UserContext);
   const isWalletConnected = !!context?.user.walletAddress;
 
+  const dolphinImages: { [key: number]: string } = {
+    1: dolphin1,
+    2: dolphin2,
+    3: dolphin3,
+    4: dolphin4,
+    5: dolphin5,
+    6: dolphin6,  
+    7: dolphin7,
+    8: dolphin8,
+    9: dolphin9,
+    10: dolphin10,
+    11: dolphin11,
+    12: dolphin12,
+    13: dolphin13,
+    14: dolphin14,
+    15: dolphin15,
+    16: dolphin16,
+    17: dolphin17,
+    18: dolphin18,
+    19: dolphin19,
+    20: dolphin20,
+    21: dolphin21,
+    22: dolphin22,
+    23: dolphin23,
+    24: dolphin24,
+  }
   return (
     <div
       className="page profile-page"
@@ -102,9 +149,15 @@ export default function Profile() {
 
       {/* Game History */}
       <SectionBox title={t('profile.gameHistory')}>
-        <GameHistoryCard image={dolphin1} day="DAY 1" cost="1 TON" prize="7 TON" result="win" />
-        <GameHistoryCard image={dolphin2} day="DAY 2" cost="1 TON" prize="0 TON" result="lose" />
-        <GameHistoryCard image={dolphin3} day="DAY 3" cost="4 TON" prize="28 TON" result="win" />
+        {context?.user.bets?.length === 0 && context?.user?.bets.map((bet, index) => (
+          <GameHistoryCard
+            key={index}
+            image={dolphinImages[bet.numberBettedOn]} // Replace with bet.dolphinImage if available
+            cost={`${bet.amountBet} ${bet.useTon ? 'TON' : 'Credits'}`}
+            prize={`${bet.amountWon} ${bet.useTon ? 'TON' : 'Credits'}`}
+            result={bet.hasWon?'win':"lose"} // 'win' or 'lose'
+          />
+        ))}
       </SectionBox>
 
       <Navbar />

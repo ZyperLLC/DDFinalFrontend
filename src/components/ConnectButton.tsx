@@ -98,6 +98,7 @@ export const ConnectButton = ({ whiteBg = false }: ConnectButtonProps) => {
                     context?.setTonBalance(userData?.tonBalance ?? BigInt(0)); 
                     context?.setCreditBalance(userData?.creditBalance ?? creditBalance); 
                     context?.setFriends(userData?.friends);
+                    context?.setBets(userData?.betsPlace ?? []);
                 }
             }catch{
                 console.log("Error fetching user data");

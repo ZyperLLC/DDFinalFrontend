@@ -36,7 +36,6 @@ export const useDepositTon = ()=>{
         if(result.boc){
           const result = await depositAmount(amount, true, Number(context?.user.telegramId) || 0);
           console.log("Deposit Result:", result);
-          context?.setTonBalance(BigInt(amount.toString()) + (context?.user.tonBalance || BigInt(0)));
           toast.success("Deposit Successful");
         }
       }catch(err){
