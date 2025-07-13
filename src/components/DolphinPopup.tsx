@@ -73,8 +73,6 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
   const { tonConnectUI } = useTonConnectUiContext();
   const isWalletConnected = !!tonConnectUI?.account?.address;
 
-  const typedName = useTypewriter(name, 120, 2000);
-
   // Control when the popup starts disappearing
   useEffect(() => {
     if (isVisible) setShouldRender(true);
