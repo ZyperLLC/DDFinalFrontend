@@ -11,7 +11,7 @@ export const registerUser = async (userData: Partial<User>) => {
 /**
  * Deposit Ton
  */
-export const depositAmount = async (amount: string,isTon:boolean,tgId:number) => {
+export const depositAmount = async (amount: number,isTon:boolean,tgId:number) => {
   const res = await axios.post(`${BASE_URL}/api/users/deposit/${tgId}`, { amount, isTon });
   return res.data;
 };
