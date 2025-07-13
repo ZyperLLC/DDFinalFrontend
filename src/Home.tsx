@@ -1,4 +1,4 @@
-import {useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import logo from './assets/logo.jpg';
 import background1 from './assets/background1.jpg';
 import './index.css';
@@ -68,6 +68,7 @@ function Home() {
   const context = useContext(UserContext);
   const [showPopup, setShowPopup] = useState(context?.user.telegramId ? false : true);
   const [selectedDolphin, setSelectedDolphin] = useState<null | { image: string; name: string }>(null);
+  const [isDolphinPopupVisible, setIsDolphinPopupVisible] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem('dolphin_timer_start');
@@ -89,13 +90,26 @@ function Home() {
     return () => clearInterval(interval);
   }, []);
 
+  // show popup when a dolphin is selected
+  useEffect(() => {
+    if (selectedDolphin) {
+      setIsDolphinPopupVisible(true); // fade in
+    }
+  }, [selectedDolphin]);
 
+  const handleDolphinClose = () => {
+    setIsDolphinPopupVisible(false); // trigger fade-out
+  };
+
+  const handleDolphinExit = () => {
+    setSelectedDolphin(null); // fully unmount after fade-out
+  };
 
   return (
     <div className="page" style={{ backgroundImage: `url(${background1})` }}>
       {showPopup && <WelcomePopup onClose={() => setShowPopup(false)} />}
-         <LanguageSwitcher/>
-      {/* Blur wrapper for the main content */}
+      <LanguageSwitcher />
+
       <div className={`main-content-wrapper ${showPopup ? 'blurred' : ''}`}>
         <img src={logo} alt="Logo" className="page-logo" />
         <TimerCard timer={timer} />
@@ -111,12 +125,13 @@ function Home() {
         <Navbar />
       </div>
 
-      {/* DolphinPopup stays OUTSIDE blur, unaffected */}
       {selectedDolphin && (
         <DolphinPopup
           image={selectedDolphin.image}
           name={selectedDolphin.name}
-          onClose={() => setSelectedDolphin(null)}
+          isVisible={isDolphinPopupVisible}
+          onClose={handleDolphinClose}
+          onExit={handleDolphinExit}
         />
       )}
     </div>

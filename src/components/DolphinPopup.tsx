@@ -3,243 +3,279 @@ import { X } from 'lucide-react';
 import { useTonConnectUiContext } from '../Context/TonConnectUiContext';
 import { ConnectButton } from './ConnectButton';
 import { useTranslation } from 'react-i18next';
-import { useTypewriter } from '../hooks/useTypeWriter'; 
+import { useTypewriter } from '../hooks/useTypeWriter';
+import { motion, AnimatePresence } from 'framer-motion';
 
 import background1 from '../assets/background1.jpg';
 import tonSymbol from '../assets/ton_symbol.jpg';
 import creditIcon from '../assets/credit.jpg';
 
-export default function DolphinPopup({
-  image,
-  name,
-  onClose,
-}: {
+// DolphinPopup.tsx
+
+type Props = {
   image: string;
   name: string;
-  onClose: () => void;
-}) {
+  isVisible: boolean; // 👈 for fade-in / fade-out
+  onClose: () => void; // 👈 when user clicks X
+  onExit: () => void; // 👈 called after fade-out finishes
+};
+
+
+export default function DolphinPopup({ image, name, onClose, isVisible }: Props) {
   const { t } = useTranslation();
   const [selectedCurrency, setSelectedCurrency] = useState('TON');
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [shouldRender, setShouldRender] = useState(isVisible);
 
   const { tonConnectUI } = useTonConnectUiContext();
   const isWalletConnected = !!tonConnectUI?.account?.address;
 
-  const typedName = useTypewriter(name, 120, 2000); // Use typewriter for name
+  const typedName = useTypewriter(name, 120, 2000);
 
+  // Control when the popup starts disappearing
   useEffect(() => {
-    document.body.style.overflow = 'hidden';
-    document.body.style.position = 'fixed';
-    document.body.style.width = '100%';
-    document.body.style.maxWidth = '100vw';
-    document.body.style.left = '0';
-    document.body.style.right = '0';
+    if (isVisible) setShouldRender(true);
+  }, [isVisible]);
 
+  // Restore scroll on unmount
+  useEffect(() => {
+    if (isVisible) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.maxWidth = '100vw';
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+    }
     return () => {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = '';
       document.body.style.position = '';
       document.body.style.width = '';
       document.body.style.maxWidth = '';
       document.body.style.left = '';
       document.body.style.right = '';
     };
-  }, []);
+  }, [isVisible]);
+
+  const handleExitComplete = () => {
+    setShouldRender(false);
+    onClose(); // parent sets showPopup to false
+  };
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-center items-center dolphin-popup-image-bg" style={{ padding: '1rem' }}>
-      <div
-        style={{
-          position: 'fixed',
-          inset: 0,
-          backdropFilter: 'blur(8px)',
-          backgroundColor: 'rgba(0, 0, 0, 0.4)',
-          zIndex: -1,
-        }}
-      ></div>
-
-      <div
-        style={{
-          width: '100%',
-          maxWidth: '340px',
-          borderRadius: '1rem',
-          background: '#000',
-          overflow: 'hidden',
-          display: 'flex',
-          flexDirection: 'column',
-          position: 'relative',
-        }}
-      >
-        <button
-          className="close-btn absolute right-2 top-2 z-10"
-          onClick={onClose}
-          style={{
-            background: 'transparent',
-            border: 'none',
-            color: '#fff',
-            cursor: 'pointer',
-          }}
+    <AnimatePresence onExitComplete={handleExitComplete}>
+      {shouldRender && (
+        <motion.div
+          className="fixed inset-0 z-50 flex justify-center items-center p-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
         >
-          <X size={22} />
-        </button>
-
-        <div
-          style={{
-            backgroundImage: `url(${background1})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            color: 'white',
-            filter: 'brightness(1.4)',
-            padding: '4rem 1.5rem 2rem',
-            overflowY: 'auto',
-          }}
-        >
-          <img
-            src={image}
-            alt={name}
-            className="page-logo"
+          {/* Backdrop */}
+          <div
             style={{
-              width: '100%',
-              maxWidth: '160px',
-              display: 'block',
-              margin: '0 auto 1rem',
-              borderRadius: '1rem',
+              position: 'fixed',
+              inset: 0,
+              backdropFilter: 'blur(8px)',
+              backgroundColor: 'rgba(0, 0, 0, 0.4)',
+              zIndex: -1,
             }}
           />
-          <h2 className="text-xl font-bold text-center">
-            {typedName}
-            <span className="blinking-cursor">|</span>
-          </h2>
 
-          <p className="text-sm text-center mt-2" style={{ opacity: 0.9 }}>
-            {t('dolphin_popup.description', { name })}
-          </p>
+          {/* Popup */}
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            style={{
+              width: '100%',
+              maxWidth: '340px',
+              borderRadius: '1rem',
+              background: '#000',
+              overflow: 'hidden',
+              display: 'flex',
+              flexDirection: 'column',
+              position: 'relative',
+            }}
+          >
+            <button
+              className="close-btn absolute right-2 top-2 z-10"
+              onClick={() => {
+                // start fade-out
+                setShouldRender(false);
+              }}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: '#fff',
+                cursor: 'pointer',
+              }}
+            >
+              <X size={22} />
+            </button>
 
-          {tonConnectUI == null ? (
-            <div style={{ marginTop: '1.5rem', display: 'flex', justifyContent: 'center' }}>
-              <div
+            <div
+              style={{
+                backgroundImage: `url(${background1})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                color: 'white',
+                filter: 'brightness(1.4)',
+                padding: '4rem 1.5rem 2rem',
+                overflowY: 'auto',
+              }}
+            >
+              <img
+                src={image}
+                alt={name}
+                className="page-logo"
                 style={{
-                  width: '32px',
-                  height: '32px',
-                  border: '4px solid #fff',
-                  borderTop: '4px solid transparent',
-                  borderRadius: '50%',
-                  animation: 'spin 1s linear infinite',
+                  width: '100%',
+                  maxWidth: '160px',
+                  display: 'block',
+                  margin: '0 auto 1rem',
+                  borderRadius: '1rem',
                 }}
               />
-              <style>
-                {`@keyframes spin {
-                  0% { transform: rotate(0deg); }
-                  100% { transform: rotate(360deg); }
-                }`}
-              </style>
-            </div>
-          ) : isWalletConnected ? (
-            <>
-              <div className="flex justify-center gap-3 mt-6 flex-wrap">
-                <input
-                  type="number"
-                  placeholder={t('dolphin_popup.amount')}
-                  style={{
-                    height: '44px',
-                    width: '120px',
-                    background: '#fff',
-                    borderRadius: '8px',
-                    border: 'none',
-                    textAlign: 'center',
-                    fontWeight: 'bold',
-                    marginBottom: '10px',
-                    marginRight: '10px',
-                  }}
-                />
-                <div
-                  style={{
-                    height: '44px',
-                    width: '120px',
-                    background: '#fff',
-                    borderRadius: '8px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    position: 'relative',
-                    cursor: 'pointer',
-                    color: '#000',
-                    marginBottom: '10px',
-                  }}
-                  onClick={() => setDropdownOpen(!dropdownOpen)}
-                >
-                  <img
-                    src={selectedCurrency === 'TON' ? tonSymbol : creditIcon}
-                    alt="currency"
-                    style={{ width: '18px', marginRight: '6px' }}
-                  />
-                  <span>{selectedCurrency} ▼</span>
+              <h2 className="text-xl font-bold text-center">
+                {typedName}
+                <span className="blinking-cursor">|</span>
+              </h2>
 
-                  {dropdownOpen && (
-                    <div
+              <p className="text-sm text-center mt-2" style={{ opacity: 0.9 }}>
+                {t('dolphin_popup.description', { name })}
+              </p>
+
+              {tonConnectUI == null ? (
+                <div style={{ marginTop: '1.5rem', display: 'flex', justifyContent: 'center' }}>
+                  <div
+                    style={{
+                      width: '32px',
+                      height: '32px',
+                      border: '4px solid #fff',
+                      borderTop: '4px solid transparent',
+                      borderRadius: '50%',
+                      animation: 'spin 1s linear infinite',
+                    }}
+                  />
+                  <style>
+                    {`@keyframes spin {
+                      0% { transform: rotate(0deg); }
+                      100% { transform: rotate(360deg); }
+                    }`}
+                  </style>
+                </div>
+              ) : isWalletConnected ? (
+                <>
+                  <div className="flex justify-center gap-3 mt-6 flex-wrap">
+                    <input
+                      type="number"
+                      placeholder={t('dolphin_popup.amount')}
                       style={{
-                        position: 'absolute',
-                        top: '45px',
-                        left: 0,
-                        width: '100%',
+                        height: '44px',
+                        width: '120px',
                         background: '#fff',
                         borderRadius: '8px',
-                        boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
-                        zIndex: 10,
-                        color: '#000',
+                        border: 'none',
+                        textAlign: 'center',
+                        fontWeight: 'bold',
+                        marginBottom: '10px',
+                        marginRight: '10px',
                       }}
+                    />
+                    <div
+                      style={{
+                        height: '44px',
+                        width: '120px',
+                        background: '#fff',
+                        borderRadius: '8px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        position: 'relative',
+                        cursor: 'pointer',
+                        color: '#000',
+                        marginBottom: '10px',
+                      }}
+                      onClick={() => setDropdownOpen(!dropdownOpen)}
                     >
-                      <div
-                        onClick={() => {
-                          setSelectedCurrency('TON');
-                          setDropdownOpen(false);
-                        }}
-                        style={{ padding: '0.5rem', display: 'flex', alignItems: 'center' }}
-                      >
-                        <img src={tonSymbol} alt="TON" style={{ width: '18px', marginRight: '6px' }} />
-                        TON
-                      </div>
-                      <div
-                        onClick={() => {
-                          setSelectedCurrency('Credit');
-                          setDropdownOpen(false);
-                        }}
-                        style={{ padding: '0.5rem', display: 'flex', alignItems: 'center' }}
-                      >
-                        <img src={creditIcon} alt="Credit" style={{ width: '18px', marginRight: '6px' }} />
-                        {t('dolphin_popup.credit')}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
+                      <img
+                        src={selectedCurrency === 'TON' ? tonSymbol : creditIcon}
+                        alt="currency"
+                        style={{ width: '18px', marginRight: '6px' }}
+                      />
+                      <span>{selectedCurrency} ▼</span>
 
-              <div className="mt-6 flex justify-center">
-                <button
-                  style={{
-                    width: '100%',
-                    maxWidth: '200px',
-                    padding: '0.75rem',
-                    background: 'linear-gradient(90deg, #f72585, #7209b7)',
-                    color: '#fff',
-                    border: 'none',
-                    borderRadius: '8px',
-                    fontWeight: 600,
-                    fontSize: '1rem',
-                    cursor: 'pointer',
-                  }}
-                  onClick={() => alert('Start button clicked!')}
-                >
-                  {t('dolphin_popup.play')}
-                </button>
-              </div>
-            </>
-          ) : (
-            <div className="mt-6 flex justify-center">
-              <ConnectButton />
+                      {dropdownOpen && (
+                        <div
+                          style={{
+                            position: 'absolute',
+                            top: '45px',
+                            left: 0,
+                            width: '100%',
+                            background: '#fff',
+                            borderRadius: '8px',
+                            boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+                            zIndex: 10,
+                            color: '#000',
+                          }}
+                        >
+                          <div
+                            onClick={() => {
+                              setSelectedCurrency('TON');
+                              setDropdownOpen(false);
+                            }}
+                            style={{ padding: '0.5rem', display: 'flex', alignItems: 'center' }}
+                          >
+                            <img src={tonSymbol} alt="TON" style={{ width: '18px', marginRight: '6px' }} />
+                            TON
+                          </div>
+                          <div
+                            onClick={() => {
+                              setSelectedCurrency('Credit');
+                              setDropdownOpen(false);
+                            }}
+                            style={{ padding: '0.5rem', display: 'flex', alignItems: 'center' }}
+                          >
+                            <img src={creditIcon} alt="Credit" style={{ width: '18px', marginRight: '6px' }} />
+                            {t('dolphin_popup.credit')}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="mt-6 flex justify-center">
+                    <button
+                      style={{
+                        width: '100%',
+                        maxWidth: '200px',
+                        padding: '0.75rem',
+                        background: 'linear-gradient(90deg, #f72585, #7209b7)',
+                        color: '#fff',
+                        border: 'none',
+                        borderRadius: '8px',
+                        fontWeight: 600,
+                        fontSize: '1rem',
+                        cursor: 'pointer',
+                      }}
+                      onClick={() => alert('Start button clicked!')}
+                    >
+                      {t('dolphin_popup.play')}
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <div className="mt-6 flex justify-center">
+                  <ConnectButton />
+                </div>
+              )}
             </div>
-          )}
-        </div>
-      </div>
-    </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
