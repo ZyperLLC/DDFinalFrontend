@@ -123,11 +123,11 @@ export const ConnectButton = () => {
   return (
     <div>
       {!address ? (
-        <button className="w-full  rounded-[12px] font-semibold connect-wallet-button" onClick={openModal}>
+        <button className="w-full mt-2 py-3 rounded-[12px] font-semibold connect-wallet-button" onClick={openModal}>
           {tonConnectUiInstance ? t('connect_wallet') : t('loading')}
         </button>
       ) : (
-        <button className="w-full rounded-[12px] font-semibold connect-wallet-button" onClick={disconnectModal}>
+        <button className="w-full mt-2 py-3 rounded-[12px] font-semibold connect-wallet-button" onClick={disconnectModal}>
           {address.substring(2, 6).toUpperCase()}...
           {address.substring(address.length - 10).toUpperCase()}
         </button>
