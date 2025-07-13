@@ -48,7 +48,9 @@ const GameHistoryCard: React.FC<Props> = ({ image, cost, prize, useTon, betId, r
         </p>
       </div>
       <div className={`result-tag ${result}`}>
-        {t(`gameHistory.result.${hasEnded?result:'pending'}`)}
+        {hasEnded?
+        t(`gameHistory.result.${result}`) :
+        t('gameHistory.pending')}
       </div>
     </div>
   );
