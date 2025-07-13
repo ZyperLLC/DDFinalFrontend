@@ -4,13 +4,15 @@ import Logo from './components/Logo';
 import StakeHeader from './components/StakeHeader';
 import StakeDolphinGrid from './components/StakeDolphinGrid';
 import './index.css';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { UserContext } from './Context/UserContextProvider';
 import { ConnectButton } from './components/ConnectButton';
+import StakePopup from './components/stakepopup';
 
 export default function Stake() {
   const NAVBAR_HEIGHT_PX = 80;
   const context = useContext(UserContext);
+  const [selectedDolphin, setSelectedDolphin] = useState<any|null>(null);
 
   return (
     <div className="relative min-h-screen flex flex-col">
@@ -23,7 +25,7 @@ export default function Stake() {
         <Logo />
         <StakeHeader />
         {context?.user.walletAddress ?
-          <StakeDolphinGrid />:
+          <StakeDolphinGrid setSelectedDolphin={setSelectedDolphin}/>:
           <ConnectButton/>
         }
       </div>
@@ -34,6 +36,9 @@ export default function Stake() {
       >
         <Navbar />
       </div>
+      {selectedDolphin && (
+        <StakePopup image = {selectedDolphin.image} name={selectedDolphin.name} onClose={()=>setSelectedDolphin(null)}/>
+      )}
     </div>
   );
 }

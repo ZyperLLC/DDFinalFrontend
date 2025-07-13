@@ -2,7 +2,11 @@ import { useContext, useEffect, useState } from 'react';
 import { useGetCredits } from '../hooks/useGetCredits';
 import { UserContext } from '../Context/UserContextProvider';
 
-export default function StakeDolphinGrid() {
+export default function StakeDolphinGrid(
+  {  setSelectedDolphin } : {
+    setSelectedDolphin: (dolphin: any | null) => void;
+  }
+) {
   const context = useContext(UserContext);
   const [nfts,setNfts] = useState<any[]>([])
 
@@ -33,6 +37,11 @@ export default function StakeDolphinGrid() {
               src={nft.metadata?.image} 
               alt={nft.metadata}
               className="dolphin"
+              onClick={() => setSelectedDolphin({
+                image: nft.metadata?.image,
+                name: nft.metadata?.name,
+                description: nft.metadata?.description,
+              })}
             />
           )) :
           <span>No Dolphin Dash NFTs are present </span>}
