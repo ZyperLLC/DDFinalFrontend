@@ -4,9 +4,13 @@ import Logo from './components/Logo';
 import StakeHeader from './components/StakeHeader';
 import StakeDolphinGrid from './components/StakeDolphinGrid';
 import './index.css';
+import { useContext } from 'react';
+import { UserContext } from './Context/UserContextProvider';
+import { ConnectButton } from './components/ConnectButton';
 
 export default function Stake() {
   const NAVBAR_HEIGHT_PX = 80;
+  const context = useContext(UserContext);
 
   return (
     <div className="relative min-h-screen flex flex-col">
@@ -18,7 +22,10 @@ export default function Stake() {
       >
         <Logo />
         <StakeHeader />
-        <StakeDolphinGrid />
+        {context?.user.walletAddress ?
+          <StakeDolphinGrid />:
+          <ConnectButton/>
+        }
       </div>
 
       <div

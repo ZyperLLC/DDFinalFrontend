@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import dolphin1 from '../assets/dolphins/dolphin1.jpg';
 import dolphin2 from '../assets/dolphins/dolphin2.jpg';
 import dolphin3 from '../assets/dolphins/dolphin3.jpg';
@@ -10,21 +10,25 @@ import dolphin8 from '../assets/dolphins/dolphin8.jpg';
 import dolphin9 from '../assets/dolphins/dolphin9.jpg';
 
 import DolphinPopup from './stakepopup'; // ✅ Import popup component
+import { useGetCredits } from '../hooks/useGetCredits';
+import { UserContext } from '../Context/UserContextProvider';
 
 export default function StakeDolphinGrid() {
-  const dolphinCards = [
-    dolphin1, dolphin2, dolphin3,
-    dolphin4, dolphin5, dolphin6,
-    dolphin7, dolphin8, dolphin9
-  ];
+  const context = useContext(UserContext);
+  const [nfts,setNfts] = useState<any[]>([])
 
-  const dolphinNames = [
-    'RUGPULL RAY', 'HARMONIX', 'DND',
-    'D.O.A.T.', 'ANDRE BAIT', 'ELLE TUSK',
-    'DOLFIE TRUNK', 'JELLY THE JEET', 'FINTALIK'
-  ];
-
-  const [selectedDolphinIndex, setSelectedDolphinIndex] = useState<number | null>(null);
+  const {fetchNFTs} = useGetCredits();
+  
+  useEffect(()=>{
+    const fetchDolphinNFTs = async () => {
+      if (context?.user.walletAddress) {
+        const nfts = await fetchNFTs(context.user.walletAddress);
+        console.log("Fetched NFTs:", nfts);
+        setNfts(nfts??[]);
+      }
+    };
+    fetchDolphinNFTs();
+  },[context?.user.walletAddress]);
 
   return (
     <>
@@ -34,25 +38,17 @@ export default function StakeDolphinGrid() {
         </h2>
 
         <div className="dolphin-grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4">
-          {dolphinCards.map((card, index) => (
+          {nfts.length > 0 ? nfts.map((nft, index) => (
             <img
               key={index}
-              src={card}
-              alt={dolphinNames[index]}
+              src={nft.metadata?.image} 
+              alt={nft.metadata}
               className="dolphin"
-              onClick={() => setSelectedDolphinIndex(index)}
             />
-          ))}
+          )) :
+          <span>No Dolphin Dash NFTs are present </span>}
         </div>
       </div>
-
-      {selectedDolphinIndex !== null && (
-        <DolphinPopup
-          image={dolphinCards[selectedDolphinIndex]}
-          name={dolphinNames[selectedDolphinIndex]} // ✅ Use actual dolphin name
-          onClose={() => setSelectedDolphinIndex(null)}
-        />
-      )}
     </>
   );
 }
