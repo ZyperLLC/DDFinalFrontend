@@ -3,6 +3,7 @@ import { X } from 'lucide-react';
 import { useTonConnectUiContext } from '../Context/TonConnectUiContext';
 import { ConnectButton } from './ConnectButton';
 import { useTranslation } from 'react-i18next';
+import { useTypewriter } from '../hooks/useTypeWriter'; 
 
 import background1 from '../assets/background1.jpg';
 import tonSymbol from '../assets/ton_symbol.jpg';
@@ -24,6 +25,8 @@ export default function DolphinPopup({
   const { tonConnectUI } = useTonConnectUiContext();
   const isWalletConnected = !!tonConnectUI?.account?.address;
 
+  const typedName = useTypewriter(name, 120, 2000); // Use typewriter for name
+
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     document.body.style.position = 'fixed';
@@ -43,7 +46,7 @@ export default function DolphinPopup({
   }, []);
 
   return (
-    <div className="dolphin-popup-image-bg" style={{ padding: '1rem' }}>
+    <div className="fixed inset-0 z-50 flex justify-center items-center dolphin-popup-image-bg" style={{ padding: '1rem' }}>
       <div
         style={{
           position: 'fixed',
@@ -102,7 +105,11 @@ export default function DolphinPopup({
               borderRadius: '1rem',
             }}
           />
-          <h2 className="text-xl font-bold text-center">{name}</h2>
+          <h2 className="text-xl font-bold text-center">
+            {typedName}
+            <span className="blinking-cursor">|</span>
+          </h2>
+
           <p className="text-sm text-center mt-2" style={{ opacity: 0.9 }}>
             {t('dolphin_popup.description', { name })}
           </p>
