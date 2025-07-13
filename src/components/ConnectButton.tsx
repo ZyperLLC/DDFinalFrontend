@@ -1,4 +1,3 @@
-
 import { useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
@@ -10,7 +9,11 @@ import { User } from '../types';
 import { useUser } from '../hooks/useUser';
 import { useGetCredits } from '../hooks/useGetCredits';
 
-export const ConnectButton = () => {
+interface ConnectButtonProps {
+  variant?: 'walletCard';
+}
+
+export const ConnectButton: React.FC<ConnectButtonProps> = ({ variant }) => {
   const { t } = useTranslation();
   const { tgWebAppData } = retrieveLaunchParams();
   const { tonConnectUI: tonConnectUiInstance } = useTonConnectUiContext();
@@ -120,14 +123,26 @@ export const ConnectButton = () => {
     }
   };
 
+  const isWalletCard = variant === 'walletCard';
+
   return (
     <div>
       {!address ? (
-        <button className="connect-wallet-button" onClick={openModal}>
+        <button
+          className={`connect-wallet-button ${
+            isWalletCard ? 'bg-blue-600 text-white' : ''
+          } px-4 py-2 rounded-md font-semibold transition-colors duration-300`}
+          onClick={openModal}
+        >
           {tonConnectUiInstance ? t('connect_wallet') : t('loading')}
         </button>
       ) : (
-        <button className="connect-wallet-button" onClick={disconnectModal}>
+        <button
+          className={`connect-wallet-button ${
+            isWalletCard ? 'bg-white text-blue-600 border border-blue-600' : ''
+          } px-4 py-2 rounded-md font-semibold transition-colors duration-300`}
+          onClick={disconnectModal}
+        >
           {address.substring(2, 6).toUpperCase()}...
           {address.substring(address.length - 10).toUpperCase()}
         </button>

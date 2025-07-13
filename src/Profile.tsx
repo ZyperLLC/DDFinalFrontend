@@ -1,4 +1,4 @@
-// import { useContext } from 'react';
+import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import Navbar from './components/Navbar';
 
@@ -7,8 +7,8 @@ import dolphin1 from './assets/dolphins/dolphin1.jpg';
 import dolphin2 from './assets/dolphins/dolphin2.jpg';
 import dolphin3 from './assets/dolphins/dolphin3.jpg';
 
-// import creditIcon from './assets/credit.jpg';
-// import tonSymbol from './assets/ton_symbol.jpg';
+ import creditIcon from './assets/credit.jpg';
+import tonSymbol from './assets/ton_symbol.jpg';
 
 import LogoDisplay from './components/LogoDisplay';
 import ConnectWalletCard from './components/ConnectWalletCard';
@@ -18,12 +18,12 @@ import SectionBox from './components/SectionBox';
 
 import './index.css';
 // import { ConnectButton } from './components/ConnectButton';
-// import { UserContext } from './Context/UserContextProvider';
+import { UserContext } from './Context/UserContextProvider';
 
 export default function Profile() {
   const { t } = useTranslation();
-  // const context = useContext(UserContext);
-  // const isWalletConnected = context?.user.walletAddress;
+  const context = useContext(UserContext);
+   const isWalletConnected = context?.user.walletAddress;
 
   return (
     <div
@@ -43,7 +43,7 @@ export default function Profile() {
         <div className="w-[80%] max-w-[360px] mx-auto flex flex-col items-center gap-3">
           {/* <ConnectButton /> */}
 
-          {/* <div className="w-full bg-white text-black flex justify-between items-center px-4 py-3 rounded-[12px]">
+           <div className="w-full bg-white text-black flex justify-between items-center px-4 py-3 rounded-[12px]">
             <span></span>
             <div className="flex items-center gap-2">
               <img
@@ -55,9 +55,9 @@ export default function Profile() {
               />
               <span>TON</span>
             </div>
-          </div> */}
+          </div>
 
-          {/* <button
+          <button
             className="w-full py-3 rounded-[12px] font-semibold"
             style={{
               background: 'linear-gradient(to right, #D93CE6, #7B3FE4)',
@@ -65,12 +65,12 @@ export default function Profile() {
             }}
           >
             {t('profile.deposit')}
-          </button> */}
+          </button> 
         </div>
       </div>
 
       {/* Balance Section */}
-      {/* <div className="w-full mt-4 mb-6 px-4">
+      <div className="w-full mt-4 mb-6 px-4">
         <div
           className="w-[80%] max-w-[360px] mx-auto rounded-[16px] shadow-[0_4px_20px_rgba(0,0,0,0.3)] backdrop-blur-[10px]"
           style={{
@@ -131,7 +131,7 @@ export default function Profile() {
             </button>
           )}
         </div>
-      </div> */}
+      </div>
 
       {/* Staked NFTs */}
       <SectionBox title={t('profile.stakedNfts')}>

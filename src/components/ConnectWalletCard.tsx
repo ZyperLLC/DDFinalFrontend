@@ -18,11 +18,12 @@ const ConnectWalletCard = () => {
         ) : (
           <>
             {t('connectCard.description.line1')}
-
           </>
         )}
       </p>
-      <ConnectButton />
+
+      {/* 👇 Only this instance gets the custom variant */}
+      <ConnectButton variant="walletCard" />
     </div>
   );
 };
