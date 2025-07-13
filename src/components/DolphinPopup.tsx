@@ -216,6 +216,13 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
                     <input
                       type="number"
                       placeholder={t('dolphin_popup.amount')}
+                      onChange={(e) => {
+                        const value = parseFloat(e.target.value);
+                        if (!isNaN(value)) {
+                          setAmount(value);
+                        }
+                      }}
+                      value={amount}
                       style={{
                         height: '44px',
                         width: '120px',
