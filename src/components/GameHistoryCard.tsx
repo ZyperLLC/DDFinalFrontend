@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getBettingRoundById } from '../api/userApi';
-import creditIcon from './assets/credit.jpg';
-import tonSymbol from './assets/ton_symbol.jpg';
+import creditIcon from '../assets/credit.jpg';
+import tonSymbol from '../assets/ton_symbol.jpg';
 
 interface Props {
   image: string;
