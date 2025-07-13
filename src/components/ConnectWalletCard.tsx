@@ -19,7 +19,7 @@ const ConnectWalletCard = () => {
     }
   };
   const handleDepositTon = async () => {
-    const amount = parseInt(tonAmount);
+    const amount = parseFloat(tonAmount);
     try{
       await depositTon(amount);
       setTonAmount('');
