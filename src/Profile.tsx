@@ -37,37 +37,6 @@ export default function Profile() {
       <LogoDisplay />
       <ConnectWalletCard />
 
-      {/* ✅ Show Wallet Info Section only when wallet is connected */}
-      {isWalletConnected && (
-        <div className="w-full mt-4 px-4">
-          <div className="w-[80%] max-w-[360px] mx-auto flex flex-col items-center gap-3">
-            <div className="w-full bg-white text-black flex justify-between items-center px-4 py-3 rounded-[12px]">
-              <span></span>
-              <div className="flex items-center gap-2">
-                <img
-                  src={tonSymbol}
-                  alt="TON"
-                  className="rounded-full opacity-80"
-                  width={20}
-                  height={20}
-                />
-                <span>TON</span>
-              </div>
-            </div>
-
-            <button
-              className="w-full py-3 rounded-[12px] font-semibold connect-wallet-button"
-              // style={{
-              //   background: 'linear-gradient(to right, #D93CE6, #7B3FE4)',
-              //   color: 'white',
-              // }}
-            >
-              {t('profile.deposit')}
-            </button>
-          </div>
-        </div>
-      )}
-
       {/* ✅ Show Balance Section only when wallet is connected */}
       {isWalletConnected && (
         <div className="w-full mt-6 mb-6 px-4">
