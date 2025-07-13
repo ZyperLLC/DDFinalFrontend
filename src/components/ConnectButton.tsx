@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { UserContext } from '../Context/UserContextProvider';
 import { useTonConnectUiContext } from '../Context/TonConnectUiContext';
 import { retrieveLaunchParams } from '@telegram-apps/sdk';
-import { User } from '../types';
+import { Bet, User } from '../types';
 import { useUser } from '../hooks/useUser';
 import { useGetCredits } from '../hooks/useGetCredits';
 import { addFriend } from '../api/userApi';
@@ -98,7 +98,7 @@ export const ConnectButton = ({ whiteBg = false }: ConnectButtonProps) => {
                     context?.setTonBalance(userData?.tonBalance ?? BigInt(0)); 
                     context?.setCreditBalance(userData?.creditBalance ?? creditBalance); 
                     context?.setFriends(userData?.friends);
-                    context?.setBets(userData?.betsPlace ?? []);
+                    context?.setBets(userData?.betsPlace?.sort((a:Bet, b:Bet) => b.betId - a.betId) ?? []);
                 }
             }catch{
                 console.log("Error fetching user data");

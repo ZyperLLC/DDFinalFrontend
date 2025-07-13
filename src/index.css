@@ -569,7 +569,6 @@ html, body {
   font-size: 0.80rem;
   display:flex;
   align-items: center;
-  justify-content: center;
 }
 
 .result-tag {
