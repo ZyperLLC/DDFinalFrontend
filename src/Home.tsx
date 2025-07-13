@@ -1,9 +1,10 @@
-import {useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import logo from './assets/logo.jpg';
 import background1 from './assets/background1.jpg';
 import './index.css';
 
 import WelcomePopup from './components/WelcomePopup';
+import { LanguageSwitcher } from './components/LanguageSwitcher';
 import TimerCard from './components/TimerCard';
 import DolphinGrid from './components/DolphinGrid';
 import Navbar from './components/Navbar';
@@ -67,12 +68,13 @@ function Home() {
   const context = useContext(UserContext);
   const [showPopup, setShowPopup] = useState(context?.user.telegramId ? false : true);
   const [selectedDolphin, setSelectedDolphin] = useState<null | { image: string; name: string }>(null);
+  const [isDolphinPopupVisible, setIsDolphinPopupVisible] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem('dolphin_timer_start');
     let start = saved ? parseInt(saved) : Date.now();
     if (!saved) localStorage.setItem('dolphin_timer_start', `${start}`);
-    
+
     const interval = setInterval(() => {
       const now = Date.now();
       const elapsed = Math.floor((now - start) / 1000);
@@ -88,12 +90,26 @@ function Home() {
     return () => clearInterval(interval);
   }, []);
 
+  // show popup when a dolphin is selected
+  useEffect(() => {
+    if (selectedDolphin) {
+      setIsDolphinPopupVisible(true); // fade in
+    }
+  }, [selectedDolphin]);
 
-  
+  const handleDolphinClose = () => {
+    setIsDolphinPopupVisible(false); // trigger fade-out
+  };
+
+  const handleDolphinExit = () => {
+    setSelectedDolphin(null); // fully unmount after fade-out
+  };
+
   return (
     <div className="page" style={{ backgroundImage: `url(${background1})` }}>
       {showPopup && <WelcomePopup onClose={() => setShowPopup(false)} />}
-      {/* Blur wrapper for the main content */}
+      <LanguageSwitcher />
+
       <div className={`main-content-wrapper ${showPopup ? 'blurred' : ''}`}>
         <img src={logo} alt="Logo" className="page-logo" />
         <TimerCard timer={timer} />
@@ -109,12 +125,13 @@ function Home() {
         <Navbar />
       </div>
 
-      {/* DolphinPopup stays OUTSIDE blur, unaffected */}
       {selectedDolphin && (
         <DolphinPopup
           image={selectedDolphin.image}
           name={selectedDolphin.name}
-          onClose={() => setSelectedDolphin(null)}
+          isVisible={isDolphinPopupVisible}
+          onClose={handleDolphinClose}
+          onExit={handleDolphinExit}
         />
       )}
     </div>

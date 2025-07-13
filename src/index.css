@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 /* ========= Base Resets ========= */
 html, body {
   margin: 0;
@@ -11,9 +12,14 @@ html, body {
   overflow-x: hidden;
 }
 
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
 #root {
   min-height: 100%;
 }
+
 
 /* ========= Logo Styles ========= */
 .logo-container {
@@ -169,6 +175,19 @@ html, body {
   color: #eee;
 }
 
+.blinking-cursor {
+  display: inline-block;
+  margin-left: 2px;
+  animation: blink 1s steps(2, start) infinite;
+}
+
+@keyframes blink {
+  to {
+    visibility: hidden;
+  }
+}
+
+
 /* ========= Dolphin Grid ========= */
 .dolphin-header {
   text-align: left;
@@ -311,6 +330,32 @@ html, body {
   cursor: pointer;
   z-index: 10;
 }
+
+
+/* ========= TonConnect Modal Priority ========= */
+
+.dolphin-popup-image-bg {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 90%;
+  max-width: 650px;
+  transform: translate(-50%, -50%);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  aspect-ratio: 3 / 4;
+  border-radius: 20px;
+  overflow: hidden;
+  color: #fff;
+  z-index: 9990;
+  animation: popupFade 0.4s ease, popupGrow 0.4s ease;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
 
 /* ========= TonConnect Modal Priority ========= */
 #ton-connect-modal {

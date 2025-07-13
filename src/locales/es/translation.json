@@ -1,0 +1,150 @@
+{
+  "connect_wallet": "Conectar Cartera",
+  "disconnect_wallet": "Desconectar",
+  "play": "Jugar",
+  "amount": "Cantidad",
+  "select_currency": "Seleccionar Moneda",
+  "welcome": "¡Bienvenido a Dolphin Dash!",
+  "loading": "Cargando...",
+  "wallet_connected": "Billetera conectada exitosamente",
+  "wallet_disconnected": "Billetera desconectada",
+  "open_modal_failed": "Error al abrir el modal",
+  "welcome_back": "Bienvenido de nuevo {{name}}",
+  "user_registered": "Usuario registrado exitosamente",
+  "fetch_user_failed": "Error al obtener los datos del usuario",
+  "error_occurred": "¡Ocurrió un error!",
+  "choose_dolphin": "Elige tu Delfín",
+  "place_ton_bets": "Apuesta TON en uno o más NFTs. ¡Si tu delfín acierta, ganas con un multiplicador!",
+  "time_until_end": "Tiempo restante: {{hours}}h {{minutes}}m {{seconds}}s",
+  "dolphin_alt": "Delfín {{number}}",
+
+
+
+  "dolphin_popup": {
+    "description": "Coronado antes de poder nadar recto, {{name}} convirtió Dolphin Dash en su reino personal — apostó $TON, siete anillos y un trono de sueños rotos. Otros lo llaman suerte — él solo lo llama martes.",
+    "play": "Jugar",
+    "credit": "Crédito",
+    "amount": "Ingresa cantidad"
+
+},
+
+
+  "welcome_popup": {
+    "title": "¡Bienvenido a Dolphin Dash!",
+    "line1": "En el mundo de Dolphin Dash, las leyendas se eligen a diario.",
+    "line2": "Apuesta tus delfines, alimenta la marea con TON y pon a prueba tu suerte en la arena.",
+    "line3": "Conecta tu billetera. Tu viaje comienza ahora."
+  },
+
+
+  "navbar": {
+    "game": "Juego",
+    "stake": "Apostar",
+    "friends": "Amigos",
+    "profile": "Perfil"
+  },
+
+
+  "languageSwitcher": {
+    "label": "Idioma",
+    "ariaLabel": "Seleccionar idioma"
+  },
+
+
+  "stakeHeader": {
+    "title": "Apuesta",
+    "description": "Elige tu NFT, bloquéalo en staking y mira cómo llegan las recompensas, incluso cuando estás desconectado"
+  },
+
+
+  "stakeGrid": {
+    "title": "Disponible para apostar",
+    "names": [
+      "RUGPULL RAY",
+      "HARMONIX",
+      "DND",
+      "D.O.A.T.",
+      "ANDRE BAIT",
+      "ELLE TUSK",
+      "DOLFIE TRUNK",
+      "JELLY THE JEET",
+      "FINTALIK"
+    ]
+  },
+
+
+  "friend": {
+    "title": "Invita a un amigo",
+    "description": "Conecta tu billetera para desbloquear staking, apuestas y premios diarios.",
+    "placeholder": "Tu enlace de invitación aparecerá aquí",
+    "copy": "Copiar",
+    "inviteCopied": "¡Enlace de invitación copiado!"
+  },
+
+
+  "friends": {
+    "heading": "Clasificación de Amigos",
+    "username": "Nombre de usuario",
+    "reward": "Recompensa"
+  },
+
+  "profile": {
+    "deposit": "Depositar",
+    "balance": "Saldo",
+    "credit": "Crédito",
+    "connectWallet": "Conectar billetera",
+    "sendTon": "Enviar TON a la billetera",
+    "stakedNfts": "NFTs en staking",
+    "gameHistory": "Historial de Juegos"
+  },
+
+
+  "connectCard": {
+  "heading": "Conecta tu Billetera",
+  "description": {
+    "line1": "Por favor conecta tu billetera para comenzar.",
+    "line2": "Podrás interactuar, hacer staking y jugar."
+  },
+  "connected": {
+    "heading": "Billetera Conectada",
+    "description": "Tu billetera está activa — ya puedes interactuar, hacer staking y jugar."
+  }
+},
+
+
+
+  "stakedNFT": {
+    "remainingTime": "Tiempo restante",
+    "earn": "Ganarás"
+  },
+
+
+  "popup": {
+    "close": "Cerrar ventana",
+    "description": "Coronado antes de poder nadar recto, {{name}} convirtió Dolphin Dash en su reino personal — apostó $TON, siete anillos y un trono de sueños rotos. Otros delfines lo llaman suerte — él lo llama martes.",
+    "apy": "APY",
+    "stakeButton": "Apostar"
+  },
+
+
+  "stakeComplete": {
+    "close": "Cerrar ventana de éxito",
+    "success": "Apostado con éxito",
+    "description": "Tu delfín ya está generando recompensas. Revisa el progreso de staking en tu perfil."
+  },
+
+  "gameHistory": {
+    "entryCost": "Costo de entrada",
+    "prize": "Premio",
+    "result": {
+      "win": "Ganó",
+      "lose": "Perdió"
+    }
+  }
+
+
+}
+
+
+
+
