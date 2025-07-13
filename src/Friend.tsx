@@ -1,5 +1,4 @@
-// src/Friend.tsx
-
+import { useTranslation } from 'react-i18next';
 import Navbar from './components/Navbar';
 import background1 from './assets/background1.jpg';
 import logo from './assets/logo.jpg';
@@ -16,6 +15,12 @@ export default function Friend() {
   const handleCopy = () => {
     navigator.clipboard.writeText(inviteLink);
     toast.success('Invite link copied to clipboard!');
+  const { t } = useTranslation();
+  const inviteLink = '';
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(inviteLink);
+    alert(t('friend.inviteCopied'));
   };
 
   return (
@@ -48,14 +53,21 @@ export default function Friend() {
 
       {/* Invite Section */}
       <div className="invite-container">
-        <h1 className="invite-heading">Invite a Friend</h1>
+        <h1 className="invite-heading">{t('friend.title')}</h1>
         <p className="invite-subheading">
-          Connect your wallet to unlock staking, betting and daily prizes.
+          {t('friend.description')}
         </p>
 
         <div className="invite-box">
+          <input
+            type="text"
+            value={inviteLink}
+            readOnly
+            className="invite-input"
+            placeholder={t('friend.placeholder')}
+          />
           <button className="invite-copy-btn" onClick={handleCopy}>
-            Copy
+            {t('friend.copy')}
           </button>
         </div>
       </div>

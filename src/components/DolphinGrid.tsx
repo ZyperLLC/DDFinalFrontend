@@ -1,3 +1,6 @@
+
+import { useTranslation } from 'react-i18next';
+
 export default function DolphinGrid({
   dolphins,
   onDolphinClick,
@@ -5,9 +8,13 @@ export default function DolphinGrid({
   dolphins: string[];
   onDolphinClick: (index: number) => void;
 }) {
+  const { t } = useTranslation();
+
   return (
     <>
-      <h2 className="dolphin-header">Choose Your Dolphin</h2>
+      <h2 className="dolphin-header" style={{ marginTop: '1rem' }}>
+        {t('choose_dolphin')}
+      </h2>
       <div className="dolphin-grid">
         {dolphins.map((src, i) => (
           <img

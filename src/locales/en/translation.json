@@ -1,0 +1,145 @@
+{
+  "connect_wallet": "Connect Wallet",
+  "disconnect_wallet": "Disconnect Wallet",
+  "play": "Play",
+  "amount": "Amount",
+  "select_currency": "Select Currency",
+  "welcome": "Welcome to Dolphin Dash",
+  "loading": "Loading...",
+  "wallet_connected": "Wallet Connected Successfully",
+  "wallet_disconnected": "Wallet Disconnected",
+  "open_modal_failed": "Failed to open modal",
+  "welcome_back": "Welcome Back {{name}}",
+  "user_registered": "User Registered Successfully",
+  "fetch_user_failed": "Failed to fetch user data",
+  "error_occurred": "Some Error Occurred!",
+  "choose_dolphin": "Choose Your Dolphin",
+  "place_ton_bets": "Place TON bets on one or more NFTs. If your Dolphin hits, you win with a multiplier!",
+  "time_until_end": "Time Until The End: {{hours}}h {{minutes}}m {{seconds}}s",
+  "dolphin_alt": "Dolphin {{number}}",
+
+
+ "dolphin_popup": {
+    "description": "Crowned before he could swim straight, {{name}} turned the Dolphin Dash into his personal kingdom — staked $TON, seven rings, and a throne of broken dreams. Other dolphins call it luck — he just calls it Tuesday.",
+    "play": "Play",
+    "credit": "Credit",
+    "amount": "Enter amount"
+
+},
+
+
+  "welcome_popup": {
+    "title": "Welcome to Dolphin Dash!",
+    "line1": "In the world of Dolphin Dash, legends are chosen daily.",
+    "line2": "Stake your dolphins, fuel the tide with TON, and test your luck in the arena.",
+    "line3": "Connect your wallet. Your journey begins."
+  },
+
+
+
+  "navbar": {
+    "game": "Game",
+    "stake": "Stake",
+    "friends": "Friends",
+    "profile": "Profile"
+
+},
+
+  "languageSwitcher": {
+    "label": "Language",
+    "ariaLabel": "Select Language"
+  },
+
+  "stakeHeader": {
+    "title": "Stake It",
+    "description": "Pick your NFT, lock it in staking, and watch the rewards roll in — even while you're offline"
+  },
+
+
+  "stakeGrid": {
+    "title": "Available for Staking",
+    "names": [
+      "RUGPULL RAY",
+      "HARMONIX",
+      "DND",
+      "D.O.A.T.",
+      "ANDRE BAIT",
+      "ELLE TUSK",
+      "DOLFIE TRUNK",
+      "JELLY THE JEET",
+      "FINTALIK"
+    ]
+  },
+
+  "friend": {
+    "title": "Invite a Friend",
+    "description": "Connect your wallet to unlock staking, betting and daily prizes.",
+    "placeholder": "Your invite link will appear here",
+    "copy": "Copy",
+    "inviteCopied": "Invite link copied!"
+  },
+
+  "friends": {
+    "heading": "Friends Leaderboard",
+    "username": "Username",
+    "reward": "Reward"
+  },
+
+  "profile": {
+    "deposit": "Deposit",
+    "balance": "Balance",
+    "credit": "Credit",
+    "connectWallet": "Connect wallet",
+    "sendTon": "Send TON to Wallet",
+    "stakedNfts": "Staked NFT's",
+    "gameHistory": "Game History"
+
+},
+
+
+  "connectCard": {
+    "heading": "Step In The Game",
+    "description": {
+      "line1": "Connect your wallet to unlock staking, betting and daily prizes."
+    },
+    "connected": {
+      "heading": "Wallet Connected",
+      "description": "Your wallet is now active — you're ready to interact, stake and play."
+    }
+  },
+
+
+
+  "stakedNFT": {
+    "remainingTime": "Remaining time",
+    "earn": "You'll earn"
+  },
+
+
+  "popup": {
+    "close": "Close popup",
+    "description": "Crowned before he could swim straight, {{name}} turned the Dolphin Dash into his personal kingdom — staked $TON, seven rings, and a throne of broken dreams. Other dolphins call it luck — he just calls it Tuesday.",
+    "apy": "APY",
+    "stakeButton": "Stake"
+  },
+
+  "stakeComplete": {
+    "close": "Close success modal",
+    "success": "Staked Successfully",
+    "description": "Your dolphin is now earning rewards. Track staking progress in your Profile."
+  },
+
+
+  "gameHistory": {
+    "entryCost": "Entry Cost",
+    "prize": "Prize",
+    "result": {
+      "win": "Win",
+      "lose": "Lose"
+    }
+
+}
+
+
+
+}

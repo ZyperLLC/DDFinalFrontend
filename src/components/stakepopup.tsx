@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { useTonConnectUI } from '@tonconnect/ui-react';
+import { useTranslation } from 'react-i18next';
 import { X } from 'lucide-react';
 import background1 from '../assets/background1.jpg';
 import toast from 'react-hot-toast';
@@ -11,6 +13,8 @@ export default function StakePopup({
   selectedNft:any;
   onClose: () => void;
 }) {
+  const { t } = useTranslation();
+  const [_tonConnectUI] = useTonConnectUI();
   const [_selectedCurrency, _setSelectedCurrency] = useState('TON');
   const [_dropdownOpen, _setDropdownOpen] = useState(false);
   const {stakeNft} = useStakeNft();
@@ -45,17 +49,7 @@ export default function StakePopup({
   };
   return (
     <>
-      <div
-        className="fixed inset-0 z-50 flex justify-center items-center"
-        style={{
-          width: '100vw',
-          maxWidth: '100vw',
-          height: '100vh',
-          padding: '1rem',
-          overflow: 'hidden',
-          boxSizing: 'border-box',
-        }}
-      >
+      <div className="fixed inset-0 z-50 flex justify-center items-center" style={{ width: '100vw', maxWidth: '100vw', height: '100vh', padding: '1rem', overflow: 'hidden', boxSizing: 'border-box' }}>
         <div
           style={{
             position: 'fixed',
@@ -83,12 +77,8 @@ export default function StakePopup({
           <button
             className="close-btn absolute right-2 top-2 z-10"
             onClick={onClose}
-            style={{
-              background: 'transparent',
-              border: 'none',
-              color: '#fff',
-              cursor: 'pointer',
-            }}
+            style={{ background: 'transparent', border: 'none', color: '#fff', cursor: 'pointer' }}
+            aria-label={t('popup.close')}
           >
             <X size={22} />
           </button>
@@ -121,6 +111,15 @@ export default function StakePopup({
               {selectedNft.description.slice(0, 150) + '...'}
             </p>
 
+              {t('popup.description', { name })}
+            </p>
+
+            <div className="mt-6 flex justify-center" style={{ width: '100%', maxWidth: '185px', margin: '1.5rem auto 0.5rem', padding: '0.5rem', background: 'rgba(255, 255, 255, 0.08)', borderRadius: '8px', backdropFilter: 'blur(6px)', textAlign: 'center' }}>
+              <span style={{ color: '#32CD32', fontWeight: 'bold', fontSize: '1rem' }}>
+                {t('popup.apy')}: 2.85%
+              </span>
+            </div>
+
             <div className="mt-3 flex justify-center">
               <button
                 style={{
@@ -137,7 +136,7 @@ export default function StakePopup({
                 }}
                 onClick={handleStakeNft}
               >
-                Stake
+                {t('popup.stakeButton')}
               </button>
             </div>
           </div>
@@ -145,6 +144,7 @@ export default function StakePopup({
       </div>
 
      
+      {showCompletePopup && <StakeComplete onClose={() => setShowCompletePopup(false)} />}
     </>
   );
 }

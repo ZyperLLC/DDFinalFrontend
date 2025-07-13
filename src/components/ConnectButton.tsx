@@ -1,8 +1,10 @@
 import { useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
+
 import { UserContext } from '../Context/UserContextProvider';
 import { useTonConnectUiContext } from '../Context/TonConnectUiContext';
-import { retrieveLaunchParams  } from '@telegram-apps/sdk'
+import { retrieveLaunchParams } from '@telegram-apps/sdk';
 import { User } from '../types';
 import { useUser } from '../hooks/useUser';
 import { useGetCredits } from '../hooks/useGetCredits';
@@ -10,34 +12,43 @@ import { addFriend } from '../api/userApi';
 
 export const ConnectButton = ()=>{
     const {tgWebAppData,tgWebAppStartParam} = retrieveLaunchParams();
+type ConnectButtonProps = {
+  whiteBg?: boolean;
+};
 
-    const {tonConnectUI:tonConnectUiInstance} = useTonConnectUiContext();
-    const context = useContext(UserContext);
-    
-    const [address,setAddress] = useState<string|null>(tonConnectUiInstance?.account?.address ?? null);
+export const ConnectButton = ({ whiteBg = false }: ConnectButtonProps) => {
+  const { t } = useTranslation();
+  const { tgWebAppData } = retrieveLaunchParams();
+  const { tonConnectUI: tonConnectUiInstance } = useTonConnectUiContext();
+  const context = useContext(UserContext);
 
-    const {register,fetchUser,error} = useUser();
-    const {fetchNFTs} = useGetCredits();
+  const [address, setAddress] = useState<string | null>(
+    tonConnectUiInstance?.account?.address ?? null
+  );
 
-    const fetchDolphinCredits = async (address:string) => {
-        let finfatherNft = 0;
-        let hasFinFather = false;
-      if (address) {
-        const nfts = await fetchNFTs(address);
-        if(nfts.length<=0){
-            return {hasNft:false,hasFinFather:false};
-        }else{
-            for (const nft of nfts) {
-                if(nft.metadata?.name?.toLowerCase().includes("finfather")){
-                    hasFinFather = true;
-                    finfatherNft++;
-                }
-                
-            }
-            return {hasNft:true,hasFinFather,finfatherNft,totalNfts:nfts.length-finfatherNft};
+  const { register, fetchUser, error } = useUser();
+  const { fetchNFTs } = useGetCredits();
+
+  const fetchDolphinCredits = async (address: string) => {
+    let finfatherNft = 0;
+    let hasFinFather = false;
+    if (address) {
+      const nfts = await fetchNFTs(address);
+      if (nfts.length <= 0) return { hasNft: false, hasFinFather: false };
+      for (const nft of nfts) {
+        if (nft.metadata?.name?.toLowerCase().includes('finfather')) {
+          hasFinFather = true;
+          finfatherNft++;
         }
       }
+      return {
+        hasNft: true,
+        hasFinFather,
+        finfatherNft,
+        totalNfts: nfts.length - finfatherNft,
+      };
     }
+  };
 
     const checkRegisteredUser = async (address:string)=>{
         //if addess is empty return
@@ -95,59 +106,75 @@ export const ConnectButton = ()=>{
                 toast.error("Failed to fetch user data");
             }
         }
-    }
 
-    useEffect(()=>{
-        if(tonConnectUiInstance){
-        const unsubscribe = tonConnectUiInstance?.onStatusChange(async (wallet)=>{
-            try{
-                if(wallet){
-                setAddress(wallet?.account.address);
-                toast.success("Wallet Connected Successfully");
-                checkRegisteredUser(wallet?.account.address);
-                }   
-        }catch(err){
-            console.log(err);
-            toast.error("Some Error Occured!");
-        }         
-        })
-        checkRegisteredUser(tonConnectUiInstance?.account?.address??"");
-        return ()=>{
-            unsubscribe();
+        context?.setTelegramId(tgWebAppData?.user?.id.toString());
+        context?.setWalletAddress(address);
+        context?.setTonBalance(userData?.tonBalance ?? BigInt(0));
+        context?.setCreditBalance(userData?.creditBalance ?? creditBalance);
+      }
+    } catch {
+      console.error(error);
+      toast.error(t('fetch_user_failed'));
+    }
+  };
+
+  useEffect(() => {
+    if (tonConnectUiInstance) {
+      const unsubscribe = tonConnectUiInstance.onStatusChange(async (wallet) => {
+        try {
+          if (wallet) {
+            setAddress(wallet?.account.address);
+            toast.success(t('wallet_connected'));
+            checkRegisteredUser(wallet?.account.address);
+          }
+        } catch (err) {
+          console.log(err);
+          toast.error(t('error_occurred'));
         }
-    }
-    },[tonConnectUiInstance]);
+      });
 
-    
-  
-    const openModal = async ()=>{
-        if(tonConnectUiInstance){
-            await tonConnectUiInstance.openModal();
-        }else{
-            toast.error("Failed to open modal");
-        }
+      checkRegisteredUser(tonConnectUiInstance?.account?.address ?? '');
+      return () => unsubscribe();
     }
+  }, [tonConnectUiInstance]);
 
-    const disconnectModal = async ()=>{
-        if(tonConnectUiInstance){
-            await tonConnectUiInstance.disconnect();
-            toast.success("Wallet Disconnected");
-            setAddress(null);
-            context?.resetUser();
-        }
+  const openModal = async () => {
+    if (tonConnectUiInstance) {
+      await tonConnectUiInstance.openModal();
+    } else {
+      toast.error(t('open_modal_failed'));
     }
+  };
 
-    return(
-        <div>
-            {!address ? 
-                <button className="connect-wallet-button" onClick={openModal}>
-                    {tonConnectUiInstance?"Connect Wallet":"Loading..."}
-                </button>
-                :
-                <button className="connect-wallet-button" onClick={disconnectModal}>
-                    {address.substring(2,6).toUpperCase()}...{address.substring(address.length-10).toUpperCase()}
-                </button>
-            }
-        </div>
-    )
-}
+  const disconnectModal = async () => {
+    if (tonConnectUiInstance) {
+      await tonConnectUiInstance.disconnect();
+      toast.success(t('wallet_disconnected'));
+      setAddress(null);
+      context?.resetUser();
+    }
+  };
+
+  return (
+    <div>
+      {!address ? (
+        <button
+          className="block w-full mt-2 py-3 rounded-[12px] font-semibold connect-wallet-button"
+          onClick={openModal}
+        >
+          {tonConnectUiInstance ? t('connect_wallet') : t('loading')}
+        </button>
+      ) : (
+        <button
+          className={`block w-full mt-2 py-3 rounded-[12px] font-semibold connect-wallet-button ${
+            whiteBg ? 'bg-white text-blue-600 border border-blue-600' : ''
+          }`}
+          onClick={disconnectModal}
+        >
+          {address.substring(2, 6).toUpperCase()}...
+          {address.substring(address.length - 10).toUpperCase()}
+        </button>
+      )}
+    </div>
+  );
+};
