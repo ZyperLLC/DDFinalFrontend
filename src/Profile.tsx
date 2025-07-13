@@ -39,7 +39,6 @@ import SectionBox from './components/SectionBox';
 
 import './index.css';
 import { UserContext } from './Context/UserContextProvider';
-import { contractAddress } from './constants/index';
 
 export default function Profile() {
   const { t } = useTranslation();
@@ -144,7 +143,7 @@ export default function Profile() {
 
       {/* Staked NFTs */}
       <SectionBox title={t('profile.stakedNfts')}>
-        {context?.user.stakedNfts && context.user.stakedNfts.length === 0 && context.user.stakedNfts.map((nft, index) => (
+        {context?.user.stakedNfts && context.user.stakedNfts.length === 0 && context.user.stakedNfts.map((nft) => (
           <StakedNFTCard contractAddress={nft}/>  
         ))}
       </SectionBox>
