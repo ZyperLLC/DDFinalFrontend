@@ -20,6 +20,7 @@ html, body {
   min-height: 100%;
 }
 
+
 /* ========= Logo Styles ========= */
 .logo-container {
   padding-top: 1rem;
@@ -173,6 +174,19 @@ html, body {
   font-size: 0.9rem;
   color: #eee;
 }
+
+.blinking-cursor {
+  display: inline-block;
+  margin-left: 2px;
+  animation: blink 1s steps(2, start) infinite;
+}
+
+@keyframes blink {
+  to {
+    visibility: hidden;
+  }
+}
+
 
 /* ========= Dolphin Grid ========= */
 .dolphin-header {
