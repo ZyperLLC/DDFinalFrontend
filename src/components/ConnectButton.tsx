@@ -124,25 +124,28 @@ export const ConnectButton: React.FC<ConnectButtonProps> = ({ variant }) => {
   };
 
   const isWalletCard = variant === 'walletCard';
+  const isConnected = !!address;
+
+  const buttonStyle: React.CSSProperties = {
+    padding: '12px 20px',
+    borderRadius: '8px',
+    fontWeight: 600,
+    fontSize: '1rem',
+    border: isWalletCard && isConnected ? '1px solid #2563eb' : 'none',
+    backgroundColor: isWalletCard && isConnected ? '#ffffff' : isWalletCard ? '#2563eb' : '#333',
+    color: isWalletCard && isConnected ? '#2563eb' : '#ffffff',
+    transition: 'all 0.3s ease',
+    cursor: 'pointer',
+  };
 
   return (
     <div>
-      {!address ? (
-        <button
-          className={`connect-wallet-button ${
-            isWalletCard ? 'bg-blue-600 text-white' : ''
-          } px-4 py-2 rounded-md font-semibold transition-colors duration-300`}
-          onClick={openModal}
-        >
+      {!isConnected ? (
+        <button style={buttonStyle} onClick={openModal}>
           {tonConnectUiInstance ? t('connect_wallet') : t('loading')}
         </button>
       ) : (
-        <button
-          className={`connect-wallet-button ${
-            isWalletCard ? 'bg-white text-blue-600 border border-blue-600' : ''
-          } px-4 py-2 rounded-md font-semibold transition-colors duration-300`}
-          onClick={disconnectModal}
-        >
+        <button style={buttonStyle} onClick={disconnectModal}>
           {address.substring(2, 6).toUpperCase()}...
           {address.substring(address.length - 10).toUpperCase()}
         </button>
