@@ -149,7 +149,7 @@ export default function Profile() {
 
       {/* Game History */}
       <SectionBox title={t('profile.gameHistory')}>
-        {context?.user.bets?.length === 0 && context?.user?.bets.map((bet, index) => (
+        {context?.user.bets!==undefined && context?.user.bets.length !== 0 && context?.user?.bets.map((bet, index) => (
           <GameHistoryCard
             key={index}
             image={dolphinImages[bet.numberBettedOn]} // Replace with bet.dolphinImage if available
