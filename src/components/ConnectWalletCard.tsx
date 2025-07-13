@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ConnectButton } from './ConnectButton';
 import { useTonConnectUiContext } from '../Context/TonConnectUiContext';
-
 import tonSymbol from '../assets/ton_symbol.jpg';
 
 const ConnectWalletCard = () => {
@@ -14,7 +13,6 @@ const ConnectWalletCard = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
-    // Allow only numbers and decimals
     if (/^\d*\.?\d*$/.test(val)) {
       setTonAmount(val);
     }
@@ -31,13 +29,14 @@ const ConnectWalletCard = () => {
           ? t('connectCard.connected.description')
           : t('connectCard.description.line1')}
       </p>
-        <ConnectButton />
+
+      <ConnectButton />
 
       {isWalletConnected && (
         <div className="w-full mt-4 px-4">
           <div
             className="w-[80%] max-w-[360px] mx-auto flex flex-col items-center gap-3"
-            style={{ marginTop: '16px' }} // spacing from ConnectButton
+            style={{ marginTop: '16px' }}
           >
             <div
               style={{
@@ -52,19 +51,19 @@ const ConnectWalletCard = () => {
                 placeholder="0"
                 style={{
                   width: '100%',
-                  padding: '10px 14px 10px 50px',
+                  padding: '10px 50px 10px 14px',
                   borderRadius: '12px',
                   border: '1px solid #ccc',
                   fontSize: '16px',
-                  textAlign: 'right',
                   color: '#000',
+                  boxSizing: 'border-box',
                 }}
               />
               <div
                 style={{
                   position: 'absolute',
                   top: '50%',
-                  left: '14px',
+                  right: '14px',
                   transform: 'translateY(-50%)',
                   display: 'flex',
                   alignItems: 'center',
@@ -85,7 +84,7 @@ const ConnectWalletCard = () => {
             <button
               className="w-full py-3 rounded-[12px] font-semibold connect-wallet-button"
               style={{
-                marginTop: '12px', // spacing between input and button
+                marginTop: '12px',
               }}
             >
               {t('profile.deposit')}
