@@ -70,7 +70,7 @@ export default function Profile() {
 
       {/* ✅ Show Balance Section only when wallet is connected */}
       {isWalletConnected && (
-        <div className="w-full mt-4 mb-6 px-4">
+        <div className="w-full mt-6 mb-6 px-4">
           <div
             className="w-[80%] max-w-[360px] mx-auto rounded-[16px] shadow-[0_4px_20px_rgba(0,0,0,0.3)] backdrop-blur-[10px]"
             style={{
@@ -98,7 +98,7 @@ export default function Profile() {
 
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-3">
-                <img src={tonSymbol} alt="TON" className="rounded-full" width={24} height={24} />
+                <img src={tonSymbol} alt="TON" className="rounded-full" width={26} height={26} />
                 <span style={{ fontSize: '1rem' }}>TON</span>
               </div>
               <span

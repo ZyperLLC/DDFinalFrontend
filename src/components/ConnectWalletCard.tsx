@@ -12,18 +12,29 @@ const ConnectWalletCard = () => {
       <h1 className="profile-heading">
         {isConnected ? t('connectCard.connected.heading') : t('connectCard.heading')}
       </h1>
+
       <p className="profile-subheading">
-        {isConnected ? (
-          t('connectCard.connected.description')
-        ) : (
-          <>
-            {t('connectCard.description.line1')}
-          </>
-        )}
+        {isConnected
+          ? t('connectCard.connected.description')
+          : t('connectCard.description.line1')}
       </p>
 
-      {/* 👇 Only this instance gets the custom variant */}
-      <ConnectButton />
+      {/* Style wrapper */}
+      <div
+        style={{
+          backgroundColor: isConnected ? '#ffffff' : '#2563eb',
+          color: isConnected ? '#2563eb' : '#ffffff',
+          border: isConnected ? '1px solid #2563eb' : 'none',
+          borderRadius: '8px',
+          padding: '12px 20px',
+          fontWeight: 600,
+          textAlign: 'center',
+          cursor: 'pointer',
+          display: 'inline-block',
+        }}
+      >
+        <ConnectButton />
+      </div>
     </div>
   );
 };
