@@ -1,5 +1,5 @@
 import { createContext, useState, ReactNode } from "react";
-import { Bet } from "../types";
+import { Bet, StakedNFT } from "../types";
 
 type User = {
   telegramId?: string | null;
@@ -9,7 +9,7 @@ type User = {
   holdingNFTs?:boolean|null;
   friends?: string[]; // Optional field for friends list
   bets?: Bet[]; // Optional field for bets
-  stakedNfts?: string[]; // Optional field for staked NFTs
+  stakedNfts?: StakedNFT[]; // Optional field for staked NFTs
 };
 
 type UserContextType = {
@@ -22,7 +22,7 @@ type UserContextType = {
   setHoldingNFTs: (holdingNFTs: boolean | null) => void;
   setFriends: (friends: string[]) => void; // Optional setter for friends list
   setBets: (bets: Bet[]) => void; // Optional setter for bets
-  setStakedNfts: (stakedNfts: string[]) => void; // Optional setter for staked NFTs
+  setStakedNfts: (stakedNfts: StakedNFT[]) => void; // Optional setter for staked NFTs
 };
 
 export const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -82,7 +82,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       bets,
     }));
   };
-  const setStakedNfts = (stakedNfts: string[]) => {
+  const setStakedNfts = (stakedNfts: StakedNFT[]) => {
     setUser((prev) => ({
       ...prev,
       stakedNfts,
