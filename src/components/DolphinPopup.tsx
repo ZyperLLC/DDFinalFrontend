@@ -3,7 +3,6 @@ import { X } from 'lucide-react';
 import { useTonConnectUiContext } from '../Context/TonConnectUiContext';
 import { ConnectButton } from './ConnectButton';
 import { useTranslation } from 'react-i18next';
-import { useTypewriter } from '../hooks/useTypeWriter';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import background1 from '../assets/background1.jpg';
