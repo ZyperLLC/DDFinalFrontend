@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 /* ========= Base Resets ========= */
 html, body {
   margin: 0;
@@ -9,6 +10,10 @@ html, body {
   width: 100%;
   min-height: 100vh;
   overflow-x: hidden;
+}
+
+* {
+  font-family: 'Poppins', sans-serif;
 }
 
 #root {
