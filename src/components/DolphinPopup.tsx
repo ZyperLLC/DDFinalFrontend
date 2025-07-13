@@ -183,12 +183,11 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
                 }}
               />
               <h2 className="text-xl font-bold text-center">
-                {typedName}
-                <span className="blinking-cursor">|</span>
+                {name}
               </h2>
 
               <p className="text-sm text-center mt-2" style={{ opacity: 0.9 }}>
-                {t('dolphin_popup.description', { name })}
+                {t('dolphin_popup.description', { name }).slice(0, 200) + '...'}
               </p>
 
               {tonConnectUI == null ? (

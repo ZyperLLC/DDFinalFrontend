@@ -39,7 +39,7 @@ export default function StakeDolphinGrid(
               key={index}
               src={nft.metadata?.image} 
               alt={nft.metadata}
-              className="dolphin page-logo"
+              className="dolphin"
               onClick={() => setSelectedDolphin({
                 contractAddress: nft.address,
                 image: nft.metadata?.image,

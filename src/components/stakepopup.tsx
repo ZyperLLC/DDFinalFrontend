@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useTonConnectUI } from '@tonconnect/ui-react';
 import { useTranslation } from 'react-i18next';
 import { X } from 'lucide-react';
 import background1 from '../assets/background1.jpg';
@@ -14,7 +13,6 @@ export default function StakePopup({
   onClose: () => void;
 }) {
   const { t } = useTranslation();
-  const [_tonConnectUI] = useTonConnectUI();
   const [_selectedCurrency, _setSelectedCurrency] = useState('TON');
   const [_dropdownOpen, _setDropdownOpen] = useState(false);
   const {stakeNft} = useStakeNft();
