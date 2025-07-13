@@ -18,12 +18,17 @@ const StakedNFTCard = ({contractAddress}:{contractAddress:string}) => {
     fetchNftData();
   }, [contractAddress]);
   return (
+    <>
+    {nftData ?
     <div className="nft-card">
       <img src={nftData.metadata.image} alt={nftData.metadata.name} className="nft-image" />
       <div className="nft-info text-left">
         <h3 className="nft-name">{nftData.metadata.name}</h3>
       </div>
-    </div>
+    </div>:
+    <></>
+  }
+  </>
   );
 };
 
