@@ -184,7 +184,7 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
               </h2>
 
               <p className="text-sm text-center mt-2" style={{ opacity: 0.9 }}>
-                {t('dolphin_popup.description', { name }).slice(0, 200) + '...'}
+                {t('dolphin_popup.description', { name }).slice(0, 150) + '...'}
               </p>
 
               {tonConnectUI == null ? (
@@ -307,7 +307,7 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
                         fontSize: '1rem',
                         cursor: 'pointer',
                       }}
-                      onClick={() => alert('Start button clicked!')}
+                      onClick={() => handlePlayClick(id + 1)}
                     >
                       {t('dolphin_popup.play')}
                     </button>
@@ -320,26 +320,6 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
                 </div>
               )}
             </div>
-
-          <div className="mt-6 flex justify-center">
-            <button
-              style={{
-                width: '100%',
-                maxWidth: '200px',
-                padding: '0.75rem',
-                background: 'linear-gradient(90deg, #f72585, #7209b7)',
-                color: '#fff',
-                border: 'none',
-                borderRadius: '8px',
-                fontWeight: 600,
-                fontSize: '1rem',
-                cursor: 'pointer',
-              }}
-              onClick={() => handlePlayClick(id + 1)} // Assuming id is the number to bet on
-            >
-              Play
-            </button>
-          </div>
           </motion.div>
         </motion.div>
       )}
