@@ -66,8 +66,8 @@ export default function Profile() {
             </div>
 
             <div className="flex justify-between items-center">
-              <div className="flex items-center gap-3">
-                <img src={tonSymbol} alt="TON" className="rounded-full" width={26} height={26} />
+              <div className="flex items-center gap-6">
+                <img src={tonSymbol} alt="TON" className="rounded-full" width={24} height={24} />
                 <span style={{ fontSize: '1rem' }}>TON</span>
               </div>
               <span
