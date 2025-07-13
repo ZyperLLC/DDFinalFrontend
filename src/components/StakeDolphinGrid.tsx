@@ -38,7 +38,7 @@ export default function StakeDolphinGrid(
               alt={nft.metadata}
               className="dolphin"
               onClick={() => setSelectedDolphin({
-                contractAddress: nft.contractAddress,
+                contractAddress: nft.address,
                 image: nft.metadata?.image,
                 name: nft.metadata?.name,
                 description: nft.metadata?.description,
