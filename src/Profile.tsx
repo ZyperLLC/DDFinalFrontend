@@ -56,11 +56,11 @@ export default function Profile() {
             </div>
 
             <button
-              className="w-full py-3 rounded-[12px] font-semibold"
-              style={{
-                background: 'linear-gradient(to right, #D93CE6, #7B3FE4)',
-                color: 'white',
-              }}
+              className="w-full py-3 rounded-[12px] font-semibold connect-wallet-button"
+              // style={{
+              //   background: 'linear-gradient(to right, #D93CE6, #7B3FE4)',
+              //   color: 'white',
+              // }}
             >
               {t('profile.deposit')}
             </button>
@@ -112,11 +112,12 @@ export default function Profile() {
             </div>
 
             <button
-              className="w-full mt-2 py-3 rounded-[12px] font-semibold"
-              style={{
-                background: 'linear-gradient(to right, #D93CE6, #7B3FE4)',
-                color: 'white',
-              }}
+              className="w-full mt-2 py-3 rounded-[12px] font-semibold connect-wallet-button"
+
+              // style={{
+              //   background: 'linear-gradient(to right, #D93CE6, #7B3FE4)',
+              //   color: 'white',
+              // }}
             >
               {t('profile.sendTon')}
             </button>

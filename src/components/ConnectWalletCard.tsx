@@ -23,7 +23,7 @@ const ConnectWalletCard = () => {
       </p>
 
       {/* 👇 Only this instance gets the custom variant */}
-      <ConnectButton variant="walletCard" />
+      <ConnectButton />
     </div>
   );
 };
