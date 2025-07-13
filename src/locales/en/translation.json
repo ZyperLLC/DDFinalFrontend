@@ -98,10 +98,9 @@
 
 
   "connectCard": {
-    "heading": "Connect Your Wallet",
+    "heading": "Step In The Game",
     "description": {
-      "line1": "Please connect your wallet to get started.",
-      "line2": "You'll be able to interact, stake and play."
+      "line1": "Connect your wallet to unlock staking, betting and daily prizes."
     },
     "connected": {
       "heading": "Wallet Connected",

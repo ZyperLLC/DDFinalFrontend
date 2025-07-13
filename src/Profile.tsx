@@ -17,7 +17,7 @@ import GameHistoryCard from './components/GameHistoryCard';
 import SectionBox from './components/SectionBox';
 
 import './index.css';
-import { ConnectButton } from './components/ConnectButton';
+// import { ConnectButton } from './components/ConnectButton';
 // import { UserContext } from './Context/UserContextProvider';
 
 export default function Profile() {
@@ -41,7 +41,7 @@ export default function Profile() {
       {/* Wallet Info Section */}
       <div className="w-full mt-4 px-4">
         <div className="w-[80%] max-w-[360px] mx-auto flex flex-col items-center gap-3">
-          <ConnectButton />
+          {/* <ConnectButton /> */}
 
           {/* <div className="w-full bg-white text-black flex justify-between items-center px-4 py-3 rounded-[12px]">
             <span></span>

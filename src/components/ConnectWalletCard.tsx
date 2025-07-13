@@ -17,8 +17,8 @@ const ConnectWalletCard = () => {
           t('connectCard.connected.description')
         ) : (
           <>
-            {t('connectCard.description.line1')}<br />
-            {t('connectCard.description.line2')}
+            {t('connectCard.description.line1')}
+
           </>
         )}
       </p>
