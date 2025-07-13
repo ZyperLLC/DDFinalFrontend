@@ -82,7 +82,7 @@ const ConnectWalletCard = () => {
             </div>
 
             <button
-              className="w-full py-3 rounded-[12px] font-semibold connect-wallet-button"
+              className="w-full mt-2 py-3 rounded-[12px] font-semibold connect-wallet-button"
               style={{
                 marginTop: '12px',
               }}
