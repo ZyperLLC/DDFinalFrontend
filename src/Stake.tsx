@@ -37,7 +37,7 @@ export default function Stake() {
         <Navbar />
       </div>
       {selectedDolphin && (
-        <StakePopup image = {selectedDolphin.image} name={selectedDolphin.name} onClose={()=>setSelectedDolphin(null)}/>
+        <StakePopup selectedNft={selectedDolphin} onClose={()=>setSelectedDolphin(null)}/>
       )}
     </div>
   );
