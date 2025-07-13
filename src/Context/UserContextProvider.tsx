@@ -9,6 +9,7 @@ type User = {
   holdingNFTs?:boolean|null;
   friends?: string[]; // Optional field for friends list
   bets?: Bet[]; // Optional field for bets
+  stakedNfts?: string[]; // Optional field for staked NFTs
 };
 
 type UserContextType = {
@@ -21,6 +22,7 @@ type UserContextType = {
   setHoldingNFTs: (holdingNFTs: boolean | null) => void;
   setFriends: (friends: string[]) => void; // Optional setter for friends list
   setBets: (bets: Bet[]) => void; // Optional setter for bets
+  setStakedNfts: (stakedNfts: string[]) => void; // Optional setter for staked NFTs
 };
 
 export const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -34,6 +36,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     holdingNFTs: null,
     friends: [],
     bets: [], // Initialize with an empty array
+    stakedNfts:[]
   });
 
   const setTelegramId = (telegramId: string | null) => {
@@ -79,6 +82,12 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       bets,
     }));
   };
+  const setStakedNfts = (stakedNfts: string[]) => {
+    setUser((prev) => ({
+      ...prev,
+      stakedNfts,
+    }));
+  };
   const resetUser = () => {
     setUser({
       telegramId: null,
@@ -88,6 +97,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       holdingNFTs: null,
       friends: [],
       bets: [], // Reset bets to an empty array
+      stakedNfts: [] // Reset staked NFTs to an empty array
     });
   };
 
@@ -103,6 +113,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         setHoldingNFTs,
         setFriends,
         setBets,
+        setStakedNfts
       }}
     >
       {children}

@@ -14,7 +14,20 @@ export const useGetCredits = () => {
     return null;
   }
 }
+async function fetchNftByAddress(contractAddress: string) {
+  try {
+    const response = await axios.get(`https://tonapi.io/v2/nfts/${contractAddress}`);
+    if (!response.data) {
+      throw new Error('Network response was not ok');
+    }
+    return response.data;
+  } catch (error) {
+    console.error('Failed to fetch NFT by address:', error);
+    return null;
+  }
+}
 return {
-    fetchNFTs
+    fetchNFTs,
+    fetchNftByAddress
 };
 }

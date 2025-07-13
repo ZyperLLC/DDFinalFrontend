@@ -99,6 +99,7 @@ export const ConnectButton = ({ whiteBg = false }: ConnectButtonProps) => {
                     context?.setCreditBalance(userData?.creditBalance ?? creditBalance); 
                     context?.setFriends(userData?.friends);
                     context?.setBets(userData?.betsPlace?.sort((a:Bet, b:Bet) => b.betId - a.betId) ?? []);
+                    context?.setStakedNfts(userData?.stakedNFTs ?? []);
                 }
             }catch{
                 console.log("Error fetching user data");
