@@ -98,13 +98,20 @@
     "gameHistory": "Historial de Juegos"
   },
 
+
   "connectCard": {
-    "heading": "Entra al Juego",
+    "heading": "Connect Your Wallet",
     "description": {
-      "line1": "Conecta tu billetera para desbloquear staking,",
-      "line2": "apuestas y premios diarios."
+      "line1": "Please connect your wallet to get started.",
+      "line2": "You'll be able to interact, stake and play."
+    },
+    "connected": {
+      "heading": "Wallet Connected",
+      "description": "Your wallet is now active — you're ready to interact, stake and play."
     }
   },
+
+
 
 
   "stakedNFT": {
