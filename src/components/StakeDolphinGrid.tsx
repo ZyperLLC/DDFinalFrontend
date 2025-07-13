@@ -1,15 +1,4 @@
 import { useContext, useEffect, useState } from 'react';
-import dolphin1 from '../assets/dolphins/dolphin1.jpg';
-import dolphin2 from '../assets/dolphins/dolphin2.jpg';
-import dolphin3 from '../assets/dolphins/dolphin3.jpg';
-import dolphin4 from '../assets/dolphins/dolphin4.jpg';
-import dolphin5 from '../assets/dolphins/dolphin5.jpg';
-import dolphin6 from '../assets/dolphins/dolphin6.jpg';
-import dolphin7 from '../assets/dolphins/dolphin7.jpg';
-import dolphin8 from '../assets/dolphins/dolphin8.jpg';
-import dolphin9 from '../assets/dolphins/dolphin9.jpg';
-
-import DolphinPopup from './stakepopup'; // ✅ Import popup component
 import { useGetCredits } from '../hooks/useGetCredits';
 import { UserContext } from '../Context/UserContextProvider';
 
