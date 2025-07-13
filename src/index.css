@@ -338,6 +338,7 @@ html, body {
   position: fixed;
   top: 50%;
   left: 50%;
+  width: 90%;
   max-width: 650px;
   transform: translate(-50%, -50%);
   background-repeat: no-repeat;
@@ -349,7 +350,6 @@ html, body {
   color: #fff;
   z-index: 9990;
   animation: popupFade 0.4s ease, popupGrow 0.4s ease;
-  background-color: transparent;
   box-shadow: none;
   display: flex;
   flex-direction: column;
