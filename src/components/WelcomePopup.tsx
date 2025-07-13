@@ -21,7 +21,9 @@ export default function WelcomePopup({ onClose }: { onClose: () => void }) {
           <li>🟣 {t('welcome_popup.line2')}</li>
           <li>🟣 {t('welcome_popup.line3')}</li>
         </ul>
-        <ConnectButton />
+        <div className='w-full px-4'>
+         <ConnectButton />
+       </div>
       </div>
     </div>
   );

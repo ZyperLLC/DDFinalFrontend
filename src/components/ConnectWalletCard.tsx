@@ -30,7 +30,7 @@ const ConnectWalletCard = () => {
           : t('connectCard.description.line1')}
       </p>
        <div className='w-full px-4'>
-         <ConnectButton />
+         <ConnectButton whiteBg/>
         </div>
 
       {isWalletConnected && (
