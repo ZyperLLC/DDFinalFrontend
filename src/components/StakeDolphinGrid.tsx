@@ -49,7 +49,7 @@ export default function StakeDolphinGrid() {
               key={index}
               src={card}
               alt={dolphinNames[index]}
-              className="dolphin"
+              className="dolphin page-logo"
               onClick={() => setSelectedDolphinIndex(index)}
             />
           ))}
