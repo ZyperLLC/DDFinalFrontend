@@ -574,10 +574,10 @@ html, body {
 .result-tag {
   align-self: center;
   margin-left: auto;
-  padding: 4px 12px;
+  padding: 4px 10px;
   border-radius: 999px;
-  font-weight: bold;
-  font-size: 0.85rem;
+  font-weight: 10px;
+  font-size: 0.75rem;
   color: white;
   position: absolute;
   top: 12px;
