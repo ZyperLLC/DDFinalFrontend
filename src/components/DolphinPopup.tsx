@@ -43,7 +43,7 @@ export default function DolphinPopup({
   }, []);
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-center items-center welcome-popup-image-bg" style={{ padding: '1rem' }}>
+    <div className="welcome-popup-image-bg" style={{ padding: '1rem' }}>
       <div
         style={{
           position: 'fixed',
