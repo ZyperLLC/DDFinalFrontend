@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useGetCredits } from '../hooks/useGetCredits';
 
-const StakedNFTCard = (contractAddress:string) => {
+const StakedNFTCard = ({contractAddress}:{contractAddress:string}) => {
   const {fetchNftByAddress} = useGetCredits();
   const [nftData, setNftData] = useState<any>(null);
   
