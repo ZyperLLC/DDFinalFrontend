@@ -71,6 +71,7 @@ export default function Profile() {
     23: dolphin23,
     24: dolphin24,
   }
+  console.log("Staked NFTs:", context?.user.stakedNfts);
   return (
     <div
       className="page profile-page"

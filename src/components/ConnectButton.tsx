@@ -61,7 +61,7 @@ export const ConnectButton = ({ whiteBg = false }: ConnectButtonProps) => {
                     
                     //if address is not empty , check if user is registered                    
                     const userData = await fetchUser(tgWebAppData?.user?.id.toString());
-
+                    console.log("User Data:", userData);
                     if(userData!=undefined && userData!=null){
                         // if user is registered, fetch user data and set context
                         toast.success("Welcome Back " + userData?.username);
