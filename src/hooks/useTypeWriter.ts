@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 export const useTypewriter = (text: string, speed: number = 100, pause: number = 1500) => {
   const [displayedText, setDisplayedText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
-  const [loopIndex, setLoopIndex] = useState(0);
+  
 
   useEffect(() => {
     let timeout: ReturnType<typeof setTimeout>;
