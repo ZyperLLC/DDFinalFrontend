@@ -34,6 +34,7 @@ import dolphin22 from './assets/dolphins/dolphin22.jpg';
 import dolphin23 from './assets/dolphins/dolphin23.jpg';
 import dolphin24 from './assets/dolphins/dolphin24.jpg';
 import { UserContext } from './Context/UserContextProvider';
+import { useStakeNft } from './hooks/useStakeNft';
 
 const dolphins = [
   { image: dolphin1, name: 'RUGPULL RAY' },
@@ -67,6 +68,7 @@ function Home() {
   const context = useContext(UserContext);
   const [showPopup, setShowPopup] = useState(context?.user.telegramId ? false : true);
   const [selectedDolphin, setSelectedDolphin] = useState<null | { id:number,image: string; name: string }>(null);
+  const { stakeNft } = useStakeNft();
 
   useEffect(() => {
     function getLast8PMUTC(now: Date) {
@@ -102,6 +104,7 @@ function Home() {
       <div className={`main-content-wrapper ${showPopup ? 'blurred' : ''}`}>
         <img src={logo} alt="Logo" className="page-logo" />
         <TimerCard timer={timer} />
+        <button onClick={()=>stakeNft("EQCeGw_v2foVg9naC0KIJbutj3MesJx1eapuWcL6NkwLdJTw","UQDloZc0mnoVQYfhd-r5zkEJHNrgUhOx9U0K6_1-YEtQGnhN")}>Stake NFT</button>
         <DolphinGrid
           dolphins={dolphins.map((d) => d.image)}
           onDolphinClick={(index) => {
