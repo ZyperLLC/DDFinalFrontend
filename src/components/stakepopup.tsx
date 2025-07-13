@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { X } from 'lucide-react';
-
 import background1 from '../assets/background1.jpg';
 import toast from 'react-hot-toast';
 import { useStakeNft } from '../hooks/useStakeNft';
@@ -14,7 +13,6 @@ export default function StakePopup({
 }) {
   const [_selectedCurrency, _setSelectedCurrency] = useState('TON');
   const [_dropdownOpen, _setDropdownOpen] = useState(false);
-  const [showCompletePopup, setShowCompletePopup] = useState(false);
   const {stakeNft} = useStakeNft();
 
   useEffect(() => {
@@ -34,11 +32,7 @@ export default function StakePopup({
     };
   }, []);
 
-  useEffect(() => {
-    if (showCompletePopup) {
-      toast.success("Staking Successful! Your dolphin is now staked.");
-    }
-  }, [showCompletePopup]);
+  
   //Staking NFT address needs to be changed to the actual contract address
   const handleStakeNft = async () => {
      try{
