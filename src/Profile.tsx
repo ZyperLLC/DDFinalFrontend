@@ -154,7 +154,9 @@ export default function Profile() {
             key={index}
             image={dolphinImages[bet.numberBettedOn]} // Replace with bet.dolphinImage if available
             cost={`${bet.amountBet} ${bet.useTon ? 'TON' : 'Credits'}`}
-            prize={`${bet.amountWon} ${bet.useTon ? 'TON' : 'Credits'}`}
+            prize={`${bet.amountWon}`}
+            useTon = {bet.useTon}
+            betId = {bet.betId}
             result={bet.hasWon?'win':"lose"} // 'win' or 'lose'
           />
         ))}

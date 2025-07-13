@@ -136,8 +136,8 @@
     "result": {
       "win": "Win",
       "lose": "Lose"
-    }
-
+    },
+    "pending": "Pending"
 }
 
 

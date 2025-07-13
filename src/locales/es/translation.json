@@ -139,7 +139,8 @@
     "result": {
       "win": "Ganó",
       "lose": "Perdió"
-    }
+    },
+    "pending": "Pendiente"
   }
 
 
