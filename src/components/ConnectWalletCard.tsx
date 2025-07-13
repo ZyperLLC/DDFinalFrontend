@@ -35,7 +35,7 @@ const ConnectWalletCard = () => {
       {isWalletConnected && (
         <div className="w-full mt-4 px-4">
           <div
-            className="w-[80%] max-w-[360px] mx-auto flex flex-col items-center gap-3"
+            className=" mx-auto flex flex-col items-center gap-3"
             style={{ marginTop: '16px' }}
           >
             <div
