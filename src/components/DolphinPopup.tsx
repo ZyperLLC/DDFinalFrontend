@@ -14,16 +14,10 @@ import { getBettingRounds, placeBet } from '../api/userApi';
 import { UserContext } from '../Context/UserContextProvider';
 import toast from 'react-hot-toast';
 
-export default function DolphinPopup({
-  id,
-  image,
-  name,
-  onClose,
-}: {
-  id: number;
 // DolphinPopup.tsx
 
 type Props = {
+  id:number;
   image: string;
   name: string;
   isVisible: boolean; // 👈 for fade-in / fade-out
@@ -32,7 +26,7 @@ type Props = {
 };
 
 
-export default function DolphinPopup({ image, name, onClose, isVisible }: Props) {
+export default function DolphinPopup({ id,image, name, onClose, isVisible }: Props) {
   const { t } = useTranslation();
   const [selectedCurrency, setSelectedCurrency] = useState('TON');
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -323,7 +317,6 @@ export default function DolphinPopup({ image, name, onClose, isVisible }: Props)
                 </div>
               )}
             </div>
-          </div>
 
           <div className="mt-6 flex justify-center">
             <button
@@ -344,9 +337,6 @@ export default function DolphinPopup({ image, name, onClose, isVisible }: Props)
               Play
             </button>
           </div>
-        </div>
-      </div>
-    </div>
           </motion.div>
         </motion.div>
       )}

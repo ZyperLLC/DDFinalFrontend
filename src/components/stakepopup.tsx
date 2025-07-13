@@ -111,9 +111,6 @@ export default function StakePopup({
               {selectedNft.description.slice(0, 150) + '...'}
             </p>
 
-              {t('popup.description', { name })}
-            </p>
-
             <div className="mt-6 flex justify-center" style={{ width: '100%', maxWidth: '185px', margin: '1.5rem auto 0.5rem', padding: '0.5rem', background: 'rgba(255, 255, 255, 0.08)', borderRadius: '8px', backdropFilter: 'blur(6px)', textAlign: 'center' }}>
               <span style={{ color: '#32CD32', fontWeight: 'bold', fontSize: '1rem' }}>
                 {t('popup.apy')}: 2.85%
@@ -142,9 +139,6 @@ export default function StakePopup({
           </div>
         </div>
       </div>
-
-     
-      {showCompletePopup && <StakeComplete onClose={() => setShowCompletePopup(false)} />}
     </>
   );
 }

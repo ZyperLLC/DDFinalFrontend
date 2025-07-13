@@ -10,15 +10,14 @@ import { useUser } from '../hooks/useUser';
 import { useGetCredits } from '../hooks/useGetCredits';
 import { addFriend } from '../api/userApi';
 
-export const ConnectButton = ()=>{
-    const {tgWebAppData,tgWebAppStartParam} = retrieveLaunchParams();
 type ConnectButtonProps = {
   whiteBg?: boolean;
 };
 
 export const ConnectButton = ({ whiteBg = false }: ConnectButtonProps) => {
   const { t } = useTranslation();
-  const { tgWebAppData } = retrieveLaunchParams();
+    const {tgWebAppData,tgWebAppStartParam} = retrieveLaunchParams();
+
   const { tonConnectUI: tonConnectUiInstance } = useTonConnectUiContext();
   const context = useContext(UserContext);
 
@@ -106,16 +105,7 @@ export const ConnectButton = ({ whiteBg = false }: ConnectButtonProps) => {
                 toast.error("Failed to fetch user data");
             }
         }
-
-        context?.setTelegramId(tgWebAppData?.user?.id.toString());
-        context?.setWalletAddress(address);
-        context?.setTonBalance(userData?.tonBalance ?? BigInt(0));
-        context?.setCreditBalance(userData?.creditBalance ?? creditBalance);
-      }
-    } catch {
-      console.error(error);
-      toast.error(t('fetch_user_failed'));
-    }
+     
   };
 
   useEffect(() => {

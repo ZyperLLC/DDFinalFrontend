@@ -12,15 +12,11 @@ export default function Friend() {
   const context = useContext(UserContext);
   const inviteLink = `https://t.me/ddtimertestbot/site?startapp=${context?.user.telegramId}`;
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(inviteLink);
-    toast.success('Invite link copied to clipboard!');
   const { t } = useTranslation();
-  const inviteLink = '';
 
   const handleCopy = () => {
     navigator.clipboard.writeText(inviteLink);
-    alert(t('friend.inviteCopied'));
+    toast.success(t('friend.inviteCopied'));
   };
 
   return (
