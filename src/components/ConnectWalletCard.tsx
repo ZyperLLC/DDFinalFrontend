@@ -29,8 +29,9 @@ const ConnectWalletCard = () => {
           ? t('connectCard.connected.description')
           : t('connectCard.description.line1')}
       </p>
-
-      <ConnectButton />
+       <div className='w-full px-4'>
+         <ConnectButton />
+        </div>
 
       {isWalletConnected && (
         <div className="w-full mt-4 px-4">

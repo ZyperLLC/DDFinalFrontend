@@ -100,17 +100,16 @@
 
 
   "connectCard": {
-    "heading": "Connect Your Wallet",
-    "description": {
-      "line1": "Please connect your wallet to get started.",
-      "line2": "You'll be able to interact, stake and play."
-    },
-    "connected": {
-      "heading": "Wallet Connected",
-      "description": "Your wallet is now active — you're ready to interact, stake and play."
-    }
+  "heading": "Conecta tu Billetera",
+  "description": {
+    "line1": "Por favor conecta tu billetera para comenzar.",
+    "line2": "Podrás interactuar, hacer staking y jugar."
   },
-
+  "connected": {
+    "heading": "Billetera Conectada",
+    "description": "Tu billetera está activa — ya puedes interactuar, hacer staking y jugar."
+  }
+},
 
 
 
