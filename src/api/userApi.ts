@@ -28,8 +28,8 @@ export const placeBet = async (telegramId: string, betData: Partial<Bet>) => {
  * Stake an NFT
  */
 export const stakeNFT = async (telegramId: string, nftAddress: string) => {
-  const res = await axios.post<{ user: User }>(`${BASE_URL}/api/users/stakenft/${telegramId}`, { nftAddress });
-  return res.data.user;
+  const res = await axios.post(`${BASE_URL}/api/users/stakenft/${telegramId}`, { nftAddress });
+  return res.data;
 };
 
 /**
