@@ -144,7 +144,7 @@ export default function Profile() {
 
       {/* Staked NFTs */}
       <SectionBox title={t('profile.stakedNfts')}>
-        {context?.user.stakedNfts && context.user.stakedNfts.length === 0 && context.user.stakedNfts.map((nft) => (
+        {context?.user.stakedNfts && context.user.stakedNfts.length !== 0 && context.user.stakedNfts.map((nft) => (
           <StakedNFTCard contractAddress={nft.nftAddress}/>  
         ))}
       </SectionBox>
