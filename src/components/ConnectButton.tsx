@@ -123,7 +123,7 @@ export const ConnectButton = () => {
   return (
     <div>
       {!address ? (
-        <button className="connect-wallet-button" onClick={openModal}>
+        <button className="connect-wallet-button w-full" onClick={openModal}>
           {tonConnectUiInstance ? t('connect_wallet') : t('loading')}
         </button>
       ) : (
