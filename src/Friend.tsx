@@ -55,13 +55,6 @@ export default function Friend() {
         </p>
 
         <div className="invite-box">
-          <input
-            type="text"
-            value={inviteLink}
-            readOnly
-            className="invite-input"
-            placeholder={t('friend.placeholder')}
-          />
           <button className="invite-copy-btn" onClick={handleCopy}>
             {t('friend.copy')}
           </button>
