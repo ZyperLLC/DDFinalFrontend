@@ -176,6 +176,10 @@ export default function Profile() {
 
       {/* Staked NFTs */}
       <SectionBox title={t('profile.stakedNfts')}>
+        {context?.user.stakedNfts && context?.user.stakedNfts.length ===0 &&
+          <p className='text-white ' style={{color:"white",textAlign:"center"}}>No Dolphin Dash NFTs staked </p>}
+        
+        
         {context?.user.stakedNfts && context.user.stakedNfts.length !== 0 && context.user.stakedNfts.map((nft) => (
           <StakedNFTCard contractAddress={nft.nftAddress}/>  
         ))}
@@ -183,6 +187,11 @@ export default function Profile() {
 
       {/* Game History */}
       <SectionBox title={t('profile.gameHistory')}>
+        {context?.user.bets && context?.user.bets.length ===0 &&
+          <p className='text-white ' style={{color:"white",textAlign:"center"}}>No games played yet </p>
+          }
+        
+        
         {context?.user.bets!==undefined && context?.user.bets.length !== 0 && context?.user?.bets.map((bet, index) => (
           <GameHistoryCard
             key={index}
