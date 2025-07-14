@@ -11,7 +11,7 @@ export default function DolphinGrid({
   const { t } = useTranslation();
 
   return (
-    <>
+    <div className="combined-card2">
       <h2 className="dolphin-header" style={{ marginTop: '1rem' }}>
         {t('choose_dolphin')}
       </h2>
@@ -26,6 +26,6 @@ export default function DolphinGrid({
           />
         ))}
       </div>
-    </>
+    </div>
   );
 }

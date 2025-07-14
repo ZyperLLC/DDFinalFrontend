@@ -121,13 +121,21 @@ html, body {
 }
 
 .combined-card {
-  background: rgba(0, 0, 50, 0.088);
+  background: rgba(255, 255, 255, 0.08);
   padding: 1rem 1.5rem;
   margin-bottom: 1rem;
   border-radius: 16px;
   width: 90%;
   max-width: 480px;
   text-align: center;
+}
+.combined-card2{
+  background: rgba(255, 255, 255, 0.08);
+  padding: 1rem 1.5rem;
+  margin-bottom: 1rem;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 480px;
 }
 
 .card-subtitle {
@@ -146,7 +154,7 @@ html, body {
 
 /* ========= Timer Component ========= */
 .timer-box {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 50, 0.088);
   padding: 1rem;
   border-radius: 12px;
   margin-bottom: 1rem;
