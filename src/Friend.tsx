@@ -81,7 +81,7 @@ export default function Friend() {
         </motion.div>
 
         {/* Friends Leaderboard */}
-        <motion.div variants={slideUpFade} style={{ width: '100%' }}>
+        <motion.div variants={slideUpFade}>
           <FriendsLeaderBoard />
         </motion.div>
       </motion.div>
