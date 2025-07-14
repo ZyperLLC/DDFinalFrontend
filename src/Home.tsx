@@ -100,10 +100,11 @@ function Home() {
     function getTimeUntilTarget() {
       const targetTime = new Date(Date.UTC(2025, 6, 15, 19, 30, 0, 0)); // July 15, 2025, 8 PM UTC
       const now = new Date();
-      
+      console.log(targetTime.getTime());
+      console.log("Now time:" ,now.getTime())
       // Calculate seconds until target
       const secondsUntil = Math.floor((now.getTime() - targetTime.getTime()) / 1000);
-      
+      console.log("difference",secondsUntil)
       // If target time hasn't been reached yet, return positive seconds
       if (secondsUntil > 0) {
         return secondsUntil;
