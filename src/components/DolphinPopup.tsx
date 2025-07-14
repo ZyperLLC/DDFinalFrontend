@@ -238,7 +238,7 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
                       value={amount??''}
                       style={{
                         height: '40px',
-                        width:'50%',
+                        flex:'1/2',
                         background: '#fff',
                         borderRadius: '8px',
                         border: 'none',
@@ -251,7 +251,7 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
                     <div
                       style={{
                         height: '40px',
-                        width: '50%',
+                        flex:'1/2',
                         background: '#fff',
                         borderRadius: '8px',
                         display: 'flex',
