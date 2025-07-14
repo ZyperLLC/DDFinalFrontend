@@ -133,7 +133,7 @@ export default function Profile() {
                   fontWeight: '600',
                 }}
               >
-                {context?.user.tonBalance?.toString() ?? '0'}
+                {context?.user.tonBalance?.toString().slice(0,4) ?? '0'}
               </span>
             </div>
 
