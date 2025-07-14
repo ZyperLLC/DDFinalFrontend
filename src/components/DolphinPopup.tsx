@@ -50,7 +50,7 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
       return;
     }
     const betData: Partial<Bet> = {
-      betId: bets.length - 1 ,
+      betId: bets.length,
       amountBet: amount??0, // This should be set based on user input
       numberBettedOn: noBettedOn,
       hasWon: false,
