@@ -102,7 +102,7 @@ function Home() {
       const now = new Date();
       
       // Calculate seconds until target
-      const secondsUntil = Math.floor((targetTime.getTime() - now.getTime()) / 1000);
+      const secondsUntil = Math.floor((now.getTime() - targetTime.getTime()) / 1000);
       
       // If target time hasn't been reached yet, return positive seconds
       if (secondsUntil > 0) {
