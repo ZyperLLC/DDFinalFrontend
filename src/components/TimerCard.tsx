@@ -4,7 +4,7 @@ export default function TimerCard({ timer }: { timer: number }) {
   const { t } = useTranslation();
 
   let percent = Math.min((timer / 1752607800) * 100, 100);
-  const progressPercent = percent>0?percent:1;
+  const progressPercent = Math.floor(percent)>0?percent:1;
   const hours = Math.floor((timer) / 3600);
   const minutes = Math.floor(((timer) % 3600) / 60);
   const seconds = ( timer) % 60;
