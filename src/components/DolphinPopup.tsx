@@ -277,7 +277,7 @@ export default function DolphinPopup({ image, name, onClose, isVisible }: Props)
                 </>
               ) : (
                 <>
-                  <div className="w-full px-4 mt-6 flex justify-center">
+                  <div className="w-full px-4 mt-6">
                     <ConnectButton />
                   </div>
                   <p
