@@ -12,7 +12,7 @@ import { motion } from 'framer-motion';
 
 export default function Friend() {
   const context = useContext(UserContext);
-  const inviteLink = `https://t.me/ddtimertestbot/site?startapp=${context?.user.telegramId}`;
+  const inviteLink = `https://t.me/DolphinDash_bot/DolphinDashGame?startapp=${context?.user.telegramId}`;
 
   const { t } = useTranslation();
 
