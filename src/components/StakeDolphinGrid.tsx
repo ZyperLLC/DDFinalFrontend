@@ -33,8 +33,8 @@ export default function StakeDolphinGrid(
           {t('stakeGrid.title')}
         </h2>
 
-        <div className="dolphin-grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4">
           {nfts.length > 0 ? nfts.map((nft, index) => (
+        <div className="dolphin-grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4">
             <img
               key={index}
               src={nft.metadata?.image} 
@@ -47,9 +47,9 @@ export default function StakeDolphinGrid(
                 description: nft.metadata?.description,
               })}
             />
-          )) :
-          <span>No Dolphin Dash NFTs are present </span>}
         </div>
+          )) :
+          <p className='text-white '>No Dolphin Dash NFTs are present </p>}
       </div>
     </>
   );
