@@ -27,6 +27,18 @@ import dolphin21 from './assets/dolphins/dolphin21.jpg';
 import dolphin22 from './assets/dolphins/dolphin22.jpg';
 import dolphin23 from './assets/dolphins/dolphin23.jpg';
 import dolphin24 from './assets/dolphins/dolphin24.jpg';
+import dolphin25 from './assets/dolphins/dolphin25.png';
+import dolphin26 from './assets/dolphins/dolphin26.png';
+import dolphin27 from './assets/dolphins/dolphin27.png';
+import dolphin28 from './assets/dolphins/dolphin28.png';
+import dolphin29 from './assets/dolphins/dolphin29.png';
+import dolphin30 from './assets/dolphins/dolphin30.png';
+import dolphin31 from './assets/dolphins/dolphin31.png';
+import dolphin32 from './assets/dolphins/dolphin32.png';
+import dolphin33 from './assets/dolphins/dolphin33.png';
+import dolphin34 from './assets/dolphins/dolphin34.png';
+import dolphin35 from './assets/dolphins/dolphin35.png';
+import dolphin36 from './assets/dolphins/dolphin36.png';
 
 import creditIcon from './assets/credit.jpg';
 import tonSymbol from './assets/ton_symbol.jpg';
@@ -73,6 +85,18 @@ export default function Profile() {
     22: dolphin22,
     23: dolphin23,
     24: dolphin24,
+    25: dolphin25,
+    26: dolphin26,
+    27: dolphin27,
+    28: dolphin28,
+    29: dolphin29,
+    30: dolphin30,
+    31: dolphin31,
+    32: dolphin32,
+    33: dolphin33,
+    34: dolphin34,
+    35: dolphin35,
+    36: dolphin36
   }
 
   const handleUserWithdraw = () => {
