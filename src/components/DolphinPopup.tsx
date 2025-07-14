@@ -226,12 +226,6 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
               ) : isWalletConnected ? (
                 <>
                   <div className="flex justify-center gap-3 mt-6 flex-wrap"
-                  style={{
-                    display:'flex',
-                    justifyContent:'center',
-                    alignItems:'center',
-                    gap:'3',
-                  }}
                   >
                     <input
                       type="number"
@@ -245,7 +239,7 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
                       value={amount??''}
                       style={{
                         height: '40px',
-                        flex:'1/2',
+                        width:'130px',
                         background: '#fff',
                         borderRadius: '8px',
                         border: 'none',
@@ -258,7 +252,7 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
                     <div
                       style={{
                         height: '40px',
-                        flex:'1/2',
+                        width:'130px',
                         background: '#fff',
                         borderRadius: '8px',
                         display: 'flex',
