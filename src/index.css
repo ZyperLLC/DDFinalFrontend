@@ -176,6 +176,12 @@ html, body {
   border-radius: inherit;
   transition: width 0.3s ease;
 }
+.progress-bar-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 1rem;
+}
 
 .timer-text {
   margin-top: 0.5rem;
@@ -461,7 +467,7 @@ html, body {
 }
 
 .staking-grid-card {
-  background: rgba(0, 0, 50, 0.088);
+  background: rgba(255, 255, 255, 0.08);
   padding: 1.5rem;
   border-radius: 16px;
   width: 90%;

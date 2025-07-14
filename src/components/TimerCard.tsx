@@ -3,7 +3,6 @@ import { useTypewriter } from '../hooks/useTypeWriter';
 
 export default function TimerCard({ timer }: { timer: number }) {
   const { t } = useTranslation();
-
   const typedText = useTypewriter(t('choose_dolphin'), 100, 2000);
 
   const progressPercent = Math.min((timer / 86400) * 100, 100);
@@ -17,13 +16,18 @@ export default function TimerCard({ timer }: { timer: number }) {
         {typedText}
         <span className="blinking-cursor">|</span>
       </h2>
+
       <p className="card-subtitle">{t('place_ton_bets')}</p>
 
       <div className="timer-box">
-        <div className="progress-bar">
-          <div className="progress-fill" style={{ width: `${progressPercent}%` }} />
+        {/* Centered progress bar */}
+        <div className="progress-bar-wrapper">
+          <div className="progress-bar">
+            <div className="progress-fill" style={{ width: `${progressPercent}%` }} />
+          </div>
         </div>
-        <p className="timer-text">
+
+        <p className="timer-text" style={{ textAlign: 'center', marginTop: '0.5rem' }}>
           {t('time_until_end', { hours, minutes, seconds })}
         </p>
       </div>
