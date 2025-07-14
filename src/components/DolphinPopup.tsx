@@ -221,7 +221,7 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
                 <>
                   <div className="flex justify-center gap-3 mt-6 flex-wrap">
                     <input
-                      type="string"
+                      type="number"
                       placeholder={'0.1-10'}
                       onChange={(e) => {
                         const value = parseFloat(e.target.value);
@@ -231,7 +231,7 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
                       }}
                       value={amount??''}
                       style={{
-                        height: '44px',
+                        height: '40px',
                         width: '120px',
                         background: '#fff',
                         borderRadius: '8px',
@@ -244,7 +244,7 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
                     />
                     <div
                       style={{
-                        height: '44px',
+                        height: '40px',
                         width: '120px',
                         background: '#fff',
                         borderRadius: '8px',
@@ -308,7 +308,6 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
                     <button
                       style={{
                         width: '100%',
-                        maxWidth: '200px',
                         padding: '0.75rem',
                         background: 'linear-gradient(90deg, #f72585, #7209b7)',
                         color: '#fff',
