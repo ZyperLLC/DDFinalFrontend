@@ -24,7 +24,9 @@
     "description": "Coronado antes de poder nadar recto, {{name}} convirtió Dolphin Dash en su reino personal — apostó $TON, siete anillos y un trono de sueños rotos. Otros lo llaman suerte — él solo lo llama martes.",
     "play": "Jugar",
     "credit": "Crédito",
-    "amount": "Ingresa cantidad"
+    "amount": "Ingresa cantidad",
+   "connect_message": "Para jugar a Dolphin Dash, conecta tu billetera y súbete a la ola de acción diaria"
+
 
 },
 
@@ -83,7 +85,8 @@
 
 
   "friends": {
-    "heading": "Clasificación de Amigos",
+    "heading": "Amigos Referidos",
+    "serialNumber": "Núm.S",
     "username": "Nombre de usuario",
     "reward": "Recompensa"
   },
@@ -139,7 +142,8 @@
     "result": {
       "win": "Ganó",
       "lose": "Perdió"
-    }
+    },
+    "pending": "Pendiente"
   }
 
 

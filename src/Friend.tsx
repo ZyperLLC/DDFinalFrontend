@@ -4,18 +4,25 @@ import background1 from './assets/background1.jpg';
 import logo from './assets/logo.jpg';
 import './index.css';
 import FriendsLeaderBoard from './components/FriendsLeaderBoard';
+import toast from 'react-hot-toast';
+import { UserContext } from './Context/UserContextProvider';
+import { useContext } from 'react';
+import { slideUpFade } from './utils/animations';
+import { motion } from 'framer-motion';
 
 export default function Friend() {
+  const context = useContext(UserContext);
+  const inviteLink = `https://t.me/ddtimertestbot/site?startapp=${context?.user.telegramId}`;
+
   const { t } = useTranslation();
-  const inviteLink = '';
 
   const handleCopy = () => {
     navigator.clipboard.writeText(inviteLink);
-    alert(t('friend.inviteCopied'));
+    toast.success(t('friend.inviteCopied'));
   };
 
   return (
-    <div
+    <motion.div variants={slideUpFade} initial="hidden" animate="visible"
       className="page profile-page"
       style={{
         backgroundImage: `url(${background1})`,
@@ -50,13 +57,6 @@ export default function Friend() {
         </p>
 
         <div className="invite-box">
-          <input
-            type="text"
-            value={inviteLink}
-            readOnly
-            className="invite-input"
-            placeholder={t('friend.placeholder')}
-          />
           <button className="invite-copy-btn" onClick={handleCopy}>
             {t('friend.copy')}
           </button>
@@ -67,6 +67,6 @@ export default function Friend() {
       <FriendsLeaderBoard />
 
       <Navbar />
-    </div>
+    </motion.div>
   );
 }

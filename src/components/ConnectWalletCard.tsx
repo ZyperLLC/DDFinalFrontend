@@ -3,12 +3,13 @@ import { useTranslation } from 'react-i18next';
 import { ConnectButton } from './ConnectButton';
 import { useTonConnectUiContext } from '../Context/TonConnectUiContext';
 import tonSymbol from '../assets/ton_symbol.jpg';
+import { useDepositTon } from '../hooks/useDepositTon';
 
 const ConnectWalletCard = () => {
   const { t } = useTranslation();
   const { tonConnectUI } = useTonConnectUiContext();
   const isWalletConnected = !!tonConnectUI?.account?.address;
-
+  const {depositTon} = useDepositTon();
   const [tonAmount, setTonAmount] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -17,7 +18,15 @@ const ConnectWalletCard = () => {
       setTonAmount(val);
     }
   };
-
+  const handleDepositTon = async () => {
+    const amount = parseFloat(tonAmount);
+    try{
+      await depositTon(amount);
+      setTonAmount('');
+    }catch(err) {
+      console.error("Error depositing TON:", err);
+    }
+  }
   return (
     <div className="profile-card">
       <h1 className="profile-heading">
@@ -87,6 +96,7 @@ const ConnectWalletCard = () => {
               style={{
                 marginTop: '12px',
               }}
+              onClick={handleDepositTon}
             >
               {t('profile.deposit')}
             </button>

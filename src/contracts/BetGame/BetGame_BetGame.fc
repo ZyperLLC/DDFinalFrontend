@@ -8,11 +8,20 @@
 ;; NOTE: declarations are sorted for optimal order
 ;;
 
+;; __tact_not_null
+forall X -> X __tact_not_null(X x) impure inline;
+
 ;; __tact_context_get
 (int, slice, int, slice) __tact_context_get() inline;
 
 ;; __tact_context_get_sender
 slice __tact_context_get_sender() inline;
+
+;; __tact_dict_get_slice_coins
+int __tact_dict_get_slice_coins(cell d, int kl, slice k) inline;
+
+;; __tact_dict_set_slice_coins
+(cell, ()) __tact_dict_set_slice_coins(cell d, int kl, slice k, int v) inline;
 
 ;; __tact_dict_min_int_cell
 (int, cell, int) __tact_dict_min_int_cell(cell d, int kl) inline;
@@ -36,10 +45,10 @@ tuple $Bet$_as_optional((slice, int, int) v) inline;
 tuple $Bet$_load_opt(cell cl) inline;
 
 ;; $BetGame$_store
-builder $BetGame$_store(builder build_0, (slice, int, int) v) inline;
+builder $BetGame$_store(builder build_0, (slice, int, int, cell) v) inline;
 
 ;; $BetGame$_load
-(slice, ((slice, int, int))) $BetGame$_load(slice sc_0) inline;
+(slice, ((slice, int, int, cell))) $BetGame$_load(slice sc_0) inline;
 
 ;; $Context$_get_value
 _ $Context$_get_value((int, slice, int, slice) v) inline;
@@ -48,34 +57,34 @@ _ $Context$_get_value((int, slice, int, slice) v) inline;
 ((slice, int, int)) $Bet$_not_null(tuple v) inline;
 
 ;; $BetGame$_contract_load
-(slice, int, int) $BetGame$_contract_load() impure inline;
+(slice, int, int, cell) $BetGame$_contract_load() impure inline;
 
 ;; $BetGame$_contract_store
-() $BetGame$_contract_store((slice, int, int) v) impure inline;
+() $BetGame$_contract_store((slice, int, int, cell) v) impure inline;
 
 ;; $BetGame$_fun_bettingRound
-((slice, int, int), int) $BetGame$_fun_bettingRound((slice, int, int) $self) impure inline_ref;
+((slice, int, int, cell), int) $BetGame$_fun_bettingRound((slice, int, int, cell) $self) impure inline_ref;
 
 ;; $BetGame$_fun_contractBalance
-((slice, int, int), int) $BetGame$_fun_contractBalance((slice, int, int) $self) impure inline_ref;
+((slice, int, int, cell), int) $BetGame$_fun_contractBalance((slice, int, int, cell) $self) impure inline_ref;
+
+;; $BetGame$_fun_userBalance
+((slice, int, int, cell), int) $BetGame$_fun_userBalance((slice, int, int, cell) $self, slice $userAddress) impure inline_ref;
 
 ;; $MessageParameters$_constructor_bounce_to_value_mode_body
 ((int, cell, int, slice, int)) $MessageParameters$_constructor_bounce_to_value_mode_body(int $bounce, slice $to, int $value, int $mode, cell $body) inline;
 
 ;; $BetGame$_fun_reply
-((slice, int, int), ()) $BetGame$_fun_reply((slice, int, int) $self, cell $body) impure inline;
+((slice, int, int, cell), ()) $BetGame$_fun_reply((slice, int, int, cell) $self, cell $body) impure inline;
 
 ;; $BetGame$_fun_requireOwner
-((slice, int, int), ()) $BetGame$_fun_requireOwner((slice, int, int) $self) impure inline_ref;
+((slice, int, int, cell), ()) $BetGame$_fun_requireOwner((slice, int, int, cell) $self) impure inline_ref;
 
 ;; $BetGame$_fun_owner
-((slice, int, int), slice) $BetGame$_fun_owner((slice, int, int) $self) impure inline_ref;
+((slice, int, int, cell), slice) $BetGame$_fun_owner((slice, int, int, cell) $self) impure inline_ref;
 
 ;; $MessageParameters$_constructor_to_value_mode_bounce
 ((int, cell, int, slice, int)) $MessageParameters$_constructor_to_value_mode_bounce(slice $to, int $value, int $mode, int $bounce) inline;
-
-;; $MessageParameters$_constructor_to_value_mode_body_bounce
-((int, cell, int, slice, int)) $MessageParameters$_constructor_to_value_mode_body_bounce(slice $to, int $value, int $mode, cell $body, int $bounce) inline;
 
 ;; $ChangeOwnerOk$_constructor_queryId_newOwner
 ((int, slice)) $ChangeOwnerOk$_constructor_queryId_newOwner(int $queryId, slice $newOwner) inline;
@@ -86,6 +95,18 @@ global (int, slice, int, slice) __tact_context;
 global slice __tact_context_sender;
 global cell __tact_child_contract_codes;
 global int __tact_randomized;
+
+forall X -> X __tact_not_null(X x) impure inline {
+    throw_if(128, null?(x)); return x;
+}
+
+(cell, int) __tact_dict_delete(cell dict, int key_len, slice index) asm(index dict key_len) """
+    DICTDEL
+""";
+
+(slice, int) __tact_dict_get(cell dict, int key_len, slice index) asm(index dict key_len) """
+    DICTGET NULLSWAPIFNOT
+""";
 
 (int, slice, int, slice) __tact_context_get() inline {
     return __tact_context;
@@ -102,6 +123,24 @@ forall X0, X1, X2 -> tuple __tact_tuple_create_3((X0, X1, X2) v) asm """
 forall X0, X1, X2 -> (X0, X1, X2) __tact_tuple_destroy_3(tuple v) asm """
     3 UNTUPLE
 """;
+
+int __tact_dict_get_slice_coins(cell d, int kl, slice k) inline {
+    var (r, ok) = __tact_dict_get(d, kl, k);
+    if (ok) {
+        return r~load_coins();
+    } else {
+        return null();
+    }
+}
+
+(cell, ()) __tact_dict_set_slice_coins(cell d, int kl, slice k, int v) inline {
+    if (null?(v)) {
+        var (r, ok) = __tact_dict_delete(d, kl, k);
+        return (r, ());
+    } else {
+        return (dict_set_builder(d, kl, k, begin_cell().store_coins(v)), ());
+    }
+}
 
 (int, cell, int) __tact_dict_min_int_cell(cell d, int kl) inline {
     var (key, value, flag) = idict_get_min_ref?(d, kl);
@@ -120,10 +159,6 @@ forall X0, X1, X2 -> (X0, X1, X2) __tact_tuple_destroy_3(tuple v) asm """
         return (null(), null(), flag);
     }
 }
-
-slice $global_myAddress() impure asm """
-    MYADDR
-""";
 
 int $global_myBalance() impure asm """
     BALANCE FIRST
@@ -165,8 +200,8 @@ int $global_myBalance() impure asm """
     SENDRAWMSG
 """;
 
-((slice, int, int), ()) $BetGame$_fun_reply((slice, int, int) $self, cell $body) impure inline {
-    var (($self'owner, $self'bettingStarted, $self'bettingRound)) = $self;
+((slice, int, int, cell), ()) $BetGame$_fun_reply((slice, int, int, cell) $self, cell $body) impure inline {
+    var (($self'owner, $self'bettingStarted, $self'bettingRound, $self'userBalance)) = $self;
     slice $to = __tact_context_get_sender();
     int $bounce = true;
     if (false) {
@@ -175,30 +210,24 @@ int $global_myBalance() impure asm """
         if (($balanceBeforeMessage < 0)) {
             $global_nativeReserve(0, 0);
             $global_message($MessageParameters$_constructor_bounce_to_value_mode_body($bounce, $to, 0, 130, $body));
-            return (($self'owner, $self'bettingStarted, $self'bettingRound), ());
+            return (($self'owner, $self'bettingStarted, $self'bettingRound, $self'userBalance), ());
         }
     }
     $global_message($MessageParameters$_constructor_bounce_to_value_mode_body($bounce, $to, 0, 66, $body));
-    return (($self'owner, $self'bettingStarted, $self'bettingRound), ());
+    return (($self'owner, $self'bettingStarted, $self'bettingRound, $self'userBalance), ());
 }
 
-((slice, int, int), ()) $BetGame$_fun_requireOwner((slice, int, int) $self) impure inline_ref {
-    var (($self'owner, $self'bettingStarted, $self'bettingRound)) = $self;
+((slice, int, int, cell), ()) $BetGame$_fun_requireOwner((slice, int, int, cell) $self) impure inline_ref {
+    var (($self'owner, $self'bettingStarted, $self'bettingRound, $self'userBalance)) = $self;
     throw_unless(132, ( equal_slices_bits(__tact_context_get_sender(), $self'owner) ));
-    return (($self'owner, $self'bettingStarted, $self'bettingRound), ());
+    return (($self'owner, $self'bettingStarted, $self'bettingRound, $self'userBalance), ());
 }
 
-((slice, int, int), slice) $BetGame$_fun_owner((slice, int, int) $self) impure inline_ref {
-    var (($self'owner, $self'bettingStarted, $self'bettingRound)) = $self;
-    var $fresh$ret_2 = $self'owner;
-    return (($self'owner, $self'bettingStarted, $self'bettingRound), $fresh$ret_2);
+((slice, int, int, cell), slice) $BetGame$_fun_owner((slice, int, int, cell) $self) impure inline_ref {
+    var (($self'owner, $self'bettingStarted, $self'bettingRound, $self'userBalance)) = $self;
+    var $fresh$ret_3 = $self'owner;
+    return (($self'owner, $self'bettingStarted, $self'bettingRound, $self'userBalance), $fresh$ret_3);
 }
-
-;; BetGame_BetGame.constants.fc
-;; Cell IthwpY4ccZ5mUhDLogjYfHZA5ZNGqRyWEru8QeyO/Pk=
-cell __gen_cell_cell_22d870a58e1c719e665210cba208d87c7640e59346a91c9612bbbc41ec8efcf9() asm """
-    B{b5ee9c7241010101000e000018000000007374617274626574625e5c81} B>boc PUSHREF
-""";
 
 ;; BetGame_BetGame.storage.fc
 ;;
@@ -222,10 +251,6 @@ _ $Context$_get_value((int, slice, int, slice) v) inline {
 
 ((int, cell, int, slice, int)) $MessageParameters$_constructor_to_value_mode_bounce(slice $to, int $value, int $mode, int $bounce) inline {
     return ($mode, null(), $value, $to, $bounce);
-}
-
-((int, cell, int, slice, int)) $MessageParameters$_constructor_to_value_mode_body_bounce(slice $to, int $value, int $mode, cell $body, int $bounce) inline {
-    return ($mode, $body, $value, $to, $bounce);
 }
 
 ;;
@@ -283,30 +308,32 @@ tuple $Bet$_load_opt(cell cl) inline {
 
 ;;
 ;; Type: BetGame
-;; TLB: _ owner:address bettingStarted:bool bettingRound:int257 = BetGame
+;; TLB: _ owner:address bettingStarted:bool bettingRound:int257 userBalance:dict<address, coins> = BetGame
 ;;
 
-builder $BetGame$_store(builder build_0, (slice, int, int) v) inline {
-    var (v'owner, v'bettingStarted, v'bettingRound) = v;
+builder $BetGame$_store(builder build_0, (slice, int, int, cell) v) inline {
+    var (v'owner, v'bettingStarted, v'bettingRound, v'userBalance) = v;
     build_0 = build_0.store_slice(v'owner);
     build_0 = build_0.store_int(v'bettingStarted, 1);
     build_0 = build_0.store_int(v'bettingRound, 257);
+    build_0 = build_0.store_dict(v'userBalance);
     return build_0;
 }
 
-(slice, ((slice, int, int))) $BetGame$_load(slice sc_0) inline {
+(slice, ((slice, int, int, cell))) $BetGame$_load(slice sc_0) inline {
     var v'owner = sc_0~load_msg_addr();
     var v'bettingStarted = sc_0~load_int(1);
     var v'bettingRound = sc_0~load_int(257);
-    return (sc_0, (v'owner, v'bettingStarted, v'bettingRound));
+    var v'userBalance = sc_0~load_dict();
+    return (sc_0, (v'owner, v'bettingStarted, v'bettingRound, v'userBalance));
 }
 
-(slice, int, int) $BetGame$_contract_load() impure inline {
+(slice, int, int, cell) $BetGame$_contract_load() impure inline {
     slice $sc = get_data().begin_parse();
     return $sc~$BetGame$_load();
 }
 
-() $BetGame$_contract_store((slice, int, int) v) impure inline {
+() $BetGame$_contract_store((slice, int, int, cell) v) impure inline {
     builder b = begin_cell();
     b = $BetGame$_store(b, v);
     set_data(b.end_cell());
@@ -316,16 +343,23 @@ builder $BetGame$_store(builder build_0, (slice, int, int) v) inline {
 ;; Contract BetGame functions
 ;;
 
-((slice, int, int), int) $BetGame$_fun_bettingRound((slice, int, int) $self) impure inline_ref {
-    var (($self'owner, $self'bettingStarted, $self'bettingRound)) = $self;
+((slice, int, int, cell), int) $BetGame$_fun_bettingRound((slice, int, int, cell) $self) impure inline_ref {
+    var (($self'owner, $self'bettingStarted, $self'bettingRound, $self'userBalance)) = $self;
     var $fresh$ret_0 = $self'bettingRound;
-    return (($self'owner, $self'bettingStarted, $self'bettingRound), $fresh$ret_0);
+    return (($self'owner, $self'bettingStarted, $self'bettingRound, $self'userBalance), $fresh$ret_0);
 }
 
-((slice, int, int), int) $BetGame$_fun_contractBalance((slice, int, int) $self) impure inline_ref {
-    var (($self'owner, $self'bettingStarted, $self'bettingRound)) = $self;
+((slice, int, int, cell), int) $BetGame$_fun_contractBalance((slice, int, int, cell) $self) impure inline_ref {
+    var (($self'owner, $self'bettingStarted, $self'bettingRound, $self'userBalance)) = $self;
     var $fresh$ret_1 = $global_myBalance();
-    return (($self'owner, $self'bettingStarted, $self'bettingRound), $fresh$ret_1);
+    return (($self'owner, $self'bettingStarted, $self'bettingRound, $self'userBalance), $fresh$ret_1);
+}
+
+((slice, int, int, cell), int) $BetGame$_fun_userBalance((slice, int, int, cell) $self, slice $userAddress) impure inline_ref {
+    var (($self'owner, $self'bettingStarted, $self'bettingRound, $self'userBalance)) = $self;
+    int $balance = __tact_dict_get_slice_coins($self'userBalance, 267, $userAddress);
+    var $fresh$ret_2 = __tact_not_null($balance);
+    return (($self'owner, $self'bettingStarted, $self'bettingRound, $self'userBalance), $fresh$ret_2);
 }
 
 ;;
@@ -341,6 +375,13 @@ _ %bettingRound() method_id(114211) {
 _ %contractBalance() method_id(110221) {
     var self = $BetGame$_contract_load();
     var res = self~$BetGame$_fun_contractBalance();
+    return res;
+}
+
+_ %userBalance(slice $userAddress) method_id(70823) {
+    slice $userAddress = $userAddress;
+    var self = $BetGame$_contract_load();
+    var res = self~$BetGame$_fun_userBalance($userAddress);
     return res;
 }
 
@@ -370,7 +411,7 @@ _ %owner() method_id(83229) {
     __tact_context_sender = msg_sender_addr;
     
     ;; Load contract data
-    var ($self'owner, $self'bettingStarted, $self'bettingRound) = $BetGame$_contract_load();
+    var ($self'owner, $self'bettingStarted, $self'bettingRound, $self'userBalance) = $BetGame$_contract_load();
     
     ;; Handle bounced messages
     if (msg_bounced) { return (); }
@@ -378,20 +419,32 @@ _ %owner() method_id(83229) {
     int in_msg_length = slice_bits(in_msg);
     if (in_msg_length >= 32) {
         op = in_msg~load_uint(32);
+        ;; Receive UserWithdrawal message
+        if (op == 2078995104) {
+            var $msg'amount = in_msg~load_varuint16();
+            var ($ctx'bounceable, $ctx'sender, $ctx'value, $ctx'raw) = __tact_context_get();
+            slice $address = $ctx'sender;
+            int $userBalance = __tact_dict_get_slice_coins($self'userBalance, 267, $address);
+            throw_unless(21769, (__tact_not_null($userBalance) >= $msg'amount));
+            $global_message($MessageParameters$_constructor_to_value_mode_bounce($address, $msg'amount, 2, false));
+            $global_cashback(__tact_context_get_sender());
+            
+            return ();
+        }
+        
         ;; Receive EndBetting message
         if (op == 1448266692) {
             var $msg'tonWinningBets = in_msg~load_dict();
-            ($self'owner, $self'bettingStarted, $self'bettingRound)~$BetGame$_fun_requireOwner();
+            ($self'owner, $self'bettingStarted, $self'bettingRound, $self'userBalance)~$BetGame$_fun_requireOwner();
             cell $winnerMap = $msg'tonWinningBets;
-            var ($key, $value, $fresh$flag_3) = __tact_dict_min_int_cell($winnerMap, 257);
-            while ($fresh$flag_3) {
+            var ($key, $value, $fresh$flag_4) = __tact_dict_min_int_cell($winnerMap, 257);
+            while ($fresh$flag_4) {
                 var ($value'player, $value'hasNFT, $value'amountBet) = $Bet$_not_null($Bet$_load_opt($value));
                 int $hasNFT = $value'hasNFT;
                 int $amountToSend = ($hasNFT ? (($value'amountBet * 770) / 100) : ($value'amountBet * 7));
                 $global_message($MessageParameters$_constructor_to_value_mode_bounce($value'player, $amountToSend, 2, false));
-                ($key, $value, $fresh$flag_3) = __tact_dict_next_int_cell($winnerMap, 257, $key);
+                ($key, $value, $fresh$flag_4) = __tact_dict_next_int_cell($winnerMap, 257, $key);
             }
-            $global_message($MessageParameters$_constructor_to_value_mode_body_bounce($global_myAddress(), 0, 64, __gen_cell_cell_22d870a58e1c719e665210cba208d87c7640e59346a91c9612bbbc41ec8efcf9(), false));
             
             return ();
         }
@@ -399,7 +452,7 @@ _ %owner() method_id(83229) {
         ;; Receive WithdrawTon message
         if (op == 4206811366) {
             var $msg'amount = in_msg~load_varuint16();
-            ($self'owner, $self'bettingStarted, $self'bettingRound)~$BetGame$_fun_requireOwner();
+            ($self'owner, $self'bettingStarted, $self'bettingRound, $self'userBalance)~$BetGame$_fun_requireOwner();
             int $amountToWithdraw = $msg'amount;
             $global_message($MessageParameters$_constructor_to_value_mode_bounce($self'owner, $amountToWithdraw, 2, false));
             
@@ -410,10 +463,10 @@ _ %owner() method_id(83229) {
         if (op == 0x819dbe99) {
             var $msg'queryId = in_msg~load_uint(64);
             var $msg'newOwner = in_msg~load_msg_addr();
-            ($self'owner, $self'bettingStarted, $self'bettingRound)~$BetGame$_fun_requireOwner();
+            ($self'owner, $self'bettingStarted, $self'bettingRound, $self'userBalance)~$BetGame$_fun_requireOwner();
             $self'owner = $msg'newOwner;
-            ($self'owner, $self'bettingStarted, $self'bettingRound)~$BetGame$_fun_reply($ChangeOwnerOk$_store_cell($ChangeOwnerOk$_constructor_queryId_newOwner($msg'queryId, $msg'newOwner), begin_cell()));
-            $BetGame$_contract_store(($self'owner, $self'bettingStarted, $self'bettingRound));
+            ($self'owner, $self'bettingStarted, $self'bettingRound, $self'userBalance)~$BetGame$_fun_reply($ChangeOwnerOk$_store_cell($ChangeOwnerOk$_constructor_queryId_newOwner($msg'queryId, $msg'newOwner), begin_cell()));
+            $BetGame$_contract_store(($self'owner, $self'bettingStarted, $self'bettingRound, $self'userBalance));
             return ();
         }
         
@@ -428,16 +481,20 @@ _ %owner() method_id(83229) {
     var text_op = slice_hash(in_msg);
     ;; Receive "startbet" message
     if (text_op == 0x5838f9565baa189f5d1ec3946b8eccc609bd2bb070777a91ec98b47eecda3767) {
-        ($self'owner, $self'bettingStarted, $self'bettingRound)~$BetGame$_fun_requireOwner();
+        ($self'owner, $self'bettingStarted, $self'bettingRound, $self'userBalance)~$BetGame$_fun_requireOwner();
         $self'bettingStarted = true;
         $self'bettingRound = $self'bettingRound + 1;
         $global_cashback(__tact_context_get_sender());
-        $BetGame$_contract_store(($self'owner, $self'bettingStarted, $self'bettingRound));
+        $BetGame$_contract_store(($self'owner, $self'bettingStarted, $self'bettingRound, $self'userBalance));
         return ();
     }
     ;; Receive "depositton" message
     if (text_op == 0xa34a48aa7d7a6204cd9791c95cee4318f5d0a056f33d5a2b0ff37a17df527978) {
-        
+        var ($ctx'bounceable, $ctx'sender, $ctx'value, $ctx'raw) = __tact_context_get();
+        slice $address = $ctx'sender;
+        int $value = $ctx'value;
+        $self'userBalance~__tact_dict_set_slice_coins(267, $address, $value);
+        $BetGame$_contract_store(($self'owner, $self'bettingStarted, $self'bettingRound, $self'userBalance));
         return ();
     }
     ;; Throw if not handled

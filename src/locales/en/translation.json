@@ -14,7 +14,7 @@
   "fetch_user_failed": "Failed to fetch user data",
   "error_occurred": "Some Error Occurred!",
   "choose_dolphin": "Choose Your Dolphin",
-  "place_ton_bets": "Place TON bets on one or more NFTs. If your Dolphin hits, you win with a multiplier!",
+  "place_ton_bets": "Place TON on one or more NFTs. If your Dolphin hits, you win with a multiplier!",
   "time_until_end": "Time Until The End: {{hours}}h {{minutes}}m {{seconds}}s",
   "dolphin_alt": "Dolphin {{number}}",
 
@@ -23,7 +23,8 @@
     "description": "Crowned before he could swim straight, {{name}} turned the Dolphin Dash into his personal kingdom — staked $TON, seven rings, and a throne of broken dreams. Other dolphins call it luck — he just calls it Tuesday.",
     "play": "Play",
     "credit": "Credit",
-    "amount": "Enter amount"
+    "amount": "Enter amount",
+  "connect_message": "To play Dolphin Dash, connect your wallet and ride the wave of daily action"
 
 },
 
@@ -31,7 +32,7 @@
   "welcome_popup": {
     "title": "Welcome to Dolphin Dash!",
     "line1": "In the world of Dolphin Dash, legends are chosen daily.",
-    "line2": "Stake your dolphins, fuel the tide with TON, and test your luck in the arena.",
+    "line2": "Stake your dolphins, fuel the tide with TON, and test your luck in the arena. one dolphin rises. will it be yours?",
     "line3": "Connect your wallet. Your journey begins."
   },
 
@@ -73,16 +74,17 @@
 
   "friend": {
     "title": "Invite a Friend",
-    "description": "Connect your wallet to unlock staking, betting and daily prizes.",
+    "description": "Connect your wallet to unlock staking, playing and winning daily prizes.",
     "placeholder": "Your invite link will appear here",
     "copy": "Copy",
     "inviteCopied": "Invite link copied!"
   },
 
   "friends": {
-    "heading": "Friends Leaderboard",
+    "heading": "Referred Friends",
+    "serialNumber": "S.No",
     "username": "Username",
-    "reward": "Reward"
+    "reward": "Credit"
   },
 
   "profile": {
@@ -100,7 +102,7 @@
   "connectCard": {
     "heading": "Step In The Game",
     "description": {
-      "line1": "Connect your wallet to unlock staking, betting and daily prizes."
+      "line1": "Connect your wallet to unlock staking, playing and winning exciting prizes."
     },
     "connected": {
       "heading": "Wallet Connected",
@@ -136,8 +138,8 @@
     "result": {
       "win": "Win",
       "lose": "Lose"
-    }
-
+    },
+    "pending": "Pending"
 }
 
 

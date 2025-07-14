@@ -1,9 +1,9 @@
 # Tact compilation report
-Contract: BetGame
-BoC Size: 904 bytes
+Contract: NFTItem
+BoC Size: 939 bytes
 
 ## Structures (Structs and Messages)
-Total structures: 17
+Total structures: 21
 
 ### DataSize
 TL-B: `_ cells:int257 bits:int257 refs:int257 = DataSize`
@@ -45,47 +45,54 @@ Signature: `VarAddress{workchain:int32,address:^slice}`
 TL-B: `_ hash:Maybe int257 = BasechainAddress`
 Signature: `BasechainAddress{hash:Maybe int257}`
 
-### ChangeOwner
-TL-B: `change_owner#819dbe99 queryId:uint64 newOwner:address = ChangeOwner`
-Signature: `ChangeOwner{queryId:uint64,newOwner:address}`
+### GetNftData
+TL-B: `_ is_initialized:bool index:int257 collection_address:address owner_address:address individual_content:^cell = GetNftData`
+Signature: `GetNftData{is_initialized:bool,index:int257,collection_address:address,owner_address:address,individual_content:^cell}`
 
-### ChangeOwnerOk
-TL-B: `change_owner_ok#327b2b4a queryId:uint64 newOwner:address = ChangeOwnerOk`
-Signature: `ChangeOwnerOk{queryId:uint64,newOwner:address}`
+### CollectionData
+TL-B: `_ next_item_index:int257 collection_content:^cell owner_address:address = CollectionData`
+Signature: `CollectionData{next_item_index:int257,collection_content:^cell,owner_address:address}`
 
-### Bet
-TL-B: `_ player:address hasNFT:bool amountBet:coins = Bet`
-Signature: `Bet{player:address,hasNFT:bool,amountBet:coins}`
+### RoyaltyParams
+TL-B: `_ numerator:int257 denominator:int257 destination:address = RoyaltyParams`
+Signature: `RoyaltyParams{numerator:int257,denominator:int257,destination:address}`
 
-### EndBetting
-TL-B: `end_betting#5652cbc4 tonWinningBets:dict<int, ^Bet{player:address,hasNFT:bool,amountBet:coins}> = EndBetting`
-Signature: `EndBetting{tonWinningBets:dict<int, ^Bet{player:address,hasNFT:bool,amountBet:coins}>}`
+### Transfer
+TL-B: `transfer#5fcc3d14 query_id:uint64 new_owner:address response_destination:address custom_payload:Maybe ^cell forward_amount:coins forward_payload:remainder<slice> = Transfer`
+Signature: `Transfer{query_id:uint64,new_owner:address,response_destination:address,custom_payload:Maybe ^cell,forward_amount:coins,forward_payload:remainder<slice>}`
 
-### WithdrawTon
-TL-B: `withdraw_ton#fabed8e6 amount:coins = WithdrawTon`
-Signature: `WithdrawTon{amount:coins}`
+### OwnershipAssigned
+TL-B: `ownership_assigned#05138d91 query_id:uint64 prev_owner:address forward_payload:remainder<slice> = OwnershipAssigned`
+Signature: `OwnershipAssigned{query_id:uint64,prev_owner:address,forward_payload:remainder<slice>}`
 
-### UserWithdrawal
-TL-B: `user_withdrawal#7beaf2a0 amount:coins = UserWithdrawal`
-Signature: `UserWithdrawal{amount:coins}`
+### Excesses
+TL-B: `excesses#d53276db query_id:uint64 = Excesses`
+Signature: `Excesses{query_id:uint64}`
 
-### BetGame$Data
-TL-B: `_ owner:address bettingStarted:bool bettingRound:int257 userBalance:dict<address, coins> = BetGame`
-Signature: `BetGame{owner:address,bettingStarted:bool,bettingRound:int257,userBalance:dict<address, coins>}`
+### GetStaticData
+TL-B: `get_static_data#2fcb26a2 query_id:uint64 = GetStaticData`
+Signature: `GetStaticData{query_id:uint64}`
+
+### ReportStaticData
+TL-B: `report_static_data#8b771735 query_id:uint64 index_id:int257 collection:address = ReportStaticData`
+Signature: `ReportStaticData{query_id:uint64,index_id:int257,collection:address}`
+
+### GetRoyaltyParams
+TL-B: `get_royalty_params#693d3950 query_id:uint64 = GetRoyaltyParams`
+Signature: `GetRoyaltyParams{query_id:uint64}`
+
+### ReportRoyaltyParams
+TL-B: `report_royalty_params#a8cb00ad query_id:uint64 numerator:uint16 denominator:uint16 destination:address = ReportRoyaltyParams`
+Signature: `ReportRoyaltyParams{query_id:uint64,numerator:uint16,denominator:uint16,destination:address}`
+
+### NFTItem$Data
+TL-B: `_ collection_address:address item_index:int257 owner:address individual_content:^cell is_initialized:bool = NFTItem`
+Signature: `NFTItem{collection_address:address,item_index:int257,owner:address,individual_content:^cell,is_initialized:bool}`
 
 ## Get methods
-Total get methods: 4
+Total get methods: 1
 
-## bettingRound
-No arguments
-
-## contractBalance
-No arguments
-
-## userBalance
-Argument: userAddress
-
-## owner
+## get_nft_data
 No arguments
 
 ## Exit codes
@@ -125,24 +132,19 @@ No arguments
 * 135: Code of a contract was not found
 * 136: Invalid standard address
 * 138: Not a basechain address
-* 21769: User has less funds
+* 49280: not owner
 
 ## Trait inheritance diagram
 
 ```mermaid
 graph TD
-BetGame
-BetGame --> BaseTrait
-BetGame --> OwnableTransferable
-OwnableTransferable --> Ownable
-Ownable --> BaseTrait
-OwnableTransferable --> BaseTrait
-BetGame --> Ownable
+NFTItem
+NFTItem --> BaseTrait
 ```
 
 ## Contract dependency diagram
 
 ```mermaid
 graph TD
-BetGame
+NFTItem
 ```

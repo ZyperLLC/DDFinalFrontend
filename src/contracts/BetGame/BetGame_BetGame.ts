@@ -863,11 +863,59 @@ export function dictValueParserWithdrawTon(): DictionaryValue<WithdrawTon> {
     }
 }
 
+export type UserWithdrawal = {
+    $$type: 'UserWithdrawal';
+    amount: bigint;
+}
+
+export function storeUserWithdrawal(src: UserWithdrawal) {
+    return (builder: Builder) => {
+        const b_0 = builder;
+        b_0.storeUint(2078995104, 32);
+        b_0.storeCoins(src.amount);
+    };
+}
+
+export function loadUserWithdrawal(slice: Slice) {
+    const sc_0 = slice;
+    if (sc_0.loadUint(32) !== 2078995104) { throw Error('Invalid prefix'); }
+    const _amount = sc_0.loadCoins();
+    return { $$type: 'UserWithdrawal' as const, amount: _amount };
+}
+
+export function loadTupleUserWithdrawal(source: TupleReader) {
+    const _amount = source.readBigNumber();
+    return { $$type: 'UserWithdrawal' as const, amount: _amount };
+}
+
+export function loadGetterTupleUserWithdrawal(source: TupleReader) {
+    const _amount = source.readBigNumber();
+    return { $$type: 'UserWithdrawal' as const, amount: _amount };
+}
+
+export function storeTupleUserWithdrawal(source: UserWithdrawal) {
+    const builder = new TupleBuilder();
+    builder.writeNumber(source.amount);
+    return builder.build();
+}
+
+export function dictValueParserUserWithdrawal(): DictionaryValue<UserWithdrawal> {
+    return {
+        serialize: (src, builder) => {
+            builder.storeRef(beginCell().store(storeUserWithdrawal(src)).endCell());
+        },
+        parse: (src) => {
+            return loadUserWithdrawal(src.loadRef().beginParse());
+        }
+    }
+}
+
 export type BetGame$Data = {
     $$type: 'BetGame$Data';
     owner: Address;
     bettingStarted: boolean;
     bettingRound: bigint;
+    userBalance: Dictionary<Address, bigint>;
 }
 
 export function storeBetGame$Data(src: BetGame$Data) {
@@ -876,6 +924,7 @@ export function storeBetGame$Data(src: BetGame$Data) {
         b_0.storeAddress(src.owner);
         b_0.storeBit(src.bettingStarted);
         b_0.storeInt(src.bettingRound, 257);
+        b_0.storeDict(src.userBalance, Dictionary.Keys.Address(), Dictionary.Values.BigVarUint(4));
     };
 }
 
@@ -884,21 +933,24 @@ export function loadBetGame$Data(slice: Slice) {
     const _owner = sc_0.loadAddress();
     const _bettingStarted = sc_0.loadBit();
     const _bettingRound = sc_0.loadIntBig(257);
-    return { $$type: 'BetGame$Data' as const, owner: _owner, bettingStarted: _bettingStarted, bettingRound: _bettingRound };
+    const _userBalance = Dictionary.load(Dictionary.Keys.Address(), Dictionary.Values.BigVarUint(4), sc_0);
+    return { $$type: 'BetGame$Data' as const, owner: _owner, bettingStarted: _bettingStarted, bettingRound: _bettingRound, userBalance: _userBalance };
 }
 
 export function loadTupleBetGame$Data(source: TupleReader) {
     const _owner = source.readAddress();
     const _bettingStarted = source.readBoolean();
     const _bettingRound = source.readBigNumber();
-    return { $$type: 'BetGame$Data' as const, owner: _owner, bettingStarted: _bettingStarted, bettingRound: _bettingRound };
+    const _userBalance = Dictionary.loadDirect(Dictionary.Keys.Address(), Dictionary.Values.BigVarUint(4), source.readCellOpt());
+    return { $$type: 'BetGame$Data' as const, owner: _owner, bettingStarted: _bettingStarted, bettingRound: _bettingRound, userBalance: _userBalance };
 }
 
 export function loadGetterTupleBetGame$Data(source: TupleReader) {
     const _owner = source.readAddress();
     const _bettingStarted = source.readBoolean();
     const _bettingRound = source.readBigNumber();
-    return { $$type: 'BetGame$Data' as const, owner: _owner, bettingStarted: _bettingStarted, bettingRound: _bettingRound };
+    const _userBalance = Dictionary.loadDirect(Dictionary.Keys.Address(), Dictionary.Values.BigVarUint(4), source.readCellOpt());
+    return { $$type: 'BetGame$Data' as const, owner: _owner, bettingStarted: _bettingStarted, bettingRound: _bettingRound, userBalance: _userBalance };
 }
 
 export function storeTupleBetGame$Data(source: BetGame$Data) {
@@ -906,6 +958,7 @@ export function storeTupleBetGame$Data(source: BetGame$Data) {
     builder.writeAddress(source.owner);
     builder.writeBoolean(source.bettingStarted);
     builder.writeNumber(source.bettingRound);
+    builder.writeCell(source.userBalance.size > 0 ? beginCell().storeDictDirect(source.userBalance, Dictionary.Keys.Address(), Dictionary.Values.BigVarUint(4)).endCell() : null);
     return builder.build();
 }
 
@@ -925,6 +978,7 @@ export function dictValueParserBetGame$Data(): DictionaryValue<BetGame$Data> {
     owner: Address;
     bettingStarted: boolean;
     bettingRound: bigint;
+    userBalance: Dictionary<Address, bigint>;
 }
 
 function initBetGame_init_args(src: BetGame_init_args) {
@@ -933,13 +987,14 @@ function initBetGame_init_args(src: BetGame_init_args) {
         b_0.storeAddress(src.owner);
         b_0.storeBit(src.bettingStarted);
         b_0.storeInt(src.bettingRound, 257);
+        b_0.storeDict(src.userBalance, Dictionary.Keys.Address(), Dictionary.Values.BigVarUint(4));
     };
 }
 
-async function BetGame_init(owner: Address, bettingStarted: boolean, bettingRound: bigint) {
-    const __code = Cell.fromHex('b5ee9c72410211010002c1000228ff008e88f4a413f4bcf2c80bed5320e303ed43d901090202710204012dbe28ef6a2687d206900408080eb802a903609ed9e3618c030002220201660507012db3a37b51343e90348020404075c015481b04f6cf1b0c60060008f8276f10012db388fb51343e90348020404075c015481b04f6cf1b0c600800022002f830eda2edfb01d072d721d200d200fa4021103450666f04f86102f862ed44d0fa40d200810101d70055206c1304925f04e07023d74920c21fe30001c00001c121b08e125f04f842c8cf8508ce70cf0b6ec98042fb00e002f9012082f05838f9565baa189f5d1ec3946b8eccc609bd2bb070777a91ec98b47eecda37670a0f039e3103d31f2182105652cbc4bae302218210fabed8e6ba8eab313302fa00305023db3c5b017270136d5520c8cf8580ca00cf8440ce01fa02806acf40f400c901fb00db31e0218210819dbe99bae302040b100e02fe313302f404305023db3c5f0320810101f4856fa520911295316d326d01e2908e5d206e92306d9dd0fa40d200fa0055206c136f03e2206ef2d0806f230198810302a88064a90492a707e27270136d5520c8cf8580ca00cf8440ce01fa02806acf40f400c901fb00810101220259f4786fa5209402d4305895316d326d01e2e8100c014a5f03f8287080408870443012c8cf8580ca00cf8440ce01fa02806acf40f400c901fb00db310d001800000000737461727462657401a8313302d33ffa40305034db3c325123c8598210327b2b4a5003cb1fcb3fcec9f8427f705003804201503304c8cf8580ca00cf8440ce01fa02806acf40f400c901fb00c855205023ceca00810101cf00c9ed54db311001a8ba8ea73002db3c7f32a4f842c8cf8508ce70cf0b6ec98042fb00c855205023ceca00810101cf00c9ed54e06c3182f0a34a48aa7d7a6204cd9791c95cee4318f5d0a056f33d5a2b0ff37a17df527978badcf2c082100010f84223c705f2e084b015cce1');
+async function BetGame_init(owner: Address, bettingStarted: boolean, bettingRound: bigint, userBalance: Dictionary<Address, bigint>) {
+    const __code = Cell.fromHex('b5ee9c724102140100037c0003e2ff008e88f4a413f4bcf2c80bed53208f5c30eda2edfb01d072d721d200d200fa4021103450666f04f86102f862ed44d0fa40d200810101d700f40455306c1405925f05e07024d74920c21fe30001c00001c121b08e125f05f842c8cf8508ce70cf0b6ec98042fb00e003f90120e1ed43d9010c11020271020702012003050135b94a7ed44d0fa40d200810101d700f40455306c145503db3c6c41804002e81010b220259f40a6fa193fa003092306de2206ef2d0800131b851ded44d0fa40d200810101d700f40455306c14db3c6c41806000223020166080a0131b3a37b51343e90348020404075c03d01154c1b0536cf1b1060090008f8276f100131b388fb51343e90348020404075c03d01154c1b0536cf1b10600b00022103fe3104d31f2182107beaf2a0ba8e5b6c51fa0030f8416f2410235f030281010b2359f40a6fa193fa003092306de281550901206ef2d08022bef2f47270136d5520c8cf8580ca00cf8440ce01fa02806acf40f400c901fb00f842c8cf8508ce70cf0b6ec98042fb00db31e02182105652cbc4bae302218210fabed8e6bae302210d0f1002fe313403f404304134db3c5f0420810101f4856fa520911295316d326d01e2908e5d206e92306d9dd0fa40d200fa0055206c136f03e2206ef2d0806f230198810302a88064a90492a707e27270136d5520c8cf8580ca00cf8440ce01fa02806acf40f400c901fb00810101220259f4786fa5209402d4305895316d326d01e2e8120e00085f03db310158313403fa00304134db3c5f03017270136d5520c8cf8580ca00cf8440ce01fa02806acf40f400c901fb00db311201c68210819dbe99ba8ed8313403d33ffa40305045db3c335134c8598210327b2b4a5003cb1fcb3fcec94330f8427f705003804201503304c8cf8580ca00cf8440ce01fa02806acf40f400c901fb00c855305034ceca00810101cf00f400c9ed54db31e0051202f882f05838f9565baa189f5d1ec3946b8eccc609bd2bb070777a91ec98b47eecda3767ba8eac304003db3c327f01a4f842c8cf8508ce70cf0b6ec98042fb0058c855305034ceca00810101cf00f400c9ed54e082f0a34a48aa7d7a6204cd9791c95cee4318f5d0a056f33d5a2b0ff37a17df527978bae3025f04f2c08212130010f84224c705f2e0840064f8416f243032102581010b02206e953059f4593098c801fa024133f441e24330c855305034ceca00810101cf00f400c9ed54eda4d9bd');
     const builder = beginCell();
-    initBetGame_init_args({ $$type: 'BetGame_init_args', owner, bettingStarted, bettingRound })(builder);
+    initBetGame_init_args({ $$type: 'BetGame_init_args', owner, bettingStarted, bettingRound, userBalance })(builder);
     const __data = builder.endCell();
     return { code: __code, data: __data };
 }
@@ -981,6 +1036,7 @@ export const BetGame_errors = {
     135: { message: "Code of a contract was not found" },
     136: { message: "Invalid standard address" },
     138: { message: "Not a basechain address" },
+    21769: { message: "User has less funds" },
 } as const
 
 export const BetGame_errors_backward = {
@@ -1020,6 +1076,7 @@ export const BetGame_errors_backward = {
     "Code of a contract was not found": 135,
     "Invalid standard address": 136,
     "Not a basechain address": 138,
+    "User has less funds": 21769,
 } as const
 
 const BetGame_types: ABIType[] = [
@@ -1038,7 +1095,8 @@ const BetGame_types: ABIType[] = [
     {"name":"Bet","header":null,"fields":[{"name":"player","type":{"kind":"simple","type":"address","optional":false}},{"name":"hasNFT","type":{"kind":"simple","type":"bool","optional":false}},{"name":"amountBet","type":{"kind":"simple","type":"uint","optional":false,"format":"coins"}}]},
     {"name":"EndBetting","header":1448266692,"fields":[{"name":"tonWinningBets","type":{"kind":"dict","key":"int","value":"Bet","valueFormat":"ref"}}]},
     {"name":"WithdrawTon","header":4206811366,"fields":[{"name":"amount","type":{"kind":"simple","type":"uint","optional":false,"format":"coins"}}]},
-    {"name":"BetGame$Data","header":null,"fields":[{"name":"owner","type":{"kind":"simple","type":"address","optional":false}},{"name":"bettingStarted","type":{"kind":"simple","type":"bool","optional":false}},{"name":"bettingRound","type":{"kind":"simple","type":"int","optional":false,"format":257}}]},
+    {"name":"UserWithdrawal","header":2078995104,"fields":[{"name":"amount","type":{"kind":"simple","type":"uint","optional":false,"format":"coins"}}]},
+    {"name":"BetGame$Data","header":null,"fields":[{"name":"owner","type":{"kind":"simple","type":"address","optional":false}},{"name":"bettingStarted","type":{"kind":"simple","type":"bool","optional":false}},{"name":"bettingRound","type":{"kind":"simple","type":"int","optional":false,"format":257}},{"name":"userBalance","type":{"kind":"dict","key":"address","value":"uint","valueFormat":"coins"}}]},
 ]
 
 const BetGame_opcodes = {
@@ -1046,17 +1104,20 @@ const BetGame_opcodes = {
     "ChangeOwnerOk": 846932810,
     "EndBetting": 1448266692,
     "WithdrawTon": 4206811366,
+    "UserWithdrawal": 2078995104,
 }
 
 const BetGame_getters: ABIGetter[] = [
     {"name":"bettingRound","methodId":114211,"arguments":[],"returnType":{"kind":"simple","type":"int","optional":false,"format":257}},
     {"name":"contractBalance","methodId":110221,"arguments":[],"returnType":{"kind":"simple","type":"int","optional":false,"format":257}},
+    {"name":"userBalance","methodId":70823,"arguments":[{"name":"userAddress","type":{"kind":"simple","type":"address","optional":false}}],"returnType":{"kind":"simple","type":"int","optional":false,"format":257}},
     {"name":"owner","methodId":83229,"arguments":[],"returnType":{"kind":"simple","type":"address","optional":false}},
 ]
 
 export const BetGame_getterMapping: { [key: string]: string } = {
     'bettingRound': 'getBettingRound',
     'contractBalance': 'getContractBalance',
+    'userBalance': 'getUserBalance',
     'owner': 'getOwner',
 }
 
@@ -1064,6 +1125,7 @@ const BetGame_receivers: ABIReceiver[] = [
     {"receiver":"internal","message":{"kind":"empty"}},
     {"receiver":"internal","message":{"kind":"text","text":"startbet"}},
     {"receiver":"internal","message":{"kind":"text","text":"depositton"}},
+    {"receiver":"internal","message":{"kind":"typed","type":"UserWithdrawal"}},
     {"receiver":"internal","message":{"kind":"typed","type":"EndBetting"}},
     {"receiver":"internal","message":{"kind":"typed","type":"WithdrawTon"}},
     {"receiver":"internal","message":{"kind":"typed","type":"ChangeOwner"}},
@@ -1076,12 +1138,12 @@ export class BetGame implements Contract {
     public static readonly errors = BetGame_errors_backward;
     public static readonly opcodes = BetGame_opcodes;
     
-    static async init(owner: Address, bettingStarted: boolean, bettingRound: bigint) {
-        return await BetGame_init(owner, bettingStarted, bettingRound);
+    static async init(owner: Address, bettingStarted: boolean, bettingRound: bigint, userBalance: Dictionary<Address, bigint>) {
+        return await BetGame_init(owner, bettingStarted, bettingRound, userBalance);
     }
     
-    static async fromInit(owner: Address, bettingStarted: boolean, bettingRound: bigint) {
-        const __gen_init = await BetGame_init(owner, bettingStarted, bettingRound);
+    static async fromInit(owner: Address, bettingStarted: boolean, bettingRound: bigint, userBalance: Dictionary<Address, bigint>) {
+        const __gen_init = await BetGame_init(owner, bettingStarted, bettingRound, userBalance);
         const address = contractAddress(0, __gen_init);
         return new BetGame(address, __gen_init);
     }
@@ -1104,7 +1166,7 @@ export class BetGame implements Contract {
         this.init = init;
     }
     
-    async send(provider: ContractProvider, via: Sender, args: { value: bigint, bounce?: boolean| null | undefined }, message: null | "startbet" | "depositton" | EndBetting | WithdrawTon | ChangeOwner) {
+    async send(provider: ContractProvider, via: Sender, args: { value: bigint, bounce?: boolean| null | undefined }, message: null | "startbet" | "depositton" | UserWithdrawal | EndBetting | WithdrawTon | ChangeOwner) {
         
         let body: Cell | null = null;
         if (message === null) {
@@ -1115,6 +1177,9 @@ export class BetGame implements Contract {
         }
         if (message === "depositton") {
             body = beginCell().storeUint(0, 32).storeStringTail(message).endCell();
+        }
+        if (message && typeof message === 'object' && !(message instanceof Slice) && message.$$type === 'UserWithdrawal') {
+            body = beginCell().store(storeUserWithdrawal(message)).endCell();
         }
         if (message && typeof message === 'object' && !(message instanceof Slice) && message.$$type === 'EndBetting') {
             body = beginCell().store(storeEndBetting(message)).endCell();
@@ -1141,6 +1206,14 @@ export class BetGame implements Contract {
     async getContractBalance(provider: ContractProvider) {
         const builder = new TupleBuilder();
         const source = (await provider.get('contractBalance', builder.build())).stack;
+        const result = source.readBigNumber();
+        return result;
+    }
+    
+    async getUserBalance(provider: ContractProvider, userAddress: Address) {
+        const builder = new TupleBuilder();
+        builder.writeAddress(userAddress);
+        const source = (await provider.get('userBalance', builder.build())).stack;
         const result = source.readBigNumber();
         return result;
     }

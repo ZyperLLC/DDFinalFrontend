@@ -34,7 +34,21 @@ import dolphin21 from './assets/dolphins/dolphin21.jpg';
 import dolphin22 from './assets/dolphins/dolphin22.jpg';
 import dolphin23 from './assets/dolphins/dolphin23.jpg';
 import dolphin24 from './assets/dolphins/dolphin24.jpg';
+import dolphin25 from './assets/dolphins/dolphin25.png';
+import dolphin26 from './assets/dolphins/dolphin26.png';
+import dolphin27 from './assets/dolphins/dolphin27.png';
+import dolphin28 from './assets/dolphins/dolphin28.png';
+import dolphin29 from './assets/dolphins/dolphin29.png';
+import dolphin30 from './assets/dolphins/dolphin30.png';
+import dolphin31 from './assets/dolphins/dolphin31.png';
+import dolphin32 from './assets/dolphins/dolphin32.png';
+import dolphin33 from './assets/dolphins/dolphin33.png';
+import dolphin34 from './assets/dolphins/dolphin34.png';
+import dolphin35 from './assets/dolphins/dolphin35.png';
+import dolphin36 from './assets/dolphins/dolphin36.png';
 import { UserContext } from './Context/UserContextProvider';
+import { motion } from 'framer-motion';
+import { slideUpFade } from './utils/animations';
 
 const dolphins = [
   { image: dolphin1, name: 'RUGPULL RAY' },
@@ -61,30 +75,48 @@ const dolphins = [
   { image: dolphin22, name: 'BLUBBERROCK DTF' },
   { image: dolphin23, name: 'CARDOLPHO' },
   { image: dolphin24, name: 'SOLANIC' },
+  { image: dolphin25, name: 'MODZILLA' },
+  { image: dolphin26, name: 'PROMPTO' },
+  { image: dolphin27, name: 'FUDDERINO' },
+  { image: dolphin28, name: 'MOONWAVE' },
+  { image: dolphin29, name: 'MCFLIPPER' },
+  { image: dolphin30, name: 'FINTOSHI' },
+  { image: dolphin31, name: 'GASOLINA' },
+  { image: dolphin32, name: 'OG FINFATHER' },
+  { image: dolphin33, name: 'DOLPH UN' },
+  { image: dolphin34, name: 'WHALE WEI' },
+  { image: dolphin35, name: 'TONY FLIPPINS' },
+  { image: dolphin36, name: 'DOLPH D' },
 ];
 
 function Home() {
   const [timer, setTimer] = useState(0);
   const context = useContext(UserContext);
   const [showPopup, setShowPopup] = useState(context?.user.telegramId ? false : true);
-  const [selectedDolphin, setSelectedDolphin] = useState<null | { image: string; name: string }>(null);
+  const [selectedDolphin, setSelectedDolphin] = useState<null | { id:number,image: string; name: string }>(null);
   const [isDolphinPopupVisible, setIsDolphinPopupVisible] = useState(false);
 
   useEffect(() => {
-    const saved = localStorage.getItem('dolphin_timer_start');
-    let start = saved ? parseInt(saved) : Date.now();
-    if (!saved) localStorage.setItem('dolphin_timer_start', `${start}`);
+    function getTimeUntilTarget() {
+      const targetTime = new Date(Date.UTC(2025, 6, 15, 19, 30, 0, 0)); // July 15, 2025, 8 PM UTC
+      const now = new Date();
+      console.log(targetTime.getTime());
+      console.log("Now time:" ,now.getTime())
+      // Calculate seconds until target
+      const secondsUntil = Math.floor(Math.abs(now.getTime() - targetTime.getTime()) / 1000);
+      console.log("difference",secondsUntil)
+      // If target time hasn't been reached yet, return positive seconds
+      if (secondsUntil > 0) {
+        return secondsUntil;
+      }
+      
+      // If target time has passed, return 0
+      return 0;
+    }
 
     const interval = setInterval(() => {
-      const now = Date.now();
-      const elapsed = Math.floor((now - start) / 1000);
-      if (elapsed >= 86400) {
-        start = Date.now();
-        localStorage.setItem('dolphin_timer_start', `${start}`);
-        setTimer(0);
-      } else {
-        setTimer(elapsed);
-      }
+      const timeUntil = getTimeUntilTarget();
+      setTimer(timeUntil);
     }, 1000);
 
     return () => clearInterval(interval);
@@ -110,23 +142,25 @@ function Home() {
       {showPopup && <WelcomePopup onClose={() => setShowPopup(false)} />}
       <LanguageSwitcher />
 
-      <div className={`main-content-wrapper ${showPopup ? 'blurred' : ''}`}>
+      <motion.div variants={slideUpFade} initial="hidden" animate="visible" className={`main-content-wrapper ${showPopup ? 'blurred' : ''}`}>
         <img src={logo} alt="Logo" className="page-logo" />
         <TimerCard timer={timer} />
         <DolphinGrid
           dolphins={dolphins.map((d) => d.image)}
           onDolphinClick={(index) => {
             setSelectedDolphin({
+              id:index,
               image: dolphins[index].image,
               name: dolphins[index].name,
             });
           }}
         />
         <Navbar />
-      </div>
+      </motion.div>
 
       {selectedDolphin && (
         <DolphinPopup
+          id={selectedDolphin.id}
           image={selectedDolphin.image}
           name={selectedDolphin.name}
           isVisible={isDolphinPopupVisible}

@@ -1,29 +1,34 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { useEffect, useState } from 'react';
+import { useGetCredits } from '../hooks/useGetCredits';
 
-interface Props {
-  image: string;
-  name: string;
-  time: string;
-  reward: string;
-}
-
-const StakedNFTCard: React.FC<Props> = ({ image, name, time, reward }) => {
-  const { t } = useTranslation();
-
+const StakedNFTCard = ({contractAddress}:{contractAddress:string}) => {
+  const {fetchNftByAddress} = useGetCredits();
+  const [nftData, setNftData] = useState<any>(null);
+  console.log("Contract Address:", contractAddress);
+  useEffect(() => {
+    async function fetchNftData() {
+      try {
+        const data = await fetchNftByAddress(contractAddress);
+        setNftData(data);
+        console.log("Fetched NFT Data:", data);
+      } catch (error) {
+        console.error("Error fetching NFT data:", error);
+      }
+    }
+    fetchNftData();
+  }, [contractAddress]);
   return (
+    <>
+    {nftData ?
     <div className="nft-card">
-      <img src={image} alt={name} className="nft-image" />
+      <img src={nftData.metadata.image} alt={nftData.metadata.name} className="nft-image" />
       <div className="nft-info text-left">
-        <h3 className="nft-name">{name}</h3>
-        <p className="nft-detail">
-          <strong>{t('stakedNFT.remainingTime')}:</strong> {time}
-        </p>
-        <p className="nft-detail">
-          <strong>{t('stakedNFT.earn')}:</strong> {reward}
-        </p>
+        <h3 className="nft-name">{nftData.metadata.name}</h3>
       </div>
-    </div>
+    </div>:
+    <></>
+  }
+  </>
   );
 };
 
