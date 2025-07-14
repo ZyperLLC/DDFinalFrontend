@@ -131,7 +131,7 @@ export default function StakePopup({
               >
                 {t('popup.stakeButton')}
               </button>*/}
-              <p style={{color:"white"}}>Epoch 3 gonna live soon!!</p>
+              <p style={{color:"white"}}>Epoch 3 is going live soon!!</p>
             </div>
           </div>
         </div>
