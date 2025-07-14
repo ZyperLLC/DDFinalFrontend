@@ -80,9 +80,10 @@
   },
 
   "friends": {
-    "heading": "Friends Leaderboard",
+    "heading": "Referred Friends",
+    "serialNumber": "S.No",
     "username": "Username",
-    "reward": "Reward"
+    "reward": "Credit"
   },
 
   "profile": {

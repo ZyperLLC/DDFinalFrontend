@@ -9,6 +9,7 @@ import { Bet, User } from '../types';
 import { useUser } from '../hooks/useUser';
 import { useGetCredits } from '../hooks/useGetCredits';
 import { addFriend } from '../api/userApi';
+import { Address } from '@ton/ton';
 
 type ConnectButtonProps = {
   whiteBg?: boolean;
@@ -94,7 +95,7 @@ export const ConnectButton = ({ whiteBg = false }: ConnectButtonProps) => {
                         toast.success("User Registered Successfully");
                     }
                     context?.setTelegramId(tgWebAppData?.user?.id.toString());
-                    context?.setWalletAddress(address);
+                    context?.setWalletAddress(`${Address.parse(address)}`);
                     context?.setTonBalance(userData?.tonBalance ?? BigInt(0)); 
                     context?.setCreditBalance(userData?.creditBalance ?? creditBalance); 
                     context?.setFriends(userData?.friends);

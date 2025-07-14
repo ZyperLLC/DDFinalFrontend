@@ -83,7 +83,8 @@
 
 
   "friends": {
-    "heading": "Clasificación de Amigos",
+    "heading": "Amigos Referidos",
+    "serialNumber": "Núm.S",
     "username": "Nombre de usuario",
     "reward": "Recompensa"
   },

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import '../index.css';
 import { UserContext } from '../Context/UserContextProvider';
 
-export default function FriendsLeaderBoard() {
+export default function  FriendsLeaderBoard() {
   const context = useContext(UserContext);
   const friendsList = context?.user.friends || [];
   const { t } = useTranslation();
@@ -14,6 +14,7 @@ export default function FriendsLeaderBoard() {
       <h2 className="leaderboard-heading">{t('friends.heading')}</h2>{/* Serial Number */}
 
       <div className="leaderboard-header">
+        <span>{t('friends.serialNumber')}</span>
         <span>{t('friends.username')}</span>
         <span>{t('friends.reward')}</span>
       </div>
