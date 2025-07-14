@@ -72,15 +72,18 @@ export default function Friend() {
         </div>
       </motion.div>
 
-      {/* Friends Leaderboard */}
-      <motion.div
-        variants={slideUpFade}
-        initial="hidden"
-        animate="visible"
-        transition={{ delay: 0.2 }}
-      >
-        <FriendsLeaderBoard />
-      </motion.div>
+      {/* Friends Leaderboard - Wrapped to preserve layout */}
+      <div className="w-full flex justify-center">
+        <motion.div
+          variants={slideUpFade}
+          initial="hidden"
+          animate="visible"
+          transition={{ delay: 0.2 }}
+          className="w-full"
+        >
+          <FriendsLeaderBoard />
+        </motion.div>
+      </div>
 
       <Navbar />
     </div>
