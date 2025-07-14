@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import background1 from '../assets/background1.jpg';
 import tonSymbol from '../assets/ton_symbol.jpg';
 import creditIcon from '../assets/credit.jpg';
+import { slideUpFade } from '../utils/animations';
 
 type Props = {
   image: string;
@@ -78,7 +79,7 @@ export default function DolphinPopup({ image, name, onClose, isVisible }: Props)
             }}
           />
 
-          {/* Beep animation style */}
+          {/* Beep animation */}
           <style>
             {`
               @keyframes beep {
@@ -94,10 +95,10 @@ export default function DolphinPopup({ image, name, onClose, isVisible }: Props)
 
           {/* Popup */}
           <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.9, opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            variants={slideUpFade}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
             style={{
               width: '100%',
               maxWidth: '340px',

@@ -1,16 +1,18 @@
-import type { Variants } from 'framer-motion';
+import { Variants } from 'framer-motion';
 
 export const slideUpFade: Variants = {
-  hidden: {
-    y: 50,
-    opacity: 0,
-  },
+  hidden: { opacity: 0, y: 40 },
   visible: {
-    y: 0,
     opacity: 1,
+    y: 0,
     transition: {
-      duration: 0.6,
+      duration: 0.4,
       ease: [0.25, 0.1, 0.25, 1],
     },
+  },
+  exit: {
+    opacity: 0,
+    y: 40,
+    transition: { duration: 0.3 },
   },
 };
