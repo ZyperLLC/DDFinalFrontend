@@ -307,9 +307,11 @@ html, body {
   padding: 1.5rem 1.2rem;
   text-align: center;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
+  gap:6;
   justify-content: center;
   flex-direction: column;
+  max-height: '50%';
 }
 
 .popup-content h2 {
