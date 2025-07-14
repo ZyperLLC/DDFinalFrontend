@@ -63,7 +63,7 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
     console.log("Bet Result:", result);
     if(result){
       toast.success("Amount placed successfully");
-      onClose();
+      handleExitComplete();
     }
   }
   const [shouldRender, setShouldRender] = useState(isVisible);
@@ -238,7 +238,7 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
                       value={amount??''}
                       style={{
                         height: '40px',
-                        width: '120px',
+                        width:'50%',
                         background: '#fff',
                         borderRadius: '8px',
                         border: 'none',
@@ -251,7 +251,7 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
                     <div
                       style={{
                         height: '40px',
-                        width: '120px',
+                        width: '50%',
                         background: '#fff',
                         borderRadius: '8px',
                         display: 'flex',
