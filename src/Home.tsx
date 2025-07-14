@@ -158,7 +158,6 @@ function Home() {
         <Navbar />
       </motion.div>
 
-      <motion.div variants={slideUpFade} initial="hidden" animate="visible">
       {selectedDolphin && (
         <DolphinPopup
           id={selectedDolphin.id}
@@ -169,7 +168,6 @@ function Home() {
           onExit={handleDolphinExit}
         />
       )}
-      </motion.div>
     </div>
   );
 }
