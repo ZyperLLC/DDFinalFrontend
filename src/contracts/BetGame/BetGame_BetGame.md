@@ -1,9 +1,9 @@
 # Tact compilation report
 Contract: BetGame
-BoC Size: 717 bytes
+BoC Size: 904 bytes
 
 ## Structures (Structs and Messages)
-Total structures: 16
+Total structures: 17
 
 ### DataSize
 TL-B: `_ cells:int257 bits:int257 refs:int257 = DataSize`
@@ -65,18 +65,25 @@ Signature: `EndBetting{tonWinningBets:dict<int, ^Bet{player:address,hasNFT:bool,
 TL-B: `withdraw_ton#fabed8e6 amount:coins = WithdrawTon`
 Signature: `WithdrawTon{amount:coins}`
 
+### UserWithdrawal
+TL-B: `user_withdrawal#7beaf2a0 amount:coins = UserWithdrawal`
+Signature: `UserWithdrawal{amount:coins}`
+
 ### BetGame$Data
-TL-B: `_ owner:address bettingStarted:bool bettingRound:int257 = BetGame`
-Signature: `BetGame{owner:address,bettingStarted:bool,bettingRound:int257}`
+TL-B: `_ owner:address bettingStarted:bool bettingRound:int257 userBalance:dict<address, coins> = BetGame`
+Signature: `BetGame{owner:address,bettingStarted:bool,bettingRound:int257,userBalance:dict<address, coins>}`
 
 ## Get methods
-Total get methods: 3
+Total get methods: 4
 
 ## bettingRound
 No arguments
 
 ## contractBalance
 No arguments
+
+## userBalance
+Argument: userAddress
 
 ## owner
 No arguments
@@ -118,6 +125,7 @@ No arguments
 * 135: Code of a contract was not found
 * 136: Invalid standard address
 * 138: Not a basechain address
+* 21769: User has less funds
 
 ## Trait inheritance diagram
 

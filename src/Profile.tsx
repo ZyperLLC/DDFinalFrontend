@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Navbar from './components/Navbar';
 
@@ -39,12 +39,16 @@ import SectionBox from './components/SectionBox';
 
 import './index.css';
 import { UserContext } from './Context/UserContextProvider';
+import { UserWithdrawal } from './contracts/BetGame/BetGame_BetGame';
+import { useWithdrawDeposits } from './hooks/useWithdrawDeposits';
 
 export default function Profile() {
   const { t } = useTranslation();
   const context = useContext(UserContext);
   const isWalletConnected = !!context?.user.walletAddress;
-
+  const {withdraw} = useWithdrawDeposits();
+  const [amountToWithdraw,setAmountToWithdraw] = useState<number>(0.1);
+  
   const dolphinImages: { [key: number]: string } = {
     1: dolphin1,
     2: dolphin2,
@@ -71,7 +75,13 @@ export default function Profile() {
     23: dolphin23,
     24: dolphin24,
   }
-  console.log("Staked NFTs:", context?.user.stakedNfts);
+
+  const handleUserWithdraw = () => {
+    const userWithdrawal = async ()=>{
+      await withdraw(amountToWithdraw);
+    }
+    userWithdrawal();
+  }
   return (
     <div
       className="page profile-page"
@@ -131,10 +141,7 @@ export default function Profile() {
             <button
               className="w-full mt-2 py-3 rounded-[12px] font-semibold connect-wallet-button"
 
-              // style={{
-              //   background: 'linear-gradient(to right, #D93CE6, #7B3FE4)',
-              //   color: 'white',
-              // }}
+              onClick={handleUserWithdraw}
             >
               {t('profile.sendTon')}
             </button>
