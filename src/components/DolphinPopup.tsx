@@ -10,16 +10,13 @@ import background1 from '../assets/background1.jpg';
 import tonSymbol from '../assets/ton_symbol.jpg';
 import creditIcon from '../assets/credit.jpg';
 
-// DolphinPopup.tsx
-
 type Props = {
   image: string;
   name: string;
-  isVisible: boolean; // 👈 for fade-in / fade-out
-  onClose: () => void; // 👈 when user clicks X
-  onExit: () => void; // 👈 called after fade-out finishes
+  isVisible: boolean;
+  onClose: () => void;
+  onExit: () => void;
 };
-
 
 export default function DolphinPopup({ image, name, onClose, isVisible }: Props) {
   const { t } = useTranslation();
@@ -32,12 +29,10 @@ export default function DolphinPopup({ image, name, onClose, isVisible }: Props)
 
   const typedName = useTypewriter(name, 120, 2000);
 
-  // Control when the popup starts disappearing
   useEffect(() => {
     if (isVisible) setShouldRender(true);
   }, [isVisible]);
 
-  // Restore scroll on unmount
   useEffect(() => {
     if (isVisible) {
       document.body.style.overflow = 'hidden';
@@ -59,7 +54,7 @@ export default function DolphinPopup({ image, name, onClose, isVisible }: Props)
 
   const handleExitComplete = () => {
     setShouldRender(false);
-    onClose(); // parent sets showPopup to false
+    onClose();
   };
 
   return (
@@ -83,6 +78,20 @@ export default function DolphinPopup({ image, name, onClose, isVisible }: Props)
             }}
           />
 
+          {/* Beep animation style */}
+          <style>
+            {`
+              @keyframes beep {
+                0% { opacity: 1; }
+                50% { opacity: 0.3; }
+                100% { opacity: 1; }
+              }
+              .beep-text {
+                animation: beep 1.4s infinite;
+              }
+            `}
+          </style>
+
           {/* Popup */}
           <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
@@ -103,7 +112,6 @@ export default function DolphinPopup({ image, name, onClose, isVisible }: Props)
             <button
               className="close-btn absolute right-2 top-2 z-10"
               onClick={() => {
-                // start fade-out
                 setShouldRender(false);
               }}
               style={{
@@ -130,7 +138,6 @@ export default function DolphinPopup({ image, name, onClose, isVisible }: Props)
               <img
                 src={image}
                 alt={name}
-                className="page-logo"
                 style={{
                   width: '100%',
                   maxWidth: '160px',
@@ -268,10 +275,26 @@ export default function DolphinPopup({ image, name, onClose, isVisible }: Props)
                   </div>
                 </>
               ) : (
-
-                <div className="w-full px-4 mt-6 flex justify-center">
-                  <ConnectButton />
-                </div>
+                <>
+                  <div className="w-full px-4 mt-6 flex justify-center">
+                    <ConnectButton />
+                  </div>
+                  <p
+                    className="beep-text"
+                    style={{
+                      marginTop: '12px',
+                      color: '#fff',
+                      fontSize: '14px',
+                      textAlign: 'center',
+                      maxWidth: '260px',
+                      marginLeft: 'auto',
+                      marginRight: 'auto',
+                      opacity: 0.9,
+                    }}
+                  >
+                    {t('dolphin_popup.connect_message')}
+                  </p>
+                </>
               )}
             </div>
           </motion.div>
