@@ -47,6 +47,8 @@ import dolphin34 from './assets/dolphins/dolphin34.png';
 import dolphin35 from './assets/dolphins/dolphin35.png';
 import dolphin36 from './assets/dolphins/dolphin36.png';
 import { UserContext } from './Context/UserContextProvider';
+import { motion } from 'framer-motion';
+import { slideUpFade } from './utils/animations';
 
 const dolphins = [
   { image: dolphin1, name: 'RUGPULL RAY' },
@@ -96,7 +98,7 @@ function Home() {
 
   useEffect(() => {
     function getLast8PMUTC(now: Date) {
-      const last8pm = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 20, 0, 0, 0));
+      const last8pm = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 15, 20, 0, 0, 0));
       if (now.getUTCHours() < 20 || (now.getUTCHours() === 20 && now.getUTCMinutes() === 0 && now.getUTCSeconds() === 0)) {
         // If before 8pm UTC today, last 8pm was yesterday
         last8pm.setUTCDate(last8pm.getUTCDate() - 1);
@@ -139,7 +141,7 @@ function Home() {
       {showPopup && <WelcomePopup onClose={() => setShowPopup(false)} />}
       <LanguageSwitcher />
 
-      <div className={`main-content-wrapper ${showPopup ? 'blurred' : ''}`}>
+      <motion.div variants={slideUpFade} initial="hidden" animate="visible" className={`main-content-wrapper ${showPopup ? 'blurred' : ''}`}>
         <img src={logo} alt="Logo" className="page-logo" />
         <TimerCard timer={timer} />
         <DolphinGrid
@@ -153,7 +155,7 @@ function Home() {
           }}
         />
         <Navbar />
-      </div>
+      </motion.div>
 
       {selectedDolphin && (
         <DolphinPopup

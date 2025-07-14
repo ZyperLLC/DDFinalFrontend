@@ -7,6 +7,8 @@ import FriendsLeaderBoard from './components/FriendsLeaderBoard';
 import toast from 'react-hot-toast';
 import { UserContext } from './Context/UserContextProvider';
 import { useContext } from 'react';
+import { slideUpFade } from './utils/animations';
+import { motion } from 'framer-motion';
 
 export default function Friend() {
   const context = useContext(UserContext);
@@ -20,7 +22,7 @@ export default function Friend() {
   };
 
   return (
-    <div
+    <motion.div variants={slideUpFade} initial="hidden" animate="visible"
       className="page profile-page"
       style={{
         backgroundImage: `url(${background1})`,
@@ -65,6 +67,6 @@ export default function Friend() {
       <FriendsLeaderBoard />
 
       <Navbar />
-    </div>
+    </motion.div>
   );
 }

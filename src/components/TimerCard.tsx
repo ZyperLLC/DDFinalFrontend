@@ -1,9 +1,7 @@
 import { useTranslation } from 'react-i18next';
-import { useTypewriter } from '../hooks/useTypeWriter';
 
 export default function TimerCard({ timer }: { timer: number }) {
   const { t } = useTranslation();
-  const typedText = useTypewriter(t('choose_dolphin'), 100, 2000);
 
   const progressPercent = Math.min((timer / 86400) * 100, 100);
   const hours = Math.floor((86400 - timer) / 3600);
@@ -13,7 +11,7 @@ export default function TimerCard({ timer }: { timer: number }) {
   return (
     <div className="combined-card" style={{ marginTop: '1rem' }}>
       <h2 className="dolphin-header" style={{ textAlign: 'center' }}>
-        {typedText}
+        {t('choose_dolphin')}
         <span className="blinking-cursor">|</span>
       </h2>
 

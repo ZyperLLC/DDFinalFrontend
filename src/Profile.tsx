@@ -52,6 +52,8 @@ import SectionBox from './components/SectionBox';
 import './index.css';
 import { UserContext } from './Context/UserContextProvider';
 import { useWithdrawDeposits } from './hooks/useWithdrawDeposits';
+import { motion } from 'framer-motion';
+import { slideUpFade } from './utils/animations';
 
 export default function Profile() {
   const { t } = useTranslation();
@@ -106,7 +108,7 @@ export default function Profile() {
     userWithdrawal();
   }
   return (
-    <div
+    <motion.div variants={slideUpFade} initial="hidden" animate="visible"
       className="page profile-page"
       style={{
         backgroundImage: `url(${background1})`,
@@ -195,6 +197,6 @@ export default function Profile() {
       </SectionBox>
 
       <Navbar />
-    </div>
+    </motion.div>
   );
 }
