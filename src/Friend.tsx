@@ -81,13 +81,8 @@ export default function Friend() {
         </motion.div>
 
         {/* Friends Leaderboard */}
-        <motion.div
-          variants={slideUpFade}
-          className="w-full flex justify-center mt-8"
-        >
-          <div className="w-full max-w-3xl">
-            <FriendsLeaderBoard />
-          </div>
+        <motion.div variants={slideUpFade}>
+          <FriendsLeaderBoard />
         </motion.div>
       </motion.div>
 
