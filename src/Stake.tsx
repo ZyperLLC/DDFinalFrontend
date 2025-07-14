@@ -24,12 +24,6 @@ export default function Stake() {
         className="relative z-10 flex flex-col flex-grow items-center px-4 sm:px-6 md:px-12 lg:px-20 xl:px-28"
         style={{ paddingBottom: `${NAVBAR_HEIGHT_PX}px` }}
       >
-        <Logo />
-        <StakeHeader />
-        {context?.user.walletAddress ?
-          <StakeDolphinGrid setSelectedDolphin={setSelectedDolphin}/>:
-          <ConnectButton/>
-        }
         <motion.div variants={slideUpFade} initial="hidden" animate="visible" className="w-full">
           <Logo />
         </motion.div>
@@ -39,8 +33,12 @@ export default function Stake() {
         </motion.div>
 
         <motion.div variants={slideUpFade} initial="hidden" animate="visible" className="w-full mt-6">
-          <StakeDolphinGrid setSelectedDolphin={setSelectedDolphin}/>
-        </motion.div>
+          {context?.user.walletAddress ?
+            <StakeDolphinGrid setSelectedDolphin={setSelectedDolphin}/>
+              :
+              <ConnectButton/>
+          }
+          </motion.div>
       </div>
 
       <div
