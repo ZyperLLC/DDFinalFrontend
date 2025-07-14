@@ -81,9 +81,8 @@ export default function Friend() {
         </motion.div>
 
         {/* Friends Leaderboard */}
-        <motion.div variants={slideUpFade}>
+
           <FriendsLeaderBoard />
-        </motion.div>
       </motion.div>
 
       <Navbar />
