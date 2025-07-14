@@ -12,16 +12,15 @@ import { Bet } from '../types';
 import { getBettingRounds, placeBet } from '../api/userApi';
 import { UserContext } from '../Context/UserContextProvider';
 import toast from 'react-hot-toast';
-
-// DolphinPopup.tsx
+import { slideUpFade } from '../utils/animations';
 
 type Props = {
   id:number;
   image: string;
   name: string;
-  isVisible: boolean; // 👈 for fade-in / fade-out
-  onClose: () => void; // 👈 when user clicks X
-  onExit: () => void; // 👈 called after fade-out finishes
+  isVisible: boolean;
+  onClose: () => void;
+  onExit: () => void;
 };
 
 
@@ -72,12 +71,10 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
   const { tonConnectUI } = useTonConnectUiContext();
   const isWalletConnected = !!tonConnectUI?.account?.address;
 
-  // Control when the popup starts disappearing
   useEffect(() => {
     if (isVisible) setShouldRender(true);
   }, [isVisible]);
 
-  // Restore scroll on unmount
   useEffect(() => {
     if (isVisible) {
       document.body.style.overflow = 'hidden';
@@ -99,7 +96,7 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
 
   const handleExitComplete = () => {
     setShouldRender(false);
-    onClose(); // parent sets showPopup to false
+    onClose();
   };
 
   return (
@@ -123,12 +120,26 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
             }}
           />
 
+          {/* Beep animation */}
+          <style>
+            {`
+              @keyframes beep {
+                0% { opacity: 1; }
+                50% { opacity: 0.3; }
+                100% { opacity: 1; }
+              }
+              .beep-text {
+                animation: beep 1.4s infinite;
+              }
+            `}
+          </style>
+
           {/* Popup */}
           <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.9, opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            variants={slideUpFade}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
             style={{
               width: '100%',
               maxWidth: '340px',
@@ -143,7 +154,6 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
             <button
               className="close-btn absolute right-2 top-2 z-10"
               onClick={() => {
-                // start fade-out
                 setShouldRender(false);
               }}
               style={{
@@ -170,7 +180,6 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
               <img
                 src={image}
                 alt={name}
-                className="page-logo"
                 style={{
                   width: '100%',
                   maxWidth: '160px',
@@ -314,10 +323,26 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
                   </div>
                 </>
               ) : (
-
-                <div className="w-full px-4 mt-6 flex justify-center">
-                  <ConnectButton />
-                </div>
+                <>
+                  <div className="w-full px-4 mt-6 flex justify-center">
+                    <ConnectButton />
+                  </div>
+                  <p
+                    className="beep-text"
+                    style={{
+                      marginTop: '12px',
+                      color: '#fff',
+                      fontSize: '14px',
+                      textAlign: 'center',
+                      maxWidth: '260px',
+                      marginLeft: 'auto',
+                      marginRight: 'auto',
+                      opacity: 0.9,
+                    }}
+                  >
+                    {t('dolphin_popup.connect_message')}
+                  </p>
+                </>
               )}
             </div>
           </motion.div>

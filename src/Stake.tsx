@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import Navbar from './components/Navbar';
 import BackgroundOverlay from './components/BackgroundOverlay';
 import Logo from './components/Logo';
@@ -8,6 +9,7 @@ import { useContext, useState } from 'react';
 import { UserContext } from './Context/UserContextProvider';
 import { ConnectButton } from './components/ConnectButton';
 import StakePopup from './components/stakepopup';
+import { slideUpFade} from './utils/animations'; // ✅ Make sure the path is correct
 
 export default function Stake() {
   const NAVBAR_HEIGHT_PX = 80;
@@ -28,6 +30,17 @@ export default function Stake() {
           <StakeDolphinGrid setSelectedDolphin={setSelectedDolphin}/>:
           <ConnectButton/>
         }
+        <motion.div variants={slideUpFade} initial="hidden" animate="visible" className="w-full">
+          <Logo />
+        </motion.div>
+
+        <motion.div variants={slideUpFade} initial="hidden" animate="visible" className="w-full mt-4">
+          <StakeHeader />
+        </motion.div>
+
+        <motion.div variants={slideUpFade} initial="hidden" animate="visible" className="w-full mt-6">
+          <StakeDolphinGrid setSelectedDolphin={setSelectedDolphin}/>
+        </motion.div>
       </div>
 
       <div
