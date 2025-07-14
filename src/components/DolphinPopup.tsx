@@ -47,7 +47,7 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
     const bets = await getBettingRounds();
     console.log("Bets:", bets);
     if (!bets || bets.length === 0) {
-      toast.error("No betting rounds available");
+      toast.error("No game rounds available");
       return;
     }
     const betData: Partial<Bet> = {

@@ -14,7 +14,7 @@
   "fetch_user_failed": "Failed to fetch user data",
   "error_occurred": "Some Error Occurred!",
   "choose_dolphin": "Choose Your Dolphin",
-  "place_ton_bets": "Place TON bets on one or more NFTs. If your Dolphin hits, you win with a multiplier!",
+  "place_ton_bets": "Place TON on one or more NFTs. If your Dolphin hits, you win with a multiplier!",
   "time_until_end": "Time Until The End: {{hours}}h {{minutes}}m {{seconds}}s",
   "dolphin_alt": "Dolphin {{number}}",
 
@@ -73,7 +73,7 @@
 
   "friend": {
     "title": "Invite a Friend",
-    "description": "Connect your wallet to unlock staking, betting and daily prizes.",
+    "description": "Connect your wallet to unlock staking, playing and winning daily prizes.",
     "placeholder": "Your invite link will appear here",
     "copy": "Copy",
     "inviteCopied": "Invite link copied!"
@@ -101,7 +101,7 @@
   "connectCard": {
     "heading": "Step In The Game",
     "description": {
-      "line1": "Connect your wallet to unlock staking, betting and daily prizes."
+      "line1": "Connect your wallet to unlock staking, playing and winning exciting prizes."
     },
     "connected": {
       "heading": "Wallet Connected",
