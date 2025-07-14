@@ -5,7 +5,7 @@ import background1 from './assets/background1.jpg';
 import logo from './assets/logo.jpg';
 import './index.css';
 import FriendsLeaderBoard from './components/FriendsLeaderBoard';
-import { slideUpFade } from './utils/animations'; // Adjust path if needed
+import { slideUpFade } from './utils/animations'; 
 
 // Parent container animation
 const staggerContainer = {
