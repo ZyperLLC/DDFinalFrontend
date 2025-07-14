@@ -129,14 +129,15 @@ html, body {
   max-width: 480px;
   text-align: center;
 }
-.combined-card2{
+.combined-card2 {
   background: rgba(255, 255, 255, 0.08);
   padding: 1rem 1.5rem;
-  margin-bottom: 1rem;
+  margin: 0 auto 1rem; 
   border-radius: 16px;
   width: 80%;
   /* max-width: 480px; */
 }
+
 
 .card-subtitle {
   font-size: 0.9rem;
