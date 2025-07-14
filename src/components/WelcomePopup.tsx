@@ -27,7 +27,7 @@ export default function WelcomePopup({ onClose }: { onClose: () => void }) {
         <h2>{t('welcome_popup.title')}</h2>
         <ul className="space-y-2 mt-4">
           {[t('welcome_popup.line1'), t('welcome_popup.line2'), t('welcome_popup.line3')].map((line, index) => (
-            <li key={index} className="flex flex-col w-[313px] pl-[18px] items-start gap-3">
+            <li key={index} className="flex flex-col items-start gap-4">
               <img src={rectangle} alt="" className="w-6 h-6 mt-1" />
               {line}
             </li>
