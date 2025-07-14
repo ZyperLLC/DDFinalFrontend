@@ -65,10 +65,10 @@ html, body {
 
 /* Actual progress fill */
 .progress-fill {
-  height: 24px;
+  height: 100%;
   background: linear-gradient(90deg, #f72585, #7209b7);
   transition: width 0.2s ease-in-out;
-  width: 275px;
+  width: 0%;
   border-radius: inherit;
 }
 
