@@ -225,7 +225,14 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
                 </div>
               ) : isWalletConnected ? (
                 <>
-                  <div className="flex justify-center gap-3 mt-6 flex-wrap">
+                  <div className="flex justify-center gap-3 mt-6 flex-wrap"
+                  style={{
+                    display:'flex',
+                    justifyContent:'center',
+                    alignItems:'center',
+                    gap:'3',
+                  }}
+                  >
                     <input
                       type="number"
                       placeholder={'0.1-10'}
