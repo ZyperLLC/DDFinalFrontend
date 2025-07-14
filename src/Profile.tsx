@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import Navbar from './components/Navbar';
 
@@ -51,7 +51,7 @@ import SectionBox from './components/SectionBox';
 
 import './index.css';
 import { UserContext } from './Context/UserContextProvider';
-import { useWithdrawDeposits } from './hooks/useWithdrawDeposits';
+// import { useWithdrawDeposits } from './hooks/useWithdrawDeposits';
 import { motion } from 'framer-motion';
 import { slideUpFade } from './utils/animations';
 
@@ -59,8 +59,8 @@ export default function Profile() {
   const { t } = useTranslation();
   const context = useContext(UserContext);
   const isWalletConnected = !!context?.user.walletAddress;
-  const {withdraw} = useWithdrawDeposits();
-  const [amountToWithdraw,_] = useState<number>(0.1);
+  // const {withdraw} = useWithdrawDeposits();
+  // const [amountToWithdraw,_] = useState<number>(0.1);
   
   const dolphinImages: { [key: number]: string } = {
     1: dolphin1,
@@ -101,12 +101,12 @@ export default function Profile() {
     36: dolphin36
   }
 
-  const handleUserWithdraw = () => {
-    const userWithdrawal = async ()=>{
-      await withdraw(amountToWithdraw);
-    }
-    userWithdrawal();
-  }
+  // const handleUserWithdraw = () => {
+  //   const userWithdrawal = async ()=>{
+  //     await withdraw(amountToWithdraw);
+  //   }
+  //   userWithdrawal();
+  // }
   return (
     <motion.div variants={slideUpFade} initial="hidden" animate="visible"
       className="page profile-page"
@@ -163,13 +163,13 @@ export default function Profile() {
               </span>
             </div>
 
-            <button
+            {/* <button
               className="w-full mt-2 py-3 rounded-[12px] font-semibold connect-wallet-button"
 
               onClick={handleUserWithdraw}
             >
               {t('profile.sendTon')}
-            </button>
+            </button> */}
           </div>
         </div>
       )}
