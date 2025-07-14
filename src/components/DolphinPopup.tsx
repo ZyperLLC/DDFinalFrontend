@@ -28,14 +28,14 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
   const { t } = useTranslation();
   const [selectedCurrency, setSelectedCurrency] = useState('TON');
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [amount,setAmount] = useState(0);
+  const [amount,setAmount] = useState<number|null>(null);
   const context = useContext(UserContext);
   console.log("key",id);
 
   async function handlePlayClick(noBettedOn:number){
     console.log("handlePlayClick called with amount:", amount, "and noBettedOn:", noBettedOn);
     console.log("Context:",context?.user);
-    if (!(amount >= 0.1 && amount <= 10)) {
+    if (amount && !(amount >= 0.1 && amount <= 10)) {
       toast.error("Amount must be between 0.1 and 10");
       return;
     }
@@ -51,7 +51,7 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
     }
     const betData: Partial<Bet> = {
       betId: bets.length - 1 ,
-      amountBet: amount, // This should be set based on user input
+      amountBet: amount??0, // This should be set based on user input
       numberBettedOn: noBettedOn,
       hasWon: false,
       amountWon: 0,
@@ -103,7 +103,7 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
     <AnimatePresence onExitComplete={handleExitComplete}>
       {shouldRender && (
         <motion.div
-          className="fixed inset-0 z-50 flex justify-center items-center p-4"
+          className="fixed z-50 flex justify-center items-center p-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -172,7 +172,7 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 color: 'white',
-                filter: 'brightness(1.4)',
+                filter: 'brightness(1)',
                 padding: '4rem 1.5rem 2rem',
                 overflowY: 'auto',
               }}
@@ -182,18 +182,18 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
                 alt={name}
                 style={{
                   width: '100%',
-                  maxWidth: '160px',
+                  maxWidth: '100px',
                   display: 'block',
                   margin: '0 auto 1rem',
                   borderRadius: '1rem',
                 }}
               />
-              <h2 className="text-xl font-bold text-center">
+              <h2 className="text-lg font-bold text-center">
                 {name}
               </h2>
 
-              <p className="text-sm text-center mt-2" style={{ opacity: 0.9 }}>
-                {t('dolphin_popup.description', { name }).slice(0, 150) + '...'}
+              <p className="text-sm text-center mt-1" style={{ opacity: 0.9 }}>
+                {t('dolphin_popup.description', { name }).slice(0, 120) + '...'}
               </p>
 
               {tonConnectUI == null ? (
@@ -219,15 +219,15 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
                 <>
                   <div className="flex justify-center gap-3 mt-6 flex-wrap">
                     <input
-                      type="number"
-                      placeholder={t('dolphin_popup.amount')}
+                      type="string"
+                      placeholder={'0.1-10'}
                       onChange={(e) => {
                         const value = parseFloat(e.target.value);
                         if (!isNaN(value)) {
                           setAmount(value);
                         }
                       }}
-                      value={amount}
+                      value={amount??''}
                       style={{
                         height: '44px',
                         width: '120px',
