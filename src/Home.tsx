@@ -97,19 +97,16 @@ function Home() {
   const [isDolphinPopupVisible, setIsDolphinPopupVisible] = useState(false);
 
   useEffect(() => {
-    function getLast8PMUTC(now: Date) {
-      const last8pm = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 15, 20, 0, 0, 0));
-      if (now.getUTCHours() < 20 || (now.getUTCHours() === 20 && now.getUTCMinutes() === 0 && now.getUTCSeconds() === 0)) {
-        // If before 8pm UTC today, last 8pm was yesterday
-        last8pm.setUTCDate(last8pm.getUTCDate() - 1);
-      }
-      return last8pm;
+    function getLast8PMUTC() {
+      // Fixed target time: July 15, 2025, 8 PM UTC
+      const targetTime = new Date(Date.UTC(2025, 6, 15, 20, 0, 0, 0)); // Month is 0-based, so 6 is July
+      return targetTime;
     }
 
     const interval = setInterval(() => {
       const now = new Date();
-      const last8pm = getLast8PMUTC(now);
-      const elapsed = Math.floor((now.getTime() - last8pm.getTime()) / 1000);
+      const targetTime = getLast8PMUTC();
+      const elapsed = Math.floor((targetTime.getTime() - now.getTime()) / 1000);
       // If it's exactly 8pm UTC, reset timer
       if (now.getUTCHours() === 20 && now.getUTCMinutes() === 0 && now.getUTCSeconds() === 0) {
         setTimer(0);
@@ -158,6 +155,7 @@ function Home() {
       </motion.div>
 
       {selectedDolphin && (
+        <motion.div variants={slideUpFade} initial="hidden" animate="visible">
         <DolphinPopup
           id={selectedDolphin.id}
           image={selectedDolphin.image}
@@ -166,6 +164,7 @@ function Home() {
           onClose={handleDolphinClose}
           onExit={handleDolphinExit}
         />
+        </motion.div>
       )}
     </div>
   );

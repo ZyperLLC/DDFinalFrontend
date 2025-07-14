@@ -12,7 +12,6 @@ export default function TimerCard({ timer }: { timer: number }) {
     <div className="combined-card" style={{ marginTop: '1rem' }}>
       <h2 className="dolphin-header" style={{ textAlign: 'center' }}>
         {t('choose_dolphin')}
-        <span className="blinking-cursor">|</span>
       </h2>
 
       <p className="card-subtitle">{t('place_ton_bets')}</p>
