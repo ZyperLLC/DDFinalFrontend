@@ -3,10 +3,10 @@ import { useTranslation } from 'react-i18next';
 export default function TimerCard({ timer }: { timer: number }) {
   const { t } = useTranslation();
 
-  const progressPercent = Math.min((timer / 86400) * 100, 100);
-  const hours = Math.floor((86400 - timer) / 3600);
-  const minutes = Math.floor(((86400 - timer) % 3600) / 60);
-  const seconds = (86400 - timer) % 60;
+  const progressPercent = Math.min((timer / 1752607800) * 100, 100);
+  const hours = Math.floor((timer) / 3600);
+  const minutes = Math.floor(((timer) % 3600) / 60);
+  const seconds = ( timer) % 60;
   console.log("timer",timer);
   console.log("progressPercent",progressPercent);
   return (
