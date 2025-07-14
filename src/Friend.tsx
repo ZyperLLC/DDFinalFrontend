@@ -5,7 +5,7 @@ import background1 from './assets/background1.jpg';
 import logo from './assets/logo.jpg';
 import './index.css';
 import FriendsLeaderBoard from './components/FriendsLeaderBoard';
-import { slideUpFade } from './utils/animations'; 
+import { slideUpFade } from './utils/animations';
 
 // Parent container animation
 const staggerContainer = {
@@ -81,8 +81,13 @@ export default function Friend() {
         </motion.div>
 
         {/* Friends Leaderboard */}
-        <motion.div variants={slideUpFade}>
-          <FriendsLeaderBoard />
+        <motion.div
+          variants={slideUpFade}
+          className="w-full flex justify-center mt-8"
+        >
+          <div className="w-full max-w-3xl">
+            <FriendsLeaderBoard />
+          </div>
         </motion.div>
       </motion.div>
 
