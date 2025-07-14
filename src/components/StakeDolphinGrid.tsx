@@ -49,7 +49,7 @@ export default function StakeDolphinGrid(
             />
         </div>
           )) :
-          <p className='text-white '>No Dolphin Dash NFTs are present </p>}
+          <p className='text-white ' style={{color:"white",textAlign:"center"}}>No Dolphin Dash NFTs are present </p>}
       </div>
     </>
   );
