@@ -56,7 +56,7 @@ export default function Profile() {
           <div
             className="w-[80%] max-w-[360px] mx-auto rounded-[16px] shadow-[0_4px_20px_rgba(0,0,0,0.3)] backdrop-blur-[10px]"
             style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.08)',
+              backgroundColor: 'rgba(255, 255, 255, 0)',
               color: 'white',
               padding: '1.25rem',
               display: 'flex',
