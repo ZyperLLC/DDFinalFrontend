@@ -148,6 +148,8 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
               overflow: 'hidden',
               display: 'flex',
               flexDirection: 'column',
+              alignItems:'center',
+              justifyContent:'center',
               position: 'relative',
             }}
           >
