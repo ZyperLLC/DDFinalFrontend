@@ -7,7 +7,7 @@ import { useTonConnectUiContext } from '../Context/TonConnectUiContext';
 import { retrieveLaunchParams } from '@telegram-apps/sdk';
 import { User } from '../types';
 import { useUser } from '../hooks/useUser';
-import { useGetCredits } from '../hooks/useGetCredits';
+import { useGetCredits } from '../hooks/useGetCredits'
 
 type ConnectButtonProps = {
   whiteBg?: boolean;
