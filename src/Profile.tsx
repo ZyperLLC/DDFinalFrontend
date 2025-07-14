@@ -39,7 +39,6 @@ import SectionBox from './components/SectionBox';
 
 import './index.css';
 import { UserContext } from './Context/UserContextProvider';
-import { UserWithdrawal } from './contracts/BetGame/BetGame_BetGame';
 import { useWithdrawDeposits } from './hooks/useWithdrawDeposits';
 
 export default function Profile() {
@@ -47,7 +46,7 @@ export default function Profile() {
   const context = useContext(UserContext);
   const isWalletConnected = !!context?.user.walletAddress;
   const {withdraw} = useWithdrawDeposits();
-  const [amountToWithdraw,setAmountToWithdraw] = useState<number>(0.1);
+  const [amountToWithdraw,_] = useState<number>(0.1);
   
   const dolphinImages: { [key: number]: string } = {
     1: dolphin1,
