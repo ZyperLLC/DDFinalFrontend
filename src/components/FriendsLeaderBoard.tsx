@@ -10,7 +10,9 @@ export default function  FriendsLeaderBoard() {
   const { t } = useTranslation();
   
   return (
-    <div className="leaderboard-container">
+    <div className="leaderboard-container" style={{
+      marginTop:'10px'
+    }}>
       <h2 className="leaderboard-heading">{t('friends.heading')}</h2>{/* Serial Number */}
 
       <div className="leaderboard-header">
