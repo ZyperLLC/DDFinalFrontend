@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { X } from 'lucide-react';
 import background1 from '../assets/background1.jpg';
-import toast from 'react-hot-toast';
-import { useStakeNft } from '../hooks/useStakeNft';
+// import toast from 'react-hot-toast';
+// import { useStakeNft } from '../hooks/useStakeNft';
 
 export default function StakePopup({
   selectedNft,
@@ -13,9 +13,7 @@ export default function StakePopup({
   onClose: () => void;
 }) {
   const { t } = useTranslation();
-  const [_selectedCurrency, _setSelectedCurrency] = useState('TON');
-  const [_dropdownOpen, _setDropdownOpen] = useState(false);
-  const {stakeNft} = useStakeNft();
+  // const {stakeNft} = useStakeNft();
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -36,15 +34,15 @@ export default function StakePopup({
 
   
   //Staking NFT address needs to be changed to the actual contract address
-  const handleStakeNft = async () => {
-     try{
-      await stakeNft( selectedNft.contractAddress,'UQDloZc0mnoVQYfhd-r5zkEJHNrgUhOx9U0K6_1-YEtQGnhN')
-     }
-      catch(err){
-        console.error("Error staking NFT:", err);
-        toast.error("Failed to stake NFT. Please try again.");
-      }
-  };
+  // const handleStakeNft = async () => {
+  //    try{
+  //     await stakeNft( selectedNft.contractAddress,'UQDloZc0mnoVQYfhd-r5zkEJHNrgUhOx9U0K6_1-YEtQGnhN')
+  //    }
+  //     catch(err){
+  //       console.error("Error staking NFT:", err);
+  //       toast.error("Failed to stake NFT. Please try again.");
+  //     }
+  // };
   return (
     <>
       <div className="fixed inset-0 z-50 flex justify-center items-center" style={{ width: '100vw', maxWidth: '100vw', height: '100vh', padding: '1rem', overflow: 'hidden', boxSizing: 'border-box' }}>
@@ -116,7 +114,7 @@ export default function StakePopup({
             </div>
 
             <div className="mt-3 flex justify-center">
-              <button
+              {/*<button
                 style={{
                   width: '100%',
                   maxWidth: '200px',
@@ -132,7 +130,8 @@ export default function StakePopup({
                 onClick={handleStakeNft}
               >
                 {t('popup.stakeButton')}
-              </button>
+              </button>*/}
+              <p style={{color:"white"}}>Epoch 3 gonna live soon!!</p>
             </div>
           </div>
         </div>
