@@ -1,11 +1,9 @@
 import { useTranslation } from 'react-i18next';
-import { motion } from 'framer-motion';
 import Navbar from './components/Navbar';
 import background1 from './assets/background1.jpg';
 import logo from './assets/logo.jpg';
-import FriendsLeaderBoard from './components/FriendsLeaderBoard';
 import './index.css';
-import { slideUpFade } from './utils/animations';
+import FriendsLeaderBoard from './components/FriendsLeaderBoard';
 
 export default function Friend() {
   const { t } = useTranslation();
@@ -34,7 +32,7 @@ export default function Friend() {
       }}
     >
       {/* Logo */}
-      <motion.img
+      <img
         src={logo}
         alt="Logo"
         className="animated-logo"
@@ -42,21 +40,14 @@ export default function Friend() {
           width: '250px',
           marginBottom: '3.5rem',
         }}
-        variants={slideUpFade}
-        initial="hidden"
-        animate="visible"
       />
 
       {/* Invite Section */}
-      <motion.div
-        className="invite-container"
-        variants={slideUpFade}
-        initial="hidden"
-        animate="visible"
-        transition={{ delay: 0.1 }}
-      >
+      <div className="invite-container">
         <h1 className="invite-heading">{t('friend.title')}</h1>
-        <p className="invite-subheading">{t('friend.description')}</p>
+        <p className="invite-subheading">
+          {t('friend.description')}
+        </p>
 
         <div className="invite-box">
           <input
@@ -70,20 +61,10 @@ export default function Friend() {
             {t('friend.copy')}
           </button>
         </div>
-      </motion.div>
-
-      {/* Friends Leaderboard - Wrapped to preserve layout */}
-      <div className="w-full flex justify-center">
-        <motion.div
-          variants={slideUpFade}
-          initial="hidden"
-          animate="visible"
-          transition={{ delay: 0.2 }}
-          className="w-full"
-        >
-          <FriendsLeaderBoard />
-        </motion.div>
       </div>
+
+      {/* Friends Leaderboard Component */}
+      <FriendsLeaderBoard />
 
       <Navbar />
     </div>
