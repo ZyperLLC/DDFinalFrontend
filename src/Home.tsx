@@ -97,22 +97,25 @@ function Home() {
   const [isDolphinPopupVisible, setIsDolphinPopupVisible] = useState(false);
 
   useEffect(() => {
-    function getLast8PMUTC() {
-      // Fixed target time: July 15, 2025, 8 PM UTC
-      const targetTime = new Date(Date.UTC(2025, 6, 15, 20, 0, 0, 0)); // Month is 0-based, so 6 is July
-      return targetTime;
+    function getTimeUntilTarget() {
+      const targetTime = new Date(Date.UTC(2025, 6, 15, 19, 30, 0, 0)); // July 15, 2025, 8 PM UTC
+      const now = new Date();
+      
+      // Calculate seconds until target
+      const secondsUntil = Math.floor((targetTime.getTime() - now.getTime()) / 1000);
+      
+      // If target time hasn't been reached yet, return positive seconds
+      if (secondsUntil > 0) {
+        return secondsUntil;
+      }
+      
+      // If target time has passed, return 0
+      return 0;
     }
 
     const interval = setInterval(() => {
-      const now = new Date();
-      const targetTime = getLast8PMUTC();
-      const elapsed = Math.floor((targetTime.getTime() - now.getTime()) / 1000);
-      // If it's exactly 8pm UTC, reset timer
-      if (now.getUTCHours() === 20 && now.getUTCMinutes() === 0 && now.getUTCSeconds() === 0) {
-        setTimer(0);
-      } else {
-        setTimer(elapsed);
-      }
+      const timeUntil = getTimeUntilTarget();
+      setTimer(timeUntil);
     }, 1000);
 
     return () => clearInterval(interval);
