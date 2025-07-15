@@ -199,10 +199,18 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
               <h2 className="text-lg font-bold text-center">
                 {name}
               </h2>
-
-              <p className="text-sm text-center mt-1" style={{ opacity: 0.9 }}>
-                {t('dolphin_popup.description', { name }).slice(0, 120) + '...'}
-              </p>
+              <div style={{ 
+                height: '175px', 
+                overflow: 'auto',
+                marginBottom: '1rem'
+               }}>
+                <p className="text-sm text-center" style={{ 
+                  opacity: 0.9,
+                  paddingRight: '8px',
+                }}>
+                  {t('dolphin_popup.description', { name })}
+                </p>
+              </div>
 
               {tonConnectUI == null ? (
                 <div style={{ marginTop: '1.5rem', display: 'flex', justifyContent: 'center' }}>

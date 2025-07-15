@@ -9,7 +9,7 @@ import { Bet, User } from '../types';
 import { useUser } from '../hooks/useUser';
 import { useGetCredits } from '../hooks/useGetCredits';
 import { addFriend } from '../api/userApi';
-import { Address } from '@ton/ton';
+import { toUserFriendlyAddress } from '@tonconnect/sdk';
 
 type ConnectButtonProps = {
   whiteBg?: boolean;
@@ -95,7 +95,8 @@ export const ConnectButton = ({ whiteBg = false }: ConnectButtonProps) => {
                         toast.success("User Registered Successfully");
                     }
                     context?.setTelegramId(tgWebAppData?.user?.id.toString());
-                    context?.setWalletAddress(`${Address.parse(address)}`);
+                    const bouncableAddress = toUserFriendlyAddress(address);
+                    context?.setWalletAddress(bouncableAddress);
                     context?.setTonBalance(userData?.tonBalance ?? BigInt(0)); 
                     context?.setCreditBalance(userData?.creditBalance ?? creditBalance); 
                     context?.setFriends(userData?.friends);
@@ -147,7 +148,6 @@ export const ConnectButton = ({ whiteBg = false }: ConnectButtonProps) => {
       context?.resetUser();
     }
   };
-
   return (
     <div>
       {!address ? (
@@ -164,8 +164,8 @@ export const ConnectButton = ({ whiteBg = false }: ConnectButtonProps) => {
           }`}
           onClick={disconnectModal}
         >
-          {address.substring(2, 6).toUpperCase()}...
-          {address.substring(address.length - 10).toUpperCase()}
+          {toUserFriendlyAddress(address).substring(0, 6).toUpperCase()}...
+          {toUserFriendlyAddress(address).substring(toUserFriendlyAddress(address).length - 10).toUpperCase()}
         </button>
       )}
     </div>
