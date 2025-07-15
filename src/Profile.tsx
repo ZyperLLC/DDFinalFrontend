@@ -199,7 +199,7 @@ export default function Profile() {
             cost={`${bet.amountBet}`}
             prize={`${bet.amountWon}`}
             useTon = {bet.useTon}
-            betId = {bet.betId}
+            betId = {`${bet.betId}`}
             result={bet.hasWon?'win':"lose"} // 'win' or 'lose'
           />
         ))}
