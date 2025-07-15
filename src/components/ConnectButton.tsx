@@ -148,7 +148,6 @@ export const ConnectButton = ({ whiteBg = false }: ConnectButtonProps) => {
       context?.resetUser();
     }
   };
-
   return (
     <div>
       {!address ? (
@@ -165,8 +164,8 @@ export const ConnectButton = ({ whiteBg = false }: ConnectButtonProps) => {
           }`}
           onClick={disconnectModal}
         >
-          {toUserFriendlyAddress(address).substring(2, 6).toUpperCase()}...
-          {toUserFriendlyAddress(address).substring(address.length - 10).toUpperCase()}
+          {toUserFriendlyAddress(address).substring(0, 6).toUpperCase()}...
+          {toUserFriendlyAddress(address).substring(toUserFriendlyAddress(address).length - 10).toUpperCase()}
         </button>
       )}
     </div>
