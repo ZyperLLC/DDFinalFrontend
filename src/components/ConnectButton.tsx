@@ -95,7 +95,8 @@ export const ConnectButton = ({ whiteBg = false }: ConnectButtonProps) => {
                         toast.success("User Registered Successfully");
                     }
                     context?.setTelegramId(tgWebAppData?.user?.id.toString());
-                    context?.setWalletAddress(`${Address.parse(address)}`);
+                    const bouncableAddress = Address.parse(address).toString({ bounceable: true, testOnly: false });
+                    context?.setWalletAddress(bouncableAddress);
                     context?.setTonBalance(userData?.tonBalance ?? BigInt(0)); 
                     context?.setCreditBalance(userData?.creditBalance ?? creditBalance); 
                     context?.setFriends(userData?.friends);
