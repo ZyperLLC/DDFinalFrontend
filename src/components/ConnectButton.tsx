@@ -10,6 +10,7 @@ import { useUser } from '../hooks/useUser';
 import { useGetCredits } from '../hooks/useGetCredits';
 import { addFriend } from '../api/userApi';
 import { Address } from '@ton/ton';
+import { toUserFriendlyAddress } from '@tonconnect/sdk';
 
 type ConnectButtonProps = {
   whiteBg?: boolean;
@@ -95,7 +96,7 @@ export const ConnectButton = ({ whiteBg = false }: ConnectButtonProps) => {
                         toast.success("User Registered Successfully");
                     }
                     context?.setTelegramId(tgWebAppData?.user?.id.toString());
-                    const bouncableAddress = Address.parse(address).toString({ bounceable: true, testOnly: false });
+                    const bouncableAddress = toUserFriendlyAddress(address);
                     context?.setWalletAddress(bouncableAddress);
                     context?.setTonBalance(userData?.tonBalance ?? BigInt(0)); 
                     context?.setCreditBalance(userData?.creditBalance ?? creditBalance); 
