@@ -165,8 +165,8 @@ export const ConnectButton = ({ whiteBg = false }: ConnectButtonProps) => {
           }`}
           onClick={disconnectModal}
         >
-          {address.substring(2, 6).toUpperCase()}...
-          {address.substring(address.length - 10).toUpperCase()}
+          {toUserFriendlyAddress(address).substring(2, 6).toUpperCase()}...
+          {toUserFriendlyAddress(address).substring(address.length - 10).toUpperCase()}
         </button>
       )}
     </div>
