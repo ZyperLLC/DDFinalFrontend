@@ -13,7 +13,7 @@ export default function DolphinGrid({
   return (
     <div className="combined-card2">
       <h2 className="dolphin-header" style={{ marginTop: '1rem' }}>
-        {t('choose_dolphin')}
+        {t('pick_champion')}
       </h2>
       <div className="dolphin-grid">
         {dolphins.map((src, i) => (

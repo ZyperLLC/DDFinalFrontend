@@ -14,7 +14,8 @@
   "fetch_user_failed": "Failed to fetch user data",
   "error_occurred": "Some Error Occurred!",
   "choose_dolphin": "Choose Your Dolphin",
-  "place_ton_bets": "Place TON on one or more NFTs. If your Dolphin hits, you win with a multiplier!",
+  "pick_champion": "Pick Your Champion",
+  "place_ton_bets": "Pick the right Dolphin to win 7x — own Dolphin Dash NFT to boost your rewards to 7.7x!",
   "time_until_end": "Time Until The End: {{hours}}h {{minutes}}m {{seconds}}s",
   "dolphin_alt": "Dolphin {{number}}",
 
