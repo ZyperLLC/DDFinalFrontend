@@ -25,7 +25,7 @@ const GameHistoryCard: React.FC<Props> = ({ image, cost, prize, useTon, betId, r
         try {
           const bettingRound = await getBettingRoundById(betId);
           setHasEnded(bettingRound.hasEnded);
-          setStartedAt(bettingRound.startedAt)
+          setStartedAt(bettingRound.startedAt as Date)
         } catch (error) {
           console.error("Error fetching betting round:", error);
         }
