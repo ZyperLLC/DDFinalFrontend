@@ -98,7 +98,7 @@ function Home() {
 
   useEffect(() => {
     function getTimeUntilTarget() {
-      const targetTime = new Date(Date.UTC(2025, 6, 15, 19, 30, 0, 0)); // July 15, 2025, 8 PM UTC
+      const targetTime = new Date(Date.UTC(2025, 6, 16, 19, 30, 0, 0)); // July 15, 2025, 8 PM UTC
       const now = new Date();
       console.log(targetTime.getTime());
       console.log("Now time:" ,now.getTime())
