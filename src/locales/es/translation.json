@@ -15,6 +15,7 @@
   "error_occurred": "¡Ocurrió un error!",
   "choose_dolphin": "Elige tu Delfín",
   "pick_champion": "Elige tu Campeón",
+  "last_winner":"Ganador de la última ronda",
   "place_ton_bets": "¡Elige el Delfín correcto para ganar 7x — ten un NFT de Dolphin Dash para aumentar tus recompensas a 7.7x!",
   "time_until_end": "💸Sorteo Diario en: {{hours}}h {{minutes}}m {{seconds}}s",
   "dolphin_alt": "Delfín {{number}}",
