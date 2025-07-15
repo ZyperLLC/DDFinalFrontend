@@ -583,6 +583,7 @@ html, body {
 .nft-info {
   color: white;
   flex: 1;
+  margin-top: 1rem;
 }
 
 .nft-name {
