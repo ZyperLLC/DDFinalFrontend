@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { getBettingRoundById } from '../api/userApi';
 import creditIcon from '../assets/credit.jpg';
 import tonSymbol from '../assets/ton_symbol.jpg';
-import { Bet } from '../types';
 
 interface Props {
   image: string;
