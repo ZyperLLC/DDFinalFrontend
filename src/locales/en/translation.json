@@ -15,6 +15,7 @@
   "error_occurred": "Some Error Occurred!",
   "choose_dolphin": "Choose Your Dolphin",
   "pick_champion": "Pick Your Champion",
+  "last_winner":"Last Round Winner",
   "place_ton_bets": "Pick the right Dolphin to win 7x — own Dolphin Dash NFT to boost your rewards to 7.7x!",
   "time_until_end": "💸Daily Dash Draw In: {{hours}}h {{minutes}}m {{seconds}}s",
   "dolphin_alt": "Dolphin {{number}}",

@@ -1,5 +1,6 @@
 
 import { useTranslation } from 'react-i18next';
+import dolphin13 from '../assets/dolphins/dolphin13.jpg';
 
 export default function DolphinGrid({
   dolphins,
@@ -12,6 +13,19 @@ export default function DolphinGrid({
 
   return (
     <div className="combined-card2">
+      <div style={{
+        display:"flex",
+        flexDirection:"column",
+        alignItems:"center",
+        justifyContent:"center",
+        width:"100%"
+      }}>
+      <h2 className="dolphin-header" style={{ marginTop: '1rem' }}>
+        {t('last_winner')}
+      </h2>
+      
+      <img src={dolphin13} key={1} alt={`Dolphin ${1}`} className="dolphin"/>  
+      </div>
       <h2 className="dolphin-header" style={{ marginTop: '1rem' }}>
         {t('pick_champion')}
       </h2>
