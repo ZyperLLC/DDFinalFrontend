@@ -50,11 +50,11 @@ const GameHistoryCard: React.FC<Props> = ({ image, cost, prize, useTon, betId, r
         </p>
         <p className="nft-detail">
           <strong>{t('gameHistory.drawId')}: </strong> {prize}
-          <span>{betId}</span>
+          <span>{Number(betId)}</span>
         </p>
         <p className="nft-detail">
           <strong>{t('gameHistory.startedAt')}: </strong> {prize}
-          <span>{startedAt.getDate()+'/'+startedAt.getMonth()+'/'+startedAt.getFullYear()}</span>
+          <span>{Number(startedAt.getDate())+'/'+(startedAt.getMonth()+1)+'/'+startedAt.getFullYear()}</span>
         </p>
       </div>
       <div className={`result-tag ${result}`}>
