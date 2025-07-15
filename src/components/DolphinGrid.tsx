@@ -15,6 +15,7 @@ export default function DolphinGrid({
     <div className="combined-card2">
       <div style={{
         display:"flex",
+        flexDirection:"column",
         alignItems:"center",
         justifyContent:"center",
         width:"100%"
