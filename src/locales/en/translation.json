@@ -140,7 +140,9 @@
       "win": "Win",
       "lose": "Lose"
     },
-    "pending": "In Progress"
+    "pending": "In Progress",
+    "startedAt":"Round Date",
+    "drawId":"Draw ID"
 }
 
 

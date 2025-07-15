@@ -38,3 +38,5 @@ export interface Bet {
     stakedNFTs: StakedNFT[];
     friends: string[];
   }
+
+  
