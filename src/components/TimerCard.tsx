@@ -3,11 +3,14 @@ import { useTranslation } from 'react-i18next';
 export default function TimerCard({ timer }: { timer: number }) {
   const { t } = useTranslation();
 
-  let percent = Math.min((timer / 1752607800) * 100, 100);
-  const progressPercent = Math.floor(percent)>0?percent:1;
+  // Total duration of the game round in seconds (20 days)
+  const TOTAL_DURATION = 1752607800;
+  // Calculate how much time has elapsed
+  let percent = Math.min(((TOTAL_DURATION - timer) / TOTAL_DURATION) * 100, 100);
+  const progressPercent = Math.max(0, Math.min(100, Math.floor(percent)));
   const hours = Math.floor((timer) / 3600);
   const minutes = Math.floor(((timer) % 3600) / 60);
-  const seconds = ( timer) % 60;
+  const seconds = (timer) % 60;
   console.log("timer",timer);
   console.log("progressPercent",progressPercent);
   return (
