@@ -9,7 +9,7 @@ interface Props {
   cost: string;
   prize: string;
   useTon?: boolean; // Optional, true if using TON, false if using Credits
-  betId?: number | string; // Optional, if you want to display or use the bet ID
+  betId?: string; // Optional, if you want to display or use the bet ID
   result: 'win' | 'lose';
 }
 
@@ -50,11 +50,11 @@ const GameHistoryCard: React.FC<Props> = ({ image, cost, prize, useTon, betId, r
         </p>
         <p className="nft-detail">
           <strong>{t('gameHistory.drawId')}: </strong> {prize}
-          <span>{Number(betId)}</span>
+          <span>{betId?.charAt(0)=='0'?betId.slice(0,):betId}</span>
         </p>
         <p className="nft-detail">
           <strong>{t('gameHistory.startedAt')}: </strong> {prize}
-          <span>{Number(startedAt.getDate())+'/'+(startedAt.getMonth()+1)+'/'+startedAt.getFullYear()}</span>
+          <span>{startedAt.getDate()+'/'+(startedAt.getMonth()+1)+'/'+startedAt.getFullYear()}</span>
         </p>
       </div>
       <div className={`result-tag ${result}`}>
