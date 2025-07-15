@@ -203,7 +203,7 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
                 <p className="text-sm text-center" style={{ 
                   opacity: 0.9,
                   paddingRight: '8px',
-                  marginBottom: '0.5rem'
+                  marginBottom: '1rem'
                 }}>
                   {t('dolphin_popup.description', { name })}
                 </p>
