@@ -6,7 +6,7 @@ export default function DolphinGrid({
   onDolphinClick,
 }: {
   dolphins: string[];
-  onDolphinClick?: (index: number) => void;
+  onDolphinClick: (index: number) => void;
 }) {
   const { t } = useTranslation();
 
@@ -20,9 +20,9 @@ export default function DolphinGrid({
           <img
             key={i}
             src={src}
-            alt={t('dolphin_alt', { number: i + 1 })}
-            className="dolphin page-logo"
-            onClick={() => onDolphinClick?.(i)}
+            alt={`Dolphin ${i + 1}`}
+            className="dolphin"
+            onClick={() => onDolphinClick(i)}
           />
         ))}
       </div>

@@ -1,35 +1,78 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { X } from 'lucide-react';
 import { useTonConnectUiContext } from '../Context/TonConnectUiContext';
 import { ConnectButton } from './ConnectButton';
 import { useTranslation } from 'react-i18next';
-import { useTypewriter } from '../hooks/useTypeWriter';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import background1 from '../assets/background1.jpg';
 import tonSymbol from '../assets/ton_symbol.jpg';
 import creditIcon from '../assets/credit.jpg';
+import { Bet } from '../types';
+import { getBettingRounds, placeBet } from '../api/userApi';
+import { UserContext } from '../Context/UserContextProvider';
+import toast from 'react-hot-toast';
 import { slideUpFade } from '../utils/animations';
 
 type Props = {
+  id:number;
   image: string;
   name: string;
-  isVisible: boolean;
-  onClose: () => void;
-  onExit: () => void;
+  isVisible: boolean; // 👈 for fade-in / fade-out
+  onClose: () => void; // 👈 when user clicks X
+  onExit: () => void; // 👈 called after fade-out finishes
 };
 
-export default function DolphinPopup({ image, name, onClose, isVisible }: Props) {
+export default function DolphinPopup({ id,image, name, onClose, isVisible }: Props) {
   const { t } = useTranslation();
   const [selectedCurrency, setSelectedCurrency] = useState('TON');
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [amount,setAmount] = useState<number|null>(null);
+  const context = useContext(UserContext);
+  console.log("key",id);
+
+  async function handlePlayClick(noBettedOn:number){
+    console.log("handlePlayClick called with amount:", amount, "and noBettedOn:", noBettedOn);
+    console.log("Context:",context?.user);
+    if (amount && !(amount >= 0.1 && amount <= 10)) {
+      toast.error("Amount must be between 0.1 and 10");
+      return;
+    }
+    if(noBettedOn < 1 || noBettedOn > 36){
+      toast.error("Please select a number between 1 and 36");
+      return;
+    }
+    const bets = await getBettingRounds();
+    console.log("Bets:", bets);
+    if (!bets || bets.length === 0) {
+      toast.error("No game rounds available");
+      return;
+    }
+    const betData: Partial<Bet> = {
+      betId: bets.length,
+      amountBet: amount??0, // This should be set based on user input
+      numberBettedOn: noBettedOn,
+      hasWon: false,
+      amountWon: 0,
+      useTon: selectedCurrency === 'TON',
+      holdingNFT: context?.user.holdingNFTs ?? false, // This should be set based on user state
+    }
+    console.log("Bet Data:", betData);
+    const result = await placeBet(context?.user.telegramId ?? '', betData);
+    console.log("Bet Result:", result);
+    if(result){
+      toast.success("Amount placed successfully");
+      handleExitComplete();
+    }
+  }
   const [shouldRender, setShouldRender] = useState(isVisible);
 
   const { tonConnectUI } = useTonConnectUiContext();
   const isWalletConnected = !!tonConnectUI?.account?.address;
 
-  const typedName = useTypewriter(name, 120, 2000);
+  // const typedName = useTypewriter(name, 120, 2000);
 
+  // Control when the popup starts disappearing
   useEffect(() => {
     if (isVisible) setShouldRender(true);
   }, [isVisible]);
@@ -62,11 +105,17 @@ export default function DolphinPopup({ image, name, onClose, isVisible }: Props)
     <AnimatePresence onExitComplete={handleExitComplete}>
       {shouldRender && (
         <motion.div
-          className="fixed inset-0 z-50 flex justify-center items-center p-4"
+          className="fixed z-50 flex justify-center items-center p-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
+          style={{
+            height:"100vh",
+            display:"flex",
+            justifyContent:'center',
+            alignItems:'center'
+          }}
         >
           {/* Backdrop */}
           <div
@@ -107,6 +156,8 @@ export default function DolphinPopup({ image, name, onClose, isVisible }: Props)
               overflow: 'hidden',
               display: 'flex',
               flexDirection: 'column',
+              alignItems:'center',
+              justifyContent:'center',
               position: 'relative',
             }}
           >
@@ -131,7 +182,7 @@ export default function DolphinPopup({ image, name, onClose, isVisible }: Props)
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 color: 'white',
-                filter: 'brightness(1.4)',
+                filter: 'brightness(1)',
                 padding: '4rem 1.5rem 2rem',
                 overflowY: 'auto',
               }}
@@ -141,19 +192,18 @@ export default function DolphinPopup({ image, name, onClose, isVisible }: Props)
                 alt={name}
                 style={{
                   width: '100%',
-                  maxWidth: '160px',
+                  maxWidth: '100px',
                   display: 'block',
                   margin: '0 auto 1rem',
                   borderRadius: '1rem',
                 }}
               />
-              <h2 className="text-xl font-bold text-center">
-                {typedName}
-                <span className="blinking-cursor">|</span>
+              <h2 className="text-lg font-bold text-center">
+                {name}
               </h2>
 
-              <p className="text-sm text-center mt-2" style={{ opacity: 0.9 }}>
-                {t('dolphin_popup.description', { name })}
+              <p className="text-sm text-center mt-1" style={{ opacity: 0.9 }}>
+                {t('dolphin_popup.description', { name }).slice(0, 120) + '...'}
               </p>
 
               {tonConnectUI == null ? (
@@ -177,13 +227,21 @@ export default function DolphinPopup({ image, name, onClose, isVisible }: Props)
                 </div>
               ) : isWalletConnected ? (
                 <>
-                  <div className="flex justify-center gap-3 mt-6 flex-wrap">
+                  <div className="flex justify-center gap-3 mt-6 flex-wrap"
+                  >
                     <input
                       type="number"
-                      placeholder={t('dolphin_popup.amount')}
+                      placeholder={'0.1-10'}
+                      onChange={(e) => {
+                        const value = parseFloat(e.target.value);
+                        if (!isNaN(value)) {
+                          setAmount(value);
+                        }
+                      }}
+                      value={amount??''}
                       style={{
-                        height: '44px',
-                        width: '120px',
+                        height: '40px',
+                        width:'130px',
                         background: '#fff',
                         borderRadius: '8px',
                         border: 'none',
@@ -195,8 +253,8 @@ export default function DolphinPopup({ image, name, onClose, isVisible }: Props)
                     />
                     <div
                       style={{
-                        height: '44px',
-                        width: '120px',
+                        height: '40px',
+                        width:'130px',
                         background: '#fff',
                         borderRadius: '8px',
                         display: 'flex',
@@ -259,7 +317,6 @@ export default function DolphinPopup({ image, name, onClose, isVisible }: Props)
                     <button
                       style={{
                         width: '100%',
-                        maxWidth: '200px',
                         padding: '0.75rem',
                         background: 'linear-gradient(90deg, #f72585, #7209b7)',
                         color: '#fff',
@@ -269,7 +326,7 @@ export default function DolphinPopup({ image, name, onClose, isVisible }: Props)
                         fontSize: '1rem',
                         cursor: 'pointer',
                       }}
-                      onClick={() => alert('Start button clicked!')}
+                      onClick={() => handlePlayClick(id + 1)}
                     >
                       {t('dolphin_popup.play')}
                     </button>
@@ -277,7 +334,7 @@ export default function DolphinPopup({ image, name, onClose, isVisible }: Props)
                 </>
               ) : (
                 <>
-                  <div className="w-full px-4 mt-6">
+                  <div className="w-full px-4 mt-6 flex justify-center">
                     <ConnectButton />
                   </div>
                   <p

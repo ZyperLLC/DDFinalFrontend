@@ -1,20 +1,19 @@
 import { useTranslation } from 'react-i18next';
-import { useTypewriter } from '../hooks/useTypeWriter';
 
 export default function TimerCard({ timer }: { timer: number }) {
   const { t } = useTranslation();
-  const typedText = useTypewriter(t('choose_dolphin'), 100, 2000);
 
-  const progressPercent = Math.min((timer / 86400) * 100, 100);
-  const hours = Math.floor((86400 - timer) / 3600);
-  const minutes = Math.floor(((86400 - timer) % 3600) / 60);
-  const seconds = (86400 - timer) % 60;
-
+  let percent = Math.min((timer / 1752607800) * 100, 100);
+  const progressPercent = Math.floor(percent)>0?percent:1;
+  const hours = Math.floor((timer) / 3600);
+  const minutes = Math.floor(((timer) % 3600) / 60);
+  const seconds = ( timer) % 60;
+  console.log("timer",timer);
+  console.log("progressPercent",progressPercent);
   return (
     <div className="combined-card" style={{ marginTop: '1rem' }}>
       <h2 className="dolphin-header" style={{ textAlign: 'center' }}>
-        {typedText}
-        <span className="blinking-cursor">|</span>
+        {t('choose_dolphin')}
       </h2>
 
       <p className="card-subtitle">{t('place_ton_bets')}</p>

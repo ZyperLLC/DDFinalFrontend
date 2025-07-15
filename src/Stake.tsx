@@ -5,20 +5,16 @@ import Logo from './components/Logo';
 import StakeHeader from './components/StakeHeader';
 import StakeDolphinGrid from './components/StakeDolphinGrid';
 import './index.css';
-import { slideUpFade } from './utils/animations';
-
-// Parent container with stagger
-const staggerContainer = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.25,
-    },
-  },
-};
+import { useContext, useState } from 'react';
+import { UserContext } from './Context/UserContextProvider';
+import { ConnectButton } from './components/ConnectButton';
+import StakePopup from './components/stakepopup';
+import { slideUpFade, staggerContainer } from './utils/animations'; // ✅ make sure both are imported
 
 export default function Stake() {
   const NAVBAR_HEIGHT_PX = 80;
+  const context = useContext(UserContext);
+  const [selectedDolphin, setSelectedDolphin] = useState<any | null>(null);
 
   return (
     <div className="relative min-h-screen flex flex-col">
@@ -40,7 +36,11 @@ export default function Stake() {
         </motion.div>
 
         <motion.div variants={slideUpFade} className="w-full mt-6">
-          <StakeDolphinGrid />
+          {context?.user.walletAddress ? (
+            <StakeDolphinGrid setSelectedDolphin={setSelectedDolphin} />
+          ) : (
+            <ConnectButton />
+          )}
         </motion.div>
       </motion.div>
 
@@ -50,6 +50,10 @@ export default function Stake() {
       >
         <Navbar />
       </div>
+
+      {selectedDolphin && (
+        <StakePopup selectedNft={selectedDolphin} onClose={() => setSelectedDolphin(null)} />
+      )}
     </div>
   );
 }

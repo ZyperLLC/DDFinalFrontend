@@ -5,29 +5,25 @@ import background1 from './assets/background1.jpg';
 import logo from './assets/logo.jpg';
 import './index.css';
 import FriendsLeaderBoard from './components/FriendsLeaderBoard';
+import toast from 'react-hot-toast';
+import { UserContext } from './Context/UserContextProvider';
+import { useContext } from 'react';
 import { slideUpFade } from './utils/animations';
 
-// Parent container animation
-const staggerContainer = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.2, // Delay between children
-    },
-  },
-};
 
 export default function Friend() {
+  const context = useContext(UserContext);
+  const inviteLink = `https://t.me/DolphinDash_bot/DolphinDashGame?startapp=${context?.user.telegramId}`;
+
   const { t } = useTranslation();
-  const inviteLink = '';
 
   const handleCopy = () => {
     navigator.clipboard.writeText(inviteLink);
-    alert(t('friend.inviteCopied'));
+    toast.success(t('friend.inviteCopied'));
   };
 
   return (
-    <div
+    <motion.div variants={slideUpFade} initial="hidden" animate="visible"
       className="page profile-page"
       style={{
         backgroundImage: `url(${background1})`,
@@ -44,7 +40,6 @@ export default function Friend() {
       }}
     >
       <motion.div
-        variants={staggerContainer}
         initial="hidden"
         animate="visible"
         className="flex flex-col items-center w-full"
@@ -67,13 +62,6 @@ export default function Friend() {
           <p className="invite-subheading">{t('friend.description')}</p>
 
           <div className="invite-box">
-            <input
-              type="text"
-              value={inviteLink}
-              readOnly
-              className="invite-input"
-              placeholder={t('friend.placeholder')}
-            />
             <button className="invite-copy-btn" onClick={handleCopy}>
               {t('friend.copy')}
             </button>
@@ -82,10 +70,10 @@ export default function Friend() {
 
         {/* Friends Leaderboard */}
 
-          <FriendsLeaderBoard />
+        <FriendsLeaderBoard />
       </motion.div>
 
       <Navbar />
-    </div>
+    </motion.div>
   );
 }

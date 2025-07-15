@@ -10,9 +10,7 @@ import GameHistoryCard from './components/GameHistoryCard';
 import SectionBox from './components/SectionBox';
 
 import background1 from './assets/background1.jpg';
-import dolphin1 from './assets/dolphins/dolphin1.jpg';
-import dolphin2 from './assets/dolphins/dolphin2.jpg';
-import dolphin3 from './assets/dolphins/dolphin3.jpg';
+
 import creditIcon from './assets/credit.jpg';
 import tonSymbol from './assets/ton_symbol.jpg';
 
@@ -20,7 +18,12 @@ import { slideUpFade } from './utils/animations';
 import './index.css';
 import { UserContext } from './Context/UserContextProvider';
 
-// Sequential container
+// Dolphin images (dolphin1.jpg to dolphin36.jpg)
+import dolphin1 from './assets/dolphins/dolphin1.jpg';
+import dolphin2 from './assets/dolphins/dolphin2.jpg';
+import dolphin3 from './assets/dolphins/dolphin3.jpg';
+
+
 const staggerContainer = {
   hidden: {},
   visible: {
@@ -36,7 +39,10 @@ export default function Profile() {
   const isWalletConnected = !!context?.user.walletAddress;
 
   return (
-    <div
+    <motion.div
+      variants={slideUpFade}
+      initial="hidden"
+      animate="visible"
       className="page profile-page"
       style={{
         backgroundImage: `url(${background1})`,
@@ -51,16 +57,17 @@ export default function Profile() {
         animate="visible"
         className="w-full flex flex-col items-center"
       >
-        {/* Logo & Wallet */}
+        {/* Logo */}
         <motion.div variants={slideUpFade} className="w-full">
           <LogoDisplay />
         </motion.div>
 
+        {/* Wallet Connect Card */}
         <motion.div variants={slideUpFade} className="w-full">
           <ConnectWalletCard />
         </motion.div>
 
-        {/* Wallet Balance Section */}
+        {/* Wallet Balances */}
         {isWalletConnected && (
           <motion.div variants={slideUpFade} className="w-full mt-6 mb-6 px-4">
             <div
@@ -106,24 +113,21 @@ export default function Profile() {
         )}
 
         {/* Staked NFTs */}
-        <motion.div variants={slideUpFade} className="w-full">
-          <SectionBox title={t('profile.stakedNfts')}>
-            <StakedNFTCard image={dolphin2} name="NFT NAME" time="13d 3h 12m" reward="2 TON" />
-            <StakedNFTCard image={dolphin1} name="NFT NAME" time="7d 12h 34m" reward="3.2 TON" />
-          </SectionBox>
-        </motion.div>
+        <SectionBox title={t('profile.stakedNfts')}>
+          <StakedNFTCard image={dolphin2} name="NFT NAME" time="13d 3h 12m" reward="2 TON" />
+          <StakedNFTCard image={dolphin1} name="NFT NAME" time="7d 12h 34m" reward="3.2 TON" />
+        </SectionBox>
 
         {/* Game History */}
-        <motion.div variants={slideUpFade} className="w-full">
-          <SectionBox title={t('profile.gameHistory')}>
-            <GameHistoryCard image={dolphin1} day="DAY 1" cost="1 TON" prize="7 TON" result="win" />
-            <GameHistoryCard image={dolphin2} day="DAY 2" cost="1 TON" prize="0 TON" result="lose" />
-            <GameHistoryCard image={dolphin3} day="DAY 3" cost="4 TON" prize="28 TON" result="win" />
-          </SectionBox>
-        </motion.div>
-      </motion.div>
+        <SectionBox title={t('profile.gameHistory')}>
+          <GameHistoryCard image={dolphin1} day="DAY 1" cost="1 TON" prize="7 TON" result="win" />
+          <GameHistoryCard image={dolphin2} day="DAY 2" cost="1 TON" prize="0 TON" result="lose" />
+          <GameHistoryCard image={dolphin3} day="DAY 3" cost="4 TON" prize="28 TON" result="win" />
+        </SectionBox>
 
-      <Navbar />
-    </div>
+        {/* Navbar */}
+        <Navbar />
+      </motion.div>
+    </motion.div>
   );
 }

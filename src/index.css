@@ -65,10 +65,10 @@ html, body {
 
 /* Actual progress fill */
 .progress-fill {
-  height: 100%;
+  height: 38px;
   background: linear-gradient(90deg, #f72585, #7209b7);
   transition: width 0.2s ease-in-out;
-  width: 0%;
+  width: 275px;
   border-radius: inherit;
 }
 
@@ -121,16 +121,16 @@ html, body {
 }
 
 .combined-card {
-  background: rgba(0, 0, 50, 0.088);
+  background: rgba(255, 255, 255, 0.08);
   padding: 1rem 1.5rem;
   margin: 0 auto 1rem;
   border-radius: 16px;
-  width: 80%;
+  width: 85%;
   /* max-width: 480px; */
   text-align: center;
 }
 .combined-card2 {
-  background: rgba(0, 0, 50, 0.088);
+  background: rgba(255, 255, 255, 0.08);
   padding: 1rem 1.5rem;
   margin: 0 auto 1rem;
   border-radius: 16px;
@@ -155,7 +155,7 @@ html, body {
 
 /* ========= Timer Component ========= */
 .timer-box {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 50, 0.088);
   padding: 1rem;
   border-radius: 12px;
   margin-bottom: 1rem;
@@ -171,11 +171,17 @@ html, body {
 }
 
 .progress-fill {
-  height: 100%;
+  height: 24px;
   background: linear-gradient(90deg, #f72585, #7209b7);
-  width: 0%;
+  width: 275px;
   border-radius: inherit;
   transition: width 0.3s ease;
+}
+.progress-bar-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 1rem;
 }
 
 .progress-bar-wrapper {
@@ -225,10 +231,10 @@ html, body {
 .dolphin {
   width: 100%;
   max-width: 90px;
-  height: auto;
+  height: 90px;
   border-radius: 10px;
   cursor: pointer;
-  border: 2px solid transparent;
+  border: 2px solid rgb(73, 2, 2);
   transition: transform 0.3s ease, border-color 0.3s ease;
   margin: auto;
 }
@@ -308,9 +314,11 @@ html, body {
   padding: 1.5rem 1.2rem;
   text-align: center;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-end;
+  gap:6;
+  justify-content: flex-end;
   flex-direction: column;
+  max-height: '50%';
 }
 
 .popup-content h2 {
@@ -591,17 +599,19 @@ html, body {
 }
 
 .nft-detail {
-  margin: 0.25rem 0;
+  margin: 0.20rem 0;
   font-size: 0.80rem;
+  display:flex;
+  align-items: center;
 }
 
 .result-tag {
   align-self: center;
   margin-left: auto;
-  padding: 4px 12px;
+  padding: 4px 10px;
   border-radius: 999px;
-  font-weight: bold;
-  font-size: 0.85rem;
+  font-weight: 10px;
+  font-size: 0.75rem;
   color: white;
   position: absolute;
   top: 12px;
@@ -638,7 +648,7 @@ html, body {
 
 .invite-heading {
   color: white;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: bold;
   margin-top: 0;
   text-align: center;
@@ -704,12 +714,12 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 1rem;
+  margin-top:'10px';
 }
 
 .leaderboard-heading {
   color: white;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   margin-bottom: 1.2rem;
   text-align: left;
   align-self: flex-start;
@@ -719,9 +729,10 @@ html, body {
 .leaderboard-row {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
-  padding: 0.95rem 0;
-  font-size: 1rem;
+  padding: 0.90rem 0;
+  font-size: 0.8rem;
 }
 
 .leaderboard-header {

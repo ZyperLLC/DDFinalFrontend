@@ -5,9 +5,11 @@ import { useTranslation } from 'react-i18next';
 import { UserContext } from '../Context/UserContextProvider';
 import { useTonConnectUiContext } from '../Context/TonConnectUiContext';
 import { retrieveLaunchParams } from '@telegram-apps/sdk';
-import { User } from '../types';
+import { Bet, User } from '../types';
 import { useUser } from '../hooks/useUser';
-import { useGetCredits } from '../hooks/useGetCredits'
+import { useGetCredits } from '../hooks/useGetCredits';
+import { addFriend } from '../api/userApi';
+import { Address } from '@ton/ton';
 
 type ConnectButtonProps = {
   whiteBg?: boolean;
@@ -15,7 +17,8 @@ type ConnectButtonProps = {
 
 export const ConnectButton = ({ whiteBg = false }: ConnectButtonProps) => {
   const { t } = useTranslation();
-  const { tgWebAppData } = retrieveLaunchParams();
+    const {tgWebAppData,tgWebAppStartParam} = retrieveLaunchParams();
+
   const { tonConnectUI: tonConnectUiInstance } = useTonConnectUiContext();
   const context = useContext(UserContext);
 
@@ -47,43 +50,65 @@ export const ConnectButton = ({ whiteBg = false }: ConnectButtonProps) => {
     }
   };
 
-  const checkRegisteredUser = async (address: string) => {
-    if (!address || address.trim() === '') return;
-    try {
-      let creditBalance = 0;
-      if (tgWebAppData?.user?.id && tgWebAppData.user?.username) {
-        const userData = await fetchUser(tgWebAppData?.user?.id.toString());
+    const checkRegisteredUser = async (address:string)=>{
+        //if addess is empty return
+        if(!address || address.trim() === ""){
+            console.log("Address is empty");
+            return;
+        }else{
+            try{
+                let creditBalance=0;
+                if(tgWebAppData?.user?.id && tgWebAppData.user?.username){
 
-        if (userData != undefined) {
-          toast.success(t('welcome_back', { name: userData?.username }));
-        } else {
-          const nft = await fetchDolphinCredits(address);
-          if (nft?.hasNft) {
-            creditBalance = nft?.hasFinFather
-              ? (nft.finfatherNft ?? 1) * 18.51
-              : (nft.totalNfts ?? 1) * 4.5;
-          }
+                    //if address is not empty , check if user is registered
+                    const userData = await fetchUser(tgWebAppData?.user?.id.toString());
+                    console.log("User Data:", userData);
+                    if(userData!=undefined && userData!=null){
+                        // if user is registered, fetch user data and set context
+                        toast.success("Welcome Back " + userData?.username);
+                    }else{
+                        // if user is not registered, register user and set context
+                        const nft = await fetchDolphinCredits(address);
+                        if(nft?.hasNft){
+                            if(nft?.hasFinFather){
+                                creditBalance = (nft.finfatherNft ?? 1) * 18.51;
+                            }
+                            else{
+                                creditBalance = (nft.totalNfts??1) * 4.5;
+                            }
+                             context?.setHoldingNFTs(true);
+                        }else{
+                            context?.setHoldingNFTs(false);
+                        }
+                        const newUser: Partial<User> = {
+                            telegramId: tgWebAppData?.user?.id.toString(),
+                            walletAddress: address,
+                            username: tgWebAppData?.user?.username,
+                            creditBalance: creditBalance ?? 0,
+                        };
+                        await register(newUser);
+                        console.log("start param",tgWebAppStartParam);
 
-          const newUser: Partial<User> = {
-            telegramId: tgWebAppData?.user?.id.toString(),
-            walletAddress: address,
-            username: tgWebAppData?.user?.username,
-            creditBalance: creditBalance ?? 0,
-          };
-          await register(newUser);
-
-          toast.success(t('user_registered'));
+                        if(tgWebAppStartParam!== undefined && tgWebAppStartParam !== null && tgWebAppStartParam !== ""){
+                        await addFriend(tgWebAppStartParam.trim(),tgWebAppData?.user?.username ?? "");
+                        }
+                        toast.success("User Registered Successfully");
+                    }
+                    context?.setTelegramId(tgWebAppData?.user?.id.toString());
+                    context?.setWalletAddress(`${Address.parse(address)}`);
+                    context?.setTonBalance(userData?.tonBalance ?? BigInt(0));
+                    context?.setCreditBalance(userData?.creditBalance ?? creditBalance);
+                    context?.setFriends(userData?.friends);
+                    context?.setBets(userData?.betsPlace?.sort((a:Bet, b:Bet) => b.betId - a.betId) ?? []);
+                    context?.setStakedNfts(userData?.stakedNFTs ?? []);
+                }
+            }catch{
+                console.log("Error fetching user data");
+                console.error(error);
+                toast.error("Failed to fetch user data");
+            }
         }
 
-        context?.setTelegramId(tgWebAppData?.user?.id.toString());
-        context?.setWalletAddress(address);
-        context?.setTonBalance(userData?.tonBalance ?? BigInt(0));
-        context?.setCreditBalance(userData?.creditBalance ?? creditBalance);
-      }
-    } catch {
-      console.error(error);
-      toast.error(t('fetch_user_failed'));
-    }
   };
 
   useEffect(() => {
