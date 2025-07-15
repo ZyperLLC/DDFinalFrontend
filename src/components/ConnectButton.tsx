@@ -9,7 +9,6 @@ import { Bet, User } from '../types';
 import { useUser } from '../hooks/useUser';
 import { useGetCredits } from '../hooks/useGetCredits';
 import { addFriend } from '../api/userApi';
-import { Address } from '@ton/ton';
 import { toUserFriendlyAddress } from '@tonconnect/sdk';
 
 type ConnectButtonProps = {
