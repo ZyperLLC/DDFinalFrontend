@@ -13,15 +13,16 @@ export default function DolphinGrid({
 
   return (
     <div className="combined-card2">
-      <h2 className="dolphin-header" style={{ marginTop: '1rem' }}>
-        {t('last_winner')}
-      </h2>
       <div style={{
         display:"flex",
         alignItems:"center",
         justifyContent:"center",
         width:"100%"
       }}>
+      <h2 className="dolphin-header" style={{ marginTop: '1rem' }}>
+        {t('last_winner')}
+      </h2>
+      
       <img src={dolphin1} key={1} alt={`Dolphin ${1}`} className="dolphin"/>  
       </div>
       <h2 className="dolphin-header" style={{ marginTop: '1rem' }}>
