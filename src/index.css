@@ -171,9 +171,9 @@ html, body {
 }
 
 .progress-fill {
-  height: 24px;
+  height: 100%;
   background: linear-gradient(90deg, #f72585, #7209b7);
-  width: 275px;
+  width: 0%;
   border-radius: inherit;
   transition: width 0.3s ease;
 }
