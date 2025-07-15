@@ -54,7 +54,7 @@ const GameHistoryCard: React.FC<Props> = ({ image, cost, prize, useTon, betId, r
         </p>
         <p className="nft-detail">
           <strong>{t('gameHistory.startedAt')}: </strong> {prize}
-          <span>{startedAt?startedAt.toLocaleDateString() :'-'}</span>
+          <span>{startedAt.getDate()+'/'+startedAt.getMonth()+'/'+startedAt.getFullYear()}</span>
         </p>
       </div>
       <div className={`result-tag ${result}`}>
