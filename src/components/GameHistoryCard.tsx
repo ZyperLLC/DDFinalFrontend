@@ -9,7 +9,7 @@ interface Props {
   cost: string;
   prize: string;
   useTon?: boolean; // Optional, true if using TON, false if using Credits
-  betId?: number; // Optional, if you want to display or use the bet ID
+  betId?: number | string; // Optional, if you want to display or use the bet ID
   result: 'win' | 'lose';
 }
 
@@ -23,7 +23,7 @@ const GameHistoryCard: React.FC<Props> = ({ image, cost, prize, useTon, betId, r
     const fetchBettingRound = async () => {
       if (betId) {
         try {
-          const bettingRound = await getBettingRoundById(betId);
+          const bettingRound = await getBettingRoundById(Number(betId));
           setHasEnded(bettingRound.hasEnded);
           setStartedAt(new Date(bettingRound.startedAt))
         } catch (error) {
