@@ -199,11 +199,14 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
               <h2 className="text-lg font-bold text-center">
                 {name}
               </h2>
-              <div style={{ height: '175px', overflow: 'auto' }}>
+              <div style={{ 
+                height: '175px', 
+                overflow: 'auto',
+                marginBottom: '1rem'
+               }}>
                 <p className="text-sm text-center" style={{ 
                   opacity: 0.9,
                   paddingRight: '8px',
-                  marginBottom: '1rem'
                 }}>
                   {t('dolphin_popup.description', { name })}
                 </p>
