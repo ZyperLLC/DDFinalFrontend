@@ -199,8 +199,8 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
               <h2 className="text-lg font-bold text-center">
                 {name}
               </h2>
-              <div style={{ height: '80px', overflow: 'auto', margin: '0.5rem 0' }}>
-                <p className="text-sm text-center mt-1" style={{ 
+              <div style={{ height: '90px', overflow: 'auto', margin: '0.5rem 0' }}>
+                <p className="text-sm text-center" style={{ 
                   opacity: 0.9,
                   paddingRight: '8px',
                   marginBottom: '0.5rem'
