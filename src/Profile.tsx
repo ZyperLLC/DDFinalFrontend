@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Navbar from './components/Navbar';
 
@@ -48,10 +48,10 @@ import ConnectWalletCard from './components/ConnectWalletCard';
 import StakedNFTCard from './components/StakedNFTCard';
 import GameHistoryCard from './components/GameHistoryCard';
 import SectionBox from './components/SectionBox';
+import WithdrawPopup from './components/Withdrawpopup';
 
 import './index.css';
 import { UserContext } from './Context/UserContextProvider';
-// import { useWithdrawDeposits } from './hooks/useWithdrawDeposits';
 import { motion } from 'framer-motion';
 import { slideUpFade } from './utils/animations';
 
@@ -59,54 +59,24 @@ export default function Profile() {
   const { t } = useTranslation();
   const context = useContext(UserContext);
   const isWalletConnected = !!context?.user.walletAddress;
-  // const {withdraw} = useWithdrawDeposits();
-  // const [amountToWithdraw,_] = useState<number>(0.1);
-  
-  const dolphinImages: { [key: number]: string } = {
-    1: dolphin1,
-    2: dolphin2,
-    3: dolphin3,
-    4: dolphin4,
-    5: dolphin5,
-    6: dolphin6,  
-    7: dolphin7,
-    8: dolphin8,
-    9: dolphin9,
-    10: dolphin10,
-    11: dolphin11,
-    12: dolphin12,
-    13: dolphin13,
-    14: dolphin14,
-    15: dolphin15,
-    16: dolphin16,
-    17: dolphin17,
-    18: dolphin18,
-    19: dolphin19,
-    20: dolphin20,
-    21: dolphin21,
-    22: dolphin22,
-    23: dolphin23,
-    24: dolphin24,
-    25: dolphin25,
-    26: dolphin26,
-    27: dolphin27,
-    28: dolphin28,
-    29: dolphin29,
-    30: dolphin30,
-    31: dolphin31,
-    32: dolphin32,
-    33: dolphin33,
-    34: dolphin34,
-    35: dolphin35,
-    36: dolphin36
-  }
+  const [isWithdrawPopupVisible, setIsWithdrawPopupVisible] = useState(false);
 
-  // const handleUserWithdraw = () => {
-  //   const userWithdrawal = async ()=>{
-  //     await withdraw(amountToWithdraw);
-  //   }
-  //   userWithdrawal();
-  // }
+
+  const dolphinImages: { [key: number]: string } = {
+    1: dolphin1, 2: dolphin2, 3: dolphin3, 4: dolphin4, 5: dolphin5, 6: dolphin6,
+    7: dolphin7, 8: dolphin8, 9: dolphin9, 10: dolphin10, 11: dolphin11, 12: dolphin12,
+    13: dolphin13, 14: dolphin14, 15: dolphin15, 16: dolphin16, 17: dolphin17, 18: dolphin18,
+    19: dolphin19, 20: dolphin20, 21: dolphin21, 22: dolphin22, 23: dolphin23, 24: dolphin24,
+    25: dolphin25, 26: dolphin26, 27: dolphin27, 28: dolphin28, 29: dolphin29, 30: dolphin30,
+    31: dolphin31, 32: dolphin32, 33: dolphin33, 34: dolphin34, 35: dolphin35, 36: dolphin36
+  };
+
+  const handleUserWithdraw = () => {
+    setIsWithdrawPopupVisible(true);
+  };
+
+
+
   return (
     <motion.div variants={slideUpFade} initial="hidden" animate="visible"
       className="page profile-page"
@@ -153,59 +123,59 @@ export default function Profile() {
                 <img src={tonSymbol} alt="TON" className="rounded-full" width={24} height={24} />
                 <span style={{ fontSize: '1rem' }}>TON</span>
               </div>
-              <span
-                style={{
-                  fontSize: '1rem',
-                  fontWeight: '600',
-                }}
-              >
-                {context?.user.tonBalance?.toString().slice(0,4) ?? '0'}
+              <span style={{ fontSize: '1rem', fontWeight: '600' }}>
+                {context?.user.tonBalance?.toString().slice(0, 4) ?? '0'}
               </span>
             </div>
 
-            {/* <button
+            <button
               className="w-full mt-2 py-3 rounded-[12px] font-semibold connect-wallet-button"
-
               onClick={handleUserWithdraw}
             >
               {t('profile.sendTon')}
-            </button> */}
+            </button>
           </div>
         </div>
       )}
 
       {/* Staked NFTs */}
       <SectionBox title={t('profile.stakedNfts')}>
-        {context?.user.stakedNfts && context?.user.stakedNfts.length ===0 &&
-          <p className='text-white ' style={{color:"white",textAlign:"center"}}>No Dolphin Dash NFTs staked </p>}
-        
-        
-        {context?.user.stakedNfts && context.user.stakedNfts.length !== 0 && context.user.stakedNfts.map((nft) => (
-          <StakedNFTCard contractAddress={nft.nftAddress}/>  
+        {context?.user.stakedNfts && context?.user.stakedNfts.length === 0 &&
+          <p style={{ color: 'white' }} className="text-center">No Dolphin Dash NFTs staked</p>}
+        {context?.user.stakedNfts && context.user.stakedNfts.length > 0 && context.user.stakedNfts.map((nft) => (
+          <StakedNFTCard contractAddress={nft.nftAddress} />
         ))}
       </SectionBox>
 
       {/* Game History */}
       <SectionBox title={t('profile.gameHistory')}>
-        {context?.user.bets && context?.user.bets.length ===0 &&
-          <p className='text-white ' style={{color:"white",textAlign:"center"}}>No games played yet </p>
-          }
-        
-        
-        {context?.user.bets!==undefined && context?.user.bets.length !== 0 && context?.user?.bets.map((bet, index) => (
+        {context?.user.bets && context?.user.bets.length === 0 &&
+          <p style={{ color: 'white' }} className="text-center">No games played yet</p>}
+        {context?.user.bets && context?.user.bets.length > 0 && context?.user?.bets.map((bet, index) => (
           <GameHistoryCard
             key={index}
-            image={dolphinImages[bet.numberBettedOn]} // Replace with bet.dolphinImage if available
+            image={dolphinImages[bet.numberBettedOn]}
             cost={`${bet.amountBet}`}
             prize={`${bet.amountWon}`}
-            useTon = {bet.useTon}
-            betId = {`${bet.betId}`}
-            result={bet.hasWon?'win':"lose"} // 'win' or 'lose'
+            useTon={bet.useTon}
+            betId={`${bet.betId}`}
+            result={bet.hasWon ? 'win' : 'lose'}
           />
         ))}
       </SectionBox>
 
       <Navbar />
+
+      {/* ✅ Withdraw popup */}
+      {isWithdrawPopupVisible && (
+        <WithdrawPopup
+          id={1}
+          name="Withdraw"
+          isVisible={isWithdrawPopupVisible}
+          onClose={() => setIsWithdrawPopupVisible(false)}
+          onExit={() => setIsWithdrawPopupVisible(false)}
+        />
+      )}
     </motion.div>
   );
 }
