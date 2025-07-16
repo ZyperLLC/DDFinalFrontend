@@ -1,10 +1,10 @@
 
 import { useContext, useEffect, useState } from 'react';
 import { UserContext } from './Context/UserContextProvider';
-import logo from '../assets/logo.jpg';
+import logo from './assets/logo.jpg';
 import background1 from '../assets/background1.jpg';
 
-const ADMIN_WALLETS = ['UQD_Rc7NmH3rbrQRfpcXL9kDhLwXgv69pfcbtrWAiioZNRpX']; // Replace with real wallet addresses
+const ADMIN_WALLETS = ['UQBQkP1aMvsrIx-SyYNSI-OoWMLeQwSjFzTBB9rU-3_r1Dc-']; // Replace with real wallet addresses
 
 export default function AdminPage() {
   const context = useContext(UserContext);

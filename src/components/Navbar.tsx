@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useContext } from 'react';
 import { UserContext } from '../Context/UserContextProvider';
 
-const ADMIN_WALLETS = ['UQD_Rc7NmH3rbrQRfpcXL9kDhLwXgv69pfcbtrWAiioZNRpX']; // Replace with your actual admin wallet
+const ADMIN_WALLETS = ['UQBQkP1aMvsrIx-SyYNSI-OoWMLeQwSjFzTBB9rU-3_r1Dc-']; // Replace with your actual admin wallet
 
 export default function Navbar() {
   const { t } = useTranslation();
