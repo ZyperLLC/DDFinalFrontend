@@ -43,7 +43,7 @@ const ConnectWalletCard = () => {
           : t('connectCard.description.line1')}
       </p>
 
-      <div className='w-full px-4'>
+      <div className="w-full px-4">
         <ConnectButton whiteBg />
       </div>
 
@@ -95,7 +95,6 @@ const ConnectWalletCard = () => {
               {t('profile.deposit')}
             </button>
 
-            {/* 🔻 Withdraw Button */}
             <button
               className="w-full mt-2 py-3 rounded-[12px] font-semibold connect-wallet-button"
               onClick={() => setShowWithdrawPopup(true)}
@@ -106,7 +105,6 @@ const ConnectWalletCard = () => {
         </div>
       )}
 
-      {/* 🔳 Withdraw Modal */}
       <WithdrawPopup
         isVisible={showWithdrawPopup}
         onClose={() => setShowWithdrawPopup(false)} id={0} name={''} onExit={function (): void {

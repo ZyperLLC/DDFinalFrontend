@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { X } from 'lucide-react';
 import { useTonConnectUiContext } from '../Context/TonConnectUiContext';
 import { ConnectButton } from './ConnectButton';
@@ -8,65 +8,24 @@ import { motion, AnimatePresence } from 'framer-motion';
 import background1 from '../assets/background1.jpg';
 import tonSymbol from '../assets/ton_symbol.jpg';
 import creditIcon from '../assets/credit.jpg';
-import { Bet } from '../types';
-import { getBettingRounds, placeBet } from '../api/userApi';
-import { UserContext } from '../Context/UserContextProvider';
 import toast from 'react-hot-toast';
 import { slideUpFade } from '../utils/animations';
 
 type Props = {
-  id:number;
+  id: number;
   name: string;
   isVisible: boolean;
   onClose: () => void;
   onExit: () => void;
 };
 
-
-export default function WithdrawPopup({ id, name, onClose, isVisible }: Props) {
+export default function WithdrawPopup({ name, isVisible, onClose, onExit }: Props) {
   const { t } = useTranslation();
   const [selectedCurrency, setSelectedCurrency] = useState('TON');
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [amount,setAmount] = useState<number|null>(null);
-  const context = useContext(UserContext);
-  console.log("key",id);
+  const [amount, setAmount] = useState<number | null>(null);
 
-  async function handlePlayClick(noBettedOn:number){
-    console.log("handlePlayClick called with amount:", amount, "and noBettedOn:", noBettedOn);
-    console.log("Context:",context?.user);
-    if (amount && !(amount >= 0.1 && amount <= 10)) {
-      toast.error("Amount must be between 0.1 and 10");
-      return;
-    }
-    if(noBettedOn < 1 || noBettedOn > 36){
-      toast.error("Please select a number between 1 and 36");
-      return;
-    }
-    const bets = await getBettingRounds();
-    console.log("Bets:", bets);
-    if (!bets || bets.length === 0) {
-      toast.error("No game rounds available");
-      return;
-    }
-    const betData: Partial<Bet> = {
-      betId: bets.length,
-      amountBet: amount??0, // This should be set based on user input
-      numberBettedOn: noBettedOn,
-      hasWon: false,
-      amountWon: 0,
-      useTon: selectedCurrency === 'TON',
-      holdingNFT: context?.user.holdingNFTs ?? false, // This should be set based on user state
-    }
-    console.log("Bet Data:", betData);
-    const result = await placeBet(context?.user.telegramId ?? '', betData);
-    console.log("Bet Result:", result);
-    if(result){
-      toast.success("Amount placed successfully");
-      handleExitComplete();
-    }
-  }
   const [shouldRender, setShouldRender] = useState(isVisible);
-
   const { tonConnectUI } = useTonConnectUiContext();
   const isWalletConnected = !!tonConnectUI?.account?.address;
 
@@ -79,7 +38,6 @@ export default function WithdrawPopup({ id, name, onClose, isVisible }: Props) {
       document.body.style.overflow = 'hidden';
       document.body.style.position = 'fixed';
       document.body.style.width = '100%';
-      document.body.style.maxWidth = '100vw';
       document.body.style.left = '0';
       document.body.style.right = '0';
     }
@@ -87,15 +45,25 @@ export default function WithdrawPopup({ id, name, onClose, isVisible }: Props) {
       document.body.style.overflow = '';
       document.body.style.position = '';
       document.body.style.width = '';
-      document.body.style.maxWidth = '';
       document.body.style.left = '';
       document.body.style.right = '';
     };
   }, [isVisible]);
 
+  const handleWithdraw = () => {
+    if (!amount || amount < 0.1 || amount > 10) {
+      toast.error('Amount must be between 0.1 and 10');
+      return;
+    }
+
+    toast.success(`Withdrawing ${amount} ${selectedCurrency}`);
+    handleExitComplete(); // Close modal after confirmation
+  };
+
   const handleExitComplete = () => {
     setShouldRender(false);
     onClose();
+    onExit(); // Now properly used
   };
 
   return (
@@ -108,10 +76,11 @@ export default function WithdrawPopup({ id, name, onClose, isVisible }: Props) {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
           style={{
-            height:"100vh",
-            display:"flex",
-            justifyContent:'center',
-            alignItems:'center'
+            height: '100vh',
+            width: '100vw',
+            top: 0,
+            left: 0,
+            position: 'fixed',
           }}
         >
           {/* Backdrop */}
@@ -125,20 +94,6 @@ export default function WithdrawPopup({ id, name, onClose, isVisible }: Props) {
             }}
           />
 
-          {/* Beep animation */}
-          <style>
-            {`
-              @keyframes beep {
-                0% { opacity: 1; }
-                50% { opacity: 0.3; }
-                100% { opacity: 1; }
-              }
-              .beep-text {
-                animation: beep 1.4s infinite;
-              }
-            `}
-          </style>
-
           {/* Popup */}
           <motion.div
             variants={slideUpFade}
@@ -147,22 +102,20 @@ export default function WithdrawPopup({ id, name, onClose, isVisible }: Props) {
             exit="exit"
             style={{
               width: '100%',
-              maxWidth: '340px',
+              maxWidth: '360px',
               borderRadius: '1rem',
               background: '#000',
               overflow: 'hidden',
+              position: 'relative',
+              color: '#fff',
               display: 'flex',
               flexDirection: 'column',
-              alignItems:'center',
-              justifyContent:'center',
-              position: 'relative',
             }}
           >
+            {/* Close Button */}
             <button
-              className="close-btn absolute right-2 top-2 z-10"
-              onClick={() => {
-                setShouldRender(false);
-              }}
+              className="absolute right-2 top-2"
+              onClick={handleExitComplete}
               style={{
                 background: 'transparent',
                 border: 'none',
@@ -173,82 +126,66 @@ export default function WithdrawPopup({ id, name, onClose, isVisible }: Props) {
               <X size={22} />
             </button>
 
+            {/* Content */}
             <div
               style={{
                 backgroundImage: `url(${background1})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
-                color: 'white',
-                filter: 'brightness(1)',
                 padding: '4rem 1.5rem 2rem',
-                overflowY: 'auto',
               }}
             >
-              <h2 className="text-lg font-bold text-center">
-                {name}
-              </h2>
-              <div style={{
-                height: '175px',
-                overflow: 'auto',
-                marginBottom: '1rem'
-               }}>
-                <p className="text-sm text-center" style={{
-                  opacity: 0.9,
-                  paddingRight: '8px',
-                }}>
-                  {t('dolphin_popup.description', { name })}
-                </p>
-              </div>
+              <h2 className="text-lg font-bold text-center mb-2">{name}</h2>
 
-              {tonConnectUI == null ? (
-                <div style={{ marginTop: '1.5rem', display: 'flex', justifyContent: 'center' }}>
-                  <div
-                    style={{
-                      width: '32px',
-                      height: '32px',
-                      border: '4px solid #fff',
-                      borderTop: '4px solid transparent',
-                      borderRadius: '50%',
-                      animation: 'spin 1s linear infinite',
-                    }}
-                  />
+              <p className="text-sm text-center opacity-90 mb-4">
+                {t('withdraw_popup.description', { name })}
+              </p>
+
+              {!isWalletConnected ? (
+                <>
+                  <div className="w-full px-4 mt-6 flex justify-center">
+                    <ConnectButton />
+                  </div>
+                  <p
+                    className="text-xs text-center mt-4"
+                    style={{ opacity: 0.8, animation: 'beep 1.4s infinite' }}
+                  >
+                    {t('dolphin_popup.connect_message')}
+                  </p>
                   <style>
-                    {`@keyframes spin {
-                      0% { transform: rotate(0deg); }
-                      100% { transform: rotate(360deg); }
+                    {`@keyframes beep {
+                        0% { opacity: 1; }
+                        50% { opacity: 0.4; }
+                        100% { opacity: 1; }
                     }`}
                   </style>
-                </div>
-              ) : isWalletConnected ? (
+                </>
+              ) : (
                 <>
-                  <div className="flex justify-center gap-3 mt-6 flex-wrap"
-                  >
+                  {/* Input + Dropdown */}
+                  <div className="flex justify-center gap-3 mt-6 flex-wrap">
                     <input
                       type="number"
-                      placeholder={'0.1-10'}
+                      placeholder="0.1 - 10"
+                      value={amount ?? ''}
                       onChange={(e) => {
-                        const value = parseFloat(e.target.value);
-                        if (!isNaN(value)) {
-                          setAmount(value);
-                        }
+                        const val = parseFloat(e.target.value);
+                        if (!isNaN(val)) setAmount(val);
                       }}
-                      value={amount??''}
                       style={{
                         height: '40px',
-                        width:'130px',
+                        width: '130px',
                         background: '#fff',
                         borderRadius: '8px',
-                        border: 'none',
                         textAlign: 'center',
                         fontWeight: 'bold',
-                        marginBottom: '10px',
-                        marginRight: '10px',
+                        color: '#000',
                       }}
                     />
                     <div
                       style={{
                         height: '40px',
-                        width:'130px',
+                        width: '130px',
                         background: '#fff',
                         borderRadius: '8px',
                         display: 'flex',
@@ -257,7 +194,6 @@ export default function WithdrawPopup({ id, name, onClose, isVisible }: Props) {
                         position: 'relative',
                         cursor: 'pointer',
                         color: '#000',
-                        marginBottom: '10px',
                       }}
                       onClick={() => setDropdownOpen(!dropdownOpen)}
                     >
@@ -307,8 +243,10 @@ export default function WithdrawPopup({ id, name, onClose, isVisible }: Props) {
                     </div>
                   </div>
 
+                  {/* Withdraw Button */}
                   <div className="mt-6 flex justify-center">
                     <button
+                      onClick={handleWithdraw}
                       style={{
                         width: '100%',
                         padding: '0.75rem',
@@ -320,32 +258,10 @@ export default function WithdrawPopup({ id, name, onClose, isVisible }: Props) {
                         fontSize: '1rem',
                         cursor: 'pointer',
                       }}
-                      onClick={() => handlePlayClick(id + 1)}
                     >
-                      {t('dolphin_popup.play')}
+                      {t('Withdraw')}
                     </button>
                   </div>
-                </>
-              ) : (
-                <>
-                  <div className="w-full px-4 mt-6 flex justify-center">
-                    <ConnectButton />
-                  </div>
-                  <p
-                    className="beep-text"
-                    style={{
-                      marginTop: '12px',
-                      color: '#fff',
-                      fontSize: '14px',
-                      textAlign: 'center',
-                      maxWidth: '260px',
-                      marginLeft: 'auto',
-                      marginRight: 'auto',
-                      opacity: 0.9,
-                    }}
-                  >
-                    {t('dolphin_popup.connect_message')}
-                  </p>
                 </>
               )}
             </div>

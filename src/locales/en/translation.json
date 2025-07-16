@@ -127,6 +127,11 @@
     "stakeButton": "Stake"
   },
 
+  "withdraw_popup": {
+  "description": "Withdraw your balance for {{name}}"
+},
+
+
   "stakeComplete": {
     "close": "Close success modal",
     "success": "Staked Successfully",
