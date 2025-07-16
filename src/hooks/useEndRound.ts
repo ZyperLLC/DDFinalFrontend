@@ -40,7 +40,7 @@ export const useEndRound = ()=>{
                     $$type:'Bet',
                     player: Address.parse(user.walletAddress),
                     hasNFT:bet.holdingNFT,
-                    amountBet:BigInt(Number(bet.amountBet))
+                    amountBet:toNano(`${bet.amountBet}`)
                     })
                 }
                 index++;
