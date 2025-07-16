@@ -162,7 +162,7 @@ export const ConnectButton = ({ whiteBg = false }: ConnectButtonProps) => {
         </button>
       )}
 
-      {/* Disconnect Modal (Framer Motion) */}
+      {/* Disconnect Modal */}
       <AnimatePresence>
         {showModal && (
           <>
@@ -177,17 +177,16 @@ export const ConnectButton = ({ whiteBg = false }: ConnectButtonProps) => {
 
             {/* Modal Box */}
             <motion.div
-              initial={{ y: -50, opacity: 0 }}
+              initial={{ y: -200, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              exit={{ y: -50, opacity: 0 }}
+              exit={{ y: -200, opacity: 0 }}
               transition={{ duration: 0.3, ease: 'easeOut' }}
-              className="fixed top-[80px] left-1/2 z-50 w-full max-w-md transform -translate-x-1/2 px-4"
+              className="fixed top-0 left-0 right-0 z-50 mx-auto w-full max-w-md px-4"
             >
               <div
-                className="relative w-full bg-white rounded-xl shadow-xl p-6"
+                className="relative bg-white rounded-xl shadow-xl p-6 mt-6"
                 onClick={(e) => e.stopPropagation()}
               >
-                {/* Close */}
                 <button
                   onClick={() => setShowModal(false)}
                   className="absolute top-2 right-2 p-2"
