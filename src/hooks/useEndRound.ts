@@ -44,9 +44,9 @@ export const useEndRound = ()=>{
                     hasNFT:bet.holdingNFT,
                     amountBet:toNano(`${bet.amountBet}`)
                     })
+                    console.log(user)
                 }
                 index++;
-                console.log(user)
             })
         });
         console.log(tonWinningBets);
