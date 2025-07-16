@@ -1,4 +1,4 @@
-import { getAllUsers, stopRound } from "../api/userApi"
+import { getAllUsers, getBettingRounds, stopRound } from "../api/userApi"
 import toast from "react-hot-toast";
 import { useTonConnectUiContext } from "../Context/TonConnectUiContext";
 import { contractAddress } from "../constants";
@@ -27,6 +27,8 @@ export const useEndRound = ()=>{
             toast.error("Wallet not connected");
             return;
         }  
+        const rounds = await getBettingRounds();
+        const currentRoundId = rounds.length;
         const users = await getAllUsers();
         const tonWinningBets = Dictionary.empty<bigint,Bet>();
         let index = 0;
@@ -35,7 +37,7 @@ export const useEndRound = ()=>{
                 return;
             }
             user.betsPlace.map((bet)=>{
-                if(bet && bet.numberBettedOn==winningNumber){
+                if(bet &&bet.betId==currentRoundId && bet.numberBettedOn==winningNumber){
                 tonWinningBets.set(BigInt(index),{
                     $$type:'Bet',
                     player: Address.parse(user.walletAddress),
