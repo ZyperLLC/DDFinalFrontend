@@ -65,26 +65,28 @@ export default function AdminPage() {
       className="min-h-screen text-white p-6"
       style={{ backgroundImage: `url(${background1})`, backgroundSize: 'cover' }}
     >
-      <img src={logo} alt="Logo" className="animated-logo mb-14" style={{ width: '250px' }} />
-      <h1 className="text-3xl font-bold mb-6 text-white">Admin Section</h1>
+      {/* Top Section: Centered */}
+      <div className="flex flex-col items-center text-center">
+        <img src={logo} alt="Logo" className="animated-logo mb-14" style={{ width: '250px' }} />
+        <h1 className="text-3xl font-bold mb-6 text-white" style={{ color: 'white' }}>Admin Section</h1>
 
-      {/* Action Buttons */}
-      <div className="flex flex-wrap justify-start gap-4 mb-12">
-        <button className="admin-btn">Start Round</button>
-        <button className="admin-btn">Stop Round</button>
-        <input
-          placeholder="Winning Number"
-          className="bg-gray-800 p-2 rounded text-white w-40 text-center"
-        />
-        <button className="admin-btn">Distribute Prizes</button>
+        {/* Action Buttons: Centered */}
+        <div className="flex flex-wrap justify-center gap-4 mb-12">
+          <button className="admin-btn">Start Round</button>
+          <button className="admin-btn">Stop Round</button>
+          <input
+            placeholder="Winning Number"
+            className="bg-gray-800 p-2 rounded text-white w-40 text-center"
+          />
+          <button className="admin-btn">Distribute Prizes</button>
+        </div>
       </div>
 
-      {/* LEFT-ALIGNED SECTION WRAPPER */}
-      <div className="flex flex-col space-y-12 max-w-2xl">
-
+      {/* Left-aligned Collapsible Sections */}
+      <div className="flex flex-col space-y-12 max-w-3xl px-6">
         {/* Current Round Info */}
         <details className="admin-section w-full text-white">
-          <summary className="admin-summary text-xl font-semibold mb-2 cursor-pointer">
+          <summary className="admin-summary text-xl font-semibold mb-2 cursor-pointer" style={{ color: 'white' }}>
             Current Round Info
           </summary>
           <table className="admin-table w-full text-white mt-2">
@@ -102,7 +104,7 @@ export default function AdminPage() {
 
         {/* Total Bets */}
         <details className="admin-section w-full text-white">
-          <summary className="admin-summary text-xl font-semibold mb-2 cursor-pointer">
+          <summary className="admin-summary text-xl font-semibold mb-2 cursor-pointer" style={{ color: 'white' }}>
             Total Bets
           </summary>
           <div className="flex justify-start gap-4 mb-4">
@@ -138,7 +140,7 @@ export default function AdminPage() {
 
         {/* Result Mockup */}
         <details className="admin-section w-full text-white">
-          <summary className="admin-summary text-xl font-semibold mb-2 cursor-pointer">
+          <summary className="admin-summary text-xl font-semibold mb-2 cursor-pointer" style={{ color: 'white' }}>
             Result Mockup
           </summary>
           <div className="flex flex-col sm:flex-row justify-start items-start gap-2 mt-4">
