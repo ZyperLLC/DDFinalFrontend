@@ -1,10 +1,14 @@
 import { useContext, useEffect, useState } from 'react';
 import { UserContext } from './Context/UserContextProvider';
 import Navbar from './components/Navbar';
+import Accordion from './components/Accordion';
 import logo from './assets/logo.jpg';
 import background1 from './assets/background1.jpg';
 
-const ADMIN_WALLETS = ['UQBQkP1aMvsrIx-SyYNSI-OoWMLeQwSjFzTBB9rU-3_r1Dc-', 'UQD4qp7lDCNW94HiMOS0hsAdo_UuWEu7MeWS7wVEKV156D4r']; // Replace with real wallet addresses
+const ADMIN_WALLETS = [
+  'UQBQkP1aMvsrIx-SyYNSI-OoWMLeQwSjFzTBB9rU-3_r1Dc-',
+  'UQD4qp7lDCNW94HiMOS0hsAdo_UuWEu7MeWS7wVEKV156D4r'
+];
 
 export default function AdminPage() {
   const context = useContext(UserContext);
@@ -33,7 +37,7 @@ export default function AdminPage() {
         className="min-h-screen flex flex-col justify-center items-center text-white text-center"
         style={{ backgroundImage: `url(${background1})`, backgroundSize: 'cover' }}
       >
-        <img src={logo} alt="Logo" className="w-40 mb-6" style={{ color: 'white' }}/>
+        <img src={logo} alt="Logo" className="w-40 mb-6" />
         <p>Please connect your wallet to access admin page.</p>
       </div>
     );
@@ -43,7 +47,7 @@ export default function AdminPage() {
     return (
       <div
         className="min-h-screen flex flex-col justify-center items-center text-white text-center"
-        style={{ backgroundImage: `url(${background1})`, backgroundSize: 'cover', color: 'white'  }}
+        style={{ backgroundImage: `url(${background1})`, backgroundSize: 'cover' }}
       >
         <img src={logo} alt="Logo" className="w-40 mb-6" />
         <p>Access Denied. You are not an admin.</p>
@@ -53,18 +57,14 @@ export default function AdminPage() {
 
   return (
     <div
-      className="min-h-screen text-white p-6 flex flex-col items-center text-center"
+      className="min-h-screen text-white pt-6 pb-28 px-6 flex flex-col items-center text-center"
       style={{ backgroundImage: `url(${background1})`, backgroundSize: 'cover' }}
     >
-      <img src={logo} alt="Logo" className="animated-logo"
-        style={{
-          width: '250px',
-          marginBottom: '3.5rem',
-        }} />
-      <h1 className="text-3xl font-bold mb-6 text-white" style={{ color: 'white' }} >Admin Section</h1>
+      <img src={logo} alt="Logo" className="w-60 mb-6" />
+      <h1 className="text-3xl font-bold mb-8">Admin Section</h1>
 
       {/* Action Buttons */}
-      <div className="flex flex-wrap justify-center items-center gap-4 mb-8" style={{ color: 'white' }}>
+      <div className="flex flex-wrap justify-center items-center gap-4 mb-10">
         <button className="admin-btn">Start Round</button>
         <button className="admin-btn">Stop Round</button>
         <input
@@ -75,11 +75,8 @@ export default function AdminPage() {
       </div>
 
       {/* Current Round Info */}
-      <details className="admin-section w-full max-w-2xl mb-6 text-white" style={{ color: 'white' }}>
-        <summary className="admin-summary text-xl font-semibold text-white mb-2 cursor-pointer">
-          Current Round Info
-        </summary>
-        <table className="admin-table w-full text-white mt-2">
+      <Accordion title="Current Round Info">
+        <table className="admin-table w-full mt-2 text-white">
           <thead>
             <tr><th>Field</th><th>Value</th></tr>
           </thead>
@@ -89,26 +86,14 @@ export default function AdminPage() {
             <tr><td>Status</td><td>Ongoing</td></tr>
           </tbody>
         </table>
-      </details>
+      </Accordion>
 
       {/* Total Bets */}
-      <details className="admin-section w-full max-w-2xl mb-6 text-white" style={{ color: 'white' }}>
-        <summary className="admin-summary text-xl font-semibold text-white mb-2 cursor-pointer">
-          Total Bets
-        </summary>
+      <Accordion title="Total Bets">
         <div className="flex justify-center gap-4 mb-4">
-          <button
-            className={`admin-btn ${activeFilter === 'all' ? 'bg-blue-600' : ''}`}
-            onClick={() => setActiveFilter('all')}
-          >All</button>
-          <button
-            className={`admin-btn ${activeFilter === 'ton' ? 'bg-blue-600' : ''}`}
-            onClick={() => setActiveFilter('ton')}
-          >TON</button>
-          <button
-            className={`admin-btn ${activeFilter === 'credits' ? 'bg-blue-600' : ''}`}
-            onClick={() => setActiveFilter('credits')}
-          >Credits</button>
+          <button className={`admin-btn ${activeFilter === 'all' ? 'bg-blue-600' : ''}`} onClick={() => setActiveFilter('all')}>All</button>
+          <button className={`admin-btn ${activeFilter === 'ton' ? 'bg-blue-600' : ''}`} onClick={() => setActiveFilter('ton')}>TON</button>
+          <button className={`admin-btn ${activeFilter === 'credits' ? 'bg-blue-600' : ''}`} onClick={() => setActiveFilter('credits')}>Credits</button>
         </div>
         <table className="admin-table w-full text-white">
           <thead>
@@ -125,13 +110,10 @@ export default function AdminPage() {
             ))}
           </tbody>
         </table>
-      </details>
+      </Accordion>
 
       {/* Result Mockup */}
-      <details className="admin-section w-full max-w-2xl text-white" style={{ color: 'white' }}>
-        <summary className="admin-summary text-xl font-semibold text-white mb-2 cursor-pointer">
-          Result Mockup
-        </summary>
+      <Accordion title="Result Mockup">
         <div className="flex flex-col sm:flex-row justify-center items-center gap-2 mt-4">
           <input
             placeholder="Enter Number"
@@ -148,7 +130,8 @@ export default function AdminPage() {
             <tr><td>user2</td><td>15</td><td>CREDITS</td></tr>
           </tbody>
         </table>
-      </details>
+      </Accordion>
+
       <Navbar />
     </div>
   );
