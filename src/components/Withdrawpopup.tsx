@@ -10,6 +10,7 @@ import tonSymbol from '../assets/ton_symbol.jpg';
 import creditIcon from '../assets/credit.jpg';
 import toast from 'react-hot-toast';
 import { slideUpFade } from '../utils/animations';
+import { useWithdrawDeposits } from '../hooks/useWithdrawDeposits';
 
 type Props = {
   id: number;
@@ -28,6 +29,8 @@ export default function WithdrawPopup({ name, isVisible, onClose, onExit }: Prop
   const [shouldRender, setShouldRender] = useState(isVisible);
   const { tonConnectUI } = useTonConnectUiContext();
   const isWalletConnected = !!tonConnectUI?.account?.address;
+  const {withdraw} = useWithdrawDeposits();
+  const [amountToWithdraw,_] = useState<number>(0.1);
 
   useEffect(() => {
     if (isVisible) setShouldRender(true);
@@ -66,6 +69,13 @@ export default function WithdrawPopup({ name, isVisible, onClose, onExit }: Prop
     onExit(); // Now properly used
   };
 
+  const handleUserWithdraw = () => {
+    const userWithdrawal = async ()=>{
+      await withdraw(amountToWithdraw);
+    }
+    userWithdrawal();
+   }
+   
   return (
     <AnimatePresence onExitComplete={handleExitComplete}>
       {shouldRender && (

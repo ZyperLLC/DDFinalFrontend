@@ -54,15 +54,13 @@ import './index.css';
 import { UserContext } from './Context/UserContextProvider';
 import { motion } from 'framer-motion';
 import { slideUpFade } from './utils/animations';
-// import { useWithdrawDeposits } from './hooks/useWithdrawDeposits';
 
 export default function Profile() {
   const { t } = useTranslation();
   const context = useContext(UserContext);
   const isWalletConnected = !!context?.user.walletAddress;
   const [isWithdrawPopupVisible, setIsWithdrawPopupVisible] = useState(false);
-  // const {withdraw} = useWithdrawDeposits();
-  // const [amountToWithdraw,_] = useState<number>(0.1);
+
 
   const dolphinImages: { [key: number]: string } = {
     1: dolphin1, 2: dolphin2, 3: dolphin3, 4: dolphin4, 5: dolphin5, 6: dolphin6,
@@ -74,15 +72,10 @@ export default function Profile() {
   };
 
   const handleUserWithdraw = () => {
-    setIsWithdrawPopupVisible(true); // ✅ open the popup
+    setIsWithdrawPopupVisible(true);
   };
 
-  // const handleUserWithdraw = () => {
-  //   const userWithdrawal = async ()=>{
-  //     await withdraw(amountToWithdraw);
-  //   }
-  //   userWithdrawal();
-  // }
+  
 
   return (
     <motion.div variants={slideUpFade} initial="hidden" animate="visible"
