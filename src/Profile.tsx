@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Navbar from './components/Navbar';
 
@@ -51,7 +51,7 @@ import SectionBox from './components/SectionBox';
 
 import './index.css';
 import { UserContext } from './Context/UserContextProvider';
-// import { useWithdrawDeposits } from './hooks/useWithdrawDeposits';
+import { useWithdrawDeposits } from './hooks/useWithdrawDeposits';
 import { motion } from 'framer-motion';
 import { slideUpFade } from './utils/animations';
 
@@ -59,16 +59,16 @@ export default function Profile() {
   const { t } = useTranslation();
   const context = useContext(UserContext);
   const isWalletConnected = !!context?.user.walletAddress;
-  // const {withdraw} = useWithdrawDeposits();
-  // const [amountToWithdraw,_] = useState<number>(0.1);
-  
+  const {withdraw} = useWithdrawDeposits();
+  const [amountToWithdraw,_] = useState<number>(0.1);
+
   const dolphinImages: { [key: number]: string } = {
     1: dolphin1,
     2: dolphin2,
     3: dolphin3,
     4: dolphin4,
     5: dolphin5,
-    6: dolphin6,  
+    6: dolphin6,
     7: dolphin7,
     8: dolphin8,
     9: dolphin9,
@@ -101,12 +101,12 @@ export default function Profile() {
     36: dolphin36
   }
 
-  // const handleUserWithdraw = () => {
-  //   const userWithdrawal = async ()=>{
-  //     await withdraw(amountToWithdraw);
-  //   }
-  //   userWithdrawal();
-  // }
+   const handleUserWithdraw = () => {
+    const userWithdrawal = async ()=>{
+      await withdraw(amountToWithdraw);
+    }
+    userWithdrawal();
+   }
   return (
     <motion.div variants={slideUpFade} initial="hidden" animate="visible"
       className="page profile-page"
@@ -163,13 +163,13 @@ export default function Profile() {
               </span>
             </div>
 
-            {/* <button
+            <button
               className="w-full mt-2 py-3 rounded-[12px] font-semibold connect-wallet-button"
 
               onClick={handleUserWithdraw}
             >
               {t('profile.sendTon')}
-            </button> */}
+            </button>
           </div>
         </div>
       )}
@@ -178,10 +178,10 @@ export default function Profile() {
       <SectionBox title={t('profile.stakedNfts')}>
         {context?.user.stakedNfts && context?.user.stakedNfts.length ===0 &&
           <p className='text-white ' style={{color:"white",textAlign:"center"}}>No Dolphin Dash NFTs staked </p>}
-        
-        
+
+
         {context?.user.stakedNfts && context.user.stakedNfts.length !== 0 && context.user.stakedNfts.map((nft) => (
-          <StakedNFTCard contractAddress={nft.nftAddress}/>  
+          <StakedNFTCard contractAddress={nft.nftAddress}/>
         ))}
       </SectionBox>
 
@@ -190,8 +190,8 @@ export default function Profile() {
         {context?.user.bets && context?.user.bets.length ===0 &&
           <p className='text-white ' style={{color:"white",textAlign:"center"}}>No games played yet </p>
           }
-        
-        
+
+
         {context?.user.bets!==undefined && context?.user.bets.length !== 0 && context?.user?.bets.map((bet, index) => (
           <GameHistoryCard
             key={index}
