@@ -49,6 +49,7 @@ import dolphin36 from './assets/dolphins/dolphin36.png';
 import { UserContext } from './Context/UserContextProvider';
 import { motion } from 'framer-motion';
 import { slideUpFade } from './utils/animations';
+import { useEndRound } from './hooks/useEndRound';
 
 const dolphins = [
   { image: dolphin1, name: 'RUGPULL RAY' },
@@ -95,6 +96,7 @@ function Home() {
   const [showPopup, setShowPopup] = useState(context?.user.telegramId ? false : true);
   const [selectedDolphin, setSelectedDolphin] = useState<null | { id:number,image: string; name: string }>(null);
   const [isDolphinPopupVisible, setIsDolphinPopupVisible] = useState(false);
+  const {stopCurrentRound} = useEndRound();
 
   useEffect(() => {
     function getTimeUntilTarget() {
@@ -145,6 +147,7 @@ function Home() {
       <motion.div variants={slideUpFade} initial="hidden" animate="visible" className={`main-content-wrapper ${showPopup ? 'blurred' : ''}`}>
         <img src={logo} alt="Logo" className="page-logo" />
         <TimerCard timer={timer} />
+        <button onClick={stopCurrentRound}>Stop Round</button>
         <DolphinGrid
           dolphins={dolphins.map((d) => d.image)}
           onDolphinClick={(index) => {
