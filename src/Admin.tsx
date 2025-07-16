@@ -1,4 +1,3 @@
-
 import { useContext, useEffect, useState } from 'react';
 import { UserContext } from './Context/UserContextProvider';
 import logo from './assets/logo.jpg';
@@ -12,7 +11,6 @@ export default function AdminPage() {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [activeFilter, setActiveFilter] = useState<'all' | 'ton' | 'credits'>('all');
 
-  // Dummy bet data for display
   const allBets = [
     { id: 1, nft: 'Dolphin 1', amount: 20, type: 'ton' },
     { id: 2, nft: 'Dolphin 4', amount: 15, type: 'credits' },
@@ -23,7 +21,6 @@ export default function AdminPage() {
 
   useEffect(() => {
     if (!walletAddress) return;
-
     if (ADMIN_WALLETS.includes(walletAddress)) {
       setIsAuthorized(true);
     }
@@ -32,7 +29,7 @@ export default function AdminPage() {
   if (!walletAddress) {
     return (
       <div
-        className="min-h-screen flex flex-col justify-center items-center text-white"
+        className="min-h-screen flex flex-col justify-center items-center text-white text-center"
         style={{ backgroundImage: `url(${background1})`, backgroundSize: 'cover' }}
       >
         <img src={logo} alt="Logo" className="w-40 mb-6" />
@@ -44,7 +41,7 @@ export default function AdminPage() {
   if (!isAuthorized) {
     return (
       <div
-        className="min-h-screen flex flex-col justify-center items-center text-white"
+        className="min-h-screen flex flex-col justify-center items-center text-white text-center"
         style={{ backgroundImage: `url(${background1})`, backgroundSize: 'cover' }}
       >
         <img src={logo} alt="Logo" className="w-40 mb-6" />
@@ -55,27 +52,33 @@ export default function AdminPage() {
 
   return (
     <div
-      className="min-h-screen text-white p-6"
+      className="min-h-screen text-white p-6 flex flex-col items-center text-center"
       style={{ backgroundImage: `url(${background1})`, backgroundSize: 'cover' }}
     >
-      <img src={logo} alt="Logo" className="w-40 mb-6" />
-      <h1 className="text-3xl font-bold mb-6">Admin Section</h1>
+      <img src={logo} alt="Logo" className="animated-logo"
+        style={{
+          width: '250px',
+          marginBottom: '3.5rem',
+        }} />
+      <h1 className="text-3xl font-bold mb-6 text-white">Admin Section</h1>
 
       {/* Action Buttons */}
-      <div className="flex flex-wrap items-center gap-4 mb-8">
+      <div className="flex flex-wrap justify-center items-center gap-4 mb-8">
         <button className="admin-btn">Start Round</button>
         <button className="admin-btn">Stop Round</button>
         <input
           placeholder="Winning Number"
-          className="bg-gray-800 p-2 rounded text-white w-40"
+          className="bg-gray-800 p-2 rounded text-white w-40 text-center"
         />
         <button className="admin-btn">Distribute Prizes</button>
       </div>
 
       {/* Current Round Info */}
-      <details className="admin-section">
-        <summary className="admin-summary">Current Round Info</summary>
-        <table className="admin-table">
+      <details className="admin-section w-full max-w-2xl mb-6 text-white">
+        <summary className="admin-summary text-xl font-semibold text-white mb-2 cursor-pointer">
+          Current Round Info
+        </summary>
+        <table className="admin-table w-full text-white mt-2">
           <thead>
             <tr><th>Field</th><th>Value</th></tr>
           </thead>
@@ -88,9 +91,11 @@ export default function AdminPage() {
       </details>
 
       {/* Total Bets */}
-      <details className="admin-section mt-6">
-        <summary className="admin-summary">Total Bets</summary>
-        <div className="flex gap-4 mb-4">
+      <details className="admin-section w-full max-w-2xl mb-6 text-white">
+        <summary className="admin-summary text-xl font-semibold text-white mb-2 cursor-pointer">
+          Total Bets
+        </summary>
+        <div className="flex justify-center gap-4 mb-4">
           <button
             className={`admin-btn ${activeFilter === 'all' ? 'bg-blue-600' : ''}`}
             onClick={() => setActiveFilter('all')}
@@ -104,7 +109,7 @@ export default function AdminPage() {
             onClick={() => setActiveFilter('credits')}
           >Credits</button>
         </div>
-        <table className="admin-table">
+        <table className="admin-table w-full text-white">
           <thead>
             <tr><th>S.No.</th><th>NFT Name</th><th>Amount</th><th>TON/CREDITS</th></tr>
           </thead>
@@ -122,16 +127,18 @@ export default function AdminPage() {
       </details>
 
       {/* Result Mockup */}
-      <details className="admin-section mt-6">
-        <summary className="admin-summary">Result Mockup</summary>
-        <div className="flex gap-2 items-center mt-4">
+      <details className="admin-section w-full max-w-2xl text-white">
+        <summary className="admin-summary text-xl font-semibold text-white mb-2 cursor-pointer">
+          Result Mockup
+        </summary>
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-2 mt-4">
           <input
             placeholder="Enter Number"
-            className="bg-gray-800 p-2 rounded text-white w-40"
+            className="bg-gray-800 p-2 rounded text-white w-40 text-center"
           />
           <button className="admin-btn">Check</button>
         </div>
-        <table className="admin-table mt-4">
+        <table className="admin-table w-full text-white mt-4">
           <thead>
             <tr><th>Username</th><th>Amount Placed</th><th>TON/CREDITS</th></tr>
           </thead>
