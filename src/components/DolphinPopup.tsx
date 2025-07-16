@@ -35,6 +35,19 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
   async function handlePlayClick(noBettedOn:number){
     console.log("handlePlayClick called with amount:", amount, "and noBettedOn:", noBettedOn);
     console.log("Context:",context?.user);
+    
+    const bets = await getBettingRounds();
+    console.log("Bets:", bets);
+    if (!bets || bets.length === 0) {
+      toast.error("No game rounds available");
+      return;
+    }
+
+    if(bets[bets.length].hasBettingStopped){
+      toast.error("Draw Round Ended");
+      return;
+    }
+
     if (amount && !(amount >= 0.1 && amount <= 10)) {
       toast.error("Amount must be between 0.1 and 10");
       return;
@@ -43,12 +56,7 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
       toast.error("Please select a number between 1 and 36");
       return;
     }
-    const bets = await getBettingRounds();
-    console.log("Bets:", bets);
-    if (!bets || bets.length === 0) {
-      toast.error("No game rounds available");
-      return;
-    }
+    
     const betData: Partial<Bet> = {
       betId: bets.length,
       amountBet: amount??0, // This should be set based on user input
