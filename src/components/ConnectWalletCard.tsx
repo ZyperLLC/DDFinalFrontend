@@ -109,8 +109,9 @@ const ConnectWalletCard = () => {
       {/* 🔳 Withdraw Modal */}
       <WithdrawPopup
         isVisible={showWithdrawPopup}
-        onClose={() => setShowWithdrawPopup(false)}
-      />
+        onClose={() => setShowWithdrawPopup(false)} id={0} name={''} onExit={function (): void {
+          throw new Error('Function not implemented.');
+        } }      />
     </div>
   );
 };
