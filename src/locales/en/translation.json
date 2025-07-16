@@ -120,7 +120,7 @@
   },
 
 
-  "popup": {
+  "popUpdateup": {
     "close": "Close popup",
     "description": "Crowned before he could swim straight, {{name}} turned the Dolphin Dash into his personal kingdom — staked $TON, seven rings, and a throne of broken dreams. Other dolphins call it luck — he just calls it Tuesday.",
     "apy": "APY",
@@ -128,7 +128,7 @@
   },
 
   "withdraw_popup": {
-  "description": "Withdraw your balance for {{name}}"
+  "description": "Withdraw your balance"
 },
 
 
