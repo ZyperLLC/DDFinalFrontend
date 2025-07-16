@@ -98,6 +98,6 @@ export const stopRound = async ()=>{
 }
 
 export const getAllUsers = async()=>{
-  const res = await axios.post(`${BASE_URL}/api/users`);
+  const res = await axios.get(`${BASE_URL}/api/users`);
   return res.data;
 }
