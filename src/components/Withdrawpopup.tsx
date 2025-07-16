@@ -125,7 +125,7 @@ export default function WithdrawPopup({ name, isVisible, onClose, onExit }: Prop
           >
             {/* Close Button (Right-Aligned) */}
             <button
-              className="absolute right-2 top-2"
+              className="absolute left-2 top-2"
               onClick={handleExitComplete}
               style={{
                 background: 'transparent',
