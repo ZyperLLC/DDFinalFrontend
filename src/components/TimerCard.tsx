@@ -5,9 +5,7 @@ export default function TimerCard({ timer }: { timer: number }) {
 
   // Calculate progress based on remaining time
   // Assuming the game round is 24 hours (86400 seconds)
-  const ROUND_DURATION = 86400;
-  let percent = Math.min(((ROUND_DURATION - timer) / ROUND_DURATION) * 100, 100);
-  const progressPercent = Math.max(0, Math.min(100, Math.floor(percent)));
+  const progressPercent = 100;
   const hours = 0;
   const minutes = 0;
   const seconds = 0;
