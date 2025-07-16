@@ -163,42 +163,22 @@ export const ConnectButton = ({ whiteBg = false }: ConnectButtonProps) => {
         </button>
       )}
 
-      {/* Disconnect Confirmation Modal */}
+      {/* Disconnect Confirmation Modal (drops from top) */}
       {showModal && (
         <>
+          {/* Overlay */}
           <div
-            className="fixed inset-0 z-40 backdrop-blur-md"
-            style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}
+            className="fixed inset-0 z-40 bg-black/20"
             onClick={() => setShowModal(false)}
           />
 
-          <div
-            className="fixed left-0 right-0 z-50 flex justify-center px-4"
-            style={{ bottom: '64px', pointerEvents: 'none' }}
-          >
-            <div
-              className="w-full max-w-md rounded-2xl p-6 text-center bg-white"
-              style={{
-                pointerEvents: 'auto',
-                boxShadow: '0 0 20px rgba(0,0,0,0.15)',
-                margin: '0 auto',
-                padding: '5px 20px 20px',
-                maxWidth: '280px',
-                borderRadius: '7px',
-              }}
-              onClick={(e) => e.stopPropagation()}
-            >
+          {/* Modal box */}
+          <div className="fixed top-[80px] left-1/2 z-50 w-full max-w-md -translate-x-1/2 px-4 animate-slide-down">
+            <div className="bg-white rounded-xl p-6 shadow-lg relative">
+              {/* Close Button */}
               <button
                 onClick={() => setShowModal(false)}
-                className="absolute"
-                style={{
-                  top: '0px',
-                  right: '0px',
-                  padding: '10px',
-                  background: 'transparent',
-                  border: 'none',
-                  cursor: 'pointer',
-                }}
+                className="absolute top-2 right-2 p-2"
               >
                 <X size={18} color="#333" />
               </button>
@@ -210,13 +190,9 @@ export const ConnectButton = ({ whiteBg = false }: ConnectButtonProps) => {
 
               <button
                 onClick={disconnectWallet}
-                className="w-[90%] max-w-[300px] mx-auto py-4 rounded-xl text-white font-semibold mt-4"
+                className="w-full mx-auto py-3 rounded-xl text-white font-semibold"
                 style={{
                   background: 'linear-gradient(to right, #f72585, #7209b7)',
-                  height: '36px',
-                  display: 'block',
-                  color: '#ffffff',
-                  borderRadius: '7px',
                 }}
               >
                 Disconnect
