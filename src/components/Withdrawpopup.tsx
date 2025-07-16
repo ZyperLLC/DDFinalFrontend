@@ -123,9 +123,9 @@ export default function WithdrawPopup({ name, isVisible, onClose, onExit }: Prop
               flexDirection: 'column',
             }}
           >
-            {/* Close Button (Left-Aligned) */}
+            {/* Close Button (Right-Aligned) */}
             <button
-              className="absolute left-2 top-2"
+              className="absolute right-2 top-2"
               onClick={handleExitComplete}
               style={{
                 background: 'transparent',
@@ -165,53 +165,61 @@ export default function WithdrawPopup({ name, isVisible, onClose, onExit }: Prop
                   </p>
                   <style>
                     {`@keyframes beep {
-                        0% { opacity: 1; }
-                        50% { opacity: 0.4; }
-                        100% { opacity: 1; }
+                      0% { opacity: 1; }
+                      50% { opacity: 0.4; }
+                      100% { opacity: 1; }
                     }`}
                   </style>
                 </>
               ) : (
                 <>
-                  {/* TON Amount Input */}
-                  <div className="flex justify-center gap-3 mt-6 flex-wrap">
+                  {/* TON Input with logo */}
+                  <div
+                    style={{
+                      position: 'relative',
+                      width: '100%',
+                      marginTop: '24px',
+                      marginBottom: '8px',
+                    }}
+                  >
                     <input
                       type="number"
-                      placeholder="0.1 - 10"
                       value={amount ?? ''}
                       onChange={(e) => {
                         const val = parseFloat(e.target.value);
                         if (!isNaN(val)) setAmount(val);
+                        else setAmount(null);
                       }}
+                      placeholder="0"
                       style={{
-                        height: '40px',
-                        width: '130px',
-                        background: '#fff',
-                        borderRadius: '8px',
-                        textAlign: 'center',
-                        fontWeight: 'bold',
+                        width: '100%',
+                        padding: '10px 50px 10px 14px',
+                        borderRadius: '12px',
+                        border: '1px solid #ccc',
+                        fontSize: '16px',
                         color: '#000',
+                        boxSizing: 'border-box',
                       }}
                     />
                     <div
                       style={{
-                        height: '40px',
-                        width: '130px',
-                        background: '#fff',
-                        borderRadius: '8px',
+                        position: 'absolute',
+                        top: '50%',
+                        right: '14px',
+                        transform: 'translateY(-50%)',
                         display: 'flex',
                         alignItems: 'center',
-                        justifyContent: 'center',
-                        color: '#000',
-                        fontWeight: 'bold',
+                        gap: '6px',
                       }}
                     >
                       <img
                         src={tonSymbol}
                         alt="TON"
-                        style={{ width: '18px', marginRight: '6px' }}
+                        style={{ borderRadius: '50%', opacity: 0.8 }}
+                        width={20}
+                        height={20}
                       />
-                      TON
+                      <span style={{ color: '#000', fontWeight: 500 }}>TON</span>
                     </div>
                   </div>
 
