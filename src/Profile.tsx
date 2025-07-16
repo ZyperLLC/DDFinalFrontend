@@ -77,6 +77,13 @@ export default function Profile() {
     setIsWithdrawPopupVisible(true); // ✅ open the popup
   };
 
+  // const handleUserWithdraw = () => {
+  //   const userWithdrawal = async ()=>{
+  //     await withdraw(amountToWithdraw);
+  //   }
+  //   userWithdrawal();
+  // }
+
   return (
     <motion.div variants={slideUpFade} initial="hidden" animate="visible"
       className="page profile-page"
