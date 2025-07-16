@@ -37,7 +37,7 @@ export const useEndRound = ()=>{
                 return;
             }
             user.betsPlace.map((bet)=>{
-                if(bet &&bet.betId==currentRoundId && bet.numberBettedOn==winningNumber){
+                if(bet &&bet.betId==currentRoundId && bet.useTon && bet.numberBettedOn==winningNumber){
                 tonWinningBets.set(BigInt(index),{
                     $$type:'Bet',
                     player: Address.parse(user.walletAddress),
