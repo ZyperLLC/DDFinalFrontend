@@ -33,7 +33,7 @@ export default function AdminPage() {
         className="min-h-screen flex flex-col justify-center items-center text-white text-center"
         style={{ backgroundImage: `url(${background1})`, backgroundSize: 'cover' }}
       >
-        <img src={logo} alt="Logo" className="w-40 mb-6" />
+        <img src={logo} alt="Logo" className="w-40 mb-6" style={{ color: 'white' }}/>
         <p>Please connect your wallet to access admin page.</p>
       </div>
     );
@@ -43,7 +43,7 @@ export default function AdminPage() {
     return (
       <div
         className="min-h-screen flex flex-col justify-center items-center text-white text-center"
-        style={{ backgroundImage: `url(${background1})`, backgroundSize: 'cover' }}
+        style={{ backgroundImage: `url(${background1})`, backgroundSize: 'cover', color: 'white'  }}
       >
         <img src={logo} alt="Logo" className="w-40 mb-6" />
         <p>Access Denied. You are not an admin.</p>
@@ -61,10 +61,10 @@ export default function AdminPage() {
           width: '250px',
           marginBottom: '3.5rem',
         }} />
-      <h1 className="text-3xl font-bold mb-6 text-white">Admin Section</h1>
+      <h1 className="text-3xl font-bold mb-6 text-white" style={{ color: 'white' }} >Admin Section</h1>
 
       {/* Action Buttons */}
-      <div className="flex flex-wrap justify-center items-center gap-4 mb-8">
+      <div className="flex flex-wrap justify-center items-center gap-4 mb-8" style={{ color: 'white' }}>
         <button className="admin-btn">Start Round</button>
         <button className="admin-btn">Stop Round</button>
         <input
@@ -75,7 +75,7 @@ export default function AdminPage() {
       </div>
 
       {/* Current Round Info */}
-      <details className="admin-section w-full max-w-2xl mb-6 text-white">
+      <details className="admin-section w-full max-w-2xl mb-6 text-white" style={{ color: 'white' }}>
         <summary className="admin-summary text-xl font-semibold text-white mb-2 cursor-pointer">
           Current Round Info
         </summary>
@@ -92,7 +92,7 @@ export default function AdminPage() {
       </details>
 
       {/* Total Bets */}
-      <details className="admin-section w-full max-w-2xl mb-6 text-white">
+      <details className="admin-section w-full max-w-2xl mb-6 text-white" style={{ color: 'white' }}>
         <summary className="admin-summary text-xl font-semibold text-white mb-2 cursor-pointer">
           Total Bets
         </summary>
@@ -128,7 +128,7 @@ export default function AdminPage() {
       </details>
 
       {/* Result Mockup */}
-      <details className="admin-section w-full max-w-2xl text-white">
+      <details className="admin-section w-full max-w-2xl text-white" style={{ color: 'white' }}>
         <summary className="admin-summary text-xl font-semibold text-white mb-2 cursor-pointer">
           Result Mockup
         </summary>
