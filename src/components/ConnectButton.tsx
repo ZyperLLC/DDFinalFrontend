@@ -1,7 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
+import { X } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
-import { X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 import { UserContext } from '../Context/UserContextProvider';
 import { useTonConnectUiContext } from '../Context/TonConnectUiContext';
@@ -19,14 +20,12 @@ type ConnectButtonProps = {
 export const ConnectButton = ({ whiteBg = false }: ConnectButtonProps) => {
   const { t } = useTranslation();
   const { tgWebAppData, tgWebAppStartParam } = retrieveLaunchParams();
-
   const { tonConnectUI: tonConnectUiInstance } = useTonConnectUiContext();
   const context = useContext(UserContext);
 
   const [address, setAddress] = useState<string | null>(
     tonConnectUiInstance?.account?.address ?? null
   );
-
   const [showModal, setShowModal] = useState(false);
 
   const { register, fetchUser, error } = useUser();
@@ -163,44 +162,58 @@ export const ConnectButton = ({ whiteBg = false }: ConnectButtonProps) => {
         </button>
       )}
 
-      {/* Disconnect Confirmation Modal (drops from top) */}
-      {showModal && (
-        <>
-          {/* Overlay */}
-          <div
-            className="fixed inset-0 z-40 bg-black/20"
-            onClick={() => setShowModal(false)}
-          />
+      {/* Disconnect Modal (Framer Motion) */}
+      <AnimatePresence>
+        {showModal && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              className="fixed inset-0 z-40 bg-black/20"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowModal(false)}
+            />
 
-          {/* Modal box */}
-          <div className="fixed top-[80px] left-1/2 z-50 w-full max-w-md -translate-x-1/2 px-4 animate-slide-down">
-            <div className="bg-white rounded-xl p-6 shadow-lg relative">
-              {/* Close Button */}
-              <button
-                onClick={() => setShowModal(false)}
-                className="absolute top-2 right-2 p-2"
+            {/* Modal Box */}
+            <motion.div
+              initial={{ y: -50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -50, opacity: 0 }}
+              transition={{ duration: 0.3, ease: 'easeOut' }}
+              className="fixed top-[80px] left-1/2 z-50 w-full max-w-md transform -translate-x-1/2 px-4"
+            >
+              <div
+                className="relative w-full bg-white rounded-xl shadow-xl p-6"
+                onClick={(e) => e.stopPropagation()}
               >
-                <X size={18} color="#333" />
-              </button>
+                {/* Close */}
+                <button
+                  onClick={() => setShowModal(false)}
+                  className="absolute top-2 right-2 p-2"
+                >
+                  <X size={18} color="#333" />
+                </button>
 
-              <h2 className="text-xl font-bold mb-2 text-[#7b3fe4]">Disconnect Wallet</h2>
-              <p className="text-sm mb-6 text-[#7b3fe4]">
-                Are you sure you want to disconnect? You’ll need to reconnect to stake, play, or receive rewards.
-              </p>
+                <h2 className="text-xl font-bold mb-2 text-[#7b3fe4]">Disconnect Wallet</h2>
+                <p className="text-sm mb-6 text-[#7b3fe4]">
+                  Are you sure you want to disconnect? You’ll need to reconnect to stake, play, or receive rewards.
+                </p>
 
-              <button
-                onClick={disconnectWallet}
-                className="w-full mx-auto py-3 rounded-xl text-white font-semibold"
-                style={{
-                  background: 'linear-gradient(to right, #f72585, #7209b7)',
-                }}
-              >
-                Disconnect
-              </button>
-            </div>
-          </div>
-        </>
-      )}
+                <button
+                  onClick={disconnectWallet}
+                  className="w-full mx-auto py-3 rounded-xl text-white font-semibold"
+                  style={{
+                    background: 'linear-gradient(to right, #f72585, #7209b7)',
+                  }}
+                >
+                  Disconnect
+                </button>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
