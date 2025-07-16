@@ -43,7 +43,7 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
       return;
     }
 
-    if(bets[bets.length].hasBettingStopped){
+    if(bets[bets.length-1].hasBettingStopped){
       toast.error("Draw Round Ended");
       return;
     }
@@ -56,7 +56,7 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
       toast.error("Please select a number between 1 and 36");
       return;
     }
-    
+
     const betData: Partial<Bet> = {
       betId: bets.length,
       amountBet: amount??0, // This should be set based on user input
