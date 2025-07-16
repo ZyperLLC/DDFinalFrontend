@@ -60,7 +60,9 @@ export default function Profile() {
   const { t } = useTranslation();
   const context = useContext(UserContext);
   const isWalletConnected = !!context?.user.walletAddress;
-  const [isWithdrawPopupVisible, setIsWithdrawPopupVisible] = useState(false); // ✅
+  const [isWithdrawPopupVisible, setIsWithdrawPopupVisible] = useState(false);
+  // const {withdraw} = useWithdrawDeposits();
+  // const [amountToWithdraw,_] = useState<number>(0.1);
 
   const dolphinImages: { [key: number]: string } = {
     1: dolphin1, 2: dolphin2, 3: dolphin3, 4: dolphin4, 5: dolphin5, 6: dolphin6,
