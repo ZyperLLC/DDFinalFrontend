@@ -190,7 +190,7 @@ export default function WithdrawPopup({ name, isVisible, onClose, onExit }: Prop
                         if (!isNaN(val)) setAmount(val);
                         else setAmount(null);
                       }}
-                      placeholder="0"
+                      placeholder="0.1 Minimum"
                       style={{
                         width: '100%',
                         padding: '10px 50px 10px 14px',
