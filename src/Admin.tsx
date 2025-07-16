@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { UserContext } from './Context/UserContextProvider';
+import Navbar from './components/Navbar';
 import logo from './assets/logo.jpg';
 import background1 from './assets/background1.jpg';
 
@@ -148,6 +149,7 @@ export default function AdminPage() {
           </tbody>
         </table>
       </details>
+      <Navbar />
     </div>
   );
 }
