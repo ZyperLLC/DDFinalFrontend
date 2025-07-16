@@ -96,17 +96,14 @@ function Home() {
   const [showPopup, setShowPopup] = useState(context?.user.telegramId ? false : true);
   const [selectedDolphin, setSelectedDolphin] = useState<null | { id:number,image: string; name: string }>(null);
   const [isDolphinPopupVisible, setIsDolphinPopupVisible] = useState(false);
-  const {stopCurrentRound} = useEndRound();
+  const {stopCurrentRound,endBettingRound} = useEndRound();
 
   useEffect(() => {
     function getTimeUntilTarget() {
       const targetTime = new Date(Date.UTC(2025, 6, 16, 19, 30, 0, 0)); // July 15, 2025, 8 PM UTC
       const now = new Date();
-      console.log(targetTime.getTime());
-      console.log("Now time:" ,now.getTime())
       // Calculate seconds until target
       const secondsUntil = Math.floor(Math.abs(now.getTime() - targetTime.getTime()) / 1000);
-      console.log("difference",secondsUntil)
       // If target time hasn't been reached yet, return positive seconds
       if (secondsUntil > 0) {
         return secondsUntil;
@@ -148,6 +145,7 @@ function Home() {
         <img src={logo} alt="Logo" className="page-logo" />
         <TimerCard timer={timer} />
         <button onClick={stopCurrentRound}>Stop Round</button>
+        <button onClick={()=>endBettingRound(13)}>End Round</button>
         <DolphinGrid
           dolphins={dolphins.map((d) => d.image)}
           onDolphinClick={(index) => {

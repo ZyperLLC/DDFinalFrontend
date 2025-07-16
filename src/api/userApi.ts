@@ -96,3 +96,8 @@ export const stopRound = async ()=>{
   const res = await axios.post(`${BASE_URL}/api/bets/stopbetting`);
   return res.data;
 }
+
+export const getAllUsers = async()=>{
+  const res = await axios.post(`${BASE_URL}/api/users`);
+  return res.data;
+}
