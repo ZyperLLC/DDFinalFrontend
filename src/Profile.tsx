@@ -64,7 +64,11 @@ export default function Profile() {
 
         {/* Wallet Connect Card */}
         <motion.div variants={slideUpFade} className="w-full">
-          <ConnectWalletCard />
+          <ConnectWalletCard onConnect={function (): void {
+            throw new Error('Function not implemented.');
+          } } onDisconnect={function (): void {
+            throw new Error('Function not implemented.');
+          } } />
         </motion.div>
 
         {/* Wallet Balances */}

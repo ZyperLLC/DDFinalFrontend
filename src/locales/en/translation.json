@@ -89,6 +89,7 @@
 
   "profile": {
     "deposit": "Deposit",
+    "withdraw": "Withdraw",
     "balance": "Balance",
     "credit": "Credit",
     "connectWallet": "Connect wallet",
