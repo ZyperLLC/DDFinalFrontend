@@ -48,13 +48,6 @@ export const getUser = async (telegramId: string) => {
   return res.data;
 };
 
-/**
- * Fetch all users
- */
-export const getAllUsers = async () => {
-  const res = await axios.get(`${BASE_URL}/api/users`);
-  return res.data;
-};
 
 
 /**
