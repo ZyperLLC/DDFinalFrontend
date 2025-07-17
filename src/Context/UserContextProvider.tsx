@@ -4,7 +4,7 @@ import { Bet, StakedNFT } from "../types";
 type User = {
   telegramId?: string | null;
   walletAddress?: string | null;
-  tonBalance?: bigint | null;
+  tonBalance?: number | null;
   creditBalance?: number | null;
   holdingNFTs?:boolean|null;
   friends?: string[]; // Optional field for friends list
@@ -17,7 +17,7 @@ type UserContextType = {
   setTelegramId: (telegramId: string | null) => void;
   setWalletAddress: (walletAddress: string | null) => void;
   resetUser: () => void;
-  setTonBalance: (tonBalance: bigint | null) => void;
+  setTonBalance: (tonBalance: number | null) => void;
   setCreditBalance: (creditBalance: number | null) => void;
   setHoldingNFTs: (holdingNFTs: boolean | null) => void;
   setFriends: (friends: string[]) => void; // Optional setter for friends list
@@ -52,7 +52,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       walletAddress,
     }));
   };
-  const setTonBalance = (tonBalance: bigint | null) => {
+  const setTonBalance = (tonBalance: number | null) => {
     setUser((prev) => ({
       ...prev,
       tonBalance,

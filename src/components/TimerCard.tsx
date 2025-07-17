@@ -11,8 +11,6 @@ export default function TimerCard({ timer }: { timer: number }) {
   const hours = Math.floor((timer) / 3600);
   const minutes = Math.floor(((timer) % 3600) / 60);
   const seconds = (timer) % 60;
-  console.log("timer",timer);
-  console.log("progressPercent",progressPercent);
   return (
     <div className="combined-card" style={{ marginTop: '1rem' }}>
       <h2 className="dolphin-header" style={{ textAlign: 'center' }}>

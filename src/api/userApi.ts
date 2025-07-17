@@ -91,3 +91,13 @@ export const withdrawFunds = async (telegramId: string, amount: number) => {
   const res = await axios.post(`${BASE_URL}/api/users/withdraw/${telegramId}`, { amount, isTon: true });
   return res.data;
 }
+
+export const stopRound = async ()=>{
+  const res = await axios.post(`${BASE_URL}/api/bets/stopbetting`);
+  return res.data;
+}
+
+export const getAllUsers = async()=>{
+  const res = await axios.get(`${BASE_URL}/api/users`);
+  return res.data;
+}

@@ -13,6 +13,7 @@ import { getBettingRounds, placeBet } from '../api/userApi';
 import { UserContext } from '../Context/UserContextProvider';
 import toast from 'react-hot-toast';
 import { slideUpFade } from '../utils/animations';
+import { toNano } from '@ton/ton';
 
 type Props = {
   id:number;
@@ -35,6 +36,19 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
   async function handlePlayClick(noBettedOn:number){
     console.log("handlePlayClick called with amount:", amount, "and noBettedOn:", noBettedOn);
     console.log("Context:",context?.user);
+    
+    const bets = await getBettingRounds();
+    console.log("Bets:", bets);
+    if (!bets || bets.length === 0) {
+      toast.error("No game rounds available");
+      return;
+    }
+
+    if(bets[bets.length-1].hasBettingStopped){
+      toast.error("Draw Round Ended");
+      return;
+    }
+
     if(!amount){
       toast.error("Please enter the amount to be played");
       return;
@@ -47,15 +61,20 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
       toast.error("Please select a number between 1 and 36");
       return;
     }
-    const bets = await getBettingRounds();
-    console.log("Bets:", bets);
-    if (!bets || bets.length === 0) {
-      toast.error("No game rounds available");
-      return;
+    if(selectedCurrency==='TON'){
+      if(context?.user.tonBalance && amount>context?.user.tonBalance){
+        toast.error("Insufficient balance, deposit to play");
+        return;
+      }
+    }else{
+      if(context?.user.creditBalance && amount>context?.user.creditBalance){
+        toast.error("Insufficient balance, deposit to play");
+        return;
+      }
     }
     const betData: Partial<Bet> = {
       betId: bets.length,
-      amountBet: amount??0, // This should be set based on user input
+      amountBet: selectedCurrency === 'TON'?Number(toNano(amount)):amount, // This should be set based on user input
       numberBettedOn: noBettedOn,
       hasWon: false,
       amountWon: 0,
