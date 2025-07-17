@@ -7,7 +7,7 @@ import background1 from './assets/background1.jpg';
 import {
   getBettingRounds,
   getBettingRoundById,
-  getAllUsers, // ✅ updated import
+  getAllUsers,
 } from './api/userApi';
 
 import dolphin1 from './assets/dolphins/dolphin1.jpg';
@@ -89,18 +89,22 @@ export default function AdminPage() {
           const roundDetail = await getBettingRoundById(latestRound.id);
           setCurrentRound(roundDetail);
 
-          if (context?.user?.telegramId && roundDetail?.id) {
-            const allUsers = await getAllUsers();
-            const currentUser = allUsers.find(
-              (user: any) => user.telegramId === context.user.telegramId
-            );
-            if (currentUser && currentUser.bets) {
-              const matchedBets = currentUser.bets.filter(
-                (bet: any) => bet.roundId === roundDetail.id
-              );
-              setUserBets(matchedBets);
+          const allUsers = await getAllUsers();
+          const allBets: any[] = [];
+
+          allUsers.forEach((user: any) => {
+            if (Array.isArray(user.bets)) {
+              const roundBets = user.bets
+                .filter((bet: any) => bet.roundId === roundDetail.id)
+                .map((bet: any) => ({
+                  ...bet,
+                  username: user.username || user.telegramId,
+                }));
+              allBets.push(...roundBets);
             }
-          }
+          });
+
+          setUserBets(allBets);
         }
       } catch (error) {
         console.error('Error fetching round or user data:', error);
@@ -119,10 +123,7 @@ export default function AdminPage() {
 
   if (!walletAddress) {
     return (
-      <div
-        className="min-h-screen flex flex-col justify-center items-center text-white"
-        style={{ backgroundImage: `url(${background1})`, backgroundSize: 'cover' }}
-      >
+      <div className="min-h-screen flex flex-col justify-center items-center text-white" style={{ backgroundImage: `url(${background1})`, backgroundSize: 'cover' }}>
         <img src={logo} alt="Logo" className="w-40 mb-6" />
         <p>Please connect your wallet to access admin page.</p>
       </div>
@@ -131,10 +132,7 @@ export default function AdminPage() {
 
   if (!isAuthorized) {
     return (
-      <div
-        className="min-h-screen flex flex-col justify-center items-center text-white"
-        style={{ backgroundImage: `url(${background1})`, backgroundSize: 'cover' }}
-      >
+      <div className="min-h-screen flex flex-col justify-center items-center text-white" style={{ backgroundImage: `url(${background1})`, backgroundSize: 'cover' }}>
         <img src={logo} alt="Logo" className="w-40 mb-6" />
         <p>Access Denied. You are not an admin.</p>
       </div>
@@ -142,15 +140,11 @@ export default function AdminPage() {
   }
 
   return (
-    <div
-      className="min-h-screen text-white p-6"
-      style={{
-        backgroundImage: `url(${background1})`,
-        backgroundSize: 'cover',
-        paddingBottom: `${NAVBAR_HEIGHT_PX}px`,
-        color: 'white',
-      }}
-    >
+    <div className="min-h-screen text-white p-6" style={{
+      backgroundImage: `url(${background1})`,
+      backgroundSize: 'cover',
+      paddingBottom: `${NAVBAR_HEIGHT_PX}px`,
+    }}>
       {/* Header */}
       <div className="flex flex-col items-center text-center">
         <img src={logo} alt="Logo" className="animated-logo mb-14" style={{ width: '250px' }} />
@@ -158,10 +152,7 @@ export default function AdminPage() {
         <div className="flex flex-wrap justify-center gap-4 mb-12">
           <button className="admin-btn">Start Round</button>
           <button className="admin-btn">Stop Round</button>
-          <input
-            placeholder="Winning Number"
-            className="bg-gray-800 p-2 rounded text-white w-40 text-center"
-          />
+          <input placeholder="Winning Number" className="bg-gray-800 p-2 rounded text-white w-40 text-center" />
           <button className="admin-btn">Distribute Prizes</button>
         </div>
       </div>
@@ -169,7 +160,7 @@ export default function AdminPage() {
       {/* Collapsible Sections */}
       <div className="flex flex-col space-y-16 max-w-3xl px-6">
         {/* Current Round Info */}
-        <details className="admin-section w-full text-white">
+        <details className="admin-section w-full text-white" open>
           <summary className="admin-summary text-xl font-semibold cursor-pointer">
             Current Round Info
           </summary>
@@ -196,7 +187,7 @@ export default function AdminPage() {
         </details>
 
         {/* Total Bets */}
-        <details className="admin-section w-full text-white">
+        <details className="admin-section w-full text-white" open>
           <summary className="admin-summary text-xl font-semibold cursor-pointer">
             Total Bets
           </summary>
@@ -207,18 +198,15 @@ export default function AdminPage() {
           </div>
           <table className="admin-table w-full text-white mb-4">
             <thead>
-              <tr><th>S.No.</th><th>NFT Name</th><th>Amount</th><th>TON/CREDITS</th></tr>
+              <tr><th>S.No.</th><th>User</th><th>NFT</th><th>Amount</th><th>TON/CREDITS</th></tr>
             </thead>
             <tbody>
               {filteredBets.map((bet, index) => (
                 <tr key={index}>
                   <td>{index + 1}</td>
+                  <td>{bet.username || 'Unknown'}</td>
                   <td className="flex items-center gap-2">
-                    <img
-                      src={dolphinImages[bet.nftId]}
-                      alt={`Dolphin ${bet.nftId}`}
-                      className="w-8 h-8 rounded"
-                    />
+                    <img src={dolphinImages[bet.nftId]} alt={`Dolphin ${bet.nftId}`} className="w-8 h-8 rounded" />
                     Dolphin {bet.nftId}
                   </td>
                   <td>{bet.amount}</td>
@@ -235,10 +223,7 @@ export default function AdminPage() {
             Result Mockup
           </summary>
           <div className="flex flex-col sm:flex-row justify-start items-start gap-2 mt-4">
-            <input
-              placeholder="Enter Number"
-              className="bg-gray-800 p-2 rounded text-white w-40 text-center"
-            />
+            <input placeholder="Enter Number" className="bg-gray-800 p-2 rounded text-white w-40 text-center" />
             <button className="admin-btn">Check</button>
           </div>
           <table className="admin-table w-full text-white mt-4 mb-4">
@@ -254,10 +239,7 @@ export default function AdminPage() {
       </div>
 
       {/* Fixed Bottom Navbar */}
-      <div
-        className="fixed bottom-0 left-0 w-full z-20"
-        style={{ height: `${NAVBAR_HEIGHT_PX}px` }}
-      >
+      <div className="fixed bottom-0 left-0 w-full z-20" style={{ height: `${NAVBAR_HEIGHT_PX}px` }}>
         <Navbar />
       </div>
     </div>
