@@ -98,7 +98,8 @@ function Home() {
 
   useEffect(() => {
     function getTimeUntilTarget() {
-      const targetTime = new Date(Date.UTC(2025, 6, 17, 16, 55, 0, 0)); // July 15, 2025, 8 PM UTC
+      const targetTime = new Date(); // July 15, 2025, 8 PM UTC
+      targetTime.setUTCHours(17,20,0,0)
       const now = new Date();
       // Calculate seconds until target
       const secondsUntil = Math.floor((targetTime.getTime() - now.getTime()) / 1000);
@@ -106,7 +107,9 @@ function Home() {
       if (secondsUntil > 0) {
         return secondsUntil;
       }
-      
+      if(now.getTime()>= targetTime.getTime()){
+        targetTime.setUTCDate(targetTime.getUTCDate()+1);
+      }
       // If target time has passed, return 0
       return 0;
     }
