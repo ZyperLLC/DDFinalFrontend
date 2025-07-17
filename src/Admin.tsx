@@ -45,7 +45,7 @@ import dolphin32 from './assets/dolphins/dolphin32.png';
 import dolphin33 from './assets/dolphins/dolphin33.png';
 import dolphin34 from './assets/dolphins/dolphin34.png';
 import dolphin35 from './assets/dolphins/dolphin35.png';
-import dolphin36 from './assets/dolphins/dolphin36.png';
+import dolphin36 from './assets/dolphins/dolphin36.png'
 
 const dolphinImages: { [key: number]: any } = {
   1: dolphin1, 2: dolphin2, 3: dolphin3, 4: dolphin4, 5: dolphin5, 6: dolphin6,
