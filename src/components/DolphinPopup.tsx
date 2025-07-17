@@ -13,6 +13,7 @@ import { getBettingRounds, placeBet } from '../api/userApi';
 import { UserContext } from '../Context/UserContextProvider';
 import toast from 'react-hot-toast';
 import { slideUpFade } from '../utils/animations';
+import { toNano } from '@ton/ton';
 
 type Props = {
   id:number;
@@ -63,7 +64,7 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
 
     const betData: Partial<Bet> = {
       betId: bets.length,
-      amountBet: amount??0, // This should be set based on user input
+      amountBet: Number(toNano(amount))??0, // This should be set based on user input
       numberBettedOn: noBettedOn,
       hasWon: false,
       amountWon: 0,
