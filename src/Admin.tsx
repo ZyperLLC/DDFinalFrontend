@@ -6,8 +6,10 @@ import background1 from './assets/background1.jpg';
 
 const ADMIN_WALLETS = [
   'UQBQkP1aMvsrIx-SyYNSI-OoWMLeQwSjFzTBB9rU-3_r1Dc-',
-  'UQD4qp7lDCNW94HiMOS0hsAdo_UuWEu7MeWS7wVEKV156D4r'
+  'UQD4qp7lDCNW94HiMOS0hsAdo_UuWEu7MeWS7wVEKV156D4r',
 ];
+
+const NAVBAR_HEIGHT_PX = 80;
 
 export default function AdminPage() {
   const context = useContext(UserContext);
@@ -63,14 +65,18 @@ export default function AdminPage() {
   return (
     <div
       className="min-h-screen text-white p-6"
-      style={{ backgroundImage: `url(${background1})`, backgroundSize: 'cover' }}
+      style={{
+        backgroundImage: `url(${background1})`,
+        backgroundSize: 'cover',
+        paddingBottom: `${NAVBAR_HEIGHT_PX}px`,
+      }}
     >
       {/* Top Section: Centered */}
       <div className="flex flex-col items-center text-center">
         <img src={logo} alt="Logo" className="animated-logo mb-14" style={{ width: '250px' }} />
-        <h1 className="text-3xl font-bold mb-6 text-white" style={{ color: 'white' }}>Admin Section</h1>
+        <h1 className="text-3xl font-bold mb-6 text-white">Admin Section</h1>
 
-        {/* Action Buttons: Centered */}
+        {/* Action Buttons */}
         <div className="flex flex-wrap justify-center gap-4 mb-12">
           <button className="admin-btn">Start Round</button>
           <button className="admin-btn">Stop Round</button>
@@ -82,14 +88,14 @@ export default function AdminPage() {
         </div>
       </div>
 
-      {/* Left-aligned Collapsible Sections */}
-      <div className="flex flex-col space-y-12 max-w-3xl px-6">
+      {/* Collapsible Sections with spacing */}
+      <div className="flex flex-col space-y-16 max-w-3xl px-6">
         {/* Current Round Info */}
         <details className="admin-section w-full text-white">
-          <summary className="admin-summary text-xl font-semibold mb-2 cursor-pointer" style={{ color: 'white' }}>
+          <summary className="admin-summary text-xl font-semibold cursor-pointer">
             Current Round Info
           </summary>
-          <table className="admin-table w-full text-white mt-2">
+          <table className="admin-table w-full text-white mt-4">
             <thead>
               <tr><th>Field</th><th>Value</th></tr>
             </thead>
@@ -104,10 +110,10 @@ export default function AdminPage() {
 
         {/* Total Bets */}
         <details className="admin-section w-full text-white">
-          <summary className="admin-summary text-xl font-semibold mb-2 cursor-pointer" style={{ color: 'white' }}>
+          <summary className="admin-summary text-xl font-semibold cursor-pointer">
             Total Bets
           </summary>
-          <div className="flex justify-start gap-4 mb-4">
+          <div className="flex justify-start gap-4 mt-4 mb-4">
             <button
               className={`admin-btn ${activeFilter === 'all' ? 'bg-blue-600' : ''}`}
               onClick={() => setActiveFilter('all')}
@@ -140,7 +146,7 @@ export default function AdminPage() {
 
         {/* Result Mockup */}
         <details className="admin-section w-full text-white">
-          <summary className="admin-summary text-xl font-semibold mb-2 cursor-pointer" style={{ color: 'white' }}>
+          <summary className="admin-summary text-xl font-semibold cursor-pointer">
             Result Mockup
           </summary>
           <div className="flex flex-col sm:flex-row justify-start items-start gap-2 mt-4">
@@ -162,7 +168,13 @@ export default function AdminPage() {
         </details>
       </div>
 
-      <Navbar />
+      {/* Fixed Bottom Navbar */}
+      <div
+        className="fixed bottom-0 left-0 w-full z-20"
+        style={{ height: `${NAVBAR_HEIGHT_PX}px` }}
+      >
+        <Navbar />
+      </div>
     </div>
   );
 }

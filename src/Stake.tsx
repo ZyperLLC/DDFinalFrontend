@@ -9,7 +9,7 @@ import { useContext, useState } from 'react';
 import { UserContext } from './Context/UserContextProvider';
 import { ConnectButton } from './components/ConnectButton';
 import StakePopup from './components/stakepopup';
-import { slideUpFade} from './utils/animations'; // ✅ Make sure the path is correct
+import { slideUpFade} from './utils/animations'; 
 
 export default function Stake() {
   const NAVBAR_HEIGHT_PX = 80;
