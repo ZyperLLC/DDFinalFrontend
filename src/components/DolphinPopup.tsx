@@ -62,12 +62,12 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
       return;
     }
     if(selectedCurrency==='TON'){
-      if(context?.user.tonBalance && amount<context?.user.tonBalance){
+      if(context?.user.tonBalance && amount>context?.user.tonBalance){
         toast.error("Insufficient balance, deposit to play");
         return;
       }
     }else{
-      if(context?.user.creditBalance && amount<context?.user.creditBalance){
+      if(context?.user.creditBalance && amount>context?.user.creditBalance){
         toast.error("Insufficient balance, deposit to play");
         return;
       }
