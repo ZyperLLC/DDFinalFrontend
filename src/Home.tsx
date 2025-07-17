@@ -100,7 +100,7 @@ function Home() {
    function getTimeUntilTarget() {
   const now = new Date();
   let targetTime = new Date();
-  targetTime.setUTCHours(17, 33, 0, 0); // 5:20 PM UTC
+  targetTime.setUTCHours(20, 0, 0, 0); // 5:20 PM UTC
   
   // Debug: Log current time and target time
   console.log('Current time:', now.toISOString());
