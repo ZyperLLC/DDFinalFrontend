@@ -61,7 +61,7 @@ export const ConnectButton = ({ whiteBg = false }: ConnectButtonProps) => {
                 if(tgWebAppData?.user?.id && tgWebAppData.user?.username){
                     
                     //if address is not empty , check if user is registered                    
-                    const userData = await fetchUser(tgWebAppData?.user?.id.toString());
+                    const userData:User = await fetchUser(tgWebAppData?.user?.id.toString());
                     console.log("User Data:", userData);
                     if(userData!=undefined && userData!=null){
                         // if user is registered, fetch user data and set context
@@ -97,7 +97,7 @@ export const ConnectButton = ({ whiteBg = false }: ConnectButtonProps) => {
                     context?.setTelegramId(tgWebAppData?.user?.id.toString());
                     const bouncableAddress = toUserFriendlyAddress(address);
                     context?.setWalletAddress(bouncableAddress);
-                    context?.setTonBalance(BigInt((userData?.tonBalance/1000000000n)) ?? BigInt(0)); 
+                    context?.setTonBalance(userData.tonBalance/1000000000); 
                     context?.setCreditBalance(userData?.creditBalance ?? creditBalance); 
                     context?.setFriends(userData?.friends);
                     context?.setBets(userData?.betsPlace?.sort((a:Bet, b:Bet) => b.betId - a.betId) ?? []);
