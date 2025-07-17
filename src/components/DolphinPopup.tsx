@@ -64,7 +64,7 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
 
     const betData: Partial<Bet> = {
       betId: bets.length,
-      amountBet: Number(toNano(amount))??0, // This should be set based on user input
+      amountBet: selectedCurrency === 'TON'?Number(toNano(amount)):amount, // This should be set based on user input
       numberBettedOn: noBettedOn,
       hasWon: false,
       amountWon: 0,
