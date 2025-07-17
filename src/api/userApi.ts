@@ -76,6 +76,15 @@ export const getBettingRounds = async () => {
 }
 
 /**
+ * Get the latest betting round
+ */
+export const getLatestBettingRound = async () => {
+  const res = await axios.get(`${BASE_URL}/api/bets/getlatestround`);
+  return res.data;
+};
+
+
+/**
  * Adding friend to invite list
  */
 
