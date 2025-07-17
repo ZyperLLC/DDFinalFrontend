@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { getBettingRoundById } from '../api/userApi';
 import creditIcon from '../assets/credit.jpg';
 import tonSymbol from '../assets/ton_symbol.jpg';
+import { fromNano } from '@ton/ton';
 
 interface Props {
   image: string;
@@ -41,7 +42,7 @@ const GameHistoryCard: React.FC<Props> = ({ image, cost, prize, useTon, betId, r
       <img src={image} alt={"dolphin_image"} className="nft-image" />
       <div className="nft-info text-left">
         <p className="nft-detail">
-          <strong>{t('gameHistory.entryCost')}: </strong> {cost}
+          <strong>{t('gameHistory.entryCost')}: </strong> {fromNano(cost)}
           <img src={sourceImg} alt="Credit or TON" className="inline-block ml-2" width={20} height={20} />
         </p>
         <p className="nft-detail">
