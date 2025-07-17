@@ -43,7 +43,7 @@ export const useWithdrawDeposits = () => {
             ],
         });
         if(transaction?.boc){
-            const response = await withdrawFunds(user?.telegramId??'', amount);
+            const response = await withdrawFunds(user?.telegramId??'', Number(toNano(amount)));
             console.log(response);
             toast.success(t('withdraw.success', { amount }));
         }
