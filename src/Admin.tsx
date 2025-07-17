@@ -10,6 +10,7 @@ import {
   getAllUsers,
 } from './api/userApi';
 
+// Dolphin imports
 import dolphin1 from './assets/dolphins/dolphin1.jpg';
 import dolphin2 from './assets/dolphins/dolphin2.jpg';
 import dolphin3 from './assets/dolphins/dolphin3.jpg';
@@ -66,6 +67,8 @@ const NAVBAR_HEIGHT_PX = 80;
 export default function AdminPage() {
   const context = useContext(UserContext);
   const walletAddress = context?.user.walletAddress;
+  const telegramId = context?.user.telegramId;
+
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [activeFilter, setActiveFilter] = useState<'all' | 'ton' | 'credits'>('all');
 
@@ -81,39 +84,32 @@ export default function AdminPage() {
   }, [walletAddress]);
 
   useEffect(() => {
-    const fetchCurrentRound = async () => {
+    const fetchData = async () => {
       try {
         const rounds = await getBettingRounds();
-        if (rounds && rounds.length > 0) {
-          const latestRound = rounds[rounds.length - 1];
-          const roundDetail = await getBettingRoundById(latestRound.id);
-          setCurrentRound(roundDetail);
-
-          const allUsers = await getAllUsers();
-          const allBets: any[] = [];
-
-          allUsers.forEach((user: any) => {
-            if (Array.isArray(user.bets)) {
-              const roundBets = user.bets
-                .filter((bet: any) => bet.roundId === roundDetail.id)
-                .map((bet: any) => ({
-                  ...bet,
-                  username: user.username || user.telegramId,
-                }));
-              allBets.push(...roundBets);
-            }
-          });
-
-          setUserBets(allBets);
+        if (!rounds || rounds.length === 0) {
+          setCurrentRound(null);
+          return;
         }
-      } catch (error) {
-        console.error('Error fetching round or user data:', error);
+
+        const latestRound = rounds[rounds.length - 1];
+        const roundDetail = await getBettingRoundById(latestRound.id);
+        setCurrentRound(roundDetail);
+
+        if (telegramId) {
+          const allUsers = await getAllUsers();
+          const currentUser = allUsers.find((user: any) => user.telegramId === telegramId);
+          const bets = currentUser?.bets?.filter((b: any) => b.roundId === roundDetail.id) || [];
+          setUserBets(bets);
+        }
+      } catch (err) {
+        console.error('Error fetching round/user data:', err);
       } finally {
         setIsLoadingRound(false);
       }
     };
 
-    fetchCurrentRound();
+    fetchData();
   }, []);
 
   const filteredBets =
@@ -123,7 +119,10 @@ export default function AdminPage() {
 
   if (!walletAddress) {
     return (
-      <div className="min-h-screen flex flex-col justify-center items-center text-white" style={{ backgroundImage: `url(${background1})`, backgroundSize: 'cover' }}>
+      <div
+        className="min-h-screen flex flex-col justify-center items-center text-white"
+        style={{ backgroundImage: `url(${background1})`, backgroundSize: 'cover' }}
+      >
         <img src={logo} alt="Logo" className="w-40 mb-6" />
         <p>Please connect your wallet to access admin page.</p>
       </div>
@@ -132,7 +131,10 @@ export default function AdminPage() {
 
   if (!isAuthorized) {
     return (
-      <div className="min-h-screen flex flex-col justify-center items-center text-white" style={{ backgroundImage: `url(${background1})`, backgroundSize: 'cover' }}>
+      <div
+        className="min-h-screen flex flex-col justify-center items-center text-white"
+        style={{ backgroundImage: `url(${background1})`, backgroundSize: 'cover' }}
+      >
         <img src={logo} alt="Logo" className="w-40 mb-6" />
         <p>Access Denied. You are not an admin.</p>
       </div>
@@ -140,15 +142,18 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="min-h-screen text-white p-6" style={{
-      backgroundImage: `url(${background1})`,
-      backgroundSize: 'cover',
-      paddingBottom: `${NAVBAR_HEIGHT_PX}px`,
-    }}>
+    <div
+      className="min-h-screen text-white p-6"
+      style={{
+        backgroundImage: `url(${background1})`,
+        backgroundSize: 'cover',
+        paddingBottom: `${NAVBAR_HEIGHT_PX}px`,
+      }}
+    >
       {/* Header */}
       <div className="flex flex-col items-center text-center">
         <img src={logo} alt="Logo" className="animated-logo mb-14" style={{ width: '250px' }} />
-        <h1 className="text-3xl font-bold mb-6 text-white">Admin Section</h1>
+        <h1 className="text-3xl font-bold mb-6">Admin Section</h1>
         <div className="flex flex-wrap justify-center gap-4 mb-12">
           <button className="admin-btn">Start Round</button>
           <button className="admin-btn">Stop Round</button>
@@ -157,20 +162,17 @@ export default function AdminPage() {
         </div>
       </div>
 
-      {/* Collapsible Sections */}
+      {/* Sections */}
       <div className="flex flex-col space-y-16 max-w-3xl px-6">
         {/* Current Round Info */}
-        <details className="admin-section w-full text-white" open>
+        <details className="admin-section w-full">
           <summary className="admin-summary text-xl font-semibold cursor-pointer">
             Current Round Info
           </summary>
           {isLoadingRound ? (
             <p className="mt-4">Loading round data...</p>
           ) : currentRound ? (
-            <table className="admin-table w-full text-white mt-4">
-              <thead>
-                <tr><th>Field</th><th>Value</th></tr>
-              </thead>
+            <table className="admin-table w-full mt-4">
               <tbody>
                 <tr><td>Round ID</td><td>{currentRound.id}</td></tr>
                 <tr><td>Status</td><td>{currentRound.status}</td></tr>
@@ -187,24 +189,23 @@ export default function AdminPage() {
         </details>
 
         {/* Total Bets */}
-        <details className="admin-section w-full text-white" open>
+        <details className="admin-section w-full">
           <summary className="admin-summary text-xl font-semibold cursor-pointer">
             Total Bets
           </summary>
-          <div className="flex justify-start gap-4 mt-4 mb-4">
-            <button className={`admin-btn ${activeFilter === 'all' ? 'bg-blue-600' : ''}`} onClick={() => setActiveFilter('all')}>All</button>
-            <button className={`admin-btn ${activeFilter === 'ton' ? 'bg-blue-600' : ''}`} onClick={() => setActiveFilter('ton')}>TON</button>
-            <button className={`admin-btn ${activeFilter === 'credits' ? 'bg-blue-600' : ''}`} onClick={() => setActiveFilter('credits')}>Credits</button>
+          <div className="flex gap-4 mt-4 mb-4">
+            <button onClick={() => setActiveFilter('all')} className={`admin-btn ${activeFilter === 'all' && 'bg-blue-600'}`}>All</button>
+            <button onClick={() => setActiveFilter('ton')} className={`admin-btn ${activeFilter === 'ton' && 'bg-blue-600'}`}>TON</button>
+            <button onClick={() => setActiveFilter('credits')} className={`admin-btn ${activeFilter === 'credits' && 'bg-blue-600'}`}>Credits</button>
           </div>
-          <table className="admin-table w-full text-white mb-4">
+          <table className="admin-table w-full mb-4">
             <thead>
-              <tr><th>S.No.</th><th>User</th><th>NFT</th><th>Amount</th><th>TON/CREDITS</th></tr>
+              <tr><th>S.No.</th><th>NFT</th><th>Amount</th><th>Type</th></tr>
             </thead>
             <tbody>
-              {filteredBets.map((bet, index) => (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>{bet.username || 'Unknown'}</td>
+              {filteredBets.map((bet, i) => (
+                <tr key={i}>
+                  <td>{i + 1}</td>
                   <td className="flex items-center gap-2">
                     <img src={dolphinImages[bet.nftId]} alt={`Dolphin ${bet.nftId}`} className="w-8 h-8 rounded" />
                     Dolphin {bet.nftId}
@@ -216,29 +217,9 @@ export default function AdminPage() {
             </tbody>
           </table>
         </details>
-
-        {/* Result Mockup */}
-        <details className="admin-section w-full text-white">
-          <summary className="admin-summary text-xl font-semibold cursor-pointer">
-            Result Mockup
-          </summary>
-          <div className="flex flex-col sm:flex-row justify-start items-start gap-2 mt-4">
-            <input placeholder="Enter Number" className="bg-gray-800 p-2 rounded text-white w-40 text-center" />
-            <button className="admin-btn">Check</button>
-          </div>
-          <table className="admin-table w-full text-white mt-4 mb-4">
-            <thead>
-              <tr><th>Username</th><th>Amount Placed</th><th>TON/CREDITS</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>user1</td><td>20</td><td>TON</td></tr>
-              <tr><td>user2</td><td>15</td><td>CREDITS</td></tr>
-            </tbody>
-          </table>
-        </details>
       </div>
 
-      {/* Fixed Bottom Navbar */}
+      {/* Footer */}
       <div className="fixed bottom-0 left-0 w-full z-20" style={{ height: `${NAVBAR_HEIGHT_PX}px` }}>
         <Navbar />
       </div>
