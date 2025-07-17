@@ -160,7 +160,7 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="min-h-screen text-white p-6" style={{ backgroundImage: `url(${background1})`, backgroundSize: 'cover', paddingBottom: `${NAVBAR_HEIGHT_PX}px`,  color:'white'}}>
+    <div className="min-h-screen text-white p-6" style={{ backgroundImage: `url(${background1})`, backgroundSize: 'cover', paddingBottom: `${NAVBAR_HEIGHT_PX}px`,  color:'white',}}>
       <div className="flex flex-col items-center text-center">
         <img src={logo} alt="Logo" className="animated-logo mb-14" style={{ width: '250px' }} />
         <h1 className="text-3xl font-bold mb-6">Admin Section</h1>
