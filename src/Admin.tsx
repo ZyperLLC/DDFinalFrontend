@@ -4,7 +4,57 @@ import Navbar from './components/Navbar';
 import logo from './assets/logo.jpg';
 import background1 from './assets/background1.jpg';
 
-import { getBettingRounds, getBettingRoundById } from './api/userApi';
+import {
+  getBettingRounds,
+  getBettingRoundById,
+  getUser,
+} from './api/userApi';
+
+import dolphin1 from './assets/dolphins/dolphin1.jpg';
+import dolphin2 from './assets/dolphins/dolphin2.jpg';
+import dolphin3 from './assets/dolphins/dolphin3.jpg';
+import dolphin4 from './assets/dolphins/dolphin4.jpg';
+import dolphin5 from './assets/dolphins/dolphin5.jpg';
+import dolphin6 from './assets/dolphins/dolphin6.jpg';
+import dolphin7 from './assets/dolphins/dolphin7.jpg';
+import dolphin8 from './assets/dolphins/dolphin8.jpg';
+import dolphin9 from './assets/dolphins/dolphin9.jpg';
+import dolphin10 from './assets/dolphins/dolphin10.jpg';
+import dolphin11 from './assets/dolphins/dolphin11.jpg';
+import dolphin12 from './assets/dolphins/dolphin12.jpg';
+import dolphin13 from './assets/dolphins/dolphin13.jpg';
+import dolphin14 from './assets/dolphins/dolphin14.jpg';
+import dolphin15 from './assets/dolphins/dolphin15.jpg';
+import dolphin16 from './assets/dolphins/dolphin16.jpg';
+import dolphin17 from './assets/dolphins/dolphin17.jpg';
+import dolphin18 from './assets/dolphins/dolphin18.jpg';
+import dolphin19 from './assets/dolphins/dolphin19.jpg';
+import dolphin20 from './assets/dolphins/dolphin20.jpg';
+import dolphin21 from './assets/dolphins/dolphin21.jpg';
+import dolphin22 from './assets/dolphins/dolphin22.jpg';
+import dolphin23 from './assets/dolphins/dolphin23.jpg';
+import dolphin24 from './assets/dolphins/dolphin24.jpg';
+import dolphin25 from './assets/dolphins/dolphin25.png';
+import dolphin26 from './assets/dolphins/dolphin26.png';
+import dolphin27 from './assets/dolphins/dolphin27.png';
+import dolphin28 from './assets/dolphins/dolphin28.png';
+import dolphin29 from './assets/dolphins/dolphin29.png';
+import dolphin30 from './assets/dolphins/dolphin30.png';
+import dolphin31 from './assets/dolphins/dolphin31.png';
+import dolphin32 from './assets/dolphins/dolphin32.png';
+import dolphin33 from './assets/dolphins/dolphin33.png';
+import dolphin34 from './assets/dolphins/dolphin34.png';
+import dolphin35 from './assets/dolphins/dolphin35.png';
+import dolphin36 from './assets/dolphins/dolphin36.png';
+
+const dolphinImages: { [key: number]: any } = {
+  1: dolphin1, 2: dolphin2, 3: dolphin3, 4: dolphin4, 5: dolphin5, 6: dolphin6,
+  7: dolphin7, 8: dolphin8, 9: dolphin9, 10: dolphin10, 11: dolphin11, 12: dolphin12,
+  13: dolphin13, 14: dolphin14, 15: dolphin15, 16: dolphin16, 17: dolphin17, 18: dolphin18,
+  19: dolphin19, 20: dolphin20, 21: dolphin21, 22: dolphin22, 23: dolphin23, 24: dolphin24,
+  25: dolphin25, 26: dolphin26, 27: dolphin27, 28: dolphin28, 29: dolphin29, 30: dolphin30,
+  31: dolphin31, 32: dolphin32, 33: dolphin33, 34: dolphin34, 35: dolphin35, 36: dolphin36,
+};
 
 const ADMIN_WALLETS = [
   'UQBQkP1aMvsrIx-SyYNSI-OoWMLeQwSjFzTBB9rU-3_r1Dc-',
@@ -19,16 +69,8 @@ export default function AdminPage() {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [activeFilter, setActiveFilter] = useState<'all' | 'ton' | 'credits'>('all');
 
-  const allBets = [
-    { id: 1, nft: 'Dolphin 1', amount: 20, type: 'ton' },
-    { id: 2, nft: 'Dolphin 4', amount: 15, type: 'credits' },
-    { id: 3, nft: 'Dolphin 2', amount: 18, type: 'ton' },
-  ];
+  const [userBets, setUserBets] = useState<any[]>([]);
 
-  const filteredBets =
-    activeFilter === 'all' ? allBets : allBets.filter(bet => bet.type === activeFilter);
-
-  // Round state
   const [currentRound, setCurrentRound] = useState<any>(null);
   const [isLoadingRound, setIsLoadingRound] = useState(true);
 
@@ -47,9 +89,17 @@ export default function AdminPage() {
           const latestRound = rounds[rounds.length - 1];
           const roundDetail = await getBettingRoundById(latestRound.id);
           setCurrentRound(roundDetail);
+
+          if (context?.user?.telegramId && roundDetail?.id) {
+            const userData = await getUser(context.user.telegramId);
+            const matchedBets = userData.bets.filter(
+              (bet: any) => bet.roundId === roundDetail.id
+            );
+            setUserBets(matchedBets);
+          }
         }
       } catch (error) {
-        console.error("Error fetching betting round:", error);
+        console.error('Error fetching round or user data:', error);
       } finally {
         setIsLoadingRound(false);
       }
@@ -57,6 +107,11 @@ export default function AdminPage() {
 
     fetchCurrentRound();
   }, []);
+
+  const filteredBets =
+    activeFilter === 'all'
+      ? userBets
+      : userBets.filter(bet => bet.tokenType === activeFilter);
 
   if (!walletAddress) {
     return (
@@ -89,12 +144,13 @@ export default function AdminPage() {
         backgroundImage: `url(${background1})`,
         backgroundSize: 'cover',
         paddingBottom: `${NAVBAR_HEIGHT_PX}px`,
+        color: 'white' ,
       }}
     >
       {/* Header */}
       <div className="flex flex-col items-center text-center">
         <img src={logo} alt="Logo" className="animated-logo mb-14" style={{ width: '250px' }} />
-        <h1 className="text-3xl font-bold mb-6 text-white" style={{ color: 'white' }}>Admin Section</h1>
+        <h1 className="text-3xl font-bold mb-6 text-white">Admin Section</h1>
         <div className="flex flex-wrap justify-center gap-4 mb-12">
           <button className="admin-btn">Start Round</button>
           <button className="admin-btn">Stop Round</button>
@@ -109,8 +165,8 @@ export default function AdminPage() {
       {/* Collapsible Sections */}
       <div className="flex flex-col space-y-16 max-w-3xl px-6">
         {/* Current Round Info */}
-        <details className="admin-section w-full text-white" style={{ color: 'white' }}>
-          <summary className="admin-summary text-xl font-semibold cursor-pointer" >
+        <details className="admin-section w-full text-white">
+          <summary className="admin-summary text-xl font-semibold cursor-pointer">
             Current Round Info
           </summary>
           {isLoadingRound ? (
@@ -136,23 +192,14 @@ export default function AdminPage() {
         </details>
 
         {/* Total Bets */}
-        <details className="admin-section w-full text-white" style={{ color: 'white' }}>
-          <summary className="admin-summary text-xl font-semibold cursor-pointer" >
+        <details className="admin-section w-full text-white">
+          <summary className="admin-summary text-xl font-semibold cursor-pointer">
             Total Bets
           </summary>
           <div className="flex justify-start gap-4 mt-4 mb-4">
-            <button
-              className={`admin-btn ${activeFilter === 'all' ? 'bg-blue-600' : ''}`}
-              onClick={() => setActiveFilter('all')}
-            >All</button>
-            <button
-              className={`admin-btn ${activeFilter === 'ton' ? 'bg-blue-600' : ''}`}
-              onClick={() => setActiveFilter('ton')}
-            >TON</button>
-            <button
-              className={`admin-btn ${activeFilter === 'credits' ? 'bg-blue-600' : ''}`}
-              onClick={() => setActiveFilter('credits')}
-            >Credits</button>
+            <button className={`admin-btn ${activeFilter === 'all' ? 'bg-blue-600' : ''}`} onClick={() => setActiveFilter('all')}>All</button>
+            <button className={`admin-btn ${activeFilter === 'ton' ? 'bg-blue-600' : ''}`} onClick={() => setActiveFilter('ton')}>TON</button>
+            <button className={`admin-btn ${activeFilter === 'credits' ? 'bg-blue-600' : ''}`} onClick={() => setActiveFilter('credits')}>Credits</button>
           </div>
           <table className="admin-table w-full text-white mb-4">
             <thead>
@@ -160,11 +207,18 @@ export default function AdminPage() {
             </thead>
             <tbody>
               {filteredBets.map((bet, index) => (
-                <tr key={bet.id}>
+                <tr key={index}>
                   <td>{index + 1}</td>
-                  <td>{bet.nft}</td>
+                  <td className="flex items-center gap-2">
+                    <img
+                      src={dolphinImages[bet.nftId]}
+                      alt={`Dolphin ${bet.nftId}`}
+                      className="w-8 h-8 rounded"
+                    />
+                    Dolphin {bet.nftId}
+                  </td>
                   <td>{bet.amount}</td>
-                  <td>{bet.type.toUpperCase()}</td>
+                  <td>{bet.tokenType.toUpperCase()}</td>
                 </tr>
               ))}
             </tbody>
@@ -172,7 +226,7 @@ export default function AdminPage() {
         </details>
 
         {/* Result Mockup */}
-        <details className="admin-section w-full text-white" style={{ color: 'white' }}>
+        <details className="admin-section w-full text-white">
           <summary className="admin-summary text-xl font-semibold cursor-pointer">
             Result Mockup
           </summary>
