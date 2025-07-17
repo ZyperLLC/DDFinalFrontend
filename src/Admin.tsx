@@ -88,8 +88,7 @@ export default function AdminPage() {
         const rounds = await getBettingRounds();
 
         if (rounds && rounds.length > 0) {
-          const ongoingRound = [...rounds].find((round: any) => round.bettingRoundNo === 1);
-
+          const ongoingRound = [...rounds].reverse().find((round: any) => !round.hasEnded);
 
           if (ongoingRound) {
             const roundDetail = await getBettingRoundById(ongoingRound._id);
