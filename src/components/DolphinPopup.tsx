@@ -67,7 +67,7 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
         return;
       }
     }else{
-      if(context?.user.tonBalance && amount<context?.user.tonBalance){
+      if(context?.user.creditBalance && amount<context?.user.creditBalance){
         toast.error("Insufficient balance, deposit to play");
         return;
       }
