@@ -61,7 +61,17 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
       toast.error("Please select a number between 1 and 36");
       return;
     }
-
+    if(selectedCurrency==='TON'){
+      if(context?.user.tonBalance && amount<context?.user.tonBalance){
+        toast.error("Insufficient balance, deposit to play");
+        return;
+      }
+    }else{
+      if(context?.user.tonBalance && amount<context?.user.tonBalance){
+        toast.error("Insufficient balance, deposit to play");
+        return;
+      }
+    }
     const betData: Partial<Bet> = {
       betId: bets.length,
       amountBet: selectedCurrency === 'TON'?Number(toNano(amount)):amount, // This should be set based on user input
