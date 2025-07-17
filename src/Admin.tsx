@@ -148,6 +148,7 @@ export default function AdminPage() {
         backgroundImage: `url(${background1})`,
         backgroundSize: 'cover',
         paddingBottom: `${NAVBAR_HEIGHT_PX}px`,
+        color: 'white' 
       }}
     >
       {/* Header */}
