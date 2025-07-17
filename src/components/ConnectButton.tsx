@@ -110,7 +110,7 @@ export const ConnectButton = ({ whiteBg = false }: ConnectButtonProps) => {
             }
         }
      
-  };
+  }
 
   useEffect(() => {
     if (tonConnectUiInstance) {
