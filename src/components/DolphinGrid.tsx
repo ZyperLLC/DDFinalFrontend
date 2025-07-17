@@ -1,6 +1,7 @@
 
 import { useTranslation } from 'react-i18next';
-import dolphin24 from '../assets/dolphins/dolphin24.jpg';
+import { useEffect, useState } from 'react';
+import { getBettingRoundById, getBettingRounds } from '../api/userApi';
 
 export default function DolphinGrid({
   dolphins,
@@ -10,6 +11,16 @@ export default function DolphinGrid({
   onDolphinClick: (index: number) => void;
 }) {
   const { t } = useTranslation();
+  const [winningNumber,setWinningNumber] = useState<number|null>(null);
+  
+  useEffect(()=>{
+    async function fetchRoundDetails(){
+      const lastRoundId = await getBettingRounds();
+      const lastRound = await getBettingRoundById(lastRoundId.length-1);
+      setWinningNumber(lastRound.winningNumber);
+    }
+    fetchRoundDetails();
+  })
 
   return (
     <div className="combined-card2">
@@ -24,7 +35,7 @@ export default function DolphinGrid({
         {t('last_winner')}
       </h2>
       
-      <img src={dolphin24} key={1} alt={`Dolphin ${1}`} className="dolphin"/>  
+      <img src={dolphins[(winningNumber??1)-1]} key={1} alt={`Dolphin ${1}`} className="dolphin"/>  
       </div>
       <h2 className="dolphin-header" style={{ marginTop: '1rem' }}>
         {t('pick_champion')}
