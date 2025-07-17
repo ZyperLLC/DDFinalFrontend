@@ -109,8 +109,8 @@ export default function AdminPage() {
       {/* Collapsible Sections */}
       <div className="flex flex-col space-y-16 max-w-3xl px-6">
         {/* Current Round Info */}
-        <details className="admin-section w-full text-white">
-          <summary className="admin-summary text-xl font-semibold cursor-pointer" style={{ color: 'white' }}>
+        <details className="admin-section w-full text-white" style={{ color: 'white' }}>
+          <summary className="admin-summary text-xl font-semibold cursor-pointer" >
             Current Round Info
           </summary>
           {isLoadingRound ? (
