@@ -97,7 +97,7 @@ export const ConnectButton = ({ whiteBg = false }: ConnectButtonProps) => {
                     context?.setTelegramId(tgWebAppData?.user?.id.toString());
                     const bouncableAddress = toUserFriendlyAddress(address);
                     context?.setWalletAddress(bouncableAddress);
-                    context?.setTonBalance(BigInt((userData?.tonBalance/1000000000)) ?? BigInt(0)); 
+                    context?.setTonBalance(BigInt((userData?.tonBalance/1000000000n)) ?? BigInt(0)); 
                     context?.setCreditBalance(userData?.creditBalance ?? creditBalance); 
                     context?.setFriends(userData?.friends);
                     context?.setBets(userData?.betsPlace?.sort((a:Bet, b:Bet) => b.betId - a.betId) ?? []);
