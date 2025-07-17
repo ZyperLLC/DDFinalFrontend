@@ -175,6 +175,7 @@ export default function AdminPage() {
         </div>
       </div>
 
+     {/* Current Round */}
       <div className="flex flex-col space-y-16 max-w-3xl px-6">
         <details className="admin-section w-full text-white">
           <summary className="admin-summary text-xl font-semibold cursor-pointer">Current Round Info</summary>
@@ -200,6 +201,7 @@ export default function AdminPage() {
           )}
         </details>
 
+     {/* TOtal BETS */}
         <details className="admin-section w-full text-white">
           <summary className="admin-summary text-xl font-semibold cursor-pointer">Total Bets</summary>
           <div className="flex justify-start gap-4 mt-4 mb-4">
@@ -233,7 +235,7 @@ export default function AdminPage() {
             </div>
           )}
         </details>
-
+         {/* Result Mockup */}
         <details className="admin-section w-full text-white">
           <summary className="admin-summary text-xl font-semibold cursor-pointer">Result Mockup</summary>
           <div className="flex flex-col sm:flex-row justify-start items-start gap-2 mt-4">
