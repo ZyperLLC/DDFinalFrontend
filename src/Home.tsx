@@ -97,22 +97,30 @@ function Home() {
   const [isDolphinPopupVisible, setIsDolphinPopupVisible] = useState(false);
 
   useEffect(() => {
-    function getTimeUntilTarget() {
-      const targetTime = new Date(); // July 15, 2025, 8 PM UTC
-      targetTime.setUTCHours(17,20,0,0)
-      const now = new Date();
-      // Calculate seconds until target
-      const secondsUntil = Math.floor((targetTime.getTime() - now.getTime()) / 1000);
-      // If target time hasn't been reached yet, return positive seconds
-      if (secondsUntil > 0) {
-        return secondsUntil;
-      }
-      if(now.getTime()>= targetTime.getTime()){
-        targetTime.setUTCDate(targetTime.getUTCDate()+1);
-      }
-      // If target time has passed, return 0
-      return 0;
-    }
+   function getTimeUntilTarget() {
+  const now = new Date();
+  let targetTime = new Date();
+  targetTime.setUTCHours(17, 33, 0, 0); // 5:20 PM UTC
+  
+  // Debug: Log current time and target time
+  console.log('Current time:', now.toISOString());
+  console.log('Target time (today):', targetTime.toISOString());
+  
+  // If today's target time has already passed, set target to tomorrow
+  if (now >= targetTime) {
+    targetTime.setUTCDate(targetTime.getUTCDate() + 1);
+    console.log('Target moved to tomorrow:', targetTime.toISOString());
+  }
+  
+  // Calculate seconds until target
+  const timeDiff = targetTime.getTime() - now.getTime();
+  const secondsUntil = Math.floor(timeDiff / 1000);
+  
+  console.log('Time difference (ms):', timeDiff);
+  console.log('Seconds until target:', secondsUntil);
+  
+  return Math.max(0, secondsUntil);
+}
 
     const interval = setInterval(() => {
       const timeUntil = getTimeUntilTarget();
