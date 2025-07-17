@@ -34,18 +34,18 @@ import dolphin21 from './assets/dolphins/dolphin21.jpg';
 import dolphin22 from './assets/dolphins/dolphin22.jpg';
 import dolphin23 from './assets/dolphins/dolphin23.jpg';
 import dolphin24 from './assets/dolphins/dolphin24.jpg';
-import dolphin25 from './assets/dolphins/dolphin25.jpg';
-import dolphin26 from './assets/dolphins/dolphin26.jpg';
-import dolphin27 from './assets/dolphins/dolphin27.jpg';
-import dolphin28 from './assets/dolphins/dolphin28.jpg';
-import dolphin29 from './assets/dolphins/dolphin29.jpg';
-import dolphin30 from './assets/dolphins/dolphin30.jpg';
-import dolphin31 from './assets/dolphins/dolphin31.jpg';
-import dolphin32 from './assets/dolphins/dolphin32.jpg';
-import dolphin33 from './assets/dolphins/dolphin33.jpg';
-import dolphin34 from './assets/dolphins/dolphin34.jpg';
-import dolphin35 from './assets/dolphins/dolphin35.jpg';
-import dolphin36 from './assets/dolphins/dolphin36.jpg';
+import dolphin25 from './assets/dolphins/dolphin25.png';
+import dolphin26 from './assets/dolphins/dolphin26.png';
+import dolphin27 from './assets/dolphins/dolphin27.png';
+import dolphin28 from './assets/dolphins/dolphin28.png';
+import dolphin29 from './assets/dolphins/dolphin29.png';
+import dolphin30 from './assets/dolphins/dolphin30.png';
+import dolphin31 from './assets/dolphins/dolphin31.png';
+import dolphin32 from './assets/dolphins/dolphin32.png';
+import dolphin33 from './assets/dolphins/dolphin33.png';
+import dolphin34 from './assets/dolphins/dolphin34.png';
+import dolphin35 from './assets/dolphins/dolphin35.png';
+import dolphin36 from './assets/dolphins/dolphin36.png';
 
 const dolphins = [
   { image: dolphin1, name: 'RUGPULL RAY' },
@@ -167,7 +167,7 @@ export default function AdminPage() {
 
       <div className="space-y-16 max-w-3xl mx-auto">
         <details className="bg-black/60 rounded p-4">
-          <summary className="text-xl font-semibold cursor-pointer">Current Round Info</summary>
+          <summary className="text-xl font-semibold cursor-pointer" >Current Round Info</summary>
           {isLoading ? (
             <p className="mt-4">Loading...</p>
           ) : (
