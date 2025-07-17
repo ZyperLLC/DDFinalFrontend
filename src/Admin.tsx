@@ -7,7 +7,7 @@ import background1 from './assets/background1.jpg';
 import {
   getBettingRounds,
   getBettingRoundById,
-  getAllUsers, 
+  getAllUsers,
 } from './api/userApi';
 
 import dolphin1 from './assets/dolphins/dolphin1.jpg';
@@ -46,6 +46,7 @@ import dolphin33 from './assets/dolphins/dolphin33.png';
 import dolphin34 from './assets/dolphins/dolphin34.png';
 import dolphin35 from './assets/dolphins/dolphin35.png';
 import dolphin36 from './assets/dolphins/dolphin36.png';
+
 
 const dolphinImages: { [key: number]: any } = {
   1: dolphin1, 2: dolphin2, 3: dolphin3, 4: dolphin4, 5: dolphin5, 6: dolphin6,
@@ -86,18 +87,22 @@ export default function AdminPage() {
         const rounds = await getBettingRounds();
         if (rounds && rounds.length > 0) {
           const latestRound = rounds[rounds.length - 1];
-          const roundDetail = await getBettingRoundById(latestRound.id);
+          const roundDetail = await getBettingRoundById(latestRound._id);
           setCurrentRound(roundDetail);
 
-          if (context?.user?.telegramId && roundDetail?.id) {
+          if (context?.user?.telegramId && roundDetail?.bettingRoundNo) {
             const allUsers = await getAllUsers();
             const currentUser = allUsers.find(
               (user: any) => user.telegramId === context.user.telegramId
             );
-            if (currentUser && currentUser.bets) {
-              const matchedBets = currentUser.bets.filter(
-                (bet: any) => bet.roundId === roundDetail.id
-              );
+            if (currentUser && currentUser.betsPlace) {
+              const matchedBets = currentUser.betsPlace
+                .filter((bet: any) => bet.betId === roundDetail.bettingRoundNo)
+                .map((bet: any) => ({
+                  nftId: bet.numberBettedOn,
+                  amount: bet.amountBet,
+                  tokenType: bet.useTon ? 'ton' : 'credits',
+                }));
               setUserBets(matchedBets);
             }
           }
@@ -148,7 +153,6 @@ export default function AdminPage() {
         backgroundImage: `url(${background1})`,
         backgroundSize: 'cover',
         paddingBottom: `${NAVBAR_HEIGHT_PX}px`,
-        color: 'white',
       }}
     >
       {/* Header */}
@@ -181,13 +185,13 @@ export default function AdminPage() {
                 <tr><th>Field</th><th>Value</th></tr>
               </thead>
               <tbody>
-                <tr><td>Round ID</td><td>{currentRound.id}</td></tr>
-                <tr><td>Status</td><td>{currentRound.status}</td></tr>
+                <tr><td>Round ID</td><td>{currentRound._id}</td></tr>
+                <tr><td>Status</td><td>{currentRound.hasEnded ? 'Ended' : 'Ongoing'}</td></tr>
                 <tr><td>Total Bets</td><td>{currentRound.totalBets}</td></tr>
-                <tr><td>Total Amount</td><td>{currentRound.totalAmount}</td></tr>
-                <tr><td>TON Amount</td><td>{currentRound.tonAmount}</td></tr>
-                <tr><td>Credit Amount</td><td>{currentRound.creditAmount}</td></tr>
-                <tr><td>Start Time</td><td>{new Date(currentRound.createdAt).toLocaleString()}</td></tr>
+                <tr><td>Total Amount</td><td>{currentRound.totalAmountBetted}</td></tr>
+                <tr><td>TON Amount</td><td>{currentRound.tonAmountBetted}</td></tr>
+                <tr><td>Credit Amount</td><td>{currentRound.creditAmountBetted}</td></tr>
+                <tr><td>Start Time</td><td>{new Date(currentRound.startedAt).toLocaleString()}</td></tr>
               </tbody>
             </table>
           ) : (
