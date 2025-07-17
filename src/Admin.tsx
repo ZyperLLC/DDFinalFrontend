@@ -95,26 +95,27 @@ export default function AdminPage() {
             const roundDetail = await getBettingRoundById(ongoingRound._id);
             setCurrentRound(roundDetail);
 
-            if (context?.user?.telegramId && roundDetail?.bettingRoundNo) {
-              const allUsers = await getAllUsers();
-              const allBets: any[] = [];
+              if (roundDetail?.bettingRoundNo) {
+  const allUsers = await getAllUsers();
+  const allBets: any[] = [];
 
-              for (const user of allUsers) {
-                if (user.betsPlace && Array.isArray(user.betsPlace)) {
-                  const matched = user.betsPlace
-                    .filter((bet: any) => bet.betId === roundDetail.bettingRoundNo)
-                    .map((bet: any) => ({
-                      nftId: bet.numberBettedOn,
-                      amount: bet.amountBet,
-                      tokenType: bet.useTon ? 'ton' : 'credits',
-                    }));
+  for (const user of allUsers) {
+    if (user.betsPlace && Array.isArray(user.betsPlace)) {
+      const matched = user.betsPlace
+        .filter((bet: any) => bet.betId === roundDetail.bettingRoundNo)
+        .map((bet: any) => ({
+          nftId: bet.numberBettedOn,
+          amount: bet.amountBet,
+          tokenType: bet.useTon ? 'ton' : 'credits',
+        }));
 
-                  allBets.push(...matched);
-                }
-              }
+      allBets.push(...matched);
+    }
+  }
 
-              setUserBets(allBets);
-            }
+  setUserBets(allBets);
+}
+
           } else {
             setCurrentRound(null); // No active round
           }
