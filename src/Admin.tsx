@@ -88,7 +88,7 @@ export default function AdminPage() {
   useEffect(() => {
   const fetchCurrentRound = async () => {
     try {
-      const roundDetail = await getLatestRound(); 
+      const roundDetail = await getLatestRound();
 
       if (roundDetail && roundDetail.bettingRoundNo) {
         setCurrentRound(roundDetail);
@@ -208,7 +208,7 @@ export default function AdminPage() {
                 <tr key={idx}>
                   <td>{(currentPage - 1) * ITEMS_PER_PAGE + idx + 1}</td>
                   <td className="flex items-center gap-2">
-                    <img src={dolphinImages[bet.nftId]} className="w-8 h-8 rounded" alt="" />
+                    <img src={dolphinImages[bet.nftId]} className="w-4 h-4 rounded" alt="dolphin" />
                     Dolphin {bet.nftId}
                   </td>
                   <td>{bet.amount}</td>
