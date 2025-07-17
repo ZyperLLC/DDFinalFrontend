@@ -49,6 +49,15 @@ export const getUser = async (telegramId: string) => {
 };
 
 /**
+ * Fetch all users
+ */
+export const getAllUsers = async () => {
+  const res = await axios.get(`${BASE_URL}/api/users`);
+  return res.data;
+};
+
+
+/**
  * Get all bets by a user
  */
 export const getGameHistory = async (telegramId: string): Promise<Bet[]> => {

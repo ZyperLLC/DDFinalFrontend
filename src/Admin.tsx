@@ -7,7 +7,7 @@ import background1 from './assets/background1.jpg';
 import {
   getBettingRounds,
   getBettingRoundById,
-  getUser,
+  getAllUsers, // ✅ updated import
 } from './api/userApi';
 
 import dolphin1 from './assets/dolphins/dolphin1.jpg';
@@ -70,7 +70,6 @@ export default function AdminPage() {
   const [activeFilter, setActiveFilter] = useState<'all' | 'ton' | 'credits'>('all');
 
   const [userBets, setUserBets] = useState<any[]>([]);
-
   const [currentRound, setCurrentRound] = useState<any>(null);
   const [isLoadingRound, setIsLoadingRound] = useState(true);
 
@@ -91,11 +90,16 @@ export default function AdminPage() {
           setCurrentRound(roundDetail);
 
           if (context?.user?.telegramId && roundDetail?.id) {
-            const userData = await getUser(context.user.telegramId);
-            const matchedBets = userData.bets.filter(
-              (bet: any) => bet.roundId === roundDetail.id
+            const allUsers = await getAllUsers();
+            const currentUser = allUsers.find(
+              (user: any) => user.telegramId === context.user.telegramId
             );
-            setUserBets(matchedBets);
+            if (currentUser && currentUser.bets) {
+              const matchedBets = currentUser.bets.filter(
+                (bet: any) => bet.roundId === roundDetail.id
+              );
+              setUserBets(matchedBets);
+            }
           }
         }
       } catch (error) {
@@ -144,7 +148,7 @@ export default function AdminPage() {
         backgroundImage: `url(${background1})`,
         backgroundSize: 'cover',
         paddingBottom: `${NAVBAR_HEIGHT_PX}px`,
-        color: 'white' ,
+        color: 'white',
       }}
     >
       {/* Header */}
