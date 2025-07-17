@@ -35,7 +35,7 @@ export default function DolphinGrid({
         {t('last_winner')}
       </h2>
       
-      <img src={dolphins[(winningNumber??1)-1]} key={1} alt={`Dolphin ${1}`} className="dolphin"/>  
+      <img src={dolphins[(winningNumber??0)-1]} key={1} alt={`Dolphin ${1}`} className="dolphin"/>  
       </div>
       <h2 className="dolphin-header" style={{ marginTop: '1rem' }}>
         {t('pick_champion')}
