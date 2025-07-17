@@ -6,7 +6,7 @@ import background1 from './assets/background1.jpg';
 
 import {
   getAllUsers,
-  getLatestBettingRound,
+  getLatestRound,
 } from './api/userApi';
 
 
@@ -56,18 +56,9 @@ const dolphinImages: { [key: number]: any } = {
   31: dolphin31, 32: dolphin32, 33: dolphin33, 34: dolphin34, 35: dolphin35, 36: dolphin36,
 };
 
-interface Bet {
-  betId: string;
-  numberBettedOn: number;
-  amountBet: number;
-  useTon: boolean;
-}
 
-interface User {
-  telegramId: string;
-  username?: string;
-  betsPlace?: Bet[];
-}
+
+
 
 const ADMIN_WALLETS = [
   'UQBQkP1aMvsrIx-SyYNSI-OoWMLeQwSjFzTBB9rU-3_r1Dc-',
@@ -95,41 +86,45 @@ export default function AdminPage() {
   }, [walletAddress]);
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const roundDetail = await getLatestBettingRound();
+  const fetchCurrentRound = async () => {
+    try {
+      const roundDetail = await getLatestRound(); // updated API call
+
+      if (roundDetail && roundDetail.bettingRoundNo) {
         setCurrentRound(roundDetail);
 
-        if (roundDetail?.bettingRoundNo) {
-          const allUsers = await getAllUsers();
-          const allBets: any[] = [];
+        const allUsers = await getAllUsers();
+        const allBets: any[] = [];
 
-            allUsers.forEach((user: User) => {
-  if (user.betsPlace?.length) {
-    user.betsPlace
-      .filter((b: Bet) => b.betId === roundDetail.bettingRoundNo)
-      .forEach((bet: Bet) => {
-        allBets.push({
-          username: user.username || user.telegramId,
-          nftId: bet.numberBettedOn,
-          amount: bet.amountBet,
-          tokenType: bet.useTon ? 'ton' : 'credits',
+        allUsers.forEach((user: any) => {
+          if (user.betsPlace?.length) {
+            user.betsPlace
+              .filter((b: any) => b.betId === roundDetail.bettingRoundNo)
+              .forEach((bet: any) => {
+                allBets.push({
+                  username: user.username || user.telegramId,
+                  nftId: bet.numberBettedOn,
+                  amount: bet.amountBet,
+                  tokenType: bet.useTon ? 'ton' : 'credits',
+                });
+              });
+          }
         });
-      });
-  }
-});
 
-
-          setUserBets(allBets);
-        }
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setIsLoadingRound(false);
+        setUserBets(allBets);
+      } else {
+        setCurrentRound(null); // No round data
       }
+    } catch (error) {
+      console.error('Error fetching round or user data:', error);
+    } finally {
+      setIsLoadingRound(false);
     }
-    fetchData();
-  }, []);
+  };
+
+  fetchCurrentRound();
+}, []);
+
 
   const handleCheckResult = () => {
     const num = parseInt(resultNumber, 10);
