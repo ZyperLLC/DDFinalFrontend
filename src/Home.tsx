@@ -98,7 +98,7 @@ function Home() {
 
   useEffect(() => {
     function getTimeUntilTarget() {
-      const targetTime = new Date(Date.UTC(2025, 6, 17, 16, 50, 0, 0)); // July 15, 2025, 8 PM UTC
+      const targetTime = new Date(Date.UTC(2025, 6, 17, 16, 55, 0, 0)); // July 15, 2025, 8 PM UTC
       const now = new Date();
       // Calculate seconds until target
       const secondsUntil = Math.floor((targetTime.getTime() - now.getTime()) / 1000);
