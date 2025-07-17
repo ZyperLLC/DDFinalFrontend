@@ -34,7 +34,7 @@ export const useDepositTon = ()=>{
           ],
         });
         if(result.boc){
-          const result = await depositAmount(amount, true, Number(context?.user.telegramId) || 0);
+          const result = await depositAmount(Number(toNano(amount)), true, Number(context?.user.telegramId) || 0);
           console.log("Deposit Result:", result);
           toast.success("Deposit Successful");
         }
