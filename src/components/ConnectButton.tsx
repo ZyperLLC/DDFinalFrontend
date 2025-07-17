@@ -10,7 +10,6 @@ import { useUser } from '../hooks/useUser';
 import { useGetCredits } from '../hooks/useGetCredits';
 import { addFriend } from '../api/userApi';
 import { toUserFriendlyAddress } from '@tonconnect/sdk';
-import { fromNano } from '@ton/ton';
 
 type ConnectButtonProps = {
   whiteBg?: boolean;
@@ -98,7 +97,7 @@ export const ConnectButton = ({ whiteBg = false }: ConnectButtonProps) => {
                     context?.setTelegramId(tgWebAppData?.user?.id.toString());
                     const bouncableAddress = toUserFriendlyAddress(address);
                     context?.setWalletAddress(bouncableAddress);
-                    context?.setTonBalance(BigInt(fromNano(userData?.tonBalance)) ?? BigInt(0)); 
+                    context?.setTonBalance(BigInt((userData?.tonBalance/1000000000)) ?? BigInt(0)); 
                     context?.setCreditBalance(userData?.creditBalance ?? creditBalance); 
                     context?.setFriends(userData?.friends);
                     context?.setBets(userData?.betsPlace?.sort((a:Bet, b:Bet) => b.betId - a.betId) ?? []);
