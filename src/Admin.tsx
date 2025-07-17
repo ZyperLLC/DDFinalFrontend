@@ -83,12 +83,15 @@ export default function AdminPage() {
   }, [walletAddress]);
 
   useEffect(() => {
-    const fetchCurrentRound = async () => {
-      try {
-        const rounds = await getBettingRounds();
-        if (rounds && rounds.length > 0) {
-          const latestRound = rounds[rounds.length - 1];
-          const roundDetail = await getBettingRoundById(latestRound._id);
+  const fetchCurrentRound = async () => {
+    try {
+      const rounds = await getBettingRounds();
+
+      if (rounds && rounds.length > 0) {
+        const ongoingRound = rounds.find((round: any) => !round.hasEnded);
+
+        if (ongoingRound) {
+          const roundDetail = await getBettingRoundById(ongoingRound._id);
           setCurrentRound(roundDetail);
 
           if (context?.user?.telegramId && roundDetail?.bettingRoundNo) {
@@ -107,16 +110,20 @@ export default function AdminPage() {
               setUserBets(matchedBets);
             }
           }
+        } else {
+          setCurrentRound(null); // No active round
         }
-      } catch (error) {
-        console.error('Error fetching round or user data:', error);
-      } finally {
-        setIsLoadingRound(false);
       }
-    };
+    } catch (error) {
+      console.error('Error fetching round or user data:', error);
+    } finally {
+      setIsLoadingRound(false);
+    }
+  };
 
-    fetchCurrentRound();
-  }, []);
+  fetchCurrentRound();
+}, []);
+
 
   const filteredBets =
     activeFilter === 'all'
@@ -178,28 +185,56 @@ export default function AdminPage() {
      {/* Current Round */}
       <div className="flex flex-col space-y-16 max-w-3xl px-6">
         <details className="admin-section w-full text-white">
-          <summary className="admin-summary text-xl font-semibold cursor-pointer">Current Round Info</summary>
-          {isLoadingRound ? (
-            <p className="mt-4">Loading round data...</p>
-          ) : currentRound ? (
-            <table className="admin-table w-full text-white mt-4">
-              <thead>
-                <tr><th>Field</th><th>Value</th></tr>
-              </thead>
-              <tbody>
-                <tr><td>Round ID</td><td>{currentRound._id}</td></tr>
-                <tr><td>Status</td><td>{currentRound.hasEnded ? 'Ended' : 'Ongoing'}</td></tr>
-                <tr><td>Total Bets</td><td>{currentRound.totalBets}</td></tr>
-                <tr><td>Total Amount</td><td>{currentRound.totalAmountBetted}</td></tr>
-                <tr><td>TON Amount</td><td>{currentRound.tonAmountBetted}</td></tr>
-                <tr><td>Credit Amount</td><td>{currentRound.creditAmountBetted}</td></tr>
-                <tr><td>Start Time</td><td>{new Date(currentRound.startedAt).toLocaleString()}</td></tr>
-              </tbody>
-            </table>
-          ) : (
-            <p className="mt-4">No round found.</p>
-          )}
-        </details>
+  <summary className="admin-summary text-xl font-semibold cursor-pointer">
+    Current Round Info
+  </summary>
+
+  {isLoadingRound ? (
+    <p className="mt-4">Loading round data...</p>
+  ) : currentRound ? (
+    <table className="admin-table w-full text-white mt-4">
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Round ID</td>
+          <td>{currentRound._id}</td>
+        </tr>
+        <tr>
+          <td>Status</td>
+          <td>{currentRound.hasEnded ? 'Ended' : 'Ongoing'}</td>
+        </tr>
+        <tr>
+          <td>Total Bets</td>
+          <td>{currentRound.totalBets}</td>
+        </tr>
+        <tr>
+          <td>Total Amount</td>
+          <td>{currentRound.totalAmountBetted}</td>
+        </tr>
+        <tr>
+          <td>TON Amount</td>
+          <td>{currentRound.tonAmountBetted}</td>
+        </tr>
+        <tr>
+          <td>Credit Amount</td>
+          <td>{currentRound.creditAmountBetted}</td>
+        </tr>
+        <tr>
+          <td>Start Time</td>
+          <td>{new Date(currentRound.startedAt).toLocaleString()}</td>
+        </tr>
+      </tbody>
+    </table>
+  ) : (
+    <p className="mt-4">No round found.</p>
+  )}
+</details>
+
 
      {/* TOtal BETS */}
         <details className="admin-section w-full text-white">
