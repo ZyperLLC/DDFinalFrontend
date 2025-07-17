@@ -83,47 +83,50 @@ export default function AdminPage() {
   }, [walletAddress]);
 
   useEffect(() => {
-  const fetchCurrentRound = async () => {
-    try {
-      const rounds = await getBettingRounds();
+    const fetchCurrentRound = async () => {
+      try {
+        const rounds = await getBettingRounds();
 
-      if (rounds && rounds.length > 0) {
-        const ongoingRound = rounds.find((round: any) => !round.hasEnded);
+        if (rounds && rounds.length > 0) {
+          const ongoingRound = [...rounds].reverse().find((round: any) => !round.hasEnded);
 
-        if (ongoingRound) {
-          const roundDetail = await getBettingRoundById(ongoingRound._id);
-          setCurrentRound(roundDetail);
+          if (ongoingRound) {
+            const roundDetail = await getBettingRoundById(ongoingRound._id);
+            setCurrentRound(roundDetail);
 
-          if (context?.user?.telegramId && roundDetail?.bettingRoundNo) {
-            const allUsers = await getAllUsers();
-            const currentUser = allUsers.find(
-              (user: any) => user.telegramId === context.user.telegramId
-            );
-            if (currentUser && currentUser.betsPlace) {
-              const matchedBets = currentUser.betsPlace
-                .filter((bet: any) => bet.betId === roundDetail.bettingRoundNo)
-                .map((bet: any) => ({
-                  nftId: bet.numberBettedOn,
-                  amount: bet.amountBet,
-                  tokenType: bet.useTon ? 'ton' : 'credits',
-                }));
-              setUserBets(matchedBets);
+            if (context?.user?.telegramId && roundDetail?.bettingRoundNo) {
+              const allUsers = await getAllUsers();
+              const allBets: any[] = [];
+
+              for (const user of allUsers) {
+                if (user.betsPlace && Array.isArray(user.betsPlace)) {
+                  const matched = user.betsPlace
+                    .filter((bet: any) => bet.betId === roundDetail.bettingRoundNo)
+                    .map((bet: any) => ({
+                      nftId: bet.numberBettedOn,
+                      amount: bet.amountBet,
+                      tokenType: bet.useTon ? 'ton' : 'credits',
+                    }));
+
+                  allBets.push(...matched);
+                }
+              }
+
+              setUserBets(allBets);
             }
+          } else {
+            setCurrentRound(null); // No active round
           }
-        } else {
-          setCurrentRound(null); // No active round
         }
+      } catch (error) {
+        console.error('Error fetching round or user data:', error);
+      } finally {
+        setIsLoadingRound(false);
       }
-    } catch (error) {
-      console.error('Error fetching round or user data:', error);
-    } finally {
-      setIsLoadingRound(false);
-    }
-  };
+    };
 
-  fetchCurrentRound();
-}, []);
-
+    fetchCurrentRound();
+  }, []);
 
   const filteredBets =
     activeFilter === 'all'
@@ -171,6 +174,7 @@ export default function AdminPage() {
         color: 'white',
       }}
     >
+      {/* Admin Header */}
       <div className="flex flex-col items-center text-center">
         <img src={logo} alt="Logo" className="animated-logo mb-14" style={{ width: '250px' }} />
         <h1 className="text-3xl font-bold mb-6 text-white">Admin Section</h1>
@@ -182,61 +186,35 @@ export default function AdminPage() {
         </div>
       </div>
 
-     {/* Current Round */}
+      {/* Admin Sections */}
       <div className="flex flex-col space-y-16 max-w-3xl px-6">
+
+        {/* Current Round Info */}
         <details className="admin-section w-full text-white">
-  <summary className="admin-summary text-xl font-semibold cursor-pointer">
-    Current Round Info
-  </summary>
+          <summary className="admin-summary text-xl font-semibold cursor-pointer">Current Round Info</summary>
+          {isLoadingRound ? (
+            <p className="mt-4">Loading round data...</p>
+          ) : currentRound ? (
+            <table className="admin-table w-full text-white mt-4">
+              <thead>
+                <tr><th>Field</th><th>Value</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Round ID</td><td>{currentRound._id}</td></tr>
+                <tr><td>Status</td><td>{currentRound.hasEnded ? 'Ended' : 'Ongoing'}</td></tr>
+                <tr><td>Total Bets</td><td>{userBets.length}</td></tr>
+                <tr><td>Total Amount</td><td>{userBets.reduce((sum, bet) => sum + bet.amount, 0)}</td></tr>
+                <tr><td>TON Amount</td><td>{userBets.filter(bet => bet.tokenType === 'ton').reduce((sum, bet) => sum + bet.amount, 0)}</td></tr>
+                <tr><td>Credit Amount</td><td>{userBets.filter(bet => bet.tokenType === 'credits').reduce((sum, bet) => sum + bet.amount, 0)}</td></tr>
+                <tr><td>Start Time</td><td>{new Date(currentRound.startedAt).toLocaleString()}</td></tr>
+              </tbody>
+            </table>
+          ) : (
+            <p className="mt-4">No round found.</p>
+          )}
+        </details>
 
-  {isLoadingRound ? (
-    <p className="mt-4">Loading round data...</p>
-  ) : currentRound ? (
-    <table className="admin-table w-full text-white mt-4">
-      <thead>
-        <tr>
-          <th>Field</th>
-          <th>Value</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Round ID</td>
-          <td>{currentRound._id}</td>
-        </tr>
-        <tr>
-          <td>Status</td>
-          <td>{currentRound.hasEnded ? 'Ended' : 'Ongoing'}</td>
-        </tr>
-        <tr>
-          <td>Total Bets</td>
-          <td>{currentRound.totalBets}</td>
-        </tr>
-        <tr>
-          <td>Total Amount</td>
-          <td>{currentRound.totalAmountBetted}</td>
-        </tr>
-        <tr>
-          <td>TON Amount</td>
-          <td>{currentRound.tonAmountBetted}</td>
-        </tr>
-        <tr>
-          <td>Credit Amount</td>
-          <td>{currentRound.creditAmountBetted}</td>
-        </tr>
-        <tr>
-          <td>Start Time</td>
-          <td>{new Date(currentRound.startedAt).toLocaleString()}</td>
-        </tr>
-      </tbody>
-    </table>
-  ) : (
-    <p className="mt-4">No round found.</p>
-  )}
-</details>
-
-
-     {/* TOtal BETS */}
+        {/* Total Bets */}
         <details className="admin-section w-full text-white">
           <summary className="admin-summary text-xl font-semibold cursor-pointer">Total Bets</summary>
           <div className="flex justify-start gap-4 mt-4 mb-4">
@@ -270,7 +248,8 @@ export default function AdminPage() {
             </div>
           )}
         </details>
-         {/* Result Mockup */}
+
+        {/* Result Mockup */}
         <details className="admin-section w-full text-white">
           <summary className="admin-summary text-xl font-semibold cursor-pointer">Result Mockup</summary>
           <div className="flex flex-col sm:flex-row justify-start items-start gap-2 mt-4">
@@ -289,6 +268,7 @@ export default function AdminPage() {
         </details>
       </div>
 
+      {/* Navbar */}
       <div className="fixed bottom-0 left-0 w-full z-20" style={{ height: `${NAVBAR_HEIGHT_PX}px` }}>
         <Navbar />
       </div>
