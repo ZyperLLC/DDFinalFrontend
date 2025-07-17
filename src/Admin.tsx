@@ -88,7 +88,7 @@ export default function AdminPage() {
   useEffect(() => {
   const fetchCurrentRound = async () => {
     try {
-      const roundDetail = await getLatestRound(); // updated API call
+      const roundDetail = await getLatestRound(); 
 
       if (roundDetail && roundDetail.bettingRoundNo) {
         setCurrentRound(roundDetail);
