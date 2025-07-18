@@ -143,10 +143,6 @@ export default function AdminPage() {
     setCheckedBets(userBets.filter(b => b.nftId === num));
   };
 
-  const filteredBets = activeFilter === 'all' ? userBets : userBets.filter(b => b.tokenType === activeFilter);
-  const paginatedBets = filteredBets.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
-  const totalPages = Math.ceil(filteredBets.length / ITEMS_PER_PAGE);
-
   if (!walletAddress) {
     return (
       <div className="min-h-screen flex flex-col justify-center items-center text-white" style={{ backgroundImage: `url(${background1})`, backgroundSize: 'cover' }}>
