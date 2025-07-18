@@ -213,13 +213,13 @@ export default function AdminPage() {
             <button className={`admin-btn ${activeFilter === 'credits' ? 'bg-blue-600' : ''}`} onClick={() => { setActiveFilter('credits'); setCurrentPage(1); }}>Credits</button>
           </div>
           <table className="admin-table w-full mb-4 text-white">
-            <thead><tr><th>No.</th><th>NFT</th><th>Total Amnt</th><th>TON Amnt</th><th>Credit Amnt</th></tr></thead>
+            <thead><tr><th>No.</th><th>NFT</th><th>Total</th><th>TON</th><th>Credit</th></tr></thead>
             <tbody>
-              {paginatedBets.map((bet, idx) => (
+              {userBets.map((bet, idx) => (
                 <tr key={idx}>
                   <td>{(currentPage - 1) * ITEMS_PER_PAGE + idx + 1}</td>
                   <td className="flex items-center gap-2">
-                    <img src={dolphinImages[bet.nftId]} className="dolphin" alt="dolphin" />
+                    <img src={dolphinImages[bet.nftId]} className="dolphin" alt="dolphin" style={{width:"40px",height:"40px"}}/>
                   </td>
                   <td>{bet.amount}</td>
                   <td>{bet.tonAmount}</td>
@@ -228,13 +228,6 @@ export default function AdminPage() {
               ))}
             </tbody>
           </table>
-          {totalPages > 1 && (
-            <div className="flex justify-center gap-4 mt-2">
-              <button className="admin-btn px-3" onClick={() => setCurrentPage(p => Math.max(p - 1, 1))} disabled={currentPage === 1}>Prev</button>
-              <span>Page {currentPage} of {totalPages}</span>
-              <button className="admin-btn px-3" onClick={() => setCurrentPage(p => Math.min(p + 1, totalPages))} disabled={currentPage === totalPages}>Next</button>
-            </div>
-          )}
         </details>
 
         {/* Result Mockup */}
