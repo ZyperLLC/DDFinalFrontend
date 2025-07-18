@@ -188,7 +188,7 @@ export default function AdminPage() {
               <tbody>
                 <tr><td>Round ID</td><td>{currentRound.bettingRoundNo}</td></tr>
                 <tr><td>Status</td><td>{currentRound.hasEnded ? 'Ended' : 'Ongoing'}</td></tr>
-                <tr><td>Total Bets</td><td>{userBets.length}</td></tr>
+                <tr><td>Total Bets</td><td>{currentRound.totalBets}</td></tr>
                 <tr><td>Total Amount</td><td>{currentRound.totalAmountBetted.toFixed(2)}</td></tr>
                 <tr><td>TON Amount</td><td>{currentRound.tonAmountBetted.toFixed(2)}</td></tr>
                 <tr><td>Credit Amount</td><td>{currentRound.creditAmountBetted.toFixed(2)}</td></tr>
