@@ -62,7 +62,7 @@ const dolphinImages: { [key: number]: any } = {
 
 
 const ADMIN_WALLETS = [
-  'UQBQkP1aMvsrIx-SyYNSI-OoWMLeQwSjFzTBB9rU-3_r1Dc-',
+  'UQCfKkeANoDOCoWLj7uVp9alKU2OPdj0envU-d8Fa-W2-eG8',
   'UQD4qp7lDCNW94HiMOS0hsAdo_UuWEu7MeWS7wVEKV156D4r',
 ];
 
