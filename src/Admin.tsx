@@ -46,7 +46,6 @@ import dolphin33 from './assets/dolphins/dolphin33.png';
 import dolphin34 from './assets/dolphins/dolphin34.png';
 import dolphin35 from './assets/dolphins/dolphin35.png';
 import dolphin36 from './assets/dolphins/dolphin36.png';
-import axios from "axios";
 
 
 const dolphinImages: { [key: number]: any } = {
@@ -82,44 +81,6 @@ export default function AdminPage() {
   const [checkedBets, setCheckedBets] = useState<any[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const nftDetails  = [
-{ id: 1, name: 'RUGPULL RAY' },
-{ id: 2, name: 'HARMONIX' },
-{ id: 3, name: 'DND' },
-{ id: 4, name: 'D.O.A.T.' },
-{ id: 5, name: 'ANDRE BAIT' },
-{ id: 6, name: 'ELLE TUSK' },
-{ id: 7, name: 'DOLFIE TRUNK' },
-{ id: 8, name: 'JELLY THE JEET' },
-{ id: 9, name: 'FINTALIK' },
-{ id: 10, name: 'DRAINO' },
-{ id: 11, name: 'DUROPHIN' },
-{ id: 12, name: 'JUSTIN SINK' },
-{ id: 13, name: 'KOD' },
-{ id: 14, name: 'SHILLEERINA' },
-{ id: 15, name: 'TA-LIB' },
-{ id: 16, name: 'OLUWAPUMP' },
-{ id: 17, name: 'CHADRA SWAMI' },
-{ id: 18, name: 'PUMP.FIN' },
-{ id: 19, name: 'DOLPHOVICH' },
-{ id: 20, name: 'EL LIQUIDATOR' },
-{ id: 21, name: 'BOOKIE' },
-{ id: 22, name: 'BLUBBERROCK DTF' },
-{ id: 23, name: 'CARDOLPHO' },
-{ id: 24, name: 'SOLANIC' },
-{ id: 25, name: 'MODZILLA' },
-{ id: 26, name: 'PROMPTO' },
-{ id: 27, name: 'FUDDERINO' },
-{ id: 28, name: 'MOONWAVE' },
-{ id: 29, name: 'MCFLIPPER' },
-{ id: 30, name: 'FINTOSHI' },
-{ id: 31, name: 'GASOLINA' },
-{ id: 32, name: 'OG FINFATHER' },
-{ id: 33, name: 'DOLPH UN' },
-{ id: 34, name: 'WHALE WEI' },
-{ id: 35, name: 'TONY FLIPPINS' },
-{ id: 36, name: 'DOLPH D' },
-]
   useEffect(() => {
     if (!walletAddress) return;
     if (ADMIN_WALLETS.includes(walletAddress)) setIsAuthorized(true);
