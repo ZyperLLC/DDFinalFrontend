@@ -1,9 +1,16 @@
 import { NavLink } from 'react-router-dom';
-import { Gamepad2, CreditCard, Smile, UserCircle2 } from 'lucide-react';
+import { Gamepad2, CreditCard, Smile, UserCircle2, ShieldCheck } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useContext } from 'react';
+import { UserContext } from '../Context/UserContextProvider';
+
+const ADMIN_WALLETS = ['UQBQkP1aMvsrIx-SyYNSI-OoWMLeQwSjFzTBB9rU-3_r1Dc-', 'UQD4qp7lDCNW94HiMOS0hsAdo_UuWEu7MeWS7wVEKV156D4r']; // Replace with your actual admin wallet
 
 export default function Navbar() {
   const { t } = useTranslation();
+  const context = useContext(UserContext);
+  const walletAddress = context?.user?.walletAddress;
+  const isAdmin = walletAddress && ADMIN_WALLETS.includes(walletAddress);
 
   return (
     <div className="navbar">
@@ -23,6 +30,14 @@ export default function Navbar() {
         <UserCircle2 size={20} />
         <span>{t('navbar.profile')}</span>
       </NavLink>
+
+      {/* ✅ Admin Link Only for Admin Wallet */}
+      {isAdmin && (
+        <NavLink to="/admin" className={({ isActive }) => isActive ? 'nav-icon active' : 'nav-icon'}>
+          <ShieldCheck size={20} />
+          <span>Admin</span>
+        </NavLink>
+      )}
     </div>
   );
 }
