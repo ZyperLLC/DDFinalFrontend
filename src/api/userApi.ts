@@ -48,6 +48,8 @@ export const getUser = async (telegramId: string) => {
   return res.data;
 };
 
+
+
 /**
  * Get all bets by a user
  */
@@ -74,6 +76,16 @@ export const getBettingRounds = async () => {
 }
 
 /**
+ * Get the latest betting round
+ */
+export const getLatestRound = async () => {
+  const res = await axios.get(`${BASE_URL}/api/bets/getlatestround`);
+  return res.data.latestRound; 
+};
+
+
+
+/**
  * Adding friend to invite list
  */
 
@@ -82,10 +94,12 @@ export const addFriend = async (telegramId: string, friendUsername: string) => {
   return res.data;
 }
 
-export const getBettingRoundById = async (roundId: number) => {
-  const res = await axios.get(`${BASE_URL}/api/bets/getbet/${roundId}`);
+
+export const getBettingRoundById = async (roundNo: number) => {
+  const res = await axios.get(`${BASE_URL}/api/bets/getbet/${roundNo}`);
   return res.data;
 }
+
 
 export const withdrawFunds = async (telegramId: string, amount: number) => {
   const res = await axios.post(`${BASE_URL}/api/users/withdraw/${telegramId}`, { amount, isTon: true });

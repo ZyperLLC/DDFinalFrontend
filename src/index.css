@@ -93,6 +93,114 @@ html, body {
   }
 }
 
+
+/* ========= Admin Page ========= */
+
+.admin-container {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 2rem 1.5rem;
+  margin: 2rem auto;
+  max-width: 95%;
+  width: 100%;
+  color: white;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  text-align: center;
+}
+
+.admin-heading {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: white;
+}
+
+.admin-btn {
+  background: linear-gradient(90deg, #f72585, #7209b7);
+  border: none;
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0.5rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.admin-btn:hover {
+  transform: scale(1.05);
+}
+
+.admin-input {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: white;
+  margin: 0.5rem;
+  outline: none;
+}
+
+.admin-section-box {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 1.25rem;
+  margin: 1.5rem 0;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.03);
+  transition: all 0.3s ease;
+}
+
+.admin-section-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #fff;
+  text-align: left;
+  margin-bottom: 0.75rem;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: left;
+  color: white;
+}
+
+.admin-table th {
+  background: rgba(36, 66, 187, 0.6);
+  font-weight: bold;
+}
+
+.admin-table tr:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.admin-filter-button {
+  background-color: rgba(114, 9, 183, 0.4);
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.admin-filter-button:hover {
+  background-color: rgba(114, 9, 183, 0.7);
+}
+
+
 /* ========= Home Page ========= */
 .page {
   min-height: 100vh;
