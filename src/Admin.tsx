@@ -179,13 +179,13 @@ export default function AdminPage() {
             <table className="admin-table w-full mt-4 text-white">
               <thead><tr><th>Field</th><th>Value</th></tr></thead>
               <tbody>
-                <tr><td>Round ID</td><td>{currentRound._id}</td></tr>
+                <tr><td>Round ID</td><td>{currentRound.bettingRoundNo}</td></tr>
                 <tr><td>Status</td><td>{currentRound.hasEnded ? 'Ended' : 'Ongoing'}</td></tr>
                 <tr><td>Total Bets</td><td>{userBets.length}</td></tr>
-                <tr><td>Total Amount</td><td>{userBets.reduce((s, b) => s + b.amount, 0)}</td></tr>
-                <tr><td>TON Amount</td><td>{userBets.filter(b => b.tokenType === 'ton').reduce((s, b) => s + b.amount, 0)}</td></tr>
-                <tr><td>Credit Amount</td><td>{userBets.filter(b => b.tokenType === 'credits').reduce((s, b) => s + b.amount, 0)}</td></tr>
-                <tr><td>Start Time</td><td>{new Date(currentRound.startedAt).toLocaleString()}</td></tr>
+                <tr><td>Total Amount</td><td>{currentRound.totalAmountBetted.toFixed(2)}</td></tr>
+                <tr><td>TON Amount</td><td>{currentRound.tonAmountBetted.toFixed(2)}</td></tr>
+                <tr><td>Credit Amount</td><td>{currentRound.creditAmountBetted.toFixed(2)}</td></tr>
+                <tr><td>Start Time</td><td>{currentRound.startedAt}</td></tr>
               </tbody>
             </table>
           ) : (
