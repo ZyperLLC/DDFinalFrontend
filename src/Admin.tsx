@@ -215,7 +215,7 @@ export default function AdminPage() {
                 <tr key={idx}>
                   <td>{(currentPage - 1) * ITEMS_PER_PAGE + idx + 1}</td>
                   <td className="flex items-center gap-2">
-                    <img src={dolphinImages[bet.nftId]} className="dolphin" alt="dolphin" style={{width:"40px",height:"40px"}}/>
+                    <img src={dolphinImages[bet.nftId]} className="dolphin" alt="dolphin" style={{width:"50px",height:"50px"}}/>
                   </td>
                   <td>{bet.amount}</td>
                   <td>{bet.tonAmount}</td>
