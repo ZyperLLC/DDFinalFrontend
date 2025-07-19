@@ -215,17 +215,7 @@ const handleStartRound = async ()=>{
           <table className="admin-table w-full mb-4 text-white">
             <thead><tr><th>No.</th><th>NFT</th><th>Total</th><th>TON</th><th>Credit</th></tr></thead>
             <tbody>
-              {userBets.map((bet, idx) => (
-                <tr key={idx}>
-                  <td>{bet.nftId}</td>
-                  <td className="flex items-center gap-2">
-                    <img src={dolphinImages[bet.nftId]} className="dolphin" alt="dolphin" style={{width:"50px",height:"50px"}}/>
-                  </td>
-                  <td>{bet.amount}</td>
-                  <td>{bet.tonAmount}</td>
-                  <td>{bet.amount-(bet.tonAmount)}</td>
-                </tr>
-              ))}
+              
             </tbody>
           </table>
         </details>
