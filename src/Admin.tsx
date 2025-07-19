@@ -108,7 +108,7 @@ export default function AdminPage() {
                   allBets[bet.numberBettedOn]={
                     nftId: bet.numberBettedOn,
                     amount: bet.amountBet,
-                    tonAmount:bet.useTon?(bet.amounBet>10000000?Number(fromNano(bet.amountBet)):bet.amountBet):0,
+                    tonAmount:bet.useTon?(bet.amounBet>1000000?Number(fromNano(bet.amountBet)):bet.amountBet):0,
                     tokenType: bet.useTon ? 'ton' : 'credits',
                   };
                 }
@@ -219,7 +219,7 @@ const handleStartRound = async ()=>{
                 <tr>
                 <td>{b.nftId}</td>
                 <td><img src={dolphinImages[b.nftId]} width="40px"/></td>
-                <td>{b.amount}</td>
+                <td>{(b.amount)}</td>
                 <td>{b.tonAmount}</td>
                 <td>{b.amount-b.tonAmount}</td>
                 </tr>
