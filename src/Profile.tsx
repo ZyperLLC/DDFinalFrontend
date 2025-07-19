@@ -61,7 +61,6 @@ export default function Profile() {
   const isWalletConnected = !!context?.user.walletAddress;
   const [isWithdrawPopupVisible, setIsWithdrawPopupVisible] = useState(false);
 
-
   const dolphinImages: { [key: number]: string } = {
     1: dolphin1, 2: dolphin2, 3: dolphin3, 4: dolphin4, 5: dolphin5, 6: dolphin6,
     7: dolphin7, 8: dolphin8, 9: dolphin9, 10: dolphin10, 11: dolphin11, 12: dolphin12,
@@ -75,10 +74,23 @@ export default function Profile() {
     setIsWithdrawPopupVisible(true);
   };
 
+  // Pagination logic for game history
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
+  const bets = context?.user.bets || [];
+  const totalPages = Math.ceil(bets.length / itemsPerPage);
+
+  const paginatedBets = bets.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   return (
-    <motion.div variants={slideUpFade} initial="hidden" animate="visible"
+    <motion.div
+      variants={slideUpFade}
+      initial="hidden"
+      animate="visible"
       className="page profile-page"
       style={{
         backgroundImage: `url(${background1})`,
@@ -90,7 +102,6 @@ export default function Profile() {
       <LogoDisplay />
       <ConnectWalletCard />
 
-      {/* ✅ Show Balance Section only when wallet is connected */}
       {isWalletConnected && (
         <div className="w-full mt-6 mb-6 px-4">
           <div
@@ -147,26 +158,59 @@ export default function Profile() {
         ))}
       </SectionBox>
 
-      {/* Game History */}
+      {/* Game History with Pagination */}
       <SectionBox title={t('profile.gameHistory')}>
-        {context?.user.bets && context?.user.bets.length === 0 &&
-          <p style={{ color: 'white' }} className="text-center">No games played yet</p>}
-        {context?.user.bets && context?.user.bets.length > 0 && context?.user?.bets.map((bet, index) => (
-          <GameHistoryCard
-            key={index}
-            image={dolphinImages[bet.numberBettedOn]}
-            cost={`${bet.amountBet}`}
-            prize={`${bet.amountWon}`}
-            useTon={bet.useTon}
-            betId={`${bet.betId}`}
-            result={bet.hasWon ? 'win' : 'lose'}
-          />
-        ))}
+        {bets.length === 0 ? (
+          <p style={{ color: 'white' }} className="text-center">No games played yet</p>
+        ) : (
+          <>
+            {paginatedBets.map((bet, index) => (
+              <GameHistoryCard
+                key={index}
+                image={dolphinImages[bet.numberBettedOn]}
+                cost={`${bet.amountBet}`}
+                prize={`${bet.amountWon}`}
+                useTon={bet.useTon}
+                betId={`${bet.betId}`}
+                result={bet.hasWon ? 'win' : 'lose'}
+              />
+            ))}
+
+            <div className="flex justify-center items-center mt-4 gap-2 text-white">
+              <button
+                className="px-3 py-1 rounded bg-gray-700 hover:bg-gray-600 disabled:opacity-50"
+                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1}
+              >
+                Prev
+              </button>
+
+              {Array.from({ length: totalPages }, (_, i) => (
+                <button
+                  key={i}
+                  className={`px-3 py-1 rounded ${
+                    currentPage === i + 1 ? 'bg-blue-600' : 'bg-gray-700'
+                  } hover:bg-gray-600`}
+                  onClick={() => setCurrentPage(i + 1)}
+                >
+                  {i + 1}
+                </button>
+              ))}
+
+              <button
+                className="px-3 py-1 rounded bg-gray-700 hover:bg-gray-600 disabled:opacity-50"
+                onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                disabled={currentPage === totalPages}
+              >
+                Next
+              </button>
+            </div>
+          </>
+        )}
       </SectionBox>
 
       <Navbar />
 
-      {/* ✅ Withdraw popup */}
       {isWithdrawPopupVisible && (
         <WithdrawPopup
           id={1}
