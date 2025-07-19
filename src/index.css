@@ -412,7 +412,7 @@ html, body {
 
 .popup-content {
   background: rgba(0, 0, 0, 0);
-  padding: 6rem 1.2rem 1.5rem;
+  padding: 6rem 1.2rem 0.5rem;
   text-align: center;
   display: flex;
   align-items: center;
@@ -423,7 +423,7 @@ html, body {
 
 .popup-content h2 {
   font-size: 1.5rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.2rem;
 }
 
 .popup-content ul {
