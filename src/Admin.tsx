@@ -238,15 +238,7 @@ const handleStartRound = async ()=>{
           {checkedBets.length > 0 ? (
             <table className="admin-table w-full mt-4 text-white">
               <thead><tr><th>Username</th><th>Amount</th><th>Token</th></tr></thead>
-              <tbody>
-                {checkedBets.map((b, i) => (
-                  <tr key={i}>
-                    <td>{b.username}</td>
-                    <td>{b.amountBet}</td>
-                    <td>{b.useTon?'ton':'credit'}</td>
-                  </tr>
-                ))}
-              </tbody>
+              
             </table>
           ) : (
             <p className="mt-4">No matching bets for this number.</p>
