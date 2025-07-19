@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import logo from './assets/logo.jpg';
 import background1 from './assets/background1.jpg';
+import BackgroundOverlay from './components/BackgroundOverlay';
 import './index.css';
 
 import WelcomePopup from './components/WelcomePopup';
@@ -101,24 +102,24 @@ function Home() {
   const now = new Date();
   let targetTime = new Date();
   targetTime.setUTCHours(20, 0, 0, 0); // 5:20 PM UTC
-  
+
   // Debug: Log current time and target time
   console.log('Current time:', now.toISOString());
   console.log('Target time (today):', targetTime.toISOString());
-  
+
   // If today's target time has already passed, set target to tomorrow
   if (now >= targetTime) {
     targetTime.setUTCDate(targetTime.getUTCDate() + 1);
     console.log('Target moved to tomorrow:', targetTime.toISOString());
   }
-  
+
   // Calculate seconds until target
   const timeDiff = targetTime.getTime() - now.getTime();
   const secondsUntil = Math.floor(timeDiff / 1000);
-  
+
   console.log('Time difference (ms):', timeDiff);
   console.log('Seconds until target:', secondsUntil);
-  
+
   return Math.max(0, secondsUntil);
 }
 
@@ -147,6 +148,7 @@ function Home() {
 
   return (
     <div className="page" style={{ backgroundImage: `url(${background1})` }}>
+      <BackgroundOverlay />
       {showPopup && <WelcomePopup onClose={() => setShowPopup(false)} />}
       <LanguageSwitcher />
 
