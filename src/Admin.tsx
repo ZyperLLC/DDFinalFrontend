@@ -50,6 +50,7 @@ import dolphin35 from './assets/dolphins/dolphin35.png';
 import dolphin36 from './assets/dolphins/dolphin36.png';
 import toast from 'react-hot-toast';
 import { Bet } from './types';
+import { fromNano } from '@ton/ton';
 
 const dolphinImages: { [key: number]: any } = {
   1: dolphin1, 2: dolphin2, 3: dolphin3, 4: dolphin4, 5: dolphin5, 6: dolphin6,
@@ -100,14 +101,14 @@ export default function AdminPage() {
                   allBets[bet.numberBettedOn] = {
                     nftId:bet.numberBettedOn,
                     amount:allBets[bet.numberBettedOn].amount+bet.useTon?bet.tonAmount:bet.amountBet,
-                    tonAmount:bet.useTon? allBets[bet.numberBettedOn].tonAmount+bet.tonAmount :allBets[bet.numberBettedOn].tonAmount,
+                    tonAmount:bet.useTon? allBets[bet.numberBettedOn].tonAmount+(bet.tonAmount>10000000?Number(fromNano(bet.tonAmount)):bet.tonAmount) :allBets[bet.numberBettedOn].tonAmount,
                     tokenType:bet.useTon? 'ton':'credits'
                   }  
                 }else{
                   allBets[bet.numberBettedOn]={
                     nftId: bet.numberBettedOn,
                     amount: bet.amountBet,
-                    tonAmount:bet.useTon?bet.tonAmount:0,
+                    tonAmount:bet.useTon?(bet.tonAmount>10000000?Number(fromNano(bet.tonAmount)):bet.tonAmount):0,
                     tokenType: bet.useTon ? 'ton' : 'credits',
                   };
                 }
@@ -125,7 +126,6 @@ export default function AdminPage() {
   };
 
   fetchCurrentRound();
-  console.log(userBets);
 }, []);
 
 
