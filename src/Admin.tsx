@@ -222,7 +222,7 @@ const handleStartRound = async ()=>{
                   </td>
                   <td>{bet.amount}</td>
                   <td>{fromNano(bet.tonAmount)}</td>
-                  <td>{bet.amount-bet.tonAmount}</td>
+                  <td>{bet.amount-Number(fromNano(bet.tonAmount))}</td>
                 </tr>
               ))}
             </tbody>
