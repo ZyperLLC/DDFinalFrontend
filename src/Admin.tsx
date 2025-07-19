@@ -50,6 +50,7 @@ import dolphin35 from './assets/dolphins/dolphin35.png';
 import dolphin36 from './assets/dolphins/dolphin36.png';
 import toast from 'react-hot-toast';
 import { Bet } from './types';
+import { fromNano } from '@ton/ton';
 
 
 const dolphinImages: { [key: number]: any } = {
@@ -73,7 +74,7 @@ export default function AdminPage() {
   const [activeFilter, setActiveFilter] = useState<'all' | 'ton' | 'credits'>('all');
   const [userBets, setUserBets] = useState<any[]>([]);
   const [currentRound, setCurrentRound] = useState<any>(null);
-  const [isLoadingRound, setIsLoadingRound] = useState(true);
+  const [isLoadingRound, seIsLoadingRound] = useState(true);
   const [resultNumber, setResultNumber] = useState<string>('');
   const [checkedBets, setCheckedBets] = useState<any[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -103,15 +104,15 @@ export default function AdminPage() {
                 if(allBets[bet.numberBettedOn]){
                   allBets[bet.numberBettedOn] = {
                     nftId:bet.numberBettedOn,
-                    amount:allBets[bet.numberBettedOn].amount+bet.amountBet,
-                    tonAmount:bet.useTon? allBets[bet.numberBettedOn].tonAmount+Number(bet.amountBet) :0,
+                    amount:allBets[bet.numberBettedOn].amount+bet.useTon?Number(fromNano(bet.amountBet)):bet.amountBet,
+                    tonAmount:bet.useTon? allBets[bet.numberBettedOn].tonAmount+Number(fromNano(bet.amountBet)) :allBets[bet.numberBettedOn],
                     tokenType:bet.useTon? 'ton':'credits'
                   }  
                 }else{
                   allBets[bet.numberBettedOn]={
                     nftId: bet.numberBettedOn,
                     amount: bet.amountBet,
-                    tonAmount:bet.useTon?Number(bet.amountBet):0,
+                    tonAmount:bet.useTon?Number(fromNano(bet.amountBet)):0,
                     tokenType: bet.useTon ? 'ton' : 'credits',
                   };
                 }
@@ -125,8 +126,6 @@ export default function AdminPage() {
       }
     } catch (error) {
       console.error('Error fetching round or user data:', error);
-    } finally {
-      setIsLoadingRound(false);
     }
   };
 
@@ -222,12 +221,12 @@ const handleStartRound = async ()=>{
             <tbody>
               {userBets.map((bet, idx) => (
                 <tr key={idx}>
-                  <td>{(currentPage - 1) * ITEMS_PER_PAGE + idx + 1}</td>
+                  <td>{bet.nftId}</td>
                   <td className="flex items-center gap-2">
                     <img src={dolphinImages[bet.nftId]} className="dolphin" alt="dolphin" style={{width:"50px",height:"50px"}}/>
                   </td>
                   <td>{bet.amount}</td>
-                  <td>{bet.tonAmount}</td>
+                  <td>{fromNano(bet.tonAmount)}</td>
                   <td>{bet.amount-bet.tonAmount}</td>
                 </tr>
               ))}
