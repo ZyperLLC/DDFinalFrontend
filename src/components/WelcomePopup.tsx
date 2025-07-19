@@ -25,10 +25,10 @@ export default function WelcomePopup({ onClose }: { onClose: () => void }) {
         animate="visible"
       >
         {/* Title*/}
-        <h2 className="mt-6">{t('welcome_popup.title')}</h2>
+        <h2 className="mt-16">{t('welcome_popup.title')}</h2>
 
         {/* Description */}
-        <ul className="space-y-2 mt-4 mb-0">
+        <ul className="space-y-2 mt-2 mb-0">
           {[t('welcome_popup.line1'), t('welcome_popup.line2'), t('welcome_popup.line3')].map(
             (line, index) => (
               <li key={index} className="flex items-start gap-8">
@@ -40,7 +40,7 @@ export default function WelcomePopup({ onClose }: { onClose: () => void }) {
         </ul>
 
         {/* Connect Button*/}
-        <div className="w-full px-4 mt-2">
+        <div className="w-full px-4 mt-0">
           <ConnectButton />
         </div>
       </motion.div>
