@@ -25,7 +25,7 @@ export default function WelcomePopup({ onClose }: { onClose: () => void }) {
         animate="visible"
       >
         {/* Title*/}
-        <h2 className="mt-16">{t('welcome_popup.title')}</h2>
+        <h2 >{t('welcome_popup.title')}</h2>
 
         {/* Description */}
         <ul className="space-y-2 mt-2 mb-0">
@@ -40,7 +40,7 @@ export default function WelcomePopup({ onClose }: { onClose: () => void }) {
         </ul>
 
         {/* Connect Button*/}
-        <div className="w-full px-4 mt-0">
+        <div className="w-full px-4 mt-2">
           <ConnectButton />
         </div>
       </motion.div>

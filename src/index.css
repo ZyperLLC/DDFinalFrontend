@@ -412,25 +412,24 @@ html, body {
 
 .popup-content {
   background: rgba(0, 0, 0, 0);
-  padding: 1.5rem 1.2rem;
+  padding: 2.5rem 1.2rem 1.5rem; 
   text-align: center;
   display: flex;
-  align-items: flex-end;
-  gap:6;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: flex-start;
   flex-direction: column;
-  max-height: '50%';
+  max-height: 50%;
 }
 
 .popup-content h2 {
   font-size: 1.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .popup-content ul {
   list-style: none;
   padding: 0;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0;
   text-align: left;
 }
 
@@ -439,6 +438,7 @@ html, body {
   font-size: 0.95rem;
   line-height: 1.4;
 }
+
 
 .connect-wallet-btn {
   background: linear-gradient(90deg, #f72585, #7209b7);
