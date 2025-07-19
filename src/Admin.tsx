@@ -117,6 +117,7 @@ export default function AdminPage() {
           }
         });
         setUserBets(allBets);
+        console.log(currentBets);
       } else {
         setCurrentRound(null); // No round data
       }
@@ -215,13 +216,13 @@ const handleStartRound = async ()=>{
             <thead><tr><th>No.</th><th>NFT</th><th>Total</th><th>TON</th><th>Credit</th></tr></thead>
             <tbody>
               {userBets.map((b:any)=>(
-                <>
+                <tr>
                 <td>{b.nftId}</td>
                 <td><img src={dolphinImages[b.nftId]} width="40px"/></td>
                 <td>{b.amount}</td>
                 <td>{b.tonAmount}</td>
                 <td>{b.amount-b.tonAmount}</td>
-                </>
+                </tr>
               ))}
             </tbody>
           </table>
