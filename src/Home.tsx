@@ -149,6 +149,8 @@ function Home() {
   return (
     <div className="relative page" >
        <BackgroundOverlay />
+
+      <div className='relative z-10'>
       {showPopup && <WelcomePopup onClose={() => setShowPopup(false)} />}
       <LanguageSwitcher />
 
@@ -179,6 +181,7 @@ function Home() {
           onExit={handleDolphinExit}
         />
       )}
+      </div>
     </div>
   );
 }
