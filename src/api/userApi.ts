@@ -115,3 +115,8 @@ export const getAllUsers = async()=>{
   const res = await axios.get(`${BASE_URL}/api/users`);
   return res.data;
 }
+
+export const startRound = async()=>{
+  const res = await axios.post(`${BASE_URL}/api/bets/startbet`);
+  return res.data;
+}

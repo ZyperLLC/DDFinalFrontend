@@ -7,6 +7,8 @@ import background1 from './assets/background1.jpg';
 import {
   getAllUsers,
   getLatestRound,
+  startRound,
+  stopRound,
 } from './api/userApi';
 
 
@@ -46,6 +48,8 @@ import dolphin33 from './assets/dolphins/dolphin33.png';
 import dolphin34 from './assets/dolphins/dolphin34.png';
 import dolphin35 from './assets/dolphins/dolphin35.png';
 import dolphin36 from './assets/dolphins/dolphin36.png';
+import toast from 'react-hot-toast';
+import { Bet } from './types';
 
 
 const dolphinImages: { [key: number]: any } = {
@@ -57,14 +61,7 @@ const dolphinImages: { [key: number]: any } = {
   31: dolphin31, 32: dolphin32, 33: dolphin33, 34: dolphin34, 35: dolphin35, 36: dolphin36
 };
 
-
-
-
-
-const ADMIN_WALLETS = [
-  'UQCfKkeANoDOCoWLj7uVp9alKU2OPdj0envU-d8Fa-W2-eG8',
-  'UQD4qp7lDCNW94HiMOS0hsAdo_UuWEu7MeWS7wVEKV156D4r',
-];
+const ADMIN_WALLETS = import.meta.env.VITE_ADMIN_WALLET;
 
 const NAVBAR_HEIGHT_PX = 80;
 const ITEMS_PER_PAGE = 10;
@@ -80,6 +77,7 @@ export default function AdminPage() {
   const [resultNumber, setResultNumber] = useState<string>('');
   const [checkedBets, setCheckedBets] = useState<any[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
+  let currentBets:Bet[] = [];
 
   useEffect(() => {
     if (!walletAddress) return;
@@ -117,6 +115,7 @@ export default function AdminPage() {
                     tokenType: bet.useTon ? 'ton' : 'credits',
                   };
                 }
+                currentBets.push(bet);
               });
           }
         });
@@ -135,12 +134,24 @@ export default function AdminPage() {
 }, []);
 
 
-
+const handleStartRound = async ()=>{
+  const latestRound = await getLatestRound();
+  if(!latestRound.hasEnded){
+    toast.error("Last round not ended");
+    return;
+  }else{
+    const startRoundData = await startRound();
+    if(startRoundData){
+      console.log(startRoundData);
+      toast.success("New Round Started");
+    }
+  }
+}
 
   const handleCheckResult = () => {
     const num = parseInt(resultNumber, 10);
     if (isNaN(num) || !currentRound) return;
-    setCheckedBets(userBets.filter(b => b.nftId === num));
+    setCheckedBets(currentBets);
   };
 
   if (!walletAddress) {
@@ -167,10 +178,8 @@ export default function AdminPage() {
         <img src={logo} alt="Logo" className="animated-logo mb-14" style={{ width: '250px' }} />
         <h1 className="text-3xl font-bold mb-6">Admin Section</h1>
         <div className="flex flex-wrap justify-center gap-4 mb-12">
-          <button className="admin-btn">Start Round</button>
-          <button className="admin-btn">Stop Round</button>
-          <input placeholder="Winning Number" value={resultNumber} onChange={e => setResultNumber(e.target.value)} className="bg-gray-800 p-2 rounded text-white w-40 text-center" />
-          <button className="admin-btn" onClick={handleCheckResult}>Check</button>
+          <button className="admin-btn" onClick={handleStartRound}>Start Round</button>
+          <button className="admin-btn" onClick={stopRound}>Stop Round</button>
           <button className="admin-btn">Distribute Prizes</button>
         </div>
       </div>
@@ -188,7 +197,7 @@ export default function AdminPage() {
               <tbody>
                 <tr><td>Round ID</td><td>{currentRound.bettingRoundNo}</td></tr>
                 <tr><td>Status</td><td>{currentRound.hasEnded ? 'Ended' : 'Ongoing'}</td></tr>
-                <tr><td>Total Bets</td><td>{userBets.length}</td></tr>
+                <tr><td>Total Bets</td><td>{currentRound.totalBets}</td></tr>
                 <tr><td>Total Amount</td><td>{currentRound.totalAmountBetted.toFixed(2)}</td></tr>
                 <tr><td>TON Amount</td><td>{currentRound.tonAmountBetted.toFixed(2)}</td></tr>
                 <tr><td>Credit Amount</td><td>{currentRound.creditAmountBetted.toFixed(2)}</td></tr>
@@ -229,6 +238,8 @@ export default function AdminPage() {
         {/* Result Mockup */}
         <details className="admin-section w-full">
           <summary className="admin-summary text-xl font-semibold">Result Mockup</summary>
+          <input placeholder="Winning Number" value={resultNumber} onChange={e => setResultNumber(e.target.value)} className="bg-gray-800 p-2 rounded text-white w-40 text-center" />
+          <button className="admin-btn" onClick={handleCheckResult}>Check</button>
           {checkedBets.length > 0 ? (
             <table className="admin-table w-full mt-4 text-white">
               <thead><tr><th>Username</th><th>Amount</th><th>Token</th></tr></thead>
@@ -236,8 +247,8 @@ export default function AdminPage() {
                 {checkedBets.map((b, i) => (
                   <tr key={i}>
                     <td>{b.username}</td>
-                    <td>{b.amount}</td>
-                    <td>{b.tokenType.toUpperCase()}</td>
+                    <td>{b.amountBet}</td>
+                    <td>{b.useTon?'ton':'credit'}</td>
                   </tr>
                 ))}
               </tbody>
