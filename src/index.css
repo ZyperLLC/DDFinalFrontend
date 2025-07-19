@@ -412,7 +412,7 @@ html, body {
 
 .popup-content {
   background: rgba(0, 0, 0, 0);
-  padding: 3rem 1.2rem 0.5rem;
+  padding: 3rem 1.2rem 1.5rem;
   text-align: center;
   display: flex;
   align-items: center;
