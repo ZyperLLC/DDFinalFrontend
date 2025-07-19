@@ -148,11 +148,12 @@ function Home() {
 
   return (
     <div className="page" style={{ backgroundImage: `url(${background1})` }}>
-      <BackgroundOverlay />
+
       {showPopup && <WelcomePopup onClose={() => setShowPopup(false)} />}
       <LanguageSwitcher />
 
       <motion.div variants={slideUpFade} initial="hidden" animate="visible" className={`main-content-wrapper ${showPopup ? 'blurred' : ''}`}>
+        <BackgroundOverlay />
         <img src={logo} alt="Logo" className="page-logo" />
         <TimerCard timer={timer} />
         <DolphinGrid
