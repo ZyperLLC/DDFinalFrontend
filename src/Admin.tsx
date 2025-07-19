@@ -147,7 +147,8 @@ const handleStartRound = async ()=>{
   const handleCheckResult = () => {
     const num = parseInt(resultNumber, 10);
     if (isNaN(num) || !currentRound) return;
-    setCheckedBets(currentBets);
+    const bets = currentBets.filter((bet:any)=>bet.betId===num);
+    setCheckedBets(bets);
   };
 
   if (!walletAddress) {
@@ -221,7 +222,7 @@ const handleStartRound = async ()=>{
                     <img src={dolphinImages[bet.nftId]} className="dolphin" alt="dolphin" style={{width:"50px",height:"50px"}}/>
                   </td>
                   <td>{bet.amount}</td>
-                  <td>{(bet.tonAmount)}</td>
+                  <td>{bet.tonAmount}</td>
                   <td>{bet.amount-(bet.tonAmount)}</td>
                 </tr>
               ))}
