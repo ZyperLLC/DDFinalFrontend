@@ -221,8 +221,8 @@ const handleStartRound = async ()=>{
                     <img src={dolphinImages[bet.nftId]} className="dolphin" alt="dolphin" style={{width:"50px",height:"50px"}}/>
                   </td>
                   <td>{bet.amount}</td>
-                  <td>{bet.tonAmount>10000000?fromNano(bet.tonAmount):bet.tonAmount}</td>
-                  <td>{bet.amount-(bet.tonAmount>10000000?fromNano(bet.tonAmount):bet.tonAmount)}</td>
+                  <td>{(bet.tonAmount)}</td>
+                  <td>{bet.amount-(bet.tonAmount)}</td>
                 </tr>
               ))}
             </tbody>
