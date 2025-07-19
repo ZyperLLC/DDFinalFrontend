@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import logo from './assets/logo.jpg';
-import background1 from './assets/background1.jpg';
+// import background1 from './assets/background1.jpg';
 import BackgroundOverlay from './components/BackgroundOverlay';
 import './index.css';
 
@@ -147,13 +147,13 @@ function Home() {
   };
 
   return (
-    <div className="page" style={{ backgroundImage: `url(${background1})` }}>
-
+    <div className="relative page" >
+       <BackgroundOverlay />
       {showPopup && <WelcomePopup onClose={() => setShowPopup(false)} />}
       <LanguageSwitcher />
 
       <motion.div variants={slideUpFade} initial="hidden" animate="visible" className={`main-content-wrapper ${showPopup ? 'blurred' : ''}`}>
-        <BackgroundOverlay />
+
         <img src={logo} alt="Logo" className="page-logo" />
         <TimerCard timer={timer} />
         <DolphinGrid
