@@ -100,8 +100,8 @@ export default function AdminPage() {
                 if(allBets[bet.numberBettedOn]){
                   allBets[bet.numberBettedOn] = {
                     nftId:bet.numberBettedOn,
-                    amount:allBets[bet.numberBettedOn].amount+bet.useTon?bet.tonAmount:bet.amountBet,
-                    tonAmount:bet.useTon? allBets[bet.numberBettedOn].tonAmount+(bet.tonAmount>10000000?Number(fromNano(bet.tonAmount)):bet.tonAmount) :allBets[bet.numberBettedOn].tonAmount,
+                    amount:allBets[bet.numberBettedOn].amount+bet.useTon?(bet.amountBet>10000000?Number(fromNano(bet.amountBet)):bet.amountBet):bet.amountBet,
+                    tonAmount:bet.useTon? allBets[bet.numberBettedOn].tonAmount+(bet.amountBet>10000000?Number(fromNano(bet.amountBet)):bet.amountBet) :allBets[bet.numberBettedOn].tonAmount,
                     tokenType:bet.useTon? 'ton':'credits'
                   }  
                 }else{
