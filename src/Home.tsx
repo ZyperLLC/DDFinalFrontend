@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import logo from './assets/logo.jpg';
-// import background1 from './assets/background1.jpg';
-import BackgroundOverlay from './components/BackgroundOverlay';
+import background1 from './assets/background1.jpg';
 import './index.css';
 
 import WelcomePopup from './components/WelcomePopup';
@@ -147,15 +146,11 @@ function Home() {
   };
 
   return (
-    <div className="relative page" >
-       <BackgroundOverlay />
-
-      <div className='relative z-10'>
+    <div  style={{ backgroundImage: `url(${background1})`, backgroundSize: 'cover'  }}>
       {showPopup && <WelcomePopup onClose={() => setShowPopup(false)} />}
       <LanguageSwitcher />
 
       <motion.div variants={slideUpFade} initial="hidden" animate="visible" className={`main-content-wrapper ${showPopup ? 'blurred' : ''}`}>
-
         <img src={logo} alt="Logo" className="page-logo" />
         <TimerCard timer={timer} />
         <DolphinGrid
@@ -181,7 +176,6 @@ function Home() {
           onExit={handleDolphinExit}
         />
       )}
-      </div>
     </div>
   );
 }
