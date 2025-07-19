@@ -50,8 +50,6 @@ import dolphin35 from './assets/dolphins/dolphin35.png';
 import dolphin36 from './assets/dolphins/dolphin36.png';
 import toast from 'react-hot-toast';
 import { Bet } from './types';
-import { fromNano } from '@ton/ton';
-
 
 const dolphinImages: { [key: number]: any } = {
   1: dolphin1, 2: dolphin2, 3: dolphin3, 4: dolphin4, 5: dolphin5, 6: dolphin6,
