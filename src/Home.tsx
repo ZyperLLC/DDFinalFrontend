@@ -146,7 +146,8 @@ function Home() {
   };
 
   return (
-    <div className="min-h-screen text-white p-6" style={{ backgroundImage: `url(${background1})`, backgroundSize: 'cover',   color:'white',}}>
+    <div className="page" style={{ backgroundImage: `url(${background1})`, backgroundSize: 'cover',
+        backgroundPosition: 'center' }}>
       {showPopup && <WelcomePopup onClose={() => setShowPopup(false)} />}
       <LanguageSwitcher />
 
