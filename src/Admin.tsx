@@ -65,7 +65,6 @@ const dolphinImages: { [key: number]: any } = {
 const ADMIN_WALLETS = import.meta.env.VITE_ADMIN_WALLET;
 
 const NAVBAR_HEIGHT_PX = 80;
-const ITEMS_PER_PAGE = 10;
 
 export default function AdminPage() {
   const context = useContext(UserContext);
@@ -74,10 +73,8 @@ export default function AdminPage() {
   const [activeFilter, setActiveFilter] = useState<'all' | 'ton' | 'credits'>('all');
   const [userBets, setUserBets] = useState<any[]>([]);
   const [currentRound, setCurrentRound] = useState<any>(null);
-  const [isLoadingRound, seIsLoadingRound] = useState(true);
   const [resultNumber, setResultNumber] = useState<string>('');
   const [checkedBets, setCheckedBets] = useState<any[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
   let currentBets:Bet[] = [];
 
   useEffect(() => {
@@ -188,9 +185,7 @@ const handleStartRound = async ()=>{
         {/* Current Round Info */}
         <details className="admin-section w-full">
           <summary className="admin-summary text-xl font-semibold">Current Round Info</summary>
-          {isLoadingRound ? (
-            <p className="mt-4">Loading round data...</p>
-          ) : currentRound ? (
+          { currentRound ? (
             <table className="admin-table w-full mt-4 text-white">
               <thead><tr><th>Field</th><th>Value</th></tr></thead>
               <tbody>
@@ -212,9 +207,9 @@ const handleStartRound = async ()=>{
         <details className="admin-section w-full">
           <summary className="admin-summary text-xl font-semibold">Total Bets</summary>
           <div className="flex gap-4 mt-4 mb-4">
-            <button className={`admin-btn ${activeFilter === 'all' ? 'bg-blue-600' : ''}`} onClick={() => { setActiveFilter('all'); setCurrentPage(1); }}>All</button>
-            <button className={`admin-btn ${activeFilter === 'ton' ? 'bg-blue-600' : ''}`} onClick={() => { setActiveFilter('ton'); setCurrentPage(1); }}>TON</button>
-            <button className={`admin-btn ${activeFilter === 'credits' ? 'bg-blue-600' : ''}`} onClick={() => { setActiveFilter('credits'); setCurrentPage(1); }}>Credits</button>
+            <button className={`admin-btn ${activeFilter === 'all' ? 'bg-blue-600' : ''}`} onClick={() => { setActiveFilter('all');}}>All</button>
+            <button className={`admin-btn ${activeFilter === 'ton' ? 'bg-blue-600' : ''}`} onClick={() => { setActiveFilter('ton');}}>TON</button>
+            <button className={`admin-btn ${activeFilter === 'credits' ? 'bg-blue-600' : ''}`} onClick={() => { setActiveFilter('credits'); }}>Credits</button>
           </div>
           <table className="admin-table w-full mb-4 text-white">
             <thead><tr><th>No.</th><th>NFT</th><th>Total</th><th>TON</th><th>Credit</th></tr></thead>
