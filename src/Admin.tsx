@@ -160,7 +160,7 @@ const handleEndRound = async()=>{
   if(!winningNumber || winningNumber<1 || winningNumber >36){
     toast.error("Please Enter the winning number between 1 to 36");
   }
-  const winningUsers = currentBets.filter((betObj)=>betObj.bet.nftId==winningNumber)
+  const winningUsers = currentBets.filter((betObj)=>betObj.bet.numberBettedOn==winningNumber)
   console.log(winningUsers);
   toast.success(`Winning Number${winningNumber}`);
 }
