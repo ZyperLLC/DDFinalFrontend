@@ -126,6 +126,7 @@ html, body {
   font-weight: 600;
   margin: 0.5rem;
   cursor: pointer;
+  width:100%;
   transition: transform 0.2s ease;
 }
 

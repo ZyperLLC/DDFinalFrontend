@@ -7,7 +7,6 @@ import background1 from './assets/background1.jpg';
 import {
   getAllUsers,
   getLatestRound,
-  startRound,
 } from './api/userApi';
 
 
@@ -141,21 +140,6 @@ export default function AdminPage() {
 }, []);
 
 
-const handleStartRound = async ()=>{
-  const latestRound = await getLatestRound();
-  if(!latestRound.hasEnded){
-    toast.error("Last round not ended");
-    return;
-  }else{
-    const startRoundData = await startRound();
-    if(startRoundData){
-      console.log(startRoundData);
-      toast.success("New Round Started");
-    }
-  }
-}
-
-
 const handleEndRound = async()=>{
   if(!winningNumber || winningNumber<1 || winningNumber >36){
     toast.error("Please Enter the winning number between 1 to 36");
@@ -203,8 +187,7 @@ const handleCheckResult = () => {
       <div className="flex flex-col items-center text-center">
         <img src={logo} alt="Logo" className="animated-logo mb-14" style={{ width: '250px' }} />
         <h1 className="text-3xl font-bold mb-6">Admin Section</h1>
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
-          <button className="admin-btn" onClick={handleStartRound}>Start Round</button>
+        <div className="flex flex-wrap justify-center gap-4 mb-12 flex-col align-center">
           <button className="admin-btn" onClick={stopCurrentRound}>Stop Betting</button>
           <input type="number" min={1} max={36} placeholder='Type Winning No.' onChange={(e)=>setWinningNumber(Number(e.target.value))}/>
           <button className="admin-btn" onClick={handleEndRound}>End Round</button>
