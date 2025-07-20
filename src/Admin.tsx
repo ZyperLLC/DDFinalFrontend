@@ -7,6 +7,7 @@ import background1 from './assets/background1.jpg';
 import {
   getAllUsers,
   getLatestRound,
+  getWinnnigUser,
   startRound,
   stopRound,
 } from './api/userApi';
@@ -50,6 +51,7 @@ import dolphin35 from './assets/dolphins/dolphin35.png';
 import dolphin36 from './assets/dolphins/dolphin36.png';
 import toast from 'react-hot-toast';
 import { fromNano } from '@ton/ton';
+import { useEndRound } from './hooks/useEndRound';
 
 const dolphinImages: { [key: number]: any } = {
   1: dolphin1, 2: dolphin2, 3: dolphin3, 4: dolphin4, 5: dolphin5, 6: dolphin6,
@@ -75,6 +77,10 @@ export default function AdminPage() {
   const [checkedBets, setCheckedBets] = useState<any[]>([]);
   const [currentBets,setCurrentBets] = useState<any[]>([]);
   const [winningNumber,setWinningNumber] = useState<number|null>(null);
+
+  const {stopCurrentRound} = useEndRound();
+
+
   useEffect(() => {
     if (!walletAddress) return;
     if (ADMIN_WALLETS.includes(walletAddress)) setIsAuthorized(true);
@@ -149,19 +155,14 @@ const handleStartRound = async ()=>{
     }
   }
 }
-const handleStopRound = async()=>{
-  try{
-    const data = await stopRound();
-    if(data){
-      toast.success("Betting stopped successfully");
-    }
-  }catch(err){
-    toast.error("Some error occured");
-    console.log(err)
-  }
-}
+
 
 const handleEndRound = async()=>{
+  if(!winningNumber || winningNumber<1 || winningNumber >36){
+    toast.error("Please Enter the winning number between 1 to 36");
+  }
+  const winningUsers = await getWinnnigUser(winningNumber??0);
+  console.log(winningUsers);
   toast.success(`Winning Number${winningNumber}`);
 }
   const handleCheckResult = () => {
@@ -203,7 +204,7 @@ const handleEndRound = async()=>{
         <h1 className="text-3xl font-bold mb-6">Admin Section</h1>
         <div className="flex flex-wrap justify-center gap-4 mb-12">
           <button className="admin-btn" onClick={handleStartRound}>Start Round</button>
-          <button className="admin-btn" onClick={handleStopRound}>Stop Betting</button>
+          <button className="admin-btn" onClick={stopCurrentRound}>Stop Betting</button>
           <input type="number" min={1} max={36} placeholder='Type Winning No.' onChange={(e)=>setWinningNumber(Number(e.target.value))}/>
           <button className="admin-btn" onClick={handleEndRound}>End Round</button>
         </div>
