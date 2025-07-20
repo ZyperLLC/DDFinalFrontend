@@ -107,7 +107,7 @@ export default function AdminPage() {
                 }else{
                   allBets[bet.numberBettedOn]={
                     nftId: bet.numberBettedOn,
-                    amount: bet.amountBet,
+                    amount: bet.useTon?fromNano(bet.amountBet):bet.amountBet,
                     tonAmount:bet.useTon?fromNano(bet.amountBet):0,
                     tokenType: bet.useTon ? 'ton' : 'credits',
                   };
