@@ -22,6 +22,8 @@ export const useEndRound = ()=>{
         }
     };
 
+    
+
     async function endBettingRound(winningNumber:number){
         if (!tonConnectUI) {
             toast.error("Wallet not connected");
@@ -89,7 +91,9 @@ export const useEndRound = ()=>{
             });
         if(result.boc){
           toast.success("Prizes Distributed Successfully");
-            await startNewRound();
+            setTimeout(async ()=>{
+                await startNewRound();  
+            },3000);
         }
       }catch(err){
         toast.error("Error Occured");
