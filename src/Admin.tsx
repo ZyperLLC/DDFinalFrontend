@@ -242,10 +242,14 @@ const handleStartRound = async ()=>{
           <summary className="admin-summary text-xl font-semibold">Result Mockup</summary>
           <input placeholder="Winning Number" value={resultNumber} onChange={e => setResultNumber(e.target.value)} className="bg-gray-800 p-2 rounded text-white w-40 text-center" />
           <button className="admin-btn" onClick={handleCheckResult}>Check</button>
-          {checkedBets.length > 0 ? (
+          {checkedBets.length > 0 ? checkedBets.map((bet:any)=>(
             <table className="admin-table w-full mt-4 text-white">
               <thead><tr><th>Username</th><th>Amount</th><th>Token</th></tr></thead>
-              
+              <tr>
+                <td>username</td>
+                <td>{bet.useTon?fromNano(bet.amountbet):bet.amountBet}</td>
+                <td>{bet.useTon?'ton':'credit'}</td>
+              </tr>
             </table>
           ) : (
             <p className="mt-4 text-white">No matching bets for this number.</p>
