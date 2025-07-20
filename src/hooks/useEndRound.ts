@@ -88,15 +88,41 @@ export const useEndRound = ()=>{
             ],
             });
         if(result.boc){
-          console.log("Deposit Result:", result);
-          toast.success("Deposit Successful");
+          toast.success("Prizes Distributed Successfully");
+            await startNewRound();
         }
       }catch(err){
         toast.error("Error Occured");
         console.log(err);
       }
       }
-    
+      
+      async function startNewRound(){
+        if (!tonConnectUI) {
+            toast.error("Wallet not connected");
+            return;
+        } 
+        try{
+            const result = await tonConnectUI?.sendTransaction({
+                validUntil:Math.floor(Date.now()/1000)+60,
+                messages:[{
+                    address:contractAddress,
+                    amount:toNano('0.005').toString(),
+                    payload:beginCell()
+                    .storeUint(0,32)
+                    .storeStringTail("startbet")
+                    .endCell()
+                    .toBoc()
+                    .toString('base64')
+                }]
+            });
+            if(result.boc){
+                toast.success("StartRound transaction successful");
+            }
+        }catch(err){
+            console.log(err);
+        }
+      }
     return {
         stopCurrentRound,
         endBettingRound
