@@ -247,7 +247,7 @@ const handleStartRound = async ()=>{
               <thead><tr><th>Username</th><th>Amount</th><th>Token</th></tr></thead>
               <tr>
                 <td>username</td>
-                <td>{bet.useTon?fromNano(bet.amountbet):bet.amountBet}</td>
+                <td>{bet.useTon?fromNano(bet.amountBet):bet.amountBet}</td>
                 <td>{bet.useTon?'ton':'credit'}</td>
               </tr>
             </table>
