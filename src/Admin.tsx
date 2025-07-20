@@ -158,7 +158,7 @@ const handleStartRound = async ()=>{
     }
     console.log("Numebr to check",num);
     console.log("CurrentBets",currentBets);
-    const bets = currentBets.filter((bet:any)=>bet.numberBettedOn==num);
+    const bets = currentBets.filter((betObj:any)=>betObj.bet.numberBettedOn==num);
     console.log(bets);
     setCheckedBets(bets);
   };
