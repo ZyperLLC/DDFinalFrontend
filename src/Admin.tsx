@@ -251,7 +251,7 @@ const handleStartRound = async ()=>{
                 <td>{bet.useTon?'ton':'credit'}</td>
               </tr>
             </table>
-          ) : (
+          )) : (
             <p className="mt-4 text-white">No matching bets for this number.</p>
           )}
         </details>
