@@ -111,7 +111,9 @@ export default function AdminPage() {
                     tokenType: bet.useTon ? 'ton' : 'credits',
                   };
                 }
+                console.log("Pushing this bet",bet);
                 currentBets.push(bet);
+                console.log("currentbets",currentBets);
               });
           }
         });
@@ -151,7 +153,7 @@ const handleStartRound = async ()=>{
       return;
     }
     console.log("CurrentBets",currentBets);
-    const bets = currentBets.filter((bet:any)=>bet.betId===num);
+    const bets = currentBets.filter((bet:any)=>bet.numberBettedOn===num);
     setCheckedBets(bets);
   };
 
