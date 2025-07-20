@@ -9,7 +9,6 @@ import {
   getLatestRound,
   getWinnnigUser,
   startRound,
-  stopRound,
 } from './api/userApi';
 
 
