@@ -153,8 +153,10 @@ const handleStartRound = async ()=>{
       toast.error("Number should be between 1 to 36");
       return;
     }
+    console.log("Numebr to check",num);
     console.log("CurrentBets",currentBets);
     const bets = currentBets.filter((bet:any)=>bet.numberBettedOn==num);
+    console.log(bets);
     setCheckedBets(bets);
   };
 
