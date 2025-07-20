@@ -74,7 +74,7 @@ export default function AdminPage() {
   const [currentRound, setCurrentRound] = useState<any>(null);
   const [resultNumber, setResultNumber] = useState<string>('');
   const [checkedBets, setCheckedBets] = useState<any[]>([]);
-  let currentBets:Bet[] = [];
+  let currentBets:any = [];
 
   useEffect(() => {
     if (!walletAddress) return;
@@ -147,6 +147,11 @@ const handleStartRound = async ()=>{
   const handleCheckResult = () => {
     const num = parseInt(resultNumber, 10);
     if (isNaN(num) || !currentRound) return;
+    if(num<1 && num>36){
+      toast.error("Number should be between 1 to 36");
+      return;
+    }
+    console.log("CurrentBets",currentBets);
     const bets = currentBets.filter((bet:any)=>bet.betId===num);
     setCheckedBets(bets);
   };
@@ -239,7 +244,7 @@ const handleStartRound = async ()=>{
               
             </table>
           ) : (
-            <p className="mt-4">No matching bets for this number.</p>
+            <p className="mt-4 text-white">No matching bets for this number.</p>
           )}
         </details>
       </div>
