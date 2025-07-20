@@ -74,6 +74,7 @@ export default function AdminPage() {
   const [resultNumber, setResultNumber] = useState<string>('');
   const [checkedBets, setCheckedBets] = useState<any[]>([]);
   const [currentBets,setCurrentBets] = useState<any[]>([]);
+  const [winningNumber,setWinningNumber] = useState<number|null>(null);
   useEffect(() => {
     if (!walletAddress) return;
     if (ADMIN_WALLETS.includes(walletAddress)) setIsAuthorized(true);
@@ -160,6 +161,9 @@ const handleStopRound = async()=>{
   }
 }
 
+const handleEndRound = async()=>{
+  toast.success(`Winning Number${winningNumber}`);
+}
   const handleCheckResult = () => {
     const num = parseInt(resultNumber, 10);
     if (isNaN(num) || !currentRound) return;
@@ -199,8 +203,9 @@ const handleStopRound = async()=>{
         <h1 className="text-3xl font-bold mb-6">Admin Section</h1>
         <div className="flex flex-wrap justify-center gap-4 mb-12">
           <button className="admin-btn" onClick={handleStartRound}>Start Round</button>
-          <button className="admin-btn" onClick={handleStopRound}>Stop Round</button>
-          <button className="admin-btn">Distribute Prizes</button>
+          <button className="admin-btn" onClick={handleStopRound}>Stop Betting</button>
+          <input type="number" min={1} max={36} placeholder='Type Winning No.' onChange={(e)=>setWinningNumber(Number(e.target.value))}/>
+          <button className="admin-btn" onClick={handleEndRound}>End Round</button>
         </div>
       </div>
 
