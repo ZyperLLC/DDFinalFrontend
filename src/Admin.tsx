@@ -73,8 +73,7 @@ export default function AdminPage() {
   const [currentRound, setCurrentRound] = useState<any>(null);
   const [resultNumber, setResultNumber] = useState<string>('');
   const [checkedBets, setCheckedBets] = useState<any[]>([]);
-  let currentBets:any = [];
-
+  const [currentBets,setCurrentBets] = useState<any[]>([]);
   useEffect(() => {
     if (!walletAddress) return;
     if (ADMIN_WALLETS.includes(walletAddress)) setIsAuthorized(true);
@@ -90,6 +89,7 @@ export default function AdminPage() {
 
         const allUsers = await getAllUsers();
         const allBets: any[] = [];
+        const betsToAdd:any[] = [];
 
         allUsers.forEach((user: any) => {
           if (user.betsPlace?.length) {
@@ -112,12 +112,13 @@ export default function AdminPage() {
                   };
                 }
                 console.log("Pushing this bet",bet);
-                currentBets.push(bet);
+                betsToAdd.push(bet);
                 console.log("currentbets",currentBets);
               });
           }
         });
         setUserBets(allBets);
+        setCurrentBets(betsToAdd);
         console.log(currentBets);
       } else {
         setCurrentRound(null); // No round data
