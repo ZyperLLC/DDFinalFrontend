@@ -234,7 +234,7 @@ const handleCheckResult = () => {
                 <td><img src={dolphinImages[b.nftId]} width="40px"/></td>
                 <td>{(b.amount.toFixed(2))}</td>
                 <td>{b.tonAmount}</td>
-                <td>{b.amount.toFixed(2)-b.tonAmount}</td>
+                <td>{(b.amount.toFixed(2)-b.tonAmount).toFixed(2)}</td>
                 </tr>
               ))}
             </tbody>
