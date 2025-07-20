@@ -219,9 +219,9 @@ const handleStartRound = async ()=>{
                 <tr>
                 <td>{b.nftId}</td>
                 <td><img src={dolphinImages[b.nftId]} width="40px"/></td>
-                <td>{(b.amount)}</td>
+                <td>{(b.amount.toFixed(2))}</td>
                 <td>{b.tonAmount}</td>
-                <td>{b.amount-b.tonAmount}</td>
+                <td>{b.amount.toFixed(2)-b.tonAmount}</td>
                 </tr>
               ))}
             </tbody>
