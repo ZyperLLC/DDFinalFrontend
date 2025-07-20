@@ -5,6 +5,7 @@ import logo from './assets/logo.jpg';
 import background1 from './assets/background1.jpg';
 
 import {
+  endRound,
   getAllUsers,
   getLatestRound,
   startRound,
@@ -76,7 +77,7 @@ export default function AdminPage() {
   const [currentBets,setCurrentBets] = useState<any[]>([]);
   const [winningNumber,setWinningNumber] = useState<number|null>(null);
 
-  const {stopCurrentRound} = useEndRound();
+  const {stopCurrentRound,endBettingRound} = useEndRound();
 
 
   useEffect(() => {
@@ -160,11 +161,13 @@ const handleEndRound = async()=>{
   if(!winningNumber || winningNumber<1 || winningNumber >36){
     toast.error("Please Enter the winning number between 1 to 36");
   }
-  const winningUsers = currentBets.filter((betObj)=>betObj.bet.numberBettedOn==winningNumber)
-  console.log(winningUsers);
+  await endBettingRound(winningNumber??0);  
   toast.success(`Winning Number${winningNumber}`);
 }
-  const handleCheckResult = () => {
+
+
+
+const handleCheckResult = () => {
     const num = parseInt(resultNumber, 10);
     if (isNaN(num) || !currentRound) return;
     if(num<1 && num>36){

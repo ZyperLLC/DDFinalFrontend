@@ -1,4 +1,4 @@
-import { getAllUsers, getBettingRounds, stopRound } from "../api/userApi"
+import { endRound, getAllUsers, getBettingRounds, stopRound } from "../api/userApi"
 import toast from "react-hot-toast";
 import { useTonConnectUiContext } from "../Context/TonConnectUiContext";
 import { contractAddress } from "../constants";
@@ -27,9 +27,28 @@ export const useEndRound = ()=>{
             toast.error("Wallet not connected");
             return;
         }  
+        if(winningNumber<1 || winningNumber>36){
+            toast.error("Winning No. should be between 1-36");
+            return;
+        }
         const rounds = await getBettingRounds();
         const currentRoundId = rounds.length;
         const users = await getAllUsers();
+
+        const {endbetdata,startbetdata} = await endRound(winningNumber);
+        if(endbetdata){
+            toast.success("Betting Round Ended");
+        }else{
+            toast.error("Error starting round");
+            return;
+        }
+        if(startbetdata){
+            toast.success("New round started");
+        }else{
+            toast.error("Error starting round");
+            return;
+        }
+
         const tonWinningBets = Dictionary.empty<bigint,Bet>();
         let index = 0;
         users.map((user:User)=>{
@@ -37,12 +56,12 @@ export const useEndRound = ()=>{
                 return;
             }
             user.betsPlace.map((bet)=>{
-                if(bet &&bet.betId==currentRoundId && bet.useTon && bet.numberBettedOn==winningNumber && bet.amountBet>0){
+                if(bet &&bet.betId==currentRoundId && bet.numberBettedOn==winningNumber && bet.amountBet>0){
                 tonWinningBets.set(BigInt(index),{
                     $$type:'Bet',
                     player: Address.parse(user.walletAddress),
                     hasNFT:bet.holdingNFT,
-                    amountBet:toNano(`${bet.amountBet}`)
+                    amountBet:bet.useTon?BigInt(bet.amountBet):toNano(`${bet.amountBet}`)
                     })
                     console.log(user)
                 }
