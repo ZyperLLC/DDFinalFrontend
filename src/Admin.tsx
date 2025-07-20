@@ -148,6 +148,17 @@ const handleStartRound = async ()=>{
     }
   }
 }
+const handleStopRound = async()=>{
+  try{
+    const data = await stopRound();
+    if(data){
+      toast.success("Betting stopped successfully");
+    }
+  }catch(err){
+    toast.error("Some error occured");
+    console.log(err)
+  }
+}
 
   const handleCheckResult = () => {
     const num = parseInt(resultNumber, 10);
@@ -188,7 +199,7 @@ const handleStartRound = async ()=>{
         <h1 className="text-3xl font-bold mb-6">Admin Section</h1>
         <div className="flex flex-wrap justify-center gap-4 mb-12">
           <button className="admin-btn" onClick={handleStartRound}>Start Round</button>
-          <button className="admin-btn" onClick={stopRound}>Stop Round</button>
+          <button className="admin-btn" onClick={handleStopRound}>Stop Round</button>
           <button className="admin-btn">Distribute Prizes</button>
         </div>
       </div>
