@@ -7,7 +7,6 @@ import background1 from './assets/background1.jpg';
 import {
   getAllUsers,
   getLatestRound,
-  getWinnnigUser,
   startRound,
 } from './api/userApi';
 
@@ -120,6 +119,7 @@ export default function AdminPage() {
                 console.log("Pushing this bet",bet);
                 betsToAdd.push({
                   username:user.username,
+                  walletAddress:user.walletAddress,
                   bet
                 });
                 console.log("currentbets",currentBets);
@@ -160,8 +160,7 @@ const handleEndRound = async()=>{
   if(!winningNumber || winningNumber<1 || winningNumber >36){
     toast.error("Please Enter the winning number between 1 to 36");
   }
-  const winningUsers = await getWinnnigUser(winningNumber??0);
-  console.log(winningUsers);
+  console.log(currentBets);
   toast.success(`Winning Number${winningNumber}`);
 }
   const handleCheckResult = () => {

@@ -120,20 +120,3 @@ export const startRound = async()=>{
   const res = await axios.post(`${BASE_URL}/api/bets/startbet`);
   return res.data;
 }
-
-export const getWinnnigUser = async(winningNumber:number)=>{
-  const res = await axios.get(`${BASE_URL}/api/users`);
-  const latestRound = await getLatestRound();
-  const users = res.data;
-  const filteredUsers = users.filter((user:any)=>{
-    if(!user.betsPlace) return;
-    user.betsPlace.filter((bet:any)=>{
-      bet.betId==latestRound.bettingRoundNo,
-      bet.numberBettedOn == winningNumber
-    })
-  })
-
-  return {
-    winningUsers:filteredUsers
-  }
-}
