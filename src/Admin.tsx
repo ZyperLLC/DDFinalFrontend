@@ -112,7 +112,10 @@ export default function AdminPage() {
                   };
                 }
                 console.log("Pushing this bet",bet);
-                betsToAdd.push(bet);
+                betsToAdd.push({
+                  username:user.username,
+                  bet
+                });
                 console.log("currentbets",currentBets);
               });
           }
@@ -246,11 +249,11 @@ const handleStartRound = async ()=>{
             <table className="admin-table w-full mt-4 text-white">
               <thead><tr><th>Username</th><th>Amount</th><th>Token</th></tr></thead>
               
-              {checkedBets.map((bet:any)=>(
+              {checkedBets.map((betObject:any)=>(
                 <tr>
-                <td>username</td>
-                <td>{bet.useTon?fromNano(bet.amountBet):bet.amountBet}</td>
-                <td>{bet.useTon?'ton':'credit'}</td>
+                <td>{betObject.username}</td>
+                <td>{betObject.bet.useTon?fromNano(betObject.bet.amountBet):betObject.bet.amountBet}</td>
+                <td>{betObject.bet.useTon?'ton':'credit'}</td>
               </tr>
               ))}
             </table>
