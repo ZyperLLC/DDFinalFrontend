@@ -29,10 +29,6 @@ export const useEndRound = ()=>{
             toast.error("Wallet not connected");
             return;
         }  
-        if(winningNumber<1 || winningNumber>36){
-            toast.error("Winning No. should be between 1-36");
-            return;
-        }
         const rounds = await getBettingRounds();
         const currentRoundId = rounds.length;
         const users = await getAllUsers();
