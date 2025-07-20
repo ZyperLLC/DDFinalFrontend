@@ -154,7 +154,7 @@ const handleStartRound = async ()=>{
       return;
     }
     console.log("CurrentBets",currentBets);
-    const bets = currentBets.filter((bet:any)=>bet.numberBettedOn===num);
+    const bets = currentBets.filter((bet:any)=>bet.numberBettedOn==num);
     setCheckedBets(bets);
   };
 
