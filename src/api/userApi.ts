@@ -109,7 +109,7 @@ export const withdrawFunds = async (telegramId: string, amount: number) => {
 export const endRound = async(winningNumber:number)=>{
   const currentRound = await getLatestRound();
   const res = await axios.post(`${BASE_URL}/api/bets/endbet`,{
-    betId:currentRound.bettinRoundNo,
+    betId:currentRound.bettingRoundNo,
     winningNumber
   });
   
