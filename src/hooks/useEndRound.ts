@@ -1,4 +1,4 @@
-import { endRound, getAllUsers, getBettingRounds, stopRound } from "../api/userApi"
+import { endRound, getAllUsers, getBettingRounds, startRound, stopRound } from "../api/userApi"
 import toast from "react-hot-toast";
 import { useTonConnectUiContext } from "../Context/TonConnectUiContext";
 import { contractAddress } from "../constants";
@@ -35,19 +35,18 @@ export const useEndRound = ()=>{
         const currentRoundId = rounds.length;
         const users = await getAllUsers();
 
-        const {endbetdata,startbetdata} = await endRound(winningNumber);
+        const endbetdata = await endRound(winningNumber);
         if(endbetdata){
             toast.success("Betting Round Ended");
+            const startbetdata = await startRound();
+            if(startbetdata){
+                toast.success("New Round Started");
+            }
         }else{
             toast.error("Error starting round");
             return;
         }
-        if(startbetdata){
-            toast.success("New round started");
-        }else{
-            toast.error("Error starting round");
-            return;
-        }
+        
 
         const tonWinningBets = Dictionary.empty<bigint,Bet>();
         let index = 0;

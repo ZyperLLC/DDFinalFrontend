@@ -113,16 +113,7 @@ export const endRound = async(winningNumber:number)=>{
     winningNumber
   });
   
-  console.log("Endbet called");
-  console.log(res.data);
-  console.log("startbet called");
-  const startData = await startRound();
-  console.log(startData.data);
-  
-  return {
-    endbetdata :res.data,
-    startbetdata:startData.data
-  }
+  return res.data;
 }
 
 export const stopRound = async ()=>{
