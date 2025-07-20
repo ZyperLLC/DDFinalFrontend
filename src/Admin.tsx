@@ -5,7 +5,6 @@ import logo from './assets/logo.jpg';
 import background1 from './assets/background1.jpg';
 
 import {
-  endRound,
   getAllUsers,
   getLatestRound,
   startRound,
