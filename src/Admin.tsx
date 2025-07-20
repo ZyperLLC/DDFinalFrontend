@@ -46,7 +46,9 @@ import dolphin33 from './assets/dolphins/dolphin33.png';
 import dolphin34 from './assets/dolphins/dolphin34.png';
 import dolphin35 from './assets/dolphins/dolphin35.png';
 import dolphin36 from './assets/dolphins/dolphin36.png';
-
+import toast from 'react-hot-toast';
+import { fromNano } from '@ton/ton';
+import { useEndRound } from './hooks/useEndRound';
 
 const dolphinImages: { [key: number]: any } = {
   1: dolphin1, 2: dolphin2, 3: dolphin3, 4: dolphin4, 5: dolphin5, 6: dolphin6,
@@ -57,17 +59,9 @@ const dolphinImages: { [key: number]: any } = {
   31: dolphin31, 32: dolphin32, 33: dolphin33, 34: dolphin34, 35: dolphin35, 36: dolphin36
 };
 
-
-
-
-
-const ADMIN_WALLETS = [
-  'UQCfKkeANoDOCoWLj7uVp9alKU2OPdj0envU-d8Fa-W2-eG8',
-  'UQD4qp7lDCNW94HiMOS0hsAdo_UuWEu7MeWS7wVEKV156D4r',
-];
+const ADMIN_WALLETS = import.meta.env.VITE_ADMIN_WALLET;
 
 const NAVBAR_HEIGHT_PX = 80;
-const ITEMS_PER_PAGE = 10;
 
 export default function AdminPage() {
   const context = useContext(UserContext);
@@ -76,10 +70,13 @@ export default function AdminPage() {
   const [activeFilter, setActiveFilter] = useState<'all' | 'ton' | 'credits'>('all');
   const [userBets, setUserBets] = useState<any[]>([]);
   const [currentRound, setCurrentRound] = useState<any>(null);
-  const [isLoadingRound, setIsLoadingRound] = useState(true);
   const [resultNumber, setResultNumber] = useState<string>('');
   const [checkedBets, setCheckedBets] = useState<any[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentBets,setCurrentBets] = useState<any[]>([]);
+  const [winningNumber,setWinningNumber] = useState<number|null>(null);
+
+  const {stopCurrentRound,endBettingRound} = useEndRound();
+
 
   useEffect(() => {
     if (!walletAddress) return;
@@ -96,6 +93,7 @@ export default function AdminPage() {
 
         const allUsers = await getAllUsers();
         const allBets: any[] = [];
+        const betsToAdd:any[] = [];
 
         allUsers.forEach((user: any) => {
           if (user.betsPlace?.length) {
@@ -105,29 +103,36 @@ export default function AdminPage() {
                 if(allBets[bet.numberBettedOn]){
                   allBets[bet.numberBettedOn] = {
                     nftId:bet.numberBettedOn,
-                    amount:allBets[bet.numberBettedOn].amount+bet.amountBet,
-                    tonAmount:bet.useTon? allBets[bet.numberBettedOn].tonAmount+Number(bet.amountBet) :0,
+                    amount:allBets[bet.numberBettedOn].amount+ Number(bet.useTon?fromNano(bet.amountBet):bet.amountBet),
+                    tonAmount:bet.useTon?allBets[bet.numberBettedOn].tonAmount+Number(fromNano(bet.amountBet)):allBets[bet.numberBettedOn].tonAmount,
                     tokenType:bet.useTon? 'ton':'credits'
                   }  
                 }else{
                   allBets[bet.numberBettedOn]={
                     nftId: bet.numberBettedOn,
-                    amount: bet.amountBet,
-                    tonAmount:bet.useTon?Number(bet.amountBet):0,
+                    amount: bet.useTon?Number(fromNano(bet.amountBet)):Number(bet.amountBet),
+                    tonAmount:bet.useTon?Number(fromNano(bet.amountBet)):0,
                     tokenType: bet.useTon ? 'ton' : 'credits',
                   };
                 }
+                console.log("Pushing this bet",bet);
+                betsToAdd.push({
+                  username:user.username,
+                  walletAddress:user.walletAddress,
+                  bet
+                });
+                console.log("currentbets",currentBets);
               });
           }
         });
         setUserBets(allBets);
+        setCurrentBets(betsToAdd);
+        console.log(currentBets);
       } else {
         setCurrentRound(null); // No round data
       }
     } catch (error) {
       console.error('Error fetching round or user data:', error);
-    } finally {
-      setIsLoadingRound(false);
     }
   };
 
@@ -135,12 +140,28 @@ export default function AdminPage() {
 }, []);
 
 
+const handleEndRound = async()=>{
+  if(!winningNumber || winningNumber<1 || winningNumber >36){
+    toast.error("Please Enter the winning number between 1 to 36");
+  }
+  await endBettingRound(winningNumber??0);  
+  toast.success(`Winning Number${winningNumber}`);
+}
 
 
-  const handleCheckResult = () => {
+
+const handleCheckResult = () => {
     const num = parseInt(resultNumber, 10);
     if (isNaN(num) || !currentRound) return;
-    setCheckedBets(userBets.filter(b => b.nftId === num));
+    if(num<1 && num>36){
+      toast.error("Number should be between 1 to 36");
+      return;
+    }
+    console.log("Numebr to check",num);
+    console.log("CurrentBets",currentBets);
+    const bets = currentBets.filter((betObj:any)=>betObj.bet.numberBettedOn==num);
+    console.log(bets);
+    setCheckedBets(bets);
   };
 
   if (!walletAddress) {
@@ -166,12 +187,10 @@ export default function AdminPage() {
       <div className="flex flex-col items-center text-center">
         <img src={logo} alt="Logo" className="animated-logo mb-14" style={{ width: '250px' }} />
         <h1 className="text-3xl font-bold mb-6">Admin Section</h1>
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
-          <button className="admin-btn">Start Round</button>
-          <button className="admin-btn">Stop Round</button>
-          <input placeholder="Winning Number" value={resultNumber} onChange={e => setResultNumber(e.target.value)} className="bg-gray-800 p-2 rounded text-white w-40 text-center" />
-          <button className="admin-btn" onClick={handleCheckResult}>Check</button>
-          <button className="admin-btn">Distribute Prizes</button>
+        <div className="flex flex-wrap justify-center gap-6 mb-12 flex-col align-center">
+          <button className="admin-btn" onClick={stopCurrentRound}>Stop Betting</button>
+          <input type="number" min={1} max={36} placeholder='Type Winning No.' onChange={(e)=>setWinningNumber(Number(e.target.value))} style={{borderRadius:"10px",padding:"10px 5px"}}/>
+          <button className="admin-btn" onClick={handleEndRound}>End Round</button>
         </div>
       </div>
 
@@ -180,9 +199,7 @@ export default function AdminPage() {
         {/* Current Round Info */}
         <details className="admin-section w-full">
           <summary className="admin-summary text-xl font-semibold">Current Round Info</summary>
-          {isLoadingRound ? (
-            <p className="mt-4">Loading round data...</p>
-          ) : currentRound ? (
+          { currentRound ? (
             <table className="admin-table w-full mt-4 text-white">
               <thead><tr><th>Field</th><th>Value</th></tr></thead>
               <tbody>
@@ -204,22 +221,20 @@ export default function AdminPage() {
         <details className="admin-section w-full">
           <summary className="admin-summary text-xl font-semibold">Total Bets</summary>
           <div className="flex gap-4 mt-4 mb-4">
-            <button className={`admin-btn ${activeFilter === 'all' ? 'bg-blue-600' : ''}`} onClick={() => { setActiveFilter('all'); setCurrentPage(1); }}>All</button>
-            <button className={`admin-btn ${activeFilter === 'ton' ? 'bg-blue-600' : ''}`} onClick={() => { setActiveFilter('ton'); setCurrentPage(1); }}>TON</button>
-            <button className={`admin-btn ${activeFilter === 'credits' ? 'bg-blue-600' : ''}`} onClick={() => { setActiveFilter('credits'); setCurrentPage(1); }}>Credits</button>
+            <button className={`admin-btn ${activeFilter === 'all' ? 'bg-blue-600' : ''}`} onClick={() => { setActiveFilter('all');}}>All</button>
+            <button className={`admin-btn ${activeFilter === 'ton' ? 'bg-blue-600' : ''}`} onClick={() => { setActiveFilter('ton');}}>TON</button>
+            <button className={`admin-btn ${activeFilter === 'credits' ? 'bg-blue-600' : ''}`} onClick={() => { setActiveFilter('credits'); }}>Credits</button>
           </div>
           <table className="admin-table w-full mb-4 text-white">
             <thead><tr><th>No.</th><th>NFT</th><th>Total</th><th>TON</th><th>Credit</th></tr></thead>
             <tbody>
-              {userBets.map((bet, idx) => (
-                <tr key={idx}>
-                  <td>{(currentPage - 1) * ITEMS_PER_PAGE + idx + 1}</td>
-                  <td className="flex items-center gap-2">
-                    <img src={dolphinImages[bet.nftId]} className="dolphin" alt="dolphin" style={{width:"50px",height:"50px"}}/>
-                  </td>
-                  <td>{bet.amount}</td>
-                  <td>{bet.tonAmount}</td>
-                  <td>{bet.amount-bet.tonAmount}</td>
+              {userBets.map((b:any)=>(
+                <tr>
+                <td>{b.nftId}</td>
+                <td><img src={dolphinImages[b.nftId]} width="40px"/></td>
+                <td>{(b.amount.toFixed(2))}</td>
+                <td>{b.tonAmount}</td>
+                <td>{b.amount.toFixed(2)-b.tonAmount}</td>
                 </tr>
               ))}
             </tbody>
@@ -229,21 +244,22 @@ export default function AdminPage() {
         {/* Result Mockup */}
         <details className="admin-section w-full">
           <summary className="admin-summary text-xl font-semibold">Result Mockup</summary>
-          {checkedBets.length > 0 ? (
+          <input placeholder="Winning Number" value={resultNumber} onChange={e => setResultNumber(e.target.value)} className="bg-gray-800 p-2 rounded text-white w-40 text-center" />
+          <button className="admin-btn" onClick={handleCheckResult}>Check</button>
+          {checkedBets.length > 0 ?
             <table className="admin-table w-full mt-4 text-white">
               <thead><tr><th>Username</th><th>Amount</th><th>Token</th></tr></thead>
-              <tbody>
-                {checkedBets.map((b, i) => (
-                  <tr key={i}>
-                    <td>{b.username}</td>
-                    <td>{b.amount}</td>
-                    <td>{b.tokenType.toUpperCase()}</td>
-                  </tr>
-                ))}
-              </tbody>
+              
+              {checkedBets.map((betObject:any)=>(
+                <tr>
+                <td>{betObject.username}</td>
+                <td>{betObject.bet.useTon?fromNano(betObject.bet.amountBet):betObject.bet.amountBet}</td>
+                <td>{betObject.bet.useTon?'ton':'credit'}</td>
+              </tr>
+              ))}
             </table>
-          ) : (
-            <p className="mt-4">No matching bets for this number.</p>
+           :(
+            <p className="mt-4 text-white">No matching bets for this number.</p>
           )}
         </details>
       </div>
