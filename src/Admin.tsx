@@ -184,19 +184,12 @@ export default function AdminPage() {
 
         <div className="flex flex-wrap justify-center gap-6 mb-12 flex-col items-center">
           <button className="admin-btn" onClick={stopCurrentRound}>Stop Betting</button>
-          <input
-            type="number"
-            min={1}
-            max={36}
-            placeholder='Type Winning No.'
-            onChange={(e) => setWinningNumber(Number(e.target.value))}
-            style={{ borderRadius: "10px", padding: "10px 5px" }}
-          />
+           <input type="number" min={1} max={36} placeholder='Type Winning No.' onChange={(e)=>setWinningNumber(Number(e.target.value))} style={{borderRadius:"10px",padding:"10px 5px", width:'full'}}/>
           <button className="admin-btn" onClick={handleEndRound}>End Round</button>
         </div>
       </div>
 
-      <div className="flex flex-col gap-6 space-y-16 max-w-3xl px-6">
+      <div className="flex flex-col space-y-32 max-w-3xl px-6">
 
         {/* Current Round Info */}
         <Accordion title="Current Round Info">
