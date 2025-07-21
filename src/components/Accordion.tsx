@@ -11,10 +11,10 @@ export function Accordion({
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="w-full bg-[#1f1f1f] rounded-lg overflow-hidden border border-gray-600">
+    <div className="w-full rounded-lg overflow-hidden text-white ">
       <button
         onClick={() => setIsOpen((prev) => !prev)}
-        className="w-full text-left px-4 py-3 bg-[#2a2a2a] text-xl font-semibold"
+        className="w-full text-left px-4 py-3 text-xl font-semibold"
       >
         {title}
       </button>
