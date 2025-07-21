@@ -106,7 +106,7 @@ export default function AdminPage() {
                     amount:allBets[bet.numberBettedOn].amount+ Number(bet.useTon?fromNano(bet.amountBet):bet.amountBet),
                     tonAmount:bet.useTon?allBets[bet.numberBettedOn].tonAmount+Number(fromNano(bet.amountBet)):allBets[bet.numberBettedOn].tonAmount,
                     tokenType:bet.useTon? 'ton':'credits'
-                  }  
+                  }
                 }else{
                   allBets[bet.numberBettedOn]={
                     nftId: bet.numberBettedOn,
@@ -144,7 +144,7 @@ const handleEndRound = async()=>{
   if(!winningNumber || winningNumber<1 || winningNumber >36){
     toast.error("Please Enter the winning number between 1 to 36");
   }
-  await endBettingRound(winningNumber??0);  
+  await endBettingRound(winningNumber??0);
   toast.success(`Winning Number${winningNumber}`);
 }
 
@@ -249,7 +249,7 @@ const handleCheckResult = () => {
           {checkedBets.length > 0 ?
             <table className="admin-table w-full mt-4 text-white">
               <thead><tr><th>Username</th><th>Amount</th><th>Token</th></tr></thead>
-              
+
               {checkedBets.map((betObject:any)=>(
                 <tr>
                 <td>{betObject.username}</td>
