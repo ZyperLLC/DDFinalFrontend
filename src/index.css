@@ -431,6 +431,8 @@ html, body {
   width: 100%;
   box-sizing: border-box;
   background: rgba(0, 0, 0, 0); /* transparent */
+  overflow: hidden; 
+  border-radius: inherit;
 }
 
 .popup-content h2 {
