@@ -106,6 +106,16 @@ export const withdrawFunds = async (telegramId: string, amount: number) => {
   return res.data;
 }
 
+export const endRound = async(winningNumber:number)=>{
+  const currentRound = await getLatestRound();
+  const res = await axios.post(`${BASE_URL}/api/bets/endbet`,{
+    betId:currentRound.bettingRoundNo,
+    winningNumber
+  });
+  
+  return res.data;
+}
+
 export const stopRound = async ()=>{
   const res = await axios.post(`${BASE_URL}/api/bets/stopbetting`);
   return res.data;
@@ -113,5 +123,10 @@ export const stopRound = async ()=>{
 
 export const getAllUsers = async()=>{
   const res = await axios.get(`${BASE_URL}/api/users`);
+  return res.data;
+}
+
+export const startRound = async()=>{
+  const res = await axios.post(`${BASE_URL}/api/bets/startbet`);
   return res.data;
 }
