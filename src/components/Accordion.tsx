@@ -1,41 +1,31 @@
+import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 
-interface AccordionProps {
+export function Accordion({
+  title,
+  children,
+}: {
   title: string;
   children: React.ReactNode;
-}
-
-export default function Accordion({ title, children }: AccordionProps) {
+}) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="w-full max-w-2xl mb-10 text-white text-left border border-white/30 rounded-md bg-black/30">
+    <div className="w-full bg-[#1f1f1f] rounded-lg overflow-hidden border border-gray-600">
       <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="w-full text-left px-4 py-3 text-xl font-semibold flex justify-between items-center"
+        onClick={() => setIsOpen((prev) => !prev)}
+        className="w-full text-left px-4 py-3 bg-[#2a2a2a] text-xl font-semibold"
       >
-        <span>{title}</span>
-        <motion.span
-          animate={{ rotate: isOpen ? 180 : 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          ▼
-        </motion.span>
+        {title}
       </button>
-
       <AnimatePresence initial={false}>
         {isOpen && (
           <motion.div
-            className="px-4 pb-4 pt-2"
-            initial="collapsed"
-            animate="open"
-            exit="collapsed"
-            variants={{
-              open: { opacity: 1, height: 'auto' },
-              collapsed: { opacity: 0, height: 0 },
-            }}
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.4, ease: 'easeInOut' }}
+            className="px-4 py-3"
           >
             {children}
           </motion.div>
