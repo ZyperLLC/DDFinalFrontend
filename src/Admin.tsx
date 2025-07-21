@@ -182,7 +182,7 @@ export default function AdminPage() {
         <img src={logo} alt="Logo" className="animated-logo mb-14" style={{ width: '250px' }} />
         <h1 className="text-3xl font-bold mb-6" style={{color:'white'}}>Admin Section</h1>
 
-        <div className="flex flex-wrap justify-center gap-6 mb-12 flex-col items-center">
+        <div className="flex flex-wrap justify-center gap-6 mb-12 flex-col items-center mb-10">
           <button className="admin-btn" onClick={stopCurrentRound}>Stop Betting</button>
           <input
             type="number"
@@ -196,7 +196,7 @@ export default function AdminPage() {
         </div>
       </div>
 
-      <div className="flex flex-col gap-6 space-y-16 max-w-3xl px-6">
+      <div className="flex flex-col space-y-32 max-w-3xl px-6">
 
         {/* Current Round Info */}
         <Accordion title="Current Round Info">

@@ -15,17 +15,17 @@ export default function Accordion({ title, children }: AccordionProps) {
 
     >
       <button
-  onClick={() => setIsOpen(!isOpen)}
-  className="w-full px-4 py-3 text-2xl font-semibold flex justify-between items-center"
-  style={{
-    background: 'rgba(0, 0, 50, 0.088)',
-    color: 'white',
-    border: '2px solid rgba(0, 123, 255, 0.6)', // RGB border
-    borderRadius: '8px' // Optional: add rounded corners
-  }}
->
-  
-        <span >{title}</span>
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full px-4 py-3 text-2xl font-semibold flex justify-between items-center"
+      style={{
+       background: 'rgba(0, 0, 50, 0.088)',
+       color: 'white',
+       border: '2px solid rgba(0, 123, 255, 0.6)',
+       borderRadius: '8px'
+        }}
+        >
+
+        <span  style={{fontSize:'16px'}}>{title}</span>
         <motion.span
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.3 }}
