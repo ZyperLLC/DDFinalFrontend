@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
 import logo from './assets/logo.jpg';
-import background1 from './assets/background1.jpg';
 import './index.css';
 
 import WelcomePopup from './components/WelcomePopup';
@@ -9,7 +8,13 @@ import TimerCard from './components/TimerCard';
 import DolphinGrid from './components/DolphinGrid';
 import Navbar from './components/Navbar';
 import DolphinPopup from './components/DolphinPopup';
+import BackgroundOverlay from './components/BackgroundOverlay';
 
+import { UserContext } from './Context/UserContextProvider';
+import { motion } from 'framer-motion';
+import { slideUpFade } from './utils/animations';
+
+// Dolphin images
 import dolphin1 from './assets/dolphins/dolphin1.jpg';
 import dolphin2 from './assets/dolphins/dolphin2.jpg';
 import dolphin3 from './assets/dolphins/dolphin3.jpg';
@@ -46,9 +51,6 @@ import dolphin33 from './assets/dolphins/dolphin33.png';
 import dolphin34 from './assets/dolphins/dolphin34.png';
 import dolphin35 from './assets/dolphins/dolphin35.png';
 import dolphin36 from './assets/dolphins/dolphin36.png';
-import { UserContext } from './Context/UserContextProvider';
-import { motion } from 'framer-motion';
-import { slideUpFade } from './utils/animations';
 
 const dolphins = [
   { image: dolphin1, name: 'RUGPULL RAY' },
@@ -92,90 +94,69 @@ const dolphins = [
 function Home() {
   const [timer, setTimer] = useState(0);
   const context = useContext(UserContext);
-  const [showPopup, setShowPopup] = useState(context?.user.telegramId ? false : true);
-  const [selectedDolphin, setSelectedDolphin] = useState<null | { id:number,image: string; name: string }>(null);
+  const [showPopup, setShowPopup] = useState(!context?.user.telegramId);
+  const [selectedDolphin, setSelectedDolphin] = useState<null | { id: number; image: string; name: string }>(null);
   const [isDolphinPopupVisible, setIsDolphinPopupVisible] = useState(false);
 
   useEffect(() => {
-   function getTimeUntilTarget() {
-  const now = new Date();
-  let targetTime = new Date();
-  targetTime.setUTCHours(20, 0, 0, 0); // 5:20 PM UTC
-  
-  // Debug: Log current time and target time
-  console.log('Current time:', now.toISOString());
-  console.log('Target time (today):', targetTime.toISOString());
-  
-  // If today's target time has already passed, set target to tomorrow
-  if (now >= targetTime) {
-    targetTime.setUTCDate(targetTime.getUTCDate() + 1);
-    console.log('Target moved to tomorrow:', targetTime.toISOString());
-  }
-  
-  // Calculate seconds until target
-  const timeDiff = targetTime.getTime() - now.getTime();
-  const secondsUntil = Math.floor(timeDiff / 1000);
-  
-  console.log('Time difference (ms):', timeDiff);
-  console.log('Seconds until target:', secondsUntil);
-  
-  return Math.max(0, secondsUntil);
-}
+    const getTimeUntilTarget = () => {
+      const now = new Date();
+      let targetTime = new Date();
+      targetTime.setUTCHours(20, 0, 0, 0);
+      if (now >= targetTime) targetTime.setUTCDate(targetTime.getUTCDate() + 1);
+      return Math.max(0, Math.floor((targetTime.getTime() - now.getTime()) / 1000));
+    };
 
     const interval = setInterval(() => {
-      const timeUntil = getTimeUntilTarget();
-      setTimer(timeUntil);
+      setTimer(getTimeUntilTarget());
     }, 1000);
 
     return () => clearInterval(interval);
   }, []);
 
-  // show popup when a dolphin is selected
   useEffect(() => {
-    if (selectedDolphin) {
-      setIsDolphinPopupVisible(true); // fade in
-    }
+    if (selectedDolphin) setIsDolphinPopupVisible(true);
   }, [selectedDolphin]);
 
-  const handleDolphinClose = () => {
-    setIsDolphinPopupVisible(false); // trigger fade-out
-  };
-
-  const handleDolphinExit = () => {
-    setSelectedDolphin(null); // fully unmount after fade-out
-  };
+  const handleDolphinClose = () => setIsDolphinPopupVisible(false);
+  const handleDolphinExit = () => setSelectedDolphin(null);
 
   return (
-    <div className="page" style={{ backgroundImage: `url(${background1})` }}>
-      {showPopup && <WelcomePopup onClose={() => setShowPopup(false)} />}
-      <LanguageSwitcher />
+    <div className="relative w-full min-h-screen overflow-hidden">
+      <BackgroundOverlay />
 
-      <motion.div variants={slideUpFade} initial="hidden" animate="visible" className={`main-content-wrapper ${showPopup ? 'blurred' : ''}`}>
-        <img src={logo} alt="Logo" className="page-logo" />
-        <TimerCard timer={timer} />
-        <DolphinGrid
-          dolphins={dolphins.map((d) => d.image)}
-          onDolphinClick={(index) => {
-            setSelectedDolphin({
-              id:index,
-              image: dolphins[index].image,
-              name: dolphins[index].name,
-            });
-          }}
-        />
-        <Navbar />
-      </motion.div>
+      <div className=" page relative z-10">
+        {showPopup && <WelcomePopup onClose={() => setShowPopup(false)} />}
+        <LanguageSwitcher />
 
-      {selectedDolphin && (
-        <DolphinPopup
-          id={selectedDolphin.id}
-          image={selectedDolphin.image}
-          name={selectedDolphin.name}
-          isVisible={isDolphinPopupVisible}
-          onClose={handleDolphinClose}
-          onExit={handleDolphinExit}
-        />
-      )}
+        <motion.div
+          variants={slideUpFade}
+          initial="hidden"
+          animate="visible"
+          className={`main-content-wrapper ${showPopup ? 'blurred' : ''}`}
+        >
+          <img src={logo} alt="Logo" className="page-logo" />
+          <TimerCard timer={timer} />
+          <DolphinGrid
+            dolphins={dolphins.map((d) => d.image)}
+            onDolphinClick={(index) =>
+              setSelectedDolphin({ id: index, image: dolphins[index].image, name: dolphins[index].name })
+            }
+          />
+          <Navbar />
+        </motion.div>
+
+        {selectedDolphin && (
+          <DolphinPopup
+            id={selectedDolphin.id}
+            image={selectedDolphin.image}
+            name={selectedDolphin.name}
+            isVisible={isDolphinPopupVisible}
+            onClose={handleDolphinClose}
+            onExit={handleDolphinExit}
+          />
+        )}
+      </div>
     </div>
   );
 }
