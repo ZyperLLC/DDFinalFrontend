@@ -74,13 +74,11 @@ export default function Profile() {
     setIsWithdrawPopupVisible(true);
   };
 
-  // Pagination logic for game history
+  // Pagination logic
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 3;
-
   const bets = context?.user.bets || [];
   const totalPages = Math.ceil(bets.length / itemsPerPage);
-
   const paginatedBets = bets.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
@@ -104,20 +102,15 @@ export default function Profile() {
 
       {isWalletConnected && (
         <div className="w-full mt-6 mb-6 px-4">
-          <div
-            className="w-[80%] max-w-[360px] mx-auto rounded-[16px] shadow-[0_4px_20px_rgba(0,0,0,0.3)] backdrop-blur-[10px]"
-            style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.08)',
-              color: 'white',
-              padding: '1.25rem',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '1rem',
-            }}
-          >
-            <h2 className="text-[1.5rem] font-bold text-left" style={{ margin: 0 }}>
-              {t('profile.balance')}
-            </h2>
+          <div className="w-[80%] max-w-[360px] mx-auto rounded-[16px] shadow-[0_4px_20px_rgba(0,0,0,0.3)] backdrop-blur-[10px]" style={{
+            backgroundColor: 'rgba(255, 255, 255, 0.08)',
+            color: 'white',
+            padding: '1.25rem',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '1rem',
+          }}>
+            <h2 className="text-[1.5rem] font-bold text-left">{t('profile.balance')}</h2>
 
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-3">
@@ -149,16 +142,15 @@ export default function Profile() {
         </div>
       )}
 
-      {/* Staked NFTs */}
       <SectionBox title={t('profile.stakedNfts')}>
-        {context?.user.stakedNfts && context?.user.stakedNfts.length === 0 &&
-          <p style={{ color: 'white' }} className="text-center">No Dolphin Dash NFTs staked</p>}
-        {context?.user.stakedNfts && context.user.stakedNfts.length > 0 && context.user.stakedNfts.map((nft) => (
-          <StakedNFTCard contractAddress={nft.nftAddress} />
+        {context?.user.stakedNfts?.length === 0 && (
+          <p style={{ color: 'white' }} className="text-center">No Dolphin Dash NFTs staked</p>
+        )}
+        {context?.user.stakedNfts?.map((nft) => (
+          <StakedNFTCard key={nft.nftAddress} contractAddress={nft.nftAddress} />
         ))}
       </SectionBox>
 
-      {/* Game History with Pagination */}
       <SectionBox title={t('profile.gameHistory')}>
         {bets.length === 0 ? (
           <p style={{ color: 'white' }} className="text-center">No games played yet</p>
@@ -178,27 +170,113 @@ export default function Profile() {
 
             <div className="flex justify-center items-center mt-4 gap-2 text-white">
               <button
-                className="px-3 py-1 rounded bg-gray-700 hover:bg-gray-600 disabled:opacity-50"
+                className="px-3 py-1 rounded"
+                style={{
+                  backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                  color: 'white',
+                  opacity: currentPage === 1 ? 0.5 : 1,
+                }}
                 onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
                 disabled={currentPage === 1}
               >
                 Prev
               </button>
 
-              {Array.from({ length: totalPages }, (_, i) => (
-                <button
-                  key={i}
-                  className={`px-3 py-1 rounded ${
-                    currentPage === i + 1 ? 'bg-blue-600' : 'bg-gray-700'
-                  } hover:bg-gray-600`}
-                  onClick={() => setCurrentPage(i + 1)}
-                >
-                  {i + 1}
-                </button>
-              ))}
+              {/* Pagination with ellipses */}
+              {totalPages <= 5 ? (
+                Array.from({ length: totalPages }, (_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setCurrentPage(i + 1)}
+                    style={{
+                      backgroundColor:
+                        currentPage === i + 1
+                          ? 'rgba(59, 130, 246, 1)'
+                          : 'rgba(255, 255, 255, 0.08)',
+                      color: 'white',
+                    }}
+                    className="px-3 py-1 rounded hover:opacity-90"
+                  >
+                    {i + 1}
+                  </button>
+                ))
+              ) : (
+                <>
+                  <button
+                    onClick={() => setCurrentPage(1)}
+                    style={{
+                      backgroundColor:
+                        currentPage === 1
+                          ? 'rgba(59, 130, 246, 1)'
+                          : 'rgba(255, 255, 255, 0.08)',
+                      color: 'white',
+                    }}
+                    className="px-3 py-1 rounded hover:opacity-90"
+                  >
+                    1
+                  </button>
+
+                  {currentPage > 3 && <span className="px-2 text-white">...</span>}
+
+                  {currentPage > 2 && currentPage < totalPages - 1 && (
+                    <>
+                      <button
+                        onClick={() => setCurrentPage(currentPage - 1)}
+                        style={{
+                          backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                          color: 'white',
+                        }}
+                        className="px-3 py-1 rounded hover:opacity-90"
+                      >
+                        {currentPage - 1}
+                      </button>
+                      <button
+                        style={{
+                          backgroundColor: 'rgba(59, 130, 246, 1)',
+                          color: 'white',
+                        }}
+                        className="px-3 py-1 rounded"
+                      >
+                        {currentPage}
+                      </button>
+                      <button
+                        onClick={() => setCurrentPage(currentPage + 1)}
+                        style={{
+                          backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                          color: 'white',
+                        }}
+                        className="px-3 py-1 rounded hover:opacity-90"
+                      >
+                        {currentPage + 1}
+                      </button>
+                    </>
+                  )}
+
+                  {currentPage < totalPages - 2 && <span className="px-2 text-white">...</span>}
+
+                  <button
+                    onClick={() => setCurrentPage(totalPages)}
+                    style={{
+                      backgroundColor:
+                        currentPage === totalPages
+                          ? 'rgba(59, 130, 246, 1)'
+                          : 'rgba(255, 255, 255, 0.08)',
+                      color: 'white',
+                    }}
+                    className="px-3 py-1 rounded hover:opacity-90"
+                  >
+                    {totalPages}
+                  </button>
+                </>
+              )}
 
               <button
-                className="px-3 py-1 rounded bg-gray-700 hover:bg-gray-600 disabled:opacity-50"
+                className="px-3 py-1 rounded"
+                style={{
+                  backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                  color: 'white',
+                  opacity: currentPage === totalPages ? 0.5 : 1,
+                }}
                 onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
                 disabled={currentPage === totalPages}
               >
