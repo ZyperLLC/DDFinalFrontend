@@ -12,13 +12,20 @@ export default function Accordion({ title, children }: AccordionProps) {
   return (
     <div
       className="w-full max-w-2xl mb-6 rounded-md text-left"
-      style={{ background: 'rgba(0, 0, 50, 0.088)', color:'white' }}
+
     >
       <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="w-full px-4 py-3 text-2xl font-semibold flex justify-between items-center"
-      >
-        <span>{title}</span>
+  onClick={() => setIsOpen(!isOpen)}
+  className="w-full px-4 py-3 text-2xl font-semibold flex justify-between items-center"
+  style={{
+    background: 'rgba(0, 0, 50, 0.088)',
+    color: 'white',
+    border: '2px solid rgba(0, 123, 255, 0.6)', // RGB border
+    borderRadius: '8px' // Optional: add rounded corners
+  }}
+>
+  
+        <span >{title}</span>
         <motion.span
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.3 }}
