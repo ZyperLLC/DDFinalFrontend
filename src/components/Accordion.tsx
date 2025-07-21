@@ -11,8 +11,8 @@ export default function Accordion({ title, children }: AccordionProps) {
 
   return (
     <div
-      className="w-full max-w-2xl mb-6 rounded-md text-white text-left"
-      style={{ backgroundColor: 'rgba(0, 0, 50, 0.088)', color:'white' }}
+      className="w-full max-w-2xl mb-6 rounded-md text-left"
+      style={{ background: 'rgba(0, 0, 50, 0.088)', color:'white' }}
     >
       <button
         onClick={() => setIsOpen(!isOpen)}
