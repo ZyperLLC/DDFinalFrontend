@@ -451,7 +451,7 @@ html, body {
 }
 
 .popup-content ul li {
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.5rem;
   font-size: 0.95rem;
   display: flex;
   align-items: flex-start;
@@ -467,6 +467,7 @@ html, body {
   align-items: center;
   width: 100%;
   text-align: center;
+
 }
 
 /* Responsive */
