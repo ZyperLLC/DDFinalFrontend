@@ -24,6 +24,7 @@ export default function WelcomePopup({ onClose }: { onClose: () => void }) {
         initial="hidden"
         animate="visible"
       >
+        <div className='popup-inner-content'>
         {/* Title*/}
         <h2 >{t('welcome_popup.title')}</h2>
 
@@ -42,6 +43,7 @@ export default function WelcomePopup({ onClose }: { onClose: () => void }) {
         {/* Connect Button*/}
         <div className="w-full px-4 mt-2">
           <ConnectButton />
+        </div>
         </div>
       </motion.div>
     </div>

@@ -397,7 +397,7 @@ html, body {
   transform: translate(-50%, -50%);
   background-repeat: no-repeat;
   background-position: center;
-  background-size: cover;
+  background-size: contain;
   aspect-ratio: 3 / 4;
   border-radius: 20px;
   overflow: hidden;
@@ -414,7 +414,10 @@ html, body {
 }
 
 .popup-content {
-  padding-top: 50%; /* Push content to start halfway down */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   padding-left: 1.2rem;
   padding-right: 1.2rem;
   padding-bottom: 1.5rem;
@@ -452,6 +455,16 @@ html, body {
   align-items: flex-start;
   gap: 0.75rem;
   word-break: break-word;
+}
+
+.popup-inner-content {
+  padding: 3rem 1.2rem 1.5rem;
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  text-align: center;
 }
 
 /* Responsive */
