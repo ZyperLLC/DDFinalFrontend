@@ -184,15 +184,16 @@ export default function AdminPage() {
 
         <div className="flex flex-wrap justify-center gap-6 mb-12 flex-col items-center">
           <button className="admin-btn" onClick={stopCurrentRound}>Stop Betting</button>
-           <input type="number" min={1} max={36} placeholder='Type Winning No.' onChange={(e)=>setWinningNumber(Number(e.target.value))} style={{borderRadius:"10px",padding:"10px 5px", width:'full'}}/>
+           <input type="number" min={1} max={36} placeholder='Type Winning No.' onChange={(e)=>setWinningNumber(Number(e.target.value))} style={{borderRadius:"10px", padding:"10px 5px", width:'50%'}}/>
           <button className="admin-btn" onClick={handleEndRound}>End Round</button>
         </div>
       </div>
 
-      <div className="flex flex-col space-y-32 max-w-3xl px-6">
+      <div className="flex flex-col space-y-16 max-w-3xl px-6 mt-10">
 
         {/* Current Round Info */}
-        <Accordion title="Current Round Info">
+        <div>
+         <Accordion title="Current Round Info">
           {currentRound ? (
             <table className="admin-table w-full mt-4 text-white">
               <thead><tr><th>Field</th><th>Value</th></tr></thead>
@@ -209,10 +210,12 @@ export default function AdminPage() {
           ) : (
             <p className="mt-4">No round found.</p>
           )}
-        </Accordion>
+         </Accordion>
+        </div>
 
         {/* Total Bets */}
-        <Accordion title="Total Bets">
+        <div>
+         <Accordion title="Total Bets">
           <div className="flex gap-4 mt-4 mb-4">
             <button className={`admin-btn ${activeFilter === 'all' ? 'bg-blue-600' : ''}`} onClick={() => setActiveFilter('all')}>All</button>
             <button className={`admin-btn ${activeFilter === 'ton' ? 'bg-blue-600' : ''}`} onClick={() => setActiveFilter('ton')}>TON</button>
@@ -233,8 +236,10 @@ export default function AdminPage() {
             </tbody>
           </table>
         </Accordion>
+        </div>
 
         {/* Result Mockup */}
+        <div>
         <Accordion title="Result Mockup">
           <input
             placeholder="Winning Number"
@@ -260,6 +265,7 @@ export default function AdminPage() {
             <p className="mt-4 text-white">No matching bets for this number.</p>
           )}
         </Accordion>
+        </div>
       </div>
 
       <div className="fixed bottom-0 left-0 w-full" style={{ height: `${NAVBAR_HEIGHT_PX}px` }}>
