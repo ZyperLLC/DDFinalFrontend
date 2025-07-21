@@ -3,7 +3,7 @@ import { UserContext } from './Context/UserContextProvider';
 import Navbar from './components/Navbar';
 import logo from './assets/logo.jpg';
 import background1 from './assets/background1.jpg';
-import { Accordion } from './components/Accordion';
+import  Accordion  from './components/Accordion';
 import {
   getAllUsers,
   getLatestRound,
@@ -196,7 +196,7 @@ export default function AdminPage() {
         </div>
       </div>
 
-      <div className="flex flex-col space-y-16 max-w-3xl px-6">
+      <div className="flex flex-col gap-3 space-y-16 max-w-3xl px-6">
 
         {/* Current Round Info */}
         <Accordion title="Current Round Info">
