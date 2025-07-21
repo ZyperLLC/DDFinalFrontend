@@ -1,4 +1,5 @@
 import { X } from 'lucide-react';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import popupImage from '../assets/popupbg.jpg';
@@ -8,7 +9,15 @@ import { slideUpFade } from '../utils/animations';
 
 export default function WelcomePopup({ onClose }: { onClose: () => void }) {
   const { t } = useTranslation();
+  useEffect(() => {
+    // Lock scroll when popup opens
+    document.body.style.overflow = 'hidden';
 
+    return () => {
+      // Unlock scroll when popup closes
+      document.body.style.overflow = '';
+    };
+  }, []);
   return (
     <div
       className="welcome-popup-image-bg"
