@@ -182,9 +182,9 @@ export default function AdminPage() {
         <img src={logo} alt="Logo" className="animated-logo mb-14" style={{ width: '250px' }} />
         <h1 className="text-3xl font-bold mb-6" style={{color:'white'}}>Admin Section</h1>
 
-        <div className="flex flex-wrap justify-center gap-6 mb-12 flex-col items-center mb-10">
+        <div className="flex flex-wrap justify-center gap-6 mb-12 flex-col items-center">
           <button className="admin-btn" onClick={stopCurrentRound}>Stop Betting</button>
-           <input type="number" min={1} max={36} placeholder='Type Winning No.' onChange={(e)=>setWinningNumber(Number(e.target.value))} style={{borderRadius:"10px",padding:"10px 5px"}}/>
+           <input type="number" min={1} max={36} placeholder='Type Winning No.' onChange={(e)=>setWinningNumber(Number(e.target.value))} style={{borderRadius:"10px",padding:"10px 5px", width:'full'}}/>
           <button className="admin-btn" onClick={handleEndRound}>End Round</button>
         </div>
       </div>
