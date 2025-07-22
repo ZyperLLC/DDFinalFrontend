@@ -156,6 +156,13 @@ export default function Profile() {
           <p style={{ color: 'white' }} className="text-center">No games played yet</p>
         ) : (
           <>
+            <motion.div
+              key={currentPage}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
             {paginatedBets.map((bet, index) => (
               <GameHistoryCard
                 key={index}
@@ -167,7 +174,7 @@ export default function Profile() {
                 result={bet.hasWon ? 'win' : 'lose'}
               />
             ))}
-
+          </motion.div>
             <div className="flex justify-center items-center mt-4 gap-2 text-white">
               <button
                 className="px-3 py-1 rounded"
