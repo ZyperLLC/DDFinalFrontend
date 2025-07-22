@@ -36,7 +36,7 @@ export default function Button({ text, onClick, className = '' }: ButtonProps) {
       } ${className}`}
     >
       {isLoading ? (
-        <span className="w-6 h-6 rounded-full border-[1px] border-white animate-spin-full"></span>
+        <span className="w-6 h-6 rounded-full border-[3px] border-white animate-spin-full"></span>
       ) : (
         text
       )}
