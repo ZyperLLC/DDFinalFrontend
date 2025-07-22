@@ -13,6 +13,8 @@ import { fromNano } from '@ton/ton';
 import { useEndRound } from './hooks/useEndRound';
 import { motion } from 'framer-motion';
 import { slideUpFade } from './utils/animations';
+import Button from './components/Button';
+
 
 // Dolphin images
 import dolphin1 from './assets/dolphins/dolphin1.jpg';
@@ -189,9 +191,9 @@ export default function AdminPage() {
         <h1 className="text-3xl font-bold mb-6" style={{color:'white'}}>Admin Section</h1>
 
         <div className="flex flex-wrap justify-center gap-6 mb-12 flex-col items-center">
-          <button className="admin-btn" onClick={stopCurrentRound}>Stop Betting</button>
+          <Button text="Stop Betting" onClick={stopCurrentRound} />
            <input type="number" min={1} max={36} placeholder='Type Winning No.' onChange={(e)=>setWinningNumber(Number(e.target.value))} style={{borderRadius:"10px", padding:"10px 5px", width:'100%'}}/>
-          <button className="admin-btn" onClick={handleEndRound}>End Round</button>
+            <Button text="End Round" onClick={handleEndRound} />
         </div>
       </div>
 
@@ -253,7 +255,7 @@ export default function AdminPage() {
             onChange={e => setResultNumber(e.target.value)}
             className="bg-gray-800 p-2 rounded text-white w-40 text-center"
           />
-          <button className="admin-btn mt-2" onClick={handleCheckResult}>Check</button>
+           <Button text="Check" onClick={handleCheckResult} />
           {checkedBets.length > 0 ? (
             <table className="admin-table w-full mt-4 text-white">
               <thead><tr><th>Username</th><th>Amount</th><th>Token</th></tr></thead>

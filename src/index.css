@@ -200,6 +200,23 @@ html, body {
   background-color: rgba(114, 9, 183, 0.7);
 }
 
+.loader {
+  border-top-color: white;
+  border-right-color: transparent;
+  border-radius: 9999px;
+  border-width: 2px;
+  width: 1rem;
+  height: 1rem;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
 
 /* ========= Home Page ========= */
 .page {
