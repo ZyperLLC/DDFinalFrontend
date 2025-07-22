@@ -23,6 +23,7 @@ export default function Accordion({ title, children }: AccordionProps) {
        border: '1px solid rgba(0, 123, 255, 0.6)',
        borderRadius: '8px',
        marginBottom: '8px',
+       marginTop: '4px',
        padding: '8px',
 
         }}
