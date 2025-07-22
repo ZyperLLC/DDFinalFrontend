@@ -249,7 +249,6 @@ export default function AdminPage() {
         {/* Result Mockup */}
         <div className='mb-6'>
         <Accordion title="Result Mockup">
-          <div className="mt-5">
           <input
             placeholder="Winning Number"
             value={resultNumber}
@@ -257,7 +256,6 @@ export default function AdminPage() {
             className="bg-gray-800 p-2 rounded text-white w-40 text-center"
           />
            <Button text="Check" onClick={handleCheckResult} />
-           </div>
           {checkedBets.length > 0 ? (
             <table className="admin-table w-full mt-5 text-white">
               <thead><tr><th>Username</th><th>Amount</th><th>Token</th></tr></thead>
