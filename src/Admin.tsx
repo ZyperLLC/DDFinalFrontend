@@ -11,6 +11,8 @@ import {
 import toast from 'react-hot-toast';
 import { fromNano } from '@ton/ton';
 import { useEndRound } from './hooks/useEndRound';
+import { motion } from 'framer-motion';
+import { slideUpFade } from './utils/animations';
 
 // Dolphin images
 import dolphin1 from './assets/dolphins/dolphin1.jpg';
@@ -177,7 +179,11 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="min-h-screen text-white p-6" style={{ backgroundImage: `url(${background1})`, backgroundSize: 'cover', paddingBottom: `${NAVBAR_HEIGHT_PX}px` }}>
+    <motion.div
+      variants={slideUpFade}
+      initial="hidden"
+      animate="visible"
+      className="min-h-screen text-white p-6" style={{ backgroundImage: `url(${background1})`, backgroundSize: 'cover', paddingBottom: `${NAVBAR_HEIGHT_PX}px` }}>
       <div className="flex flex-col items-center text-center">
         <img src={logo} alt="Logo" className="animated-logo mb-14" style={{ width: '250px' }} />
         <h1 className="text-3xl font-bold mb-6" style={{color:'white'}}>Admin Section</h1>
@@ -271,6 +277,6 @@ export default function AdminPage() {
       <div className="fixed bottom-0 left-0 w-full" style={{ height: `${NAVBAR_HEIGHT_PX}px` }}>
         <Navbar />
       </div>
-    </div>
+    </motion.div>
   );
 }
