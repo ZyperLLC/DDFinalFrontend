@@ -189,7 +189,7 @@ export default function AdminPage() {
         </div>
       </div>
 
-      <div className="flex flex-col justify-betwwen gap-6 max-w-3xl px-6 mt-10">
+      <div className="flex flex-col justify-between gap-6 max-w-3xl px-6 mt-10">
 
         {/* Current Round Info */}
         <div>
