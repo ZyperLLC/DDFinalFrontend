@@ -197,10 +197,10 @@ export default function AdminPage() {
         </div>
       </div>
 
-      <div className="flex flex-col justify-between gap-6 max-w-3xl px-6 mt-10">
+      <div className="flex flex-col space-y-6 max-w-3xl px-6 mt-10">
 
         {/* Current Round Info */}
-        <div>
+        <div className='mb-6'>
          <Accordion title="Current Round Info">
           {currentRound ? (
             <table className="admin-table w-full mt-4 text-white">
@@ -222,7 +222,7 @@ export default function AdminPage() {
         </div>
 
         {/* Total Bets */}
-        <div>
+        <div className='mb-6'>
          <Accordion title="Total Bets">
           <div className="flex gap-4 mt-4 mb-4">
             <button className={`admin-btn ${activeFilter === 'all' ? 'bg-blue-600' : ''}`} onClick={() => setActiveFilter('all')}>All</button>
@@ -247,8 +247,9 @@ export default function AdminPage() {
         </div>
 
         {/* Result Mockup */}
-        <div>
+        <div className='mb-6'>
         <Accordion title="Result Mockup">
+          <div className="mt-5">
           <input
             placeholder="Winning Number"
             value={resultNumber}
@@ -256,8 +257,9 @@ export default function AdminPage() {
             className="bg-gray-800 p-2 rounded text-white w-40 text-center"
           />
            <Button text="Check" onClick={handleCheckResult} />
+           </div>
           {checkedBets.length > 0 ? (
-            <table className="admin-table w-full mt-4 text-white">
+            <table className="admin-table w-full mt-5 text-white">
               <thead><tr><th>Username</th><th>Amount</th><th>Token</th></tr></thead>
               <tbody>
                 {checkedBets.map((betObject: any, idx: number) => (
