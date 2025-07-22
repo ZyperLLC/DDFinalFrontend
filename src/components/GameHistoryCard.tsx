@@ -4,6 +4,8 @@ import { getBettingRoundById } from '../api/userApi';
 import creditIcon from '../assets/credit.jpg';
 import tonSymbol from '../assets/ton_symbol.jpg';
 import { fromNano } from '@ton/ton';
+import { motion } from 'framer-motion';
+import { slideUpFade } from '../utils/animations';
 
 interface Props {
   image: string;
@@ -19,7 +21,7 @@ const GameHistoryCard: React.FC<Props> = ({ image, cost, prize, useTon, betId, r
   const [hasEnded,setHasEnded] = useState(false);
   const [startedAt,setStartedAt] = useState<Date>(new Date());
   const sourceImg = useTon ?  tonSymbol: creditIcon;
-  
+
   useEffect(() => {
     const fetchBettingRound = async () => {
       if (betId) {
@@ -36,9 +38,12 @@ const GameHistoryCard: React.FC<Props> = ({ image, cost, prize, useTon, betId, r
     fetchBettingRound();
   }
   , [betId]);
-  
+
   return (
-    <div className="nft-card history-card">
+    <motion.div
+    variants={slideUpFade}
+    initial="hidden"
+    animate="visible" className="nft-card history-card">
       <img src={image} alt={"dolphin_image"} className="nft-image" />
       <div className="nft-info text-left">
         <p className="nft-detail">
@@ -50,7 +55,7 @@ const GameHistoryCard: React.FC<Props> = ({ image, cost, prize, useTon, betId, r
           <img src={sourceImg} alt="Credit or TON" className="inline-block ml-2" width={20} height={20} />
         </p>
         <p className="nft-detail">
-          <strong>{t('gameHistory.drawId')}: </strong> 
+          <strong>{t('gameHistory.drawId')}: </strong>
           <span>{betId?.charAt(0)=='0'?betId.slice(0,):betId}</span>
         </p>
         <p className="nft-detail">
@@ -63,7 +68,7 @@ const GameHistoryCard: React.FC<Props> = ({ image, cost, prize, useTon, betId, r
         t(`gameHistory.result.${result}`) :
         t('gameHistory.pending')}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

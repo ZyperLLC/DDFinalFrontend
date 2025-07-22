@@ -11,7 +11,7 @@ export default function Accordion({ title, children }: AccordionProps) {
 
   return (
     <div
-      className="w-full max-w-2xl mb-6 rounded-md text-left"
+      className="w-full max-w-2xl mb-12 rounded-md text-left"
 
     >
       <button
