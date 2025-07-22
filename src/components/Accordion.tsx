@@ -11,7 +11,7 @@ export default function Accordion({ title, children }: AccordionProps) {
 
   return (
     <div
-      className="w-full max-w-2xl mb-12 rounded-md text-left"
+      className="w-full max-w-2xl mb-10 rounded-md text-left"
 
     >
       <button
@@ -25,7 +25,7 @@ export default function Accordion({ title, children }: AccordionProps) {
         }}
         >
 
-        <span  style={{fontSize:'16px'}}>{title}</span>
+        <span  style={{fontSize:'20px', fontWeight: 'bold', padding:'10px' }}>{title}</span>
         <motion.span
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.3 }}
