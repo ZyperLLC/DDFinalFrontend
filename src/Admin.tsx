@@ -266,7 +266,7 @@ export default function AdminPage() {
             placeholder="Winning Number"
             value={resultNumber}
             onChange={e => setResultNumber(e.target.value)}
-            className="bg-gray-800 p-2 rounded text-white w-40 text-center"
+            className="bg-gray-800 p-2 rounded text-white w-30 text-center"
           />
            <Button text="Check" onClick={handleCheckResult} />
           {checkedBets.length > 0 ? (
