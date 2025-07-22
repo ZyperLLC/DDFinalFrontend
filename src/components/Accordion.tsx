@@ -23,12 +23,11 @@ export default function Accordion({ title, children }: AccordionProps) {
        border: '1px solid rgba(0, 123, 255, 0.6)',
        borderRadius: '8px',
        marginBottom: '8px',
+       marginTop: '4px',
        padding: '8px',
 
         }}
         >
-     {/* border: 'px solid rgba(0, 123, 255, 0.6)',
-       borderRadius: '8px' */}
         <span  style={{fontSize:'20px', fontWeight: 'bold', padding:'10px' }}>{title}</span>
         <motion.span
           animate={{ rotate: isOpen ? 180 : 0 }}

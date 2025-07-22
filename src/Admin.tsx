@@ -225,9 +225,22 @@ export default function AdminPage() {
         <div className='mb-6'>
          <Accordion title="Total Bets">
           <div className="flex gap-4 mt-4 mb-4">
-            <button className={`admin-btn ${activeFilter === 'all' ? 'bg-blue-600' : ''}`} onClick={() => setActiveFilter('all')}>All</button>
-            <button className={`admin-btn ${activeFilter === 'ton' ? 'bg-blue-600' : ''}`} onClick={() => setActiveFilter('ton')}>TON</button>
-            <button className={`admin-btn ${activeFilter === 'credits' ? 'bg-blue-600' : ''}`} onClick={() => setActiveFilter('credits')}>Credits</button>
+      <Button
+        text="All"
+        onClick={() => setActiveFilter('all')}
+        className={activeFilter === 'all' ? 'bg-blue-600' : ''}
+        />
+  <Button
+    text="TON"
+     onClick={() => setActiveFilter('ton')}
+     className={activeFilter === 'ton' ? 'bg-blue-600' : ''}
+    />
+    <Button
+       text="Credits"
+       onClick={() => setActiveFilter('credits')}
+       className={activeFilter === 'credits' ? 'bg-blue-600' : ''}
+      />
+
           </div>
           <table className="admin-table w-full mb-4 text-white">
             <thead><tr><th>No.</th><th>NFT</th><th>Total</th><th>TON</th><th>Credit</th></tr></thead>
@@ -253,7 +266,7 @@ export default function AdminPage() {
             placeholder="Winning Number"
             value={resultNumber}
             onChange={e => setResultNumber(e.target.value)}
-            className="bg-gray-800 p-2 rounded text-white w-40 text-center"
+            className="bg-gray-800 p-2 rounded text-white w-30 text-center"
           />
            <Button text="Check" onClick={handleCheckResult} />
           {checkedBets.length > 0 ? (
