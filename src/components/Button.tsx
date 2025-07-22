@@ -23,15 +23,12 @@ export default function Button({ text, onClick, className = '' }: ButtonProps) {
     <button
       onClick={handleClick}
       disabled={isLoading}
-      className={`admin-btn flex items-center justify-center gap-2 ${className} ${isLoading ? 'opacity-60 cursor-not-allowed' : ''}`}
+      className={`admin-btn flex items-center justify-center gap-2 ${className} ${
+        isLoading ? 'opacity-60 cursor-not-allowed' : ''
+      }`}
     >
       {isLoading ? (
-        <div className="relative w-8 h-8">
-          <div className="absolute inset-0 rounded-full border-2 border-t-white border-r-transparent animate-spin" />
-          <span className="absolute inset-0 flex items-center justify-center text-[8px] font-semibold text-white animate-pulse">
-            dolphin dash
-          </span>
-        </div>
+        <span className="inline-block w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
       ) : (
         text
       )}
