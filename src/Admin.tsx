@@ -146,6 +146,7 @@ export default function AdminPage() {
 const handleEndRound = async()=>{
   if(!winningNumber || winningNumber<1 || winningNumber >36){
     toast.error("Please Enter the winning number between 1 to 36");
+    return;
   }
   await endBettingRound(winningNumber??0);
   toast.success(`Winning Number${winningNumber}`);
