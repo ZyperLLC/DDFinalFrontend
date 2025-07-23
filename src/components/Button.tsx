@@ -15,14 +15,18 @@ export default function Button({ text, onClick, className = '' }: ButtonProps) {
     try {
       setIsLoading(true);
 
-      // Trigger your custom onClick logic
-      await onClick();
-
-      // Keep button disabled for 40 seconds
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 40000);
+      // Wait for the onClick function to fully complete
+      const result = onClick();
+      
+      // If it's a Promise, wait for it to resolve
+      if (result instanceof Promise) {
+        await result;
+      }
+      
+      // Only set loading to false after the operation is truly complete
+      setIsLoading(false);
     } catch (error) {
+      console.error('Error:', error);
       setIsLoading(false);
     }
   };

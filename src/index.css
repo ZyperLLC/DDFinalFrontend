@@ -447,6 +447,7 @@ html, body {
   justify-content: flex-start;
   flex-direction: column;
   max-height: 100%;
+  border-radius: 40px;
 }
 
 .popup-content h2 {
