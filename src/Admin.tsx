@@ -154,7 +154,8 @@ const handleEndRound = async()=>{
 
 
 
-  const handleCheckResult = () => {
+
+const handleCheckResult = () => {
     const num = parseInt(resultNumber, 10);
     if (isNaN(num) || !currentRound) return;
     if (num < 1 || num > 36) {
