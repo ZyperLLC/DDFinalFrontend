@@ -15,23 +15,18 @@
   "error_occurred": "¡Ocurrió un error!",
   "choose_dolphin": "Elige tu Delfín",
   "pick_champion": "Elige tu Campeón",
-  "last_winner":"Ganador de la última ronda",
+  "last_winner": "Ganador de la última ronda",
   "place_ton_bets": "¡Elige el Delfín correcto para ganar 7x — ten un NFT de Dolphin Dash para aumentar tus recompensas a 7.7x!",
   "time_until_end": "💸Sorteo Diario en: {{hours}}h {{minutes}}m {{seconds}}s",
   "dolphin_alt": "Delfín {{number}}",
-
-
 
   "dolphin_popup": {
     "description": "Coronado antes de poder nadar recto, {{name}} convirtió Dolphin Dash en su reino personal — apostó $TON, siete anillos y un trono de sueños rotos. Otros lo llaman suerte — él solo lo llama martes.",
     "play": "Jugar",
     "credit": "Crédito",
     "amount": "Ingresa cantidad",
-   "connect_message": "Para jugar a Dolphin Dash, conecta tu billetera y súbete a la ola de acción diaria"
-
-
-},
-
+    "connect_message": "Para jugar a Dolphin Dash, conecta tu billetera y súbete a la ola de acción diaria"
+  },
 
   "welcome_popup": {
     "title": "¡Bienvenido!",
@@ -40,7 +35,6 @@
     "line3": "Conecta tu billetera. Tu viaje comienza ahora."
   },
 
-
   "navbar": {
     "game": "Juego",
     "stake": "Apostar",
@@ -48,18 +42,15 @@
     "profile": "Perfil"
   },
 
-
   "languageSwitcher": {
     "label": "Idioma",
     "ariaLabel": "Seleccionar idioma"
   },
 
-
   "stakeHeader": {
     "title": "Apuesta",
     "description": "Elige tu NFT, bloquéalo en staking y mira cómo llegan las recompensas, incluso cuando estás desconectado"
   },
-
 
   "stakeGrid": {
     "title": "Disponible para apostar",
@@ -76,7 +67,6 @@
     ]
   },
 
-
   "friend": {
     "title": "Invita a un amigo",
     "description": "Conecta tu billetera para desbloquear staking, apuestas y premios diarios.",
@@ -84,7 +74,6 @@
     "copy": "Copiar",
     "inviteCopied": "¡Enlace de invitación copiado!"
   },
-
 
   "friends": {
     "heading": "Amigos Referidos",
@@ -103,26 +92,22 @@
     "gameHistory": "Historial de Juegos"
   },
 
-
   "connectCard": {
-  "heading": "Conecta tu Billetera",
-  "description": {
-    "line1": "Por favor conecta tu billetera para comenzar.",
-    "line2": "Podrás interactuar, hacer staking y jugar."
+    "heading": "Conecta tu Billetera",
+    "description": {
+      "line1": "Por favor conecta tu billetera para comenzar.",
+      "line2": "Podrás interactuar, hacer staking y jugar."
+    },
+    "connected": {
+      "heading": "Billetera Conectada",
+      "description": "Tu billetera está activa — ya puedes interactuar, hacer staking y jugar."
+    }
   },
-  "connected": {
-    "heading": "Billetera Conectada",
-    "description": "Tu billetera está activa — ya puedes interactuar, hacer staking y jugar."
-  }
-},
-
-
 
   "stakedNFT": {
     "remainingTime": "Tiempo restante",
     "earn": "Ganarás"
   },
-
 
   "popup": {
     "close": "Cerrar ventana",
@@ -130,7 +115,6 @@
     "apy": "APY",
     "stakeButton": "Apostar"
   },
-
 
   "stakeComplete": {
     "close": "Cerrar ventana de éxito",
@@ -148,11 +132,40 @@
     "pending": "En progreso",
     "startedAt": "Fecha del Sorteo",
     "drawId": "ID del Sorteo"
+  },
+
+  "admin": {
+    "section": "Sección de Administrador",
+    "stop_betting": "Detener Apuestas",
+    "type_winning_number": "Escribir número ganador",
+    "end_round": "Finalizar Ronda",
+    "current_round_info": "Información de Ronda Actual",
+    "field": "Campo",
+    "value": "Valor",
+    "round_id": "ID de Ronda",
+    "status": "Estado",
+    "ended": "Finalizada",
+    "ongoing": "En curso",
+    "total_bets": "Total de Apuestas",
+    "total_amount": "Cantidad Total",
+    "ton_amount": "Cantidad en TON",
+    "credit_amount": "Cantidad en Crédito",
+    "start_time": "Hora de Inicio",
+    "no_round_found": "No se encontró ninguna ronda.",
+    "total_bets_title": "Total de Apuestas",
+    "all": "Todo",
+    "ton": "TON",
+    "credits": "Créditos",
+    "no": "Núm.",
+    "nft": "NFT",
+    "total": "Total",
+    "result_mockup": "Resultado Simulado",
+    "winning_number": "Número Ganador",
+    "check": "Verificar",
+    "username": "Nombre de usuario",
+    "token": "Token",
+    "no_matching_bets": "No hay apuestas coincidentes para este número.",
+    "connect_wallet_message": "Por favor conecta tu billetera para acceder a la página de administrador.",
+    "access_denied": "Acceso denegado. No eres un administrador."
   }
-
-
 }
-
-
-
-

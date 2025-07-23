@@ -15,21 +15,18 @@
   "error_occurred": "Some Error Occurred!",
   "choose_dolphin": "Choose Your Dolphin",
   "pick_champion": "Pick Your Champion",
-  "last_winner":"Last Round Winner",
+  "last_winner": "Last Round Winner",
   "place_ton_bets": "Pick the right Dolphin to win 7x — own Dolphin Dash NFT to boost your rewards to 7.7x!",
   "time_until_end": "💸Daily Dash Draw In: {{hours}}h {{minutes}}m {{seconds}}s",
   "dolphin_alt": "Dolphin {{number}}",
 
-
- "dolphin_popup": {
+  "dolphin_popup": {
     "description": "Crowned before he could swim straight, {{name}} turned the Dolphin Dash into his personal kingdom — staked $TON, seven rings, and a throne of broken dreams. Other dolphins call it luck — he just calls it Tuesday.",
     "play": "Play",
     "credit": "Credit",
     "amount": "Enter amount",
-  "connect_message": "To play Dolphin Dash, connect your wallet and ride the wave of daily action"
-
-},
-
+    "connect_message": "To play Dolphin Dash, connect your wallet and ride the wave of daily action"
+  },
 
   "welcome_popup": {
     "title": "Welcome to Dolphin Dash!",
@@ -38,15 +35,12 @@
     "line3": "Connect your wallet. Your journey begins."
   },
 
-
-
   "navbar": {
     "game": "Game",
     "stake": "Stake",
     "friends": "Friends",
     "profile": "Profile"
-
-},
+  },
 
   "languageSwitcher": {
     "label": "Language",
@@ -57,7 +51,6 @@
     "title": "Stake It",
     "description": "Pick your NFT, lock it in staking, and watch the rewards roll in — even while you're offline"
   },
-
 
   "stakeGrid": {
     "title": "Available for Staking",
@@ -97,9 +90,7 @@
     "sendTon": "Send TON to Wallet",
     "stakedNfts": "Staked NFT's",
     "gameHistory": "Game History"
-
-},
-
+  },
 
   "connectCard": {
     "heading": "Step In The Game",
@@ -112,13 +103,10 @@
     }
   },
 
-
-
   "stakedNFT": {
     "remainingTime": "Remaining time",
     "earn": "You'll earn"
   },
-
 
   "popUpdateup": {
     "close": "Close popup",
@@ -128,16 +116,14 @@
   },
 
   "withdraw_popup": {
-  "description": "Withdraw your balance"
-},
-
+    "description": "Withdraw your balance"
+  },
 
   "stakeComplete": {
     "close": "Close success modal",
     "success": "Staked Successfully",
     "description": "Your dolphin is now earning rewards. Track staking progress in your Profile."
   },
-
 
   "gameHistory": {
     "entryCost": "Entry Cost",
@@ -147,10 +133,42 @@
       "lose": "Lose"
     },
     "pending": "In Progress",
-    "startedAt":"Round Date",
-    "drawId":"Draw ID"
-}
+    "startedAt": "Round Date",
+    "drawId": "Draw ID"
+  },
 
-
-
+  "admin": {
+    "section": "Admin Section",
+    "stop_betting": "Stop Betting",
+    "type_winning_number": "Type Winning No.",
+    "end_round": "End Round",
+    "current_round_info": "Current Round Info",
+    "field": "Field",
+    "value": "Value",
+    "round_id": "Round ID",
+    "status": "Status",
+    "ended": "Ended",
+    "ongoing": "Ongoing",
+    "total_bets": "Total Bets",
+    "total_amount": "Total Amount",
+    "ton_amount": "TON Amount",
+    "credit_amount": "Credit Amount",
+    "start_time": "Start Time",
+    "no_round_found": "No round found.",
+    "total_bets_title": "Total Bets",
+    "all": "All",
+    "ton": "TON",
+    "credits": "Credits",
+    "no": "No.",
+    "nft": "NFT",
+    "total": "Total",
+    "result_mockup": "Result Mockup",
+    "winning_number": "Winning Number",
+    "check": "Check",
+    "username": "Username",
+    "token": "Token",
+    "no_matching_bets": "No matching bets for this number.",
+    "connect_wallet_message": "Please connect your wallet to access admin page.",
+    "access_denied": "Access Denied. You are not an admin."
+  }
 }
