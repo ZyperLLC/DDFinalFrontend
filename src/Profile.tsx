@@ -74,11 +74,13 @@ export default function Profile() {
     setIsWithdrawPopupVisible(true);
   };
 
-  // Pagination logic
+  // Pagination logic for game history
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 3;
+
   const bets = context?.user.bets || [];
   const totalPages = Math.ceil(bets.length / itemsPerPage);
+
   const paginatedBets = bets.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
@@ -151,6 +153,7 @@ export default function Profile() {
         ))}
       </SectionBox>
 
+      {/* Game History with Pagination */}
       <SectionBox title={t('profile.gameHistory')}>
         {bets.length === 0 ? (
           <p style={{ color: 'white' }} className="text-center">No games played yet</p>
@@ -167,115 +170,29 @@ export default function Profile() {
                 result={bet.hasWon ? 'win' : 'lose'}
               />
             ))}
+
             <div className="flex justify-center items-center mt-4 gap-2 text-white">
               <button
-                className="px-3 py-1 rounded"
-                style={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                  color: 'white',
-                  opacity: currentPage === 1 ? 0.5 : 1,
-                }}
+                className="px-3 py-1 rounded bg-gray-700 hover:bg-gray-600 disabled:opacity-50"
                 onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
                 disabled={currentPage === 1}
               >
                 Prev
               </button>
 
-              {/* Pagination with ellipses */}
-              {totalPages <= 5 ? (
-                Array.from({ length: totalPages }, (_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setCurrentPage(i + 1)}
-                    style={{
-                      backgroundColor:
-                        currentPage === i + 1
-                          ? 'rgba(59, 130, 246, 1)'
-                          : 'rgba(255, 255, 255, 0.08)',
-                      color: 'white',
-                    }}
-                    className="px-3 py-1 rounded hover:opacity-90"
-                  >
-                    {i + 1}
-                  </button>
-                ))
-              ) : (
-                <>
-                  <button
-                    onClick={() => setCurrentPage(1)}
-                    style={{
-                      backgroundColor:
-                        currentPage === 1
-                          ? 'rgba(59, 130, 246, 1)'
-                          : 'rgba(255, 255, 255, 0.08)',
-                      color: 'white',
-                    }}
-                    className="px-3 py-1 rounded hover:opacity-90"
-                  >
-                    1
-                  </button>
-
-                  {currentPage > 3 && <span className="px-2 text-white">...</span>}
-
-                  {currentPage > 2 && currentPage < totalPages - 1 && (
-                    <>
-                      <button
-                        onClick={() => setCurrentPage(currentPage - 1)}
-                        style={{
-                          backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                          color: 'white',
-                        }}
-                        className="px-3 py-1 rounded hover:opacity-90"
-                      >
-                        {currentPage - 1}
-                      </button>
-                      <button
-                        style={{
-                          backgroundColor: 'rgba(59, 130, 246, 1)',
-                          color: 'white',
-                        }}
-                        className="px-3 py-1 rounded"
-                      >
-                        {currentPage}
-                      </button>
-                      <button
-                        onClick={() => setCurrentPage(currentPage + 1)}
-                        style={{
-                          backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                          color: 'white',
-                        }}
-                        className="px-3 py-1 rounded hover:opacity-90"
-                      >
-                        {currentPage + 1}
-                      </button>
-                    </>
-                  )}
-
-                  {currentPage < totalPages - 2 && <span className="px-2 text-white">...</span>}
-
-                  <button
-                    onClick={() => setCurrentPage(totalPages)}
-                    style={{
-                      backgroundColor:
-                        currentPage === totalPages
-                          ? 'rgba(59, 130, 246, 1)'
-                          : 'rgba(255, 255, 255, 0.08)',
-                      color: 'white',
-                    }}
-                    className="px-3 py-1 rounded hover:opacity-90"
-                  >
-                    {totalPages}
-                  </button>
-                </>
-              )}
+              {Array.from({ length: totalPages }, (_, i) => (
+                <button
+                  key={i}
+                  className={`px-3 py-1 rounded ${currentPage === i + 1 ? 'bg-blue-600' : 'bg-gray-700'
+                    } hover:bg-gray-600`}
+                  onClick={() => setCurrentPage(i + 1)}
+                >
+                  {i + 1}
+                </button>
+              ))}
 
               <button
-                className="px-3 py-1 rounded"
-                style={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                  color: 'white',
-                  opacity: currentPage === totalPages ? 0.5 : 1,
-                }}
+                className="px-3 py-1 rounded bg-gray-700 hover:bg-gray-600 disabled:opacity-50"
                 onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
                 disabled={currentPage === totalPages}
               >

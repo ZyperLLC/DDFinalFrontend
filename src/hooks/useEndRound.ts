@@ -89,7 +89,7 @@ export const useEndRound = ()=>{
           toast.success("Prizes Distributed Successfully");
             setTimeout(async ()=>{
                 await startNewRound();  
-            },3000);
+            },5000);
         }
       }catch(err){
         toast.error("Error Occured");

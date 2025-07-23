@@ -98,57 +98,60 @@ export default function AdminPage() {
           const allBets: any[] = [];
           const betsToAdd: any[] = [];
 
-          allUsers.forEach((user: any) => {
-            if (user.betsPlace?.length) {
-              user.betsPlace
-                .filter((b: any) => b.betId === roundDetail.bettingRoundNo)
-                .forEach((bet: any) => {
-                  if (allBets[bet.numberBettedOn]) {
-                    allBets[bet.numberBettedOn] = {
-                      nftId: bet.numberBettedOn,
-                      amount: allBets[bet.numberBettedOn].amount + Number(bet.useTon ? fromNano(bet.amountBet) : bet.amountBet),
-                      tonAmount: bet.useTon ? allBets[bet.numberBettedOn].tonAmount + Number(fromNano(bet.amountBet)) : allBets[bet.numberBettedOn].tonAmount,
-                      tokenType: bet.useTon ? 'ton' : 'credits'
-                    };
-                  } else {
-                    allBets[bet.numberBettedOn] = {
-                      nftId: bet.numberBettedOn,
-                      amount: bet.useTon ? Number(fromNano(bet.amountBet)) : Number(bet.amountBet),
-                      tonAmount: bet.useTon ? Number(fromNano(bet.amountBet)) : 0,
-                      tokenType: bet.useTon ? 'ton' : 'credits',
-                    };
+        allUsers.forEach((user: any) => {
+          if (user.betsPlace?.length) {
+            user.betsPlace
+              .filter((b: any) => b.betId === roundDetail.bettingRoundNo)
+              .forEach((bet: any) => {
+                if(allBets[bet.numberBettedOn]){
+                  allBets[bet.numberBettedOn] = {
+                    nftId:bet.numberBettedOn,
+                    amount:allBets[bet.numberBettedOn].amount+ Number(bet.useTon?fromNano(bet.amountBet):bet.amountBet),
+                    tonAmount:bet.useTon?allBets[bet.numberBettedOn].tonAmount+Number(fromNano(bet.amountBet)):allBets[bet.numberBettedOn].tonAmount,
+                    tokenType:bet.useTon? 'ton':'credits'
                   }
-
-                  betsToAdd.push({
-                    username: user.username,
-                    walletAddress: user.walletAddress,
-                    bet
-                  });
+                }else{
+                  allBets[bet.numberBettedOn]={
+                    nftId: bet.numberBettedOn,
+                    amount: bet.useTon?Number(fromNano(bet.amountBet)):Number(bet.amountBet),
+                    tonAmount:bet.useTon?Number(fromNano(bet.amountBet)):0,
+                    tokenType: bet.useTon ? 'ton' : 'credits',
+                  };
+                }
+                console.log("Pushing this bet",bet);
+                betsToAdd.push({
+                  username:user.username,
+                  walletAddress:user.walletAddress,
+                  bet
                 });
-            }
-          });
-
-          setUserBets(allBets);
-          setCurrentBets(betsToAdd);
-        } else {
-          setCurrentRound(null);
-        }
-      } catch (error) {
-        console.error('Error fetching round or user data:', error);
+                console.log("currentbets",currentBets);
+              });
+          }
+        });
+        setUserBets(allBets);
+        setCurrentBets(betsToAdd);
+        console.log(currentBets);
+      } else {
+        setCurrentRound(null); // No round data
       }
-    };
+    } catch (error) {
+      console.error('Error fetching round or user data:', error);
+    }
+  };
 
     fetchCurrentRound();
   }, []);
 
-  const handleEndRound = async () => {
-    if (!winningNumber || winningNumber < 1 || winningNumber > 36) {
-      toast.error("Please Enter the winning number between 1 to 36");
-      return;
-    }
-    await endBettingRound(winningNumber);
-    toast.success(`Winning Number ${winningNumber}`);
-  };
+
+const handleEndRound = async()=>{
+  if(!winningNumber || winningNumber<1 || winningNumber >36){
+    toast.error("Please Enter the winning number between 1 to 36");
+  }
+  await endBettingRound(winningNumber??0);
+  toast.success(`Winning Number${winningNumber}`);
+}
+
+
 
   const handleCheckResult = () => {
     const num = parseInt(resultNumber, 10);
@@ -272,15 +275,14 @@ export default function AdminPage() {
           {checkedBets.length > 0 ? (
             <table className="admin-table w-full mt-5 text-white">
               <thead><tr><th>Username</th><th>Amount</th><th>Token</th></tr></thead>
-              <tbody>
-                {checkedBets.map((betObject: any, idx: number) => (
-                  <tr key={idx}>
-                    <td>{betObject.username}</td>
-                    <td>{betObject.bet.useTon ? fromNano(betObject.bet.amountBet) : betObject.bet.amountBet}</td>
-                    <td>{betObject.bet.useTon ? 'ton' : 'credit'}</td>
-                  </tr>
-                ))}
-              </tbody>
+
+              {checkedBets.map((betObject:any)=>(
+                <tr>
+                <td>{betObject.username}</td>
+                <td>{betObject.bet.useTon?fromNano(betObject.bet.amountBet):betObject.bet.amountBet}</td>
+                <td>{betObject.bet.useTon?'ton':'credit'}</td>
+              </tr>
+              ))}
             </table>
           ) : (
             <p className="mt-4 text-white">No matching bets for this number.</p>
