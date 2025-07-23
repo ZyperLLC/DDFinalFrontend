@@ -200,6 +200,31 @@ html, body {
   background-color: rgba(114, 9, 183, 0.7);
 }
 
+.loader {
+  border-top-color: white;
+  border-right-color: transparent;
+  border-radius: 9999px;
+  border-width: 2px;
+  width: 1rem;
+  height: 1rem;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin-full {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-spin-full {
+  animation: spin-full 0.8s linear infinite;
+}
+
 
 /* ========= Home Page ========= */
 .page {
@@ -397,7 +422,7 @@ html, body {
   transform: translate(-50%, -50%);
   background-repeat: no-repeat;
   background-position: center;
-  background-size: cover;
+  background-size: contain;
   aspect-ratio: 3 / 4;
   border-radius: 20px;
   overflow: hidden;
@@ -409,6 +434,8 @@ html, body {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  padding: 1rem;
+  box-sizing: border-box;
 }
 
 .popup-content {
@@ -433,10 +460,11 @@ html, body {
   padding: 0;
   margin-bottom: 0;
   text-align: left;
+  width: 100%;
 }
 
 .popup-content ul li {
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.5rem;
   font-size: 0.95rem;
   line-height: 1.4;
 }

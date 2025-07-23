@@ -10,15 +10,29 @@ export default function Accordion({ title, children }: AccordionProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="w-full max-w-2xl mb-10 text-white text-left border border-white/30 rounded-md bg-black/30">
+    <div
+      className="w-full max-w-2xl mb-10 rounded-md text-left"
+
+    >
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full text-left px-4 py-3 text-xl font-semibold flex justify-between items-center"
-      >
-        <span>{title}</span>
+        className="w-full px-4 py-3 text-2xl font-semibold flex justify-between items-center"
+      style={{
+       background: 'rgba(0, 0, 50, 0.088)',
+       color: 'white',
+       border: '1px solid rgba(0, 123, 255, 0.6)',
+       borderRadius: '8px',
+       marginBottom: '8px',
+       marginTop: '4px',
+       padding: '8px',
+
+        }}
+        >
+        <span  style={{fontSize:'20px', fontWeight: 'bold', padding:'10px' }}>{title}</span>
         <motion.span
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.3 }}
+          className="text-white"
         >
           ▼
         </motion.span>
@@ -27,7 +41,7 @@ export default function Accordion({ title, children }: AccordionProps) {
       <AnimatePresence initial={false}>
         {isOpen && (
           <motion.div
-            className="px-4 pb-4 pt-2"
+            className="px-4 pb-4 pt-2 text-lg"
             initial="collapsed"
             animate="open"
             exit="collapsed"

@@ -104,20 +104,15 @@ export default function Profile() {
 
       {isWalletConnected && (
         <div className="w-full mt-6 mb-6 px-4">
-          <div
-            className="w-[80%] max-w-[360px] mx-auto rounded-[16px] shadow-[0_4px_20px_rgba(0,0,0,0.3)] backdrop-blur-[10px]"
-            style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.08)',
-              color: 'white',
-              padding: '1.25rem',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '1rem',
-            }}
-          >
-            <h2 className="text-[1.5rem] font-bold text-left" style={{ margin: 0 }}>
-              {t('profile.balance')}
-            </h2>
+          <div className="w-[80%] max-w-[360px] mx-auto rounded-[16px] shadow-[0_4px_20px_rgba(0,0,0,0.3)] backdrop-blur-[10px]" style={{
+            backgroundColor: 'rgba(255, 255, 255, 0.08)',
+            color: 'white',
+            padding: '1.25rem',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '1rem',
+          }}>
+            <h2 className="text-[1.5rem] font-bold text-left">{t('profile.balance')}</h2>
 
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-3">
@@ -149,12 +144,12 @@ export default function Profile() {
         </div>
       )}
 
-      {/* Staked NFTs */}
       <SectionBox title={t('profile.stakedNfts')}>
-        {context?.user.stakedNfts && context?.user.stakedNfts.length === 0 &&
-          <p style={{ color: 'white' }} className="text-center">No Dolphin Dash NFTs staked</p>}
-        {context?.user.stakedNfts && context.user.stakedNfts.length > 0 && context.user.stakedNfts.map((nft) => (
-          <StakedNFTCard contractAddress={nft.nftAddress} />
+        {context?.user.stakedNfts?.length === 0 && (
+          <p style={{ color: 'white' }} className="text-center">No Dolphin Dash NFTs staked</p>
+        )}
+        {context?.user.stakedNfts?.map((nft) => (
+          <StakedNFTCard key={nft.nftAddress} contractAddress={nft.nftAddress} />
         ))}
       </SectionBox>
 
@@ -188,9 +183,8 @@ export default function Profile() {
               {Array.from({ length: totalPages }, (_, i) => (
                 <button
                   key={i}
-                  className={`px-3 py-1 rounded ${
-                    currentPage === i + 1 ? 'bg-blue-600' : 'bg-gray-700'
-                  } hover:bg-gray-600`}
+                  className={`px-3 py-1 rounded ${currentPage === i + 1 ? 'bg-blue-600' : 'bg-gray-700'
+                    } hover:bg-gray-600`}
                   onClick={() => setCurrentPage(i + 1)}
                 >
                   {i + 1}
