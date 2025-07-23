@@ -18,12 +18,10 @@ export default function Button({ text, onClick, className = '' }: ButtonProps) {
       // Wait for the onClick function to fully complete
       const result = onClick();
       
-      // If it's a Promise, wait for it to resolve
       if (result instanceof Promise) {
         await result;
       }
       
-      // Only set loading to false after the operation is truly complete
       setIsLoading(false);
     } catch (error) {
       console.error('Error:', error);
