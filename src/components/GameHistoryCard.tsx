@@ -51,7 +51,7 @@ const GameHistoryCard: React.FC<Props> = ({ image, cost, prize, useTon, betId, r
           <img src={sourceImg} alt="Credit or TON" className="inline-block ml-2" width={20} height={20} />
         </p>
         <p className="nft-detail">
-          <strong>{t('gameHistory.prize')}: </strong> {prize}
+          <strong>{t('gameHistory.prize')}: </strong> {Number(prize).toFixed(2)}
           <img src={sourceImg} alt="Credit or TON" className="inline-block ml-2" width={20} height={20} />
         </p>
         <p className="nft-detail">
