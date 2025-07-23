@@ -3,13 +3,20 @@ import { UserContext } from './Context/UserContextProvider';
 import Navbar from './components/Navbar';
 import logo from './assets/logo.jpg';
 import background1 from './assets/background1.jpg';
-
+import  Accordion  from './components/Accordion';
 import {
   getAllUsers,
   getLatestRound,
 } from './api/userApi';
+import toast from 'react-hot-toast';
+import { fromNano } from '@ton/ton';
+import { useEndRound } from './hooks/useEndRound';
+import { motion } from 'framer-motion';
+import { slideUpFade } from './utils/animations';
+import Button from './components/Button';
 
 
+// Dolphin images
 import dolphin1 from './assets/dolphins/dolphin1.jpg';
 import dolphin2 from './assets/dolphins/dolphin2.jpg';
 import dolphin3 from './assets/dolphins/dolphin3.jpg';
@@ -46,9 +53,6 @@ import dolphin33 from './assets/dolphins/dolphin33.png';
 import dolphin34 from './assets/dolphins/dolphin34.png';
 import dolphin35 from './assets/dolphins/dolphin35.png';
 import dolphin36 from './assets/dolphins/dolphin36.png';
-import toast from 'react-hot-toast';
-import { fromNano } from '@ton/ton';
-import { useEndRound } from './hooks/useEndRound';
 
 const dolphinImages: { [key: number]: any } = {
   1: dolphin1, 2: dolphin2, 3: dolphin3, 4: dolphin4, 5: dolphin5, 6: dolphin6,
@@ -60,23 +64,22 @@ const dolphinImages: { [key: number]: any } = {
 };
 
 const ADMIN_WALLETS = import.meta.env.VITE_ADMIN_WALLET;
-
 const NAVBAR_HEIGHT_PX = 80;
 
 export default function AdminPage() {
   const context = useContext(UserContext);
   const walletAddress = context?.user.walletAddress;
+
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [activeFilter, setActiveFilter] = useState<'all' | 'ton' | 'credits'>('all');
   const [userBets, setUserBets] = useState<any[]>([]);
   const [currentRound, setCurrentRound] = useState<any>(null);
   const [resultNumber, setResultNumber] = useState<string>('');
   const [checkedBets, setCheckedBets] = useState<any[]>([]);
-  const [currentBets,setCurrentBets] = useState<any[]>([]);
-  const [winningNumber,setWinningNumber] = useState<number|null>(null);
+  const [currentBets, setCurrentBets] = useState<any[]>([]);
+  const [winningNumber, setWinningNumber] = useState<number | null>(null);
 
-  const {stopCurrentRound,endBettingRound} = useEndRound();
-
+  const { stopCurrentRound, endBettingRound } = useEndRound();
 
   useEffect(() => {
     if (!walletAddress) return;
@@ -84,16 +87,16 @@ export default function AdminPage() {
   }, [walletAddress]);
 
   useEffect(() => {
-  const fetchCurrentRound = async () => {
-    try {
-      const roundDetail = await getLatestRound();
+    const fetchCurrentRound = async () => {
+      try {
+        const roundDetail = await getLatestRound();
 
-      if (roundDetail && roundDetail.bettingRoundNo) {
-        setCurrentRound(roundDetail);
+        if (roundDetail?.bettingRoundNo) {
+          setCurrentRound(roundDetail);
 
-        const allUsers = await getAllUsers();
-        const allBets: any[] = [];
-        const betsToAdd:any[] = [];
+          const allUsers = await getAllUsers();
+          const allBets: any[] = [];
+          const betsToAdd: any[] = [];
 
         allUsers.forEach((user: any) => {
           if (user.betsPlace?.length) {
@@ -106,7 +109,7 @@ export default function AdminPage() {
                     amount:allBets[bet.numberBettedOn].amount+ Number(bet.useTon?fromNano(bet.amountBet):bet.amountBet),
                     tonAmount:bet.useTon?allBets[bet.numberBettedOn].tonAmount+Number(fromNano(bet.amountBet)):allBets[bet.numberBettedOn].tonAmount,
                     tokenType:bet.useTon? 'ton':'credits'
-                  }  
+                  }
                 }else{
                   allBets[bet.numberBettedOn]={
                     nftId: bet.numberBettedOn,
@@ -136,31 +139,31 @@ export default function AdminPage() {
     }
   };
 
-  fetchCurrentRound();
-}, []);
+    fetchCurrentRound();
+  }, []);
 
 
 const handleEndRound = async()=>{
   if(!winningNumber || winningNumber<1 || winningNumber >36){
     toast.error("Please Enter the winning number between 1 to 36");
+    return;
   }
-  await endBettingRound(winningNumber??0);  
+  await endBettingRound(winningNumber??0);
   toast.success(`Winning Number${winningNumber}`);
 }
+
 
 
 
 const handleCheckResult = () => {
     const num = parseInt(resultNumber, 10);
     if (isNaN(num) || !currentRound) return;
-    if(num<1 && num>36){
+    if (num < 1 || num > 36) {
       toast.error("Number should be between 1 to 36");
       return;
     }
-    console.log("Numebr to check",num);
-    console.log("CurrentBets",currentBets);
-    const bets = currentBets.filter((betObj:any)=>betObj.bet.numberBettedOn==num);
-    console.log(bets);
+
+    const bets = currentBets.filter((betObj: any) => betObj.bet.numberBettedOn === num);
     setCheckedBets(bets);
   };
 
@@ -183,23 +186,28 @@ const handleCheckResult = () => {
   }
 
   return (
-    <div className="min-h-screen text-white p-6" style={{ backgroundImage: `url(${background1})`, backgroundSize: 'cover', paddingBottom: `${NAVBAR_HEIGHT_PX}px`,  color:'white',}}>
+    <motion.div
+      variants={slideUpFade}
+      initial="hidden"
+      animate="visible"
+      className="min-h-screen text-white p-6" style={{ backgroundImage: `url(${background1})`, backgroundSize: 'cover', paddingBottom: `${NAVBAR_HEIGHT_PX}px` }}>
       <div className="flex flex-col items-center text-center">
         <img src={logo} alt="Logo" className="animated-logo mb-14" style={{ width: '250px' }} />
-        <h1 className="text-3xl font-bold mb-6">Admin Section</h1>
-        <div className="flex flex-wrap justify-center gap-6 mb-12 flex-col align-center">
-          <button className="admin-btn" onClick={stopCurrentRound}>Stop Betting</button>
-          <input type="number" min={1} max={36} placeholder='Type Winning No.' onChange={(e)=>setWinningNumber(Number(e.target.value))} style={{borderRadius:"10px",padding:"10px 5px"}}/>
-          <button className="admin-btn" onClick={handleEndRound}>End Round</button>
+        <h1 className="text-3xl font-bold mb-6" style={{color:'white'}}>Admin Section</h1>
+
+        <div className="flex flex-wrap justify-center gap-6 mb-12 flex-col items-center">
+          <Button text="Stop Betting" onClick={stopCurrentRound} />
+           <input type="number" min={1} max={36} placeholder='Type Winning No.' onChange={(e)=>setWinningNumber(Number(e.target.value))} style={{borderRadius:"10px", padding:"10px 5px", width:'100%'}}/>
+            <Button text="End Round" onClick={handleEndRound} />
         </div>
       </div>
 
-      <div className="flex flex-col space-y-16 max-w-3xl px-6">
+      <div className="flex flex-col space-y-6 max-w-3xl px-6 mt-10">
 
         {/* Current Round Info */}
-        <details className="admin-section w-full">
-          <summary className="admin-summary text-xl font-semibold">Current Round Info</summary>
-          { currentRound ? (
+        <div className='mb-6'>
+         <Accordion title="Current Round Info">
+          {currentRound ? (
             <table className="admin-table w-full mt-4 text-white">
               <thead><tr><th>Field</th><th>Value</th></tr></thead>
               <tbody>
@@ -215,41 +223,61 @@ const handleCheckResult = () => {
           ) : (
             <p className="mt-4">No round found.</p>
           )}
-        </details>
+         </Accordion>
+        </div>
 
         {/* Total Bets */}
-        <details className="admin-section w-full">
-          <summary className="admin-summary text-xl font-semibold">Total Bets</summary>
+        <div className='mb-6'>
+         <Accordion title="Total Bets">
           <div className="flex gap-4 mt-4 mb-4">
-            <button className={`admin-btn ${activeFilter === 'all' ? 'bg-blue-600' : ''}`} onClick={() => { setActiveFilter('all');}}>All</button>
-            <button className={`admin-btn ${activeFilter === 'ton' ? 'bg-blue-600' : ''}`} onClick={() => { setActiveFilter('ton');}}>TON</button>
-            <button className={`admin-btn ${activeFilter === 'credits' ? 'bg-blue-600' : ''}`} onClick={() => { setActiveFilter('credits'); }}>Credits</button>
+      <Button
+        text="All"
+        onClick={() => setActiveFilter('all')}
+        className={activeFilter === 'all' ? 'bg-blue-600' : ''}
+        />
+  <Button
+    text="TON"
+     onClick={() => setActiveFilter('ton')}
+     className={activeFilter === 'ton' ? 'bg-blue-600' : ''}
+    />
+    <Button
+       text="Credits"
+       onClick={() => setActiveFilter('credits')}
+       className={activeFilter === 'credits' ? 'bg-blue-600' : ''}
+      />
+
           </div>
           <table className="admin-table w-full mb-4 text-white">
             <thead><tr><th>No.</th><th>NFT</th><th>Total</th><th>TON</th><th>Credit</th></tr></thead>
             <tbody>
-              {userBets.map((b:any)=>(
-                <tr>
-                <td>{b.nftId}</td>
-                <td><img src={dolphinImages[b.nftId]} width="40px"/></td>
-                <td>{(b.amount.toFixed(2))}</td>
-                <td>{b.tonAmount}</td>
-                <td>{b.amount.toFixed(2)-b.tonAmount}</td>
+              {userBets.map((b: any) => (
+                <tr key={b.nftId}>
+                  <td>{b.nftId}</td>
+                  <td><img src={dolphinImages[b.nftId]} width="40px" /></td>
+                  <td>{b.amount.toFixed(2)}</td>
+                  <td>{b.tonAmount}</td>
+                  <td>{(b.amount.toFixed(2) - b.tonAmount).toFixed(2)}</td>
                 </tr>
               ))}
             </tbody>
           </table>
-        </details>
+        </Accordion>
+        </div>
 
         {/* Result Mockup */}
-        <details className="admin-section w-full">
-          <summary className="admin-summary text-xl font-semibold">Result Mockup</summary>
-          <input placeholder="Winning Number" value={resultNumber} onChange={e => setResultNumber(e.target.value)} className="bg-gray-800 p-2 rounded text-white w-40 text-center" />
-          <button className="admin-btn" onClick={handleCheckResult}>Check</button>
-          {checkedBets.length > 0 ?
-            <table className="admin-table w-full mt-4 text-white">
+        <div className='mb-6'>
+        <Accordion title="Result Mockup">
+          <input
+            placeholder="Winning Number"
+            value={resultNumber}
+            onChange={e => setResultNumber(e.target.value)}
+            className="bg-gray-800 p-2 rounded text-white w-30 text-center"
+          />
+           <Button text="Check" onClick={handleCheckResult} />
+          {checkedBets.length > 0 ? (
+            <table className="admin-table w-full mt-5 text-white">
               <thead><tr><th>Username</th><th>Amount</th><th>Token</th></tr></thead>
-              
+
               {checkedBets.map((betObject:any)=>(
                 <tr>
                 <td>{betObject.username}</td>
@@ -258,15 +286,16 @@ const handleCheckResult = () => {
               </tr>
               ))}
             </table>
-           :(
+          ) : (
             <p className="mt-4 text-white">No matching bets for this number.</p>
           )}
-        </details>
+        </Accordion>
+        </div>
       </div>
 
       <div className="fixed bottom-0 left-0 w-full" style={{ height: `${NAVBAR_HEIGHT_PX}px` }}>
         <Navbar />
       </div>
-    </div>
+    </motion.div>
   );
 }

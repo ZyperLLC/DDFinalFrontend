@@ -12,7 +12,7 @@ export default function TimerCard({ timer }: { timer: number }) {
   const minutes = Math.floor(((timer) % 3600) / 60);
   const seconds = (timer) % 60;
   return (
-    <div className="combined-card" style={{ marginTop: '1rem' }}>
+    <div className="combined-card bg-black/70" style={{ marginTop: '1rem' }}>
       <h2 className="dolphin-header" style={{ textAlign: 'center' }}>
         {t('choose_dolphin')}
       </h2>

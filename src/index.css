@@ -200,9 +200,35 @@ html, body {
   background-color: rgba(114, 9, 183, 0.7);
 }
 
+.loader {
+  border-top-color: white;
+  border-right-color: transparent;
+  border-radius: 9999px;
+  border-width: 2px;
+  width: 1rem;
+  height: 1rem;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin-full {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-spin-full {
+  animation: spin-full 0.8s linear infinite;
+}
+
 
 /* ========= Home Page ========= */
 .page {
+  background: rgba(255, 255, 255, 0);
   min-height: 100vh;
   padding-bottom: 80px;
   background-size: cover;
@@ -396,9 +422,9 @@ html, body {
   transform: translate(-50%, -50%);
   background-repeat: no-repeat;
   background-position: center;
-  background-size: cover;
+  background-size: contain;
   aspect-ratio: 3 / 4;
-  border-radius: 20px;
+  border-radius: 30px;
   overflow: hidden;
   color: #fff;
   z-index: 9990;
@@ -408,37 +434,42 @@ html, body {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  padding: 1rem;
+  box-sizing: border-box;
 }
 
 .popup-content {
   background: rgba(0, 0, 0, 0);
-  padding: 1.5rem 1.2rem;
+  padding: 3rem 1.2rem 1.5rem;
   text-align: center;
   display: flex;
-  align-items: flex-end;
-  gap:6;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: flex-start;
   flex-direction: column;
-  max-height: '50%';
+  max-height: 100%;
+  border-radius: 40px;
 }
 
 .popup-content h2 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  margin-bottom: 0.2rem;
+  margin-top: 10rem;
 }
 
 .popup-content ul {
   list-style: none;
   padding: 0;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0;
   text-align: left;
+  width: 100%;
 }
 
 .popup-content ul li {
-  margin-bottom: 0.8rem;
-  font-size: 0.95rem;
-  line-height: 1.4;
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+  line-height: 1;
 }
+
 
 .connect-wallet-btn {
   background: linear-gradient(90deg, #f72585, #7209b7);
