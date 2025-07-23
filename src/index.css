@@ -424,7 +424,7 @@ html, body {
   background-position: center;
   background-size: contain;
   aspect-ratio: 3 / 4;
-  border-radius: 40px;
+  border-radius: 30px;
   overflow: hidden;
   color: #fff;
   z-index: 9990;
