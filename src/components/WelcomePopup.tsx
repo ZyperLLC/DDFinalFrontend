@@ -28,7 +28,7 @@ export default function WelcomePopup({ onClose }: { onClose: () => void }) {
         <h2 >{t('welcome_popup.title')}</h2>
 
         {/* Description */}
-        <ul className="mt-2 mb-0">
+        <ul className="mt-1 mb-0">
           {[t('welcome_popup.line1'), t('welcome_popup.line2'), t('welcome_popup.line3')].map(
             (line, index) => (
               <li key={index} className="flex items-start gap-4 text-md">
