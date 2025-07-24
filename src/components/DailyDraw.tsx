@@ -119,7 +119,6 @@ function DailyDraw() {
           style={{
             width: '100%',
             padding: '1.5rem 0',
-            
           }}
         >
           {[...dolphinImages, ...dolphinImages].map((img, index) => (
