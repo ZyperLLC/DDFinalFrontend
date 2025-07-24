@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import background from './assets/background3.png'
+import background from '../assets/background3.png'
 
 function DrawLoader() {
   const [progress, setProgress] = useState(0)
