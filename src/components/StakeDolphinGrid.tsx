@@ -24,7 +24,7 @@ export default function StakeDolphinGrid(
   }, [context?.user.walletAddress]);
 
   return (
-    <div className="staking-grid-card w-full max-w-6xl mx-auto flex-grow mb-8">
+    <div className="staking-grid-card w-full mx-auto flex-grow mb-8">
       <h2 className="card-title font-semibold text-lg sm:text-xl mb-6 text-white text-center">
         {t('stakeGrid.title')}
       </h2>
@@ -47,7 +47,7 @@ export default function StakeDolphinGrid(
               <img
                 src={nft.metadata?.image}
                 alt={nft.metadata?.name || `NFT ${index + 1}`}
-                className="w-full rounded-xl object-cover"
+                className="w-full rounded-xl object-cover h-28"
               />
               
             </div>
