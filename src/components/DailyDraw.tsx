@@ -105,7 +105,7 @@ function DailyDraw() {
       <div className="relative w-full max-w-5xl flex items-center justify-center mb-10 overflow-hidden px-4 h-64">
         {/* Glowing Frame (larger than image) */}
         <div
-          className="absolute z-10 w-[140px] h-[192px] border-4 rounded-xl pointer-events-none"
+          className="absolute z-10 w-[128px] h-[192px] border-4 rounded-xl pointer-events-none"
           style={{
             borderImage: 'linear-gradient(45deg, #00f0ff, #ff00f7) 1',
             boxShadow: '0 0 30px rgba(0,255,255,0.6), 0 0 30px rgba(255,0,255,0.3)',
@@ -115,7 +115,7 @@ function DailyDraw() {
         {/* Scrollable Strip */}
         <div
           ref={scrollRef}
-          className="flex gap-6 overflow-x-hidden scroll-smooth z-0"
+          className="flex gap-10 overflow-x-hidden scroll-smooth z-0"
           style={{
             width: '100%',
             padding: '1.5rem 0',
