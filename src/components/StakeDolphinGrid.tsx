@@ -47,7 +47,7 @@ export default function StakeDolphinGrid(
               <img
                 src={nft.metadata?.image}
                 alt={nft.metadata?.name || `NFT ${index + 1}`}
-                className="w-full rounded-xl object-cover h-28"
+                className="nft-container-image"
               />
               
             </div>
