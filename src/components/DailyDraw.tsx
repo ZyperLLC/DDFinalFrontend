@@ -60,7 +60,9 @@ function DailyDraw() {
 
     let scrollAmount = 0;
     const scrollStep = 1;
-    const scrollDelay = 20;
+    const scrollDelay = 16; // ~60fps
+
+    scrollContainer.scrollLeft = 0;
 
     const interval = setInterval(() => {
       if (scrollContainer.scrollLeft >= scrollContainer.scrollWidth / 2) {
@@ -77,12 +79,12 @@ function DailyDraw() {
 
   return (
     <div
-      className="min-h-screen w-screen flex flex-col items-center bg-cover bg-center bg-no-repeat transition-all duration-300 overflow-hidden"
+      className="min-h-screen w-screen flex flex-col items-center bg-cover bg-center bg-no-repeat overflow-hidden"
       style={{ backgroundImage: `url(${background})` }}
     >
       {/* Logo */}
-       <div className="flex flex-col items-center text-center">
-              <img src={logo} alt="Logo" className="animated-logo mb-14" style={{ width: '250px' }} />
+      <div className="flex flex-col items-center text-center">
+        <img src={logo} alt="Logo" className="animated-logo mb-14" style={{ width: '250px' }} />
       </div>
 
       {/* Heading */}
@@ -100,9 +102,10 @@ function DailyDraw() {
       </div>
 
       {/* Carousel Section */}
-      <div className="relative w-full max-w-5xl h-30 flex items-center justify-center mb-2 overflow-hidden px-4">
-        {/* Glowing Frame */}
-        <div className="absolute z-10 w-100 h-80 border-4 rounded-xl pointer-events-none"
+      <div className="relative w-full max-w-5xl flex items-center justify-center mb-10 overflow-hidden px-4 h-64">
+        {/* Glowing Frame (larger than image) */}
+        <div
+          className="absolute z-10 w-[140px] h-[192px] border-4 rounded-xl pointer-events-none"
           style={{
             borderImage: 'linear-gradient(45deg, #00f0ff, #ff00f7) 1',
             boxShadow: '0 0 30px rgba(0,255,255,0.6), 0 0 30px rgba(255,0,255,0.3)',
@@ -112,20 +115,22 @@ function DailyDraw() {
         {/* Scrollable Strip */}
         <div
           ref={scrollRef}
-          className="flex gap-6 overflow-x-hidden scroll-smooth"
+          className="flex gap-6 overflow-x-hidden scroll-smooth z-0"
           style={{
             width: '100%',
             padding: '1.5rem 0',
-            display: 'flex',
             whiteSpace: 'nowrap',
           }}
         >
           {[...dolphinImages, ...dolphinImages].map((img, index) => (
-            <div key={index} className="flex-shrink-0 w-20 h-20">
+            <div
+              key={index}
+              className="flex-shrink-0 w-[128px] h-[176px]"
+            >
               <img
                 src={img}
                 alt={`Dolphin ${index + 1}`}
-                className="w-20 h-20 object-contain rounded-lg border-2 border-transparent hover:border-white transition-all duration-300"
+                className="w-full h-full object-cover rounded-lg border-2 border-transparent hover:border-white transition-all duration-300"
               />
             </div>
           ))}
