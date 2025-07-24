@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import background from '../assets/background3.png';
-import logo from './assets/logo.jpg';
+import logo from '../assets/logo.jpg';
 import Button from '../components/Button';
 
 function DailyDraw() {
