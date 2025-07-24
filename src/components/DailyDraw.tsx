@@ -60,7 +60,7 @@ function DailyDraw() {
     >
       {/* Logo */}
       <div className="mt-10 mb-6">
-        <img src={logo} alt="Logo" className="w-32 h-auto" />
+        <img src={logo} alt="Logo" className="page-logo" />
       </div>
 
       {/* Heading */}
@@ -71,14 +71,14 @@ function DailyDraw() {
       </div>
 
       {/* Timer */}
-      <div className="mb-6">
+      <div className="mb-6 combined-card">
         <p className="text-white text-lg text-center">
           Next Draw In : 14h 21m 45s
         </p>
       </div>
 
       {/* Carousel */}
-      <div className="relative w-full max-w-5xl overflow-x-auto mb-10 px-4">
+      <div className="relative w-full max-w-5xl overflow-x-auto mb-2 px-4">
         {/* Glow Frame */}
         <div className="absolute top-1/2 left-1/2 w-32 h-44 -translate-x-1/2 -translate-y-1/2 border-4 rounded-xl z-10 pointer-events-none"
           style={{
@@ -94,7 +94,7 @@ function DailyDraw() {
               <img
                 src={img}
                 alt={`Dolphin ${index + 1}`}
-                className="w-32 h-44 rounded-lg object-cover border-2 border-transparent hover:border-white transition-all duration-300"
+                className="w-20 rounded-lg object-cover border-2 border-transparent hover:border-white transition-all duration-300"
               />
             </div>
           ))}
