@@ -30,7 +30,7 @@ export default function StakeDolphinGrid(
       </h2>
 
       {nfts.length > 0 ? (
-        <div className="grid grid-cols-3 gap-x-6 gap-y-6 p-4 w-full">
+        <div className="nft-container">
           {nfts.map((nft, index) => (
             <div
               key={index}

@@ -701,7 +701,14 @@ html, body {
   max-width: 600px;
   margin: 0 auto 1rem;
 }
-
+.nft-container{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 1rem;
+}
 .nft-card {
   display: flex;
   background: rgba(255, 255, 255, 0);
