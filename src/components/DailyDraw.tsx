@@ -115,11 +115,11 @@ function DailyDraw() {
         {/* Scrollable Strip */}
         <div
           ref={scrollRef}
-          className="flex gap-10 overflow-x-hidden scroll-smooth z-0"
+          className="flex gap-6 overflow-x-hidden scroll-smooth z-0"
           style={{
             width: '100%',
             padding: '1.5rem 0',
-            whiteSpace: 'nowrap',
+            
           }}
         >
           {[...dolphinImages, ...dolphinImages].map((img, index) => (
