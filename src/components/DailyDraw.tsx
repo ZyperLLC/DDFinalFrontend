@@ -81,8 +81,8 @@ function DailyDraw() {
       style={{ backgroundImage: `url(${background})` }}
     >
       {/* Logo */}
-      <div className="mt-10 mb-6">
-        <img src={logo} alt="Logo" className="page-logo" />
+       <div className="flex flex-col items-center text-center">
+              <img src={logo} alt="Logo" className="animated-logo mb-14" style={{ width: '250px' }} />
       </div>
 
       {/* Heading */}
@@ -102,7 +102,7 @@ function DailyDraw() {
       {/* Carousel Section */}
       <div className="relative w-full max-w-5xl h-30 flex items-center justify-center mb-2 overflow-hidden px-4">
         {/* Glowing Frame */}
-        <div className="absolute z-10 w-32 h-44 border-4 rounded-xl pointer-events-none"
+        <div className="absolute z-10 w-100 h-80 border-4 rounded-xl pointer-events-none"
           style={{
             borderImage: 'linear-gradient(45deg, #00f0ff, #ff00f7) 1',
             boxShadow: '0 0 30px rgba(0,255,255,0.6), 0 0 30px rgba(255,0,255,0.3)',
@@ -112,7 +112,7 @@ function DailyDraw() {
         {/* Scrollable Strip */}
         <div
           ref={scrollRef}
-          className="flex gap-4 overflow-x-hidden scroll-smooth"
+          className="flex gap-6 overflow-x-hidden scroll-smooth"
           style={{
             width: '100%',
             padding: '1.5rem 0',
@@ -125,7 +125,7 @@ function DailyDraw() {
               <img
                 src={img}
                 alt={`Dolphin ${index + 1}`}
-                className="w-full h-full object-contain rounded-lg border-2 border-transparent hover:border-white transition-all duration-300"
+                className="w-20 h-20 object-contain rounded-lg border-2 border-transparent hover:border-white transition-all duration-300"
               />
             </div>
           ))}
