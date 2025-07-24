@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import './index.css'
 import background from './assets/background3.png'
 
 function DrawLoader() {
