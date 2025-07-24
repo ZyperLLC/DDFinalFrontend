@@ -1,9 +1,9 @@
+import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import background from '../assets/background3.png';
 import logo from '../assets/logo.jpg';
 import Button from '../components/Button';
 
-// Dolphin images
 import dolphin1 from '../assets/dolphins/dolphin1.jpg';
 import dolphin2 from '../assets/dolphins/dolphin2.jpg';
 import dolphin3 from '../assets/dolphins/dolphin3.jpg';
@@ -52,6 +52,28 @@ const dolphinImages = [
 
 function DailyDraw() {
   const navigate = useNavigate();
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const scrollContainer = scrollRef.current;
+    if (!scrollContainer) return;
+
+    let scrollAmount = 0;
+    const scrollStep = 1;
+    const scrollDelay = 20;
+
+    const interval = setInterval(() => {
+      if (scrollContainer.scrollLeft >= scrollContainer.scrollWidth / 2) {
+        scrollContainer.scrollLeft = 0;
+        scrollAmount = 0;
+      } else {
+        scrollAmount += scrollStep;
+        scrollContainer.scrollLeft = scrollAmount;
+      }
+    }, scrollDelay);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div
@@ -77,24 +99,33 @@ function DailyDraw() {
         </p>
       </div>
 
-      {/* Carousel */}
-      <div className="relative w-full max-w-5xl overflow-x-auto mb-2 px-4">
-        {/* Glow Frame */}
-        <div className="absolute top-1/2 left-1/2 w-32 h-44 -translate-x-1/2 -translate-y-1/2 border-4 rounded-xl z-10 pointer-events-none"
+      {/* Carousel Section */}
+      <div className="relative w-full max-w-5xl h-30 flex items-center justify-center mb-2 overflow-hidden px-4">
+        {/* Glowing Frame */}
+        <div className="absolute z-10 w-32 h-44 border-4 rounded-xl pointer-events-none"
           style={{
             borderImage: 'linear-gradient(45deg, #00f0ff, #ff00f7) 1',
             boxShadow: '0 0 30px rgba(0,255,255,0.6), 0 0 30px rgba(255,0,255,0.3)',
           }}
         />
 
-        {/* Image strip */}
-        <div className="flex space-x-4 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-6 bg-black bg-opacity-30 rounded-xl px-4 py-6">
-          {dolphinImages.map((img, index) => (
-            <div key={index} className="flex-shrink-0 snap-center">
+        {/* Scrollable Strip */}
+        <div
+          ref={scrollRef}
+          className="flex gap-4 overflow-x-hidden scroll-smooth"
+          style={{
+            width: '100%',
+            padding: '1.5rem 0',
+            display: 'flex',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          {[...dolphinImages, ...dolphinImages].map((img, index) => (
+            <div key={index} className="flex-shrink-0 w-20 h-20">
               <img
                 src={img}
                 alt={`Dolphin ${index + 1}`}
-                className="w-20 rounded-lg object-cover border-2 border-transparent hover:border-white transition-all duration-300"
+                className="w-full h-full object-contain rounded-lg border-2 border-transparent hover:border-white transition-all duration-300"
               />
             </div>
           ))}
