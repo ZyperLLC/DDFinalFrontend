@@ -30,7 +30,7 @@ export default function StakeDolphinGrid(
       </h2>
 
       {nfts.length > 0 ? (
-        <div className="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 gap-3">
           {nfts.map((nft, index) => (
             <div
               key={index}
@@ -47,11 +47,9 @@ export default function StakeDolphinGrid(
               <img
                 src={nft.metadata?.image}
                 alt={nft.metadata?.name || `NFT ${index + 1}`}
-                className="w-full "
+                className="w-full rounded-xl object-cover"
               />
-              <div className="p-3 text-center text-white font-medium">
-                {nft.metadata?.name || `NFT #${index + 1}`}
-              </div>
+              
             </div>
           ))}
         </div>
