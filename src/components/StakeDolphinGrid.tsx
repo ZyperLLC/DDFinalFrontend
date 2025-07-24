@@ -10,12 +10,12 @@ export default function StakeDolphinGrid(
   const context = useContext(UserContext);
   const [nfts, setNfts] = useState<any[]>([]);
 
-  const { fetchNFTs } = useGetCredits();
+  const { fetchNFTsOfBothCollections } = useGetCredits();
 
   useEffect(() => {
     const fetchDolphinNFTs = async () => {
       if (context?.user.walletAddress) {
-        const nfts = await fetchNFTs(context.user.walletAddress);
+        const nfts = await fetchNFTsOfBothCollections(context.user.walletAddress);
         console.log("Fetched NFTs:", nfts);
         setNfts(nfts ?? []);
       }
