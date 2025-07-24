@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './i18n';
 
-import App from './App';
+import App from './components/DrawLoader';
 import Home from './Home';
 import Stake from './Stake';
 import Profile from './Profile';
 import Friend from './Friend';
-import AdminPage from './Admin'; 
+import AdminPage from './Admin';
 
 import './index.css';
 import { Toaster } from 'react-hot-toast';
