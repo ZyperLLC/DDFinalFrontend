@@ -927,3 +927,13 @@ html, body {
   pointer-events: none; /* Optional: block clicks while blurred */
   user-select: none;
 }
+
+/* Daily Draw */
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
