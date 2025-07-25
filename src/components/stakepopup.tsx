@@ -109,7 +109,7 @@ export default function StakePopup({
 
             <div className="mt-6 flex justify-center" style={{ width: '100%', maxWidth: '185px', margin: '1.5rem auto 0.5rem', padding: '0.5rem', background: 'rgba(255, 255, 255, 0.08)', borderRadius: '8px', backdropFilter: 'blur(6px)', textAlign: 'center' }}>
               <span style={{ color: '#32CD32', fontWeight: 'bold', fontSize: '1rem' }}>
-                {t('staking_popup.apy')}: {selectedNft.collection.name==="DOLPHIN DASH NFT COLLECTION"?"10%":"80%"}
+                {t('staking_popup.apy')}: {selectedNft.collectionName==="DOLPHIN DASH NFT COLLECTION"?"10%":"80%"}
               </span>
             </div>
 

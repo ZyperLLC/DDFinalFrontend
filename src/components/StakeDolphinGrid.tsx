@@ -40,6 +40,7 @@ export default function StakeDolphinGrid(
                   image: nft.metadata?.image,
                   name: nft.metadata?.name,
                   description: nft.metadata?.description,
+                  colllectionName:nft.collection?.name
                 })
               }
               className="cursor-pointer rounded-xl overflow-hidden shadow-md hover:scale-105 transition-transform duration-300 bg-white bg-opacity-10 w-full"
