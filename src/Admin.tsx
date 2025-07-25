@@ -197,7 +197,7 @@ const handleCheckResult = () => {
 
         <div className="flex flex-wrap justify-center gap-6 mb-12 flex-col items-center">
           <Button text="Stop Betting" onClick={stopCurrentRound} />
-           <input type="number" min={1} max={36} placeholder='Type Winning No.' onChange={(e)=>setWinningNumber(Number(e.target.value))} style={{borderRadius:"10px", padding:"10px 5px", width:'100%'}}/>
+           <input type="number" min={1} max={36} placeholder='Type Winning No.' onChange={(e)=>setWinningNumber(Number(e.target.value))} style={{borderRadius:"10px", padding:"10px 5px", width:'80%'}}/>
             <Button text="End Round" onClick={handleEndRound} />
         </div>
       </div>
@@ -229,24 +229,6 @@ const handleCheckResult = () => {
         {/* Total Bets */}
         <div className='mb-6'>
          <Accordion title="Total Bets">
-          <div className="flex gap-4 mt-4 mb-4">
-      <Button
-        text="All"
-        onClick={() => setActiveFilter('all')}
-        className={activeFilter === 'all' ? 'bg-blue-600' : ''}
-        />
-  <Button
-    text="TON"
-     onClick={() => setActiveFilter('ton')}
-     className={activeFilter === 'ton' ? 'bg-blue-600' : ''}
-    />
-    <Button
-       text="Credits"
-       onClick={() => setActiveFilter('credits')}
-       className={activeFilter === 'credits' ? 'bg-blue-600' : ''}
-      />
-
-          </div>
           <table className="admin-table w-full mb-4 text-white">
             <thead><tr><th>No.</th><th>NFT</th><th>Total</th><th>TON</th><th>Credit</th></tr></thead>
             <tbody>
@@ -271,7 +253,7 @@ const handleCheckResult = () => {
             placeholder="Winning Number"
             value={resultNumber}
             onChange={e => setResultNumber(e.target.value)}
-            className="bg-gray-800 p-2 rounded text-white w-30 text-center"
+            className="bg-gray-800 p-2 rounded text-white w-24 text-center"
           />
            <Button text="Check" onClick={handleCheckResult} />
           {checkedBets.length > 0 ? (
