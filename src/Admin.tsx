@@ -71,7 +71,6 @@ export default function AdminPage() {
   const walletAddress = context?.user.walletAddress;
 
   const [isAuthorized, setIsAuthorized] = useState(false);
-  const [activeFilter, setActiveFilter] = useState<'all' | 'ton' | 'credits'>('all');
   const [userBets, setUserBets] = useState<any[]>([]);
   const [currentRound, setCurrentRound] = useState<any>(null);
   const [resultNumber, setResultNumber] = useState<string>('');
