@@ -4,19 +4,20 @@ import background from '../assets/background3.png';
 function DrawLoader() {
   const [progress, setProgress] = useState(0);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          return 100;
-        }
-        return prev + 1;
-      });
-    }, 20);
+useEffect(() => {
+  const interval = setInterval(() => {
+    setProgress((prev) => {
+      if (prev >= 100) {
+        clearInterval(interval);
+        return 100;
+      }
+      return prev + 1;
+    });
+  }, 100); // <-- 100ms * 100 steps = 10,000ms = 10s
 
-    return () => clearInterval(interval);
-  }, []);
+  return () => clearInterval(interval);
+}, []);
+
 
   return (
     <div
