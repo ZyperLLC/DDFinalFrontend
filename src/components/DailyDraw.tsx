@@ -3,6 +3,10 @@ import background from '../assets/background3.png';
 import logo from '../assets/logo.jpg';
 import Button from '../components/Button';
 import glowFrame from '../assets/frame.png';
+import lineImg1 from '../assets/Line 1.png';
+import lineImg2 from '../assets/Line 2.png';
+
+
 
 import dolphin1 from '../assets/dolphins/dolphin1.jpg';
 import dolphin2 from '../assets/dolphins/dolphin2.jpg';
@@ -121,13 +125,48 @@ function DailyDraw() {
               alt="Winning Dolphin"
               className="w-full h-auto rounded-lg border-4 border-white mb-4"
             />
-            <p className="text-green-400 text-lg font-semibold mb-4 combined-card">You won!</p>
+            <div className="flex items-center justify-center mb-4 gap-4 combined-card">
+  <img src={lineImg1} alt="line left" className="h-1 w-16 sm:w-24 object-contain" />
+  <p
+    style={{
+      color: '#98FF3F',
+      textAlign: 'center',
+      fontFeatureSettings: "'liga' off, 'clig' off",
+      fontFamily: 'Poppins',
+      fontSize: '24px',
+      fontStyle: 'normal',
+      fontWeight: 600,
+      lineHeight: '120%',
+    }}
+  >
+    You won!
+  </p>
+  <img src={lineImg2} alt="line right" className="h-1 w-16 sm:w-24 object-contain" />
+</div>
+
             <button
-              onClick={() => setShowWinnerModal(false)}
-              className="combined-card text-white py-2 px-4 rounded-full transition-all"
-            >
-              Come Back Tomorrow
-            </button>
+  onClick={() => setShowWinnerModal(false)}
+  style={{
+    color: '#FFF',
+    textAlign: 'center',
+    fontFeatureSettings: "'liga' off, 'clig' off",
+    fontFamily: '"SF Pro", sans-serif',
+    fontSize: '15px',
+    fontStyle: 'normal',
+    fontWeight: 700,
+    lineHeight: 'normal',
+    backgroundColor: '#6366F1', // matches bg-indigo-500
+    borderRadius: '9999px',
+    padding: '0.5rem 1rem',
+    transition: 'all 0.3s ease',
+  }}
+  onMouseOver={e => (e.currentTarget.style.backgroundColor = '#4F46E5')} // hover effect
+  onMouseOut={e => (e.currentTarget.style.backgroundColor = '#6366F1')}
+  className='combined-card'
+>
+  Come Back Tomorrow
+</button>
+
           </div>
         </div>
       ) : (
