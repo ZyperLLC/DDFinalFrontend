@@ -14,7 +14,7 @@ export default function StakePopup({
 }) {
   const { t } = useTranslation();
   const {stakeNft} = useStakeNft();
-
+  console.log("Selected NFT in StakePopup:", selectedNft);
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     document.body.style.position = 'fixed';
