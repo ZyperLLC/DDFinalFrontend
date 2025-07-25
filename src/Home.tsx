@@ -9,10 +9,13 @@ import DolphinGrid from './components/DolphinGrid';
 import Navbar from './components/Navbar';
 import DolphinPopup from './components/DolphinPopup';
 import BackgroundOverlay from './components/BackgroundOverlay';
+import DrawWrapper from './DailyDraw';
 
 import { UserContext } from './Context/UserContextProvider';
 import { motion } from 'framer-motion';
 import { slideUpFade } from './utils/animations';
+
+import Button from './components/Button'; 
 
 // Dolphin images
 import dolphin1 from './assets/dolphins/dolphin1.jpg';
@@ -97,6 +100,7 @@ function Home() {
   const [showPopup, setShowPopup] = useState(!context?.user.telegramId);
   const [selectedDolphin, setSelectedDolphin] = useState<null | { id: number; image: string; name: string }>(null);
   const [isDolphinPopupVisible, setIsDolphinPopupVisible] = useState(false);
+  const [showDrawWrapper, setShowDrawWrapper] = useState(false); // ← NEW
 
   useEffect(() => {
     const getTimeUntilTarget = () => {
@@ -121,11 +125,14 @@ function Home() {
   const handleDolphinClose = () => setIsDolphinPopupVisible(false);
   const handleDolphinExit = () => setSelectedDolphin(null);
 
+  // Show DrawWrapper if triggered
+  if (showDrawWrapper) return <DrawWrapper />;
+
   return (
     <div className="relative w-full min-h-screen overflow-hidden">
       <BackgroundOverlay />
 
-      <div className=" page relative z-10">
+      <div className="page relative z-10">
         {showPopup && <WelcomePopup onClose={() => setShowPopup(false)} />}
         <LanguageSwitcher />
 
@@ -137,6 +144,16 @@ function Home() {
         >
           <img src={logo} alt="Logo" className="page-logo" />
           <TimerCard timer={timer} />
+
+          {/* Launch Draw Button */}
+          <div className="flex justify-center my-6">
+            <Button
+              text="Launch Daily Draw"
+              onClick={() => setShowDrawWrapper(true)}
+              className="bg-blue-600 hover:bg-blue-700"
+            />
+          </div>
+
           <DolphinGrid
             dolphins={dolphins.map((d) => d.image)}
             onDolphinClick={(index) =>

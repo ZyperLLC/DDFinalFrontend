@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './i18n';
 
 import App from './App';
-import Home from './DailyDraw';
+import Home from './Home';
 import Stake from './Stake';
 import Profile from './Profile';
 import Friend from './Friend';
