@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import background from '../assets/background3.png';
 import logo from '../assets/logo.jpg';
 import Button from '../components/Button';
+import glowFrame from '../assets/frame.png';
 
 import dolphin1 from '../assets/dolphins/dolphin1.jpg';
 import dolphin2 from '../assets/dolphins/dolphin2.jpg';
@@ -51,7 +52,7 @@ const dolphinImages = [
 
 function DailyDraw() {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [heading, setHeading] = useState('Daily Dolphin <br/> Dash Draw');
+  const [heading, setHeading] = useState(['Daily Dolphin', 'Dash Draw']);
   const [isDrawing, setIsDrawing] = useState(false);
   const [scrollSpeed, setScrollSpeed] = useState(1);
   const [winnerIndex, setWinnerIndex] = useState<number | null>(null);
@@ -89,7 +90,7 @@ function DailyDraw() {
 
     return new Promise<void>((resolve) => {
       setIsDrawing(true);
-      setHeading('Drawing in Progress');
+      setHeading(['Drawing in', 'Progress']);
       setScrollSpeed(5);
 
       setTimeout(() => {
@@ -97,7 +98,7 @@ function DailyDraw() {
         const randomIndex = Math.floor(Math.random() * dolphinImages.length);
         setWinnerIndex(randomIndex);
         setIsDrawing(false);
-        setHeading('🏆 Winner Picked!');
+        setHeading(['🏆 Winner Picked!']);
         setShowWinnerModal(true);
         resolve();
       }, 10000);
@@ -136,37 +137,44 @@ function DailyDraw() {
           </div>
 
           {/* Heading */}
-          <div className="w-full max-w-4xl mx-auto">
-            <h1 className="text-3xl md:text-4xl font-bold text-center text-white mb-4"
-                style={{
-                color: 'white',
-           }}
-            >
-              {heading}
-            </h1>
-          </div>
+                <div className="w-full max-w-4xl mx-auto text-center mb-4">
+  <h1
+    className="text-white text-center font-poppins text-[40px] font-semibold leading-[120%] space-y-2"
+    style={{ fontFeatureSettings: "'liga' off, 'clig' off", fontStyle: 'normal' , color: 'white' }}
+  >
+    {heading.map((line, index) => (
+      <div key={index}>{line}</div>
+    ))}
+  </h1>
+</div>
+
 
           {/* Timer */}
-          <div className="mb-6 combined-card">
-            <p className="text-white text-lg text-center"
-              style={{
-                color: 'white',
-           }}
-            >
-              {isDrawing ? 'Please wait...' : 'Next Draw In : 14h 21m 45s'}
-            </p>
-          </div>
+           <div className="mb-6 combined-card">
+  <p
+    className="text-white text-center font-poppins text-[15px] font-semibold leading-[120%]"
+    style={{
+      fontFeatureSettings: "'liga' off, 'clig' off",
+      fontStyle: 'normal',
+    }}
+  >
+    {isDrawing ? 'Please wait...' : 'Next Draw In : 14h 21m 45s'}
+  </p>
+</div>
+
 
           {/* Carousel Section */}
           <div className="relative w-full max-w-5xl flex items-center justify-center mb-10 overflow-hidden px-4 h-64">
             {/* Glowing Frame */}
-            <div
-              className="absolute z-10 w-[128px] h-[192px] border-4 rounded-xl pointer-events-none"
-              style={{
-                borderImage: 'linear-gradient(45deg, #00f0ff, #ff00f7) 1',
-                boxShadow: '0 0 30px rgba(0,255,255,0.6), 0 0 30px rgba(255,0,255,0.3)',
-              }}
-            />
+             {/* Centered Frame Image */}
+<div className="absolute z-10 pointer-events-none flex items-center justify-center">
+  <img
+    src={glowFrame}
+    alt="Center Frame"
+    className="w-40 h-52"
+  />
+</div>
+
 
             {/* Scrollable Strip */}
             <div
