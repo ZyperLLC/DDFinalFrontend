@@ -85,97 +85,34 @@ function DailyDraw() {
   }, [scrollSpeed]);
 
   const handlePlay = async () => {
-  if (isDrawing) return;
+    if (isDrawing) return;
 
-  return new Promise<void>((resolve) => {
-    setIsDrawing(true);
-    setHeading('Drawing in Progress');
-    setScrollSpeed(5);
+    return new Promise<void>((resolve) => {
+      setIsDrawing(true);
+      setHeading('Drawing in Progress');
+      setScrollSpeed(5);
 
-    setTimeout(() => {
-      setScrollSpeed(0);
-      const randomIndex = Math.floor(Math.random() * dolphinImages.length);
-      setWinnerIndex(randomIndex);
-      setIsDrawing(false);
-      setHeading('🏆 Winner Picked!');
-      setShowWinnerModal(true);
-      resolve(); // Finish the Promise when draw is complete
-    }, 10000); // 10s draw duration
-  });
-};
-
+      setTimeout(() => {
+        setScrollSpeed(0);
+        const randomIndex = Math.floor(Math.random() * dolphinImages.length);
+        setWinnerIndex(randomIndex);
+        setIsDrawing(false);
+        setHeading('🏆 Winner Picked!');
+        setShowWinnerModal(true);
+        resolve();
+      }, 10000);
+    });
+  };
 
   return (
     <div
-      className="min-h-screen w-screen flex flex-col items-center bg-cover bg-center bg-no-repeat overflow-hidden"
+      className="min-h-screen w-screen flex flex-col items-center justify-center bg-cover bg-center bg-no-repeat overflow-hidden relative"
       style={{ backgroundImage: `url(${background})` }}
     >
-      {/* Logo */}
-      <div className="flex flex-col items-center text-center">
-        <img src={logo} alt="Logo" className="animated-logo mb-14" style={{ width: '250px' }} />
-      </div>
-
-      {/* Heading */}
-      <div className="w-full max-w-4xl mx-auto">
-        <h1 className="text-3xl md:text-4xl font-bold text-center text-white mb-4">
-          {heading}
-        </h1>
-      </div>
-
-      {/* Timer */}
-      <div className="mb-6 combined-card">
-        <p className="text-white text-lg text-center">
-          {isDrawing ? 'Please wait...' : 'Next Draw In : 14h 21m 45s'}
-        </p>
-      </div>
-
-      {/* Carousel Section */}
-      <div className="relative w-full max-w-5xl flex items-center justify-center mb-10 overflow-hidden px-4 h-64">
-        {/* Glowing Frame */}
-        <div
-          className="absolute z-10 w-[128px] h-[192px] border-4 rounded-xl pointer-events-none"
-          style={{
-            borderImage: 'linear-gradient(45deg, #00f0ff, #ff00f7) 1',
-            boxShadow: '0 0 30px rgba(0,255,255,0.6), 0 0 30px rgba(255,0,255,0.3)',
-          }}
-        />
-
-        {/* Scrollable Strip */}
-        <div
-          ref={scrollRef}
-          className="flex overflow-x-hidden scroll-smooth z-0 rounded-xl gap-6" // gap added here
-          style={{
-            width: '100%',
-            padding: '1.5rem 0',
-            background: 'linear-gradient(180deg, rgba(0, 43, 255, 0.30) 0%, rgba(42, 67, 193, 0.30) 100%)',
-            backdropFilter: 'blur(5px)',
-            WebkitBackdropFilter: 'blur(5px)',
-          }}
-        >
-          {[...dolphinImages, ...dolphinImages].map((img, index) => (
-            <div
-              key={index}
-              className={`flex-shrink-0 w-[128px] h-[176px] transition-transform duration-300 ${
-                winnerIndex === index ? 'scale-110 border-4 border-yellow-400' : ''
-              }`}
-            >
-              <img
-                src={img}
-                alt={`Dolphin ${index + 1}`}
-                className="w-full h-full object-cover rounded-lg border-2 border-transparent hover:border-white transition-all duration-300"
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Play Button */}
-      <Button text="Play Dolphin Dash" onClick={handlePlay} />
-
       {/* Winner Modal */}
-      {showWinnerModal && winnerIndex !== null && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
-          <div className="bg-gradient-to-b from-blue-900/80 to-indigo-900/80 backdrop-blur-md rounded-2xl p-6 text-center shadow-xl w-[90%] max-w-sm border border-blue-400">
+      {showWinnerModal && winnerIndex !== null ? (
+        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-b from-blue-900/70 to-indigo-900/70 backdrop-blur-md z-50 p-4">
+          <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 text-center shadow-xl w-[90%] max-w-sm border border-blue-400">
             <h2 className="text-white text-2xl font-bold mb-4">FINTALIK WINNER</h2>
             <img
               src={dolphinImages[winnerIndex]}
@@ -191,6 +128,70 @@ function DailyDraw() {
             </button>
           </div>
         </div>
+      ) : (
+        <>
+          {/* Logo */}
+          <div className="flex flex-col items-center text-center">
+            <img src={logo} alt="Logo" className="animated-logo mb-14" style={{ width: '250px' }} />
+          </div>
+
+          {/* Heading */}
+          <div className="w-full max-w-4xl mx-auto">
+            <h1 className="text-3xl md:text-4xl font-bold text-center text-white mb-4">
+              {heading}
+            </h1>
+          </div>
+
+          {/* Timer */}
+          <div className="mb-6 combined-card">
+            <p className="text-white text-lg text-center">
+              {isDrawing ? 'Please wait...' : 'Next Draw In : 14h 21m 45s'}
+            </p>
+          </div>
+
+          {/* Carousel Section */}
+          <div className="relative w-full max-w-5xl flex items-center justify-center mb-10 overflow-hidden px-4 h-64">
+            {/* Glowing Frame */}
+            <div
+              className="absolute z-10 w-[128px] h-[192px] border-4 rounded-xl pointer-events-none"
+              style={{
+                borderImage: 'linear-gradient(45deg, #00f0ff, #ff00f7) 1',
+                boxShadow: '0 0 30px rgba(0,255,255,0.6), 0 0 30px rgba(255,0,255,0.3)',
+              }}
+            />
+
+            {/* Scrollable Strip */}
+            <div
+              ref={scrollRef}
+              className="flex overflow-x-hidden scroll-smooth z-0 rounded-xl gap-6"
+              style={{
+                width: '100%',
+                padding: '1.5rem 0',
+                background: 'linear-gradient(180deg, rgba(0, 43, 255, 0.30) 0%, rgba(42, 67, 193, 0.30) 100%)',
+                backdropFilter: 'blur(5px)',
+                WebkitBackdropFilter: 'blur(5px)',
+              }}
+            >
+              {[...dolphinImages, ...dolphinImages].map((img, index) => (
+                <div
+                  key={index}
+                  className={`flex-shrink-0 w-[128px] h-[176px] transition-transform duration-300 ${
+                    winnerIndex === index ? 'scale-110 border-4 border-yellow-400' : ''
+                  }`}
+                >
+                  <img
+                    src={img}
+                    alt={`Dolphin ${index + 1}`}
+                    className="w-full h-full object-cover rounded-lg border-2 border-transparent hover:border-white transition-all duration-300"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Play Button */}
+          <Button text="Play Dolphin Dash" onClick={handlePlay} />
+        </>
       )}
     </div>
   );
