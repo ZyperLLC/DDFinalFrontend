@@ -33,7 +33,7 @@ export default function Button({ text, onClick, className = '' }: ButtonProps) {
     <button
       onClick={handleClick}
       disabled={isLoading}
-      className={`admin-btn flex items-center justify-center gap-2 px-6 py-3 text-white font-semibold rounded ${
+      className={`admin-btn flex items-center justify-center gap-2 px-12 py-3 text-white font-semibold rounded ${
         isLoading ? 'opacity-60 cursor-not-allowed' : ''
       } ${className}`}
     >
