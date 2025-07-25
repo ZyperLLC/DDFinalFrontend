@@ -2,8 +2,11 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { X } from 'lucide-react';
 import background1 from '../assets/background1.jpg';
-// import toast from 'react-hot-toast';
-// import { useStakeNft } from '../hooks/useStakeNft';
+import toast from 'react-hot-toast';
+import { useStakeNft } from '../hooks/useStakeNft';
+import Button from './Button';
+import { motion } from 'framer-motion';
+import { slideUpFade } from '../utils/animations';
 
 export default function StakePopup({
   selectedNft,
@@ -13,8 +16,8 @@ export default function StakePopup({
   onClose: () => void;
 }) {
   const { t } = useTranslation();
-  // const {stakeNft} = useStakeNft();
-
+  const {stakeNft} = useStakeNft();
+  console.log("Selected NFT in StakePopup:", selectedNft);
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     document.body.style.position = 'fixed';
@@ -34,15 +37,15 @@ export default function StakePopup({
 
   
   //Staking NFT address needs to be changed to the actual contract address
-  // const handleStakeNft = async () => {
-  //    try{
-  //     await stakeNft( selectedNft.contractAddress,'UQDloZc0mnoVQYfhd-r5zkEJHNrgUhOx9U0K6_1-YEtQGnhN')
-  //    }
-  //     catch(err){
-  //       console.error("Error staking NFT:", err);
-  //       toast.error("Failed to stake NFT. Please try again.");
-  //     }
-  // };
+  const handleStakeNft = async () => {
+     try{
+      await stakeNft( selectedNft.contractAddress,import.meta.env.VITE_STAKING_CONTRACT_ADDRESS);
+     }
+      catch(err){
+        console.error("Error staking NFT:", err);
+        toast.error("Failed to stake NFT. Please try again.");
+      }
+  };
   return (
     <>
       <div className="fixed inset-0 z-50 flex justify-center items-center" style={{ width: '100vw', maxWidth: '100vw', height: '100vh', padding: '1rem', overflow: 'hidden', boxSizing: 'border-box' }}>
@@ -55,7 +58,12 @@ export default function StakePopup({
             zIndex: -1,
           }}
         ></div>
-
+         <motion.div
+        className="popup-content"
+        variants={slideUpFade}
+        initial="hidden"
+        animate="visible"
+      >
         <div
           style={{
             width: '100%',
@@ -95,26 +103,26 @@ export default function StakePopup({
               src={selectedNft.image}
               alt={selectedNft.name}
               style={{
-                width: '100%',
-                maxWidth: '160px',
+                width: '100px',
                 display: 'block',
                 margin: '0 auto 1rem',
                 borderRadius: '1rem',
               }}
             />
-            <h2 className="text-xl font-bold text-center">{selectedNft.name}</h2>
+            <h3 className="text-xl font-bold text-center">{selectedNft.name}</h3>
             <p className="text-sm text-center mt-2" style={{ opacity: 0.9 }}>
               {selectedNft.description.slice(0, 150) + '...'}
             </p>
 
             <div className="mt-6 flex justify-center" style={{ width: '100%', maxWidth: '185px', margin: '1.5rem auto 0.5rem', padding: '0.5rem', background: 'rgba(255, 255, 255, 0.08)', borderRadius: '8px', backdropFilter: 'blur(6px)', textAlign: 'center' }}>
               <span style={{ color: '#32CD32', fontWeight: 'bold', fontSize: '1rem' }}>
-                {t('popup.apy')}: 2.85%
+                {t('staking_popup.apy')}: {selectedNft.collectionName==="DOLPHIN DASH NFT COLLECTION"?"10%":"84%"}
               </span>
             </div>
 
             <div className="mt-3 flex justify-center">
-              {/*<button
+              {/* <button
+                className='stake-button'
                 style={{
                   width: '100%',
                   maxWidth: '200px',
@@ -126,15 +134,17 @@ export default function StakePopup({
                   fontWeight: 600,
                   fontSize: '1rem',
                   cursor: 'pointer',
+                  
                 }}
                 onClick={handleStakeNft}
               >
-                {t('popup.stakeButton')}
-              </button>*/}
-              <p style={{color:"white"}}>Epoch 3 is going live soon!!</p>
+                {t('staking_popup.stakeButton')}
+              </button> */}
+              <Button onClick={handleStakeNft} text={t('staking_popup.stakeButton')}/>
             </div>
           </div>
         </div>
+        </motion.div>
       </div>
     </>
   );
