@@ -54,16 +54,6 @@ export default function StakePopup({
         initial="hidden"
         animate="visible"
       >
-      <div className="fixed inset-0 z-50 flex justify-center items-center" style={{ width: '100vw', maxWidth: '100vw', height: '100vh', padding: '1rem', overflow: 'hidden', boxSizing: 'border-box' }}>
-        <div
-          style={{
-            position: 'fixed',
-            inset: 0,
-            backdropFilter: 'blur(8px)',
-            backgroundColor: 'rgba(0, 0, 0, 0.4)',
-            zIndex: -1,
-          }}
-        ></div>
 
         <div
           style={{
@@ -145,7 +135,6 @@ export default function StakePopup({
             </div>
           </div>
         </div>
-      </div>
       </motion.div>
     </>
   );
