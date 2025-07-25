@@ -5,6 +5,8 @@ import background1 from '../assets/background1.jpg';
 import toast from 'react-hot-toast';
 import { useStakeNft } from '../hooks/useStakeNft';
 import Button from './Button';
+import { motion } from 'framer-motion';
+import { slideUpFade } from '../utils/animations';
 
 export default function StakePopup({
   selectedNft,
@@ -46,6 +48,12 @@ export default function StakePopup({
   };
   return (
     <>
+     <motion.div
+        className="popup-content"
+        variants={slideUpFade}
+        initial="hidden"
+        animate="visible"
+      >
       <div className="fixed inset-0 z-50 flex justify-center items-center" style={{ width: '100vw', maxWidth: '100vw', height: '100vh', padding: '1rem', overflow: 'hidden', boxSizing: 'border-box' }}>
         <div
           style={{
@@ -138,6 +146,7 @@ export default function StakePopup({
           </div>
         </div>
       </div>
+      </motion.div>
     </>
   );
 }
