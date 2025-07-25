@@ -4,6 +4,7 @@ import logo from '../assets/logo.jpg';
 import Button from '../components/Button';
 import glowFrame from '../assets/frame.png';
 
+// Dolphin imports...
 import dolphin1 from '../assets/dolphins/dolphin1.jpg';
 import dolphin2 from '../assets/dolphins/dolphin2.jpg';
 import dolphin3 from '../assets/dolphins/dolphin3.jpg';
@@ -107,7 +108,7 @@ function DailyDraw() {
 
   return (
     <div
-      className="min-h-screen w-screen flex flex-col items-center justify-center bg-cover bg-center bg-no-repeat overflow-hidden relative"
+      className="min-h-screen w-screen flex flex-col items-center justify-start pt-4 bg-cover bg-center bg-no-repeat overflow-hidden relative"
       style={{ backgroundImage: `url(${background})` }}
     >
       {/* Winner Modal */}
@@ -132,51 +133,38 @@ function DailyDraw() {
       ) : (
         <>
           {/* Logo */}
-          <div className="flex flex-col items-center text-center">
-            <img src={logo} alt="Logo" className="animated-logo mb-14" style={{ width: '250px' }} />
+          <div className="flex flex-col items-center text-center mt-4 mb-6">
+            <img src={logo} alt="Logo" className="animated-logo" style={{ width: '250px' }} />
           </div>
 
           {/* Heading */}
-                <div className="w-full max-w-4xl mx-auto text-center mb-4">
-  <h1
-    className="text-white text-center font-poppins text-[40px] font-semibold leading-[120%] space-y-2"
-    style={{ fontFeatureSettings: "'liga' off, 'clig' off", fontStyle: 'normal' , color: 'white' }}
-  >
-    {heading.map((line, index) => (
-      <div key={index}>{line}</div>
-    ))}
-  </h1>
-</div>
-
+          <div className="w-full max-w-4xl mx-auto text-center mb-4">
+            <h1 className="text-white text-[40px] font-semibold leading-[120%] font-poppins space-y-2">
+              {heading.map((line, index) => (
+                <div key={index}>{line}</div>
+              ))}
+            </h1>
+          </div>
 
           {/* Timer */}
-           <div className="mb-6 combined-card">
-  <p
-    className="text-white text-center font-poppins text-[15px] font-semibold leading-[120%]"
-    style={{
-      fontFeatureSettings: "'liga' off, 'clig' off",
-      fontStyle: 'normal',
-      color: 'white',
-    }}
-  >
-    {isDrawing ? 'Please wait...' : 'Next Draw In : 14h 21m 45s'}
-  </p>
-</div>
+          <div className="mb-6">
+            <p className="text-white text-[15px] font-semibold">
+              {isDrawing ? 'Please wait...' : 'Next Draw In : 14h 21m 45s'}
+            </p>
+          </div>
 
+          {/* Carousel with glow frame */}
+          <div className="relative w-full max-w-5xl flex items-center justify-center mb-16 overflow-hidden px-4 h-64">
+            {/* Glow Frame */}
+            <div className="absolute z-10 pointer-events-none flex items-center justify-center top-0 bottom-0 left-0 right-0">
+              <img
+                src={glowFrame}
+                alt="Glow Frame"
+                className="w-[200px] h-[250px] object-contain"
+              />
+            </div>
 
-          {/* Carousel Section */}
-          <div className="relative w-full max-w-5xl flex items-center justify-center mb-10 overflow-hidden px-4 h-64">
-             {/* Centered Frame Image */}
-<div className="absolute z-10 pointer-events-none flex items-center justify-center">
-  <img
-    src={glowFrame}
-    alt="Center Frame"
-    className="w-[184px] h-[227px]"
-  />
-</div>
-
-
-            {/* Scrollable Strip */}
+            {/* Image Strip */}
             <div
               ref={scrollRef}
               className="flex overflow-x-hidden scroll-smooth z-0 rounded-xl gap-6"
@@ -189,25 +177,26 @@ function DailyDraw() {
               }}
             >
               {[...dolphinImages, ...dolphinImages].map((img, index) => (
-                 <div
-  key={index}
-  className={`flex-shrink-0 flex justify-center items-center w-[92px] h-[92px] aspect-square gap-[10px] transition-transform duration-300 ${
-    winnerIndex === index ? 'scale-110 border-4 border-yellow-400' : ''
-  }`}
->
-  <img
-    src={img}
-    alt={`Dolphin ${index + 1}`}
-    className="w-full h-full object-cover rounded-lg border-2 border-transparent hover:border-white transition-all duration-300"
-  />
-</div>
-
+                <div
+                  key={index}
+                  className={`flex-shrink-0 flex justify-center items-center w-[92px] h-[92px] aspect-square gap-[16px] transition-transform duration-300 ${
+                    winnerIndex === index ? 'scale-110 border-4 border-yellow-400' : ''
+                  }`}
+                >
+                  <img
+                    src={img}
+                    alt={`Dolphin ${index + 1}`}
+                    className="w-full h-full object-cover rounded-lg border-2 border-transparent hover:border-white transition-all duration-300"
+                  />
+                </div>
               ))}
             </div>
           </div>
 
           {/* Play Button */}
-          <Button text="Play Dolphin Dash" onClick={handlePlay} />
+          <div className="w-full max-w-xs mb-10 px-4">
+            <Button text="Play Dolphin Dash" onClick={handlePlay} className="w-full py-4 text-lg" />
+          </div>
         </>
       )}
     </div>
