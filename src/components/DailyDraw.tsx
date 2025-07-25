@@ -51,7 +51,6 @@ const dolphinImages = [
 
 function DailyDraw() {
   const scrollRef = useRef<HTMLDivElement>(null);
-
   const [heading, setHeading] = useState('Daily Dolphin Dash Draw');
   const [isDrawing, setIsDrawing] = useState(false);
   const [scrollSpeed, setScrollSpeed] = useState(1);
@@ -66,9 +65,7 @@ function DailyDraw() {
     scrollContainer.scrollLeft = 0;
     let scrollAmount = 0;
 
-    if (scrollIntervalRef.current) {
-      clearInterval(scrollIntervalRef.current);
-    }
+    if (scrollIntervalRef.current) clearInterval(scrollIntervalRef.current);
 
     scrollIntervalRef.current = setInterval(() => {
       if (!scrollContainer) return;
@@ -83,28 +80,30 @@ function DailyDraw() {
     }, 16);
 
     return () => {
-      if (scrollIntervalRef.current) {
-        clearInterval(scrollIntervalRef.current);
-      }
+      if (scrollIntervalRef.current) clearInterval(scrollIntervalRef.current);
     };
   }, [scrollSpeed]);
 
-  const handlePlay = () => {
-    if (isDrawing) return;
+  const handlePlay = async () => {
+  if (isDrawing) return;
 
+  return new Promise<void>((resolve) => {
     setIsDrawing(true);
     setHeading('Drawing in Progress');
-    setScrollSpeed(5); // increase scroll speed
+    setScrollSpeed(5);
 
     setTimeout(() => {
-      setScrollSpeed(0); // stop scroll
+      setScrollSpeed(0);
       const randomIndex = Math.floor(Math.random() * dolphinImages.length);
       setWinnerIndex(randomIndex);
       setIsDrawing(false);
       setHeading('🏆 Winner Picked!');
       setShowWinnerModal(true);
-    }, 10000);
-  };
+      resolve(); // Finish the Promise when draw is complete
+    }, 10000); // 10s draw duration
+  });
+};
+
 
   return (
     <div
@@ -144,11 +143,10 @@ function DailyDraw() {
         {/* Scrollable Strip */}
         <div
           ref={scrollRef}
-          className="flex overflow-x-hidden scroll-smooth z-0 rounded-xl"
+          className="flex overflow-x-hidden scroll-smooth z-0 rounded-xl gap-6" // gap added here
           style={{
             width: '100%',
             padding: '1.5rem 0',
-            gap: '1.5rem',
             background: 'linear-gradient(180deg, rgba(0, 43, 255, 0.30) 0%, rgba(42, 67, 193, 0.30) 100%)',
             backdropFilter: 'blur(5px)',
             WebkitBackdropFilter: 'blur(5px)',
