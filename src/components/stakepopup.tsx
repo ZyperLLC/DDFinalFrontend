@@ -50,10 +50,20 @@ export default function StakePopup({
     <>
      <motion.div
         className="popup-content"
+        style={{zIndex:50,boxSizing:'border-box'}}
         variants={slideUpFade}
         initial="hidden"
         animate="visible"
       >
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            backdropFilter: 'blur(8px)',
+            backgroundColor: 'rgba(0, 0, 0, 0.4)',
+            zIndex: -1,
+          }}
+        ></div>
 
         <div
           style={{
