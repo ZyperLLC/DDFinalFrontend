@@ -109,7 +109,7 @@ export default function StakePopup({
                 borderRadius: '1rem',
               }}
             />
-            <h2 className="text-xl font-bold text-center">{selectedNft.name}</h2>
+            <h3 className="text-xl font-bold text-center">{selectedNft.name}</h3>
             <p className="text-sm text-center mt-2" style={{ opacity: 0.9 }}>
               {selectedNft.description.slice(0, 150) + '...'}
             </p>
