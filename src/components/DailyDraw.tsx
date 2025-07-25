@@ -51,7 +51,7 @@ const dolphinImages = [
 
 function DailyDraw() {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [heading, setHeading] = useState('Daily Dolphin Dash Draw');
+  const [heading, setHeading] = useState('Daily Dolphin <br/> Dash Draw');
   const [isDrawing, setIsDrawing] = useState(false);
   const [scrollSpeed, setScrollSpeed] = useState(1);
   const [winnerIndex, setWinnerIndex] = useState<number | null>(null);
@@ -137,14 +137,22 @@ function DailyDraw() {
 
           {/* Heading */}
           <div className="w-full max-w-4xl mx-auto">
-            <h1 className="text-3xl md:text-4xl font-bold text-center text-white mb-4">
+            <h1 className="text-3xl md:text-4xl font-bold text-center text-white mb-4"
+                style={{
+                color: 'white',
+           }}
+            >
               {heading}
             </h1>
           </div>
 
           {/* Timer */}
           <div className="mb-6 combined-card">
-            <p className="text-white text-lg text-center">
+            <p className="text-white text-lg text-center"
+              style={{
+                color: 'white',
+           }}
+            >
               {isDrawing ? 'Please wait...' : 'Next Draw In : 14h 21m 45s'}
             </p>
           </div>
@@ -175,14 +183,14 @@ function DailyDraw() {
               {[...dolphinImages, ...dolphinImages].map((img, index) => (
                 <div
                   key={index}
-                  className={`flex-shrink-0 w-[128px] h-[176px] transition-transform duration-300 ${
+                  className={`flex-shrink-0 gap-6 w-[128px] h-[176px] transition-transform duration-300 ${
                     winnerIndex === index ? 'scale-110 border-4 border-yellow-400' : ''
                   }`}
                 >
                   <img
                     src={img}
                     alt={`Dolphin ${index + 1}`}
-                    className="w-full h-full object-cover rounded-lg border-2 border-transparent hover:border-white transition-all duration-300"
+                    className="w-full h-full object-cover m-2 rounded-lg border-2 border-transparent hover:border-white transition-all duration-300"
                   />
                 </div>
               ))}
