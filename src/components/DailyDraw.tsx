@@ -155,13 +155,10 @@ function DailyDraw() {
     fontStyle: 'normal',
     fontWeight: 700,
     lineHeight: 'normal',
-    backgroundColor: '#6366F1', // matches bg-indigo-500
-    borderRadius: '9999px',
+    // borderRadius: '9999px',
     padding: '0.5rem 1rem',
     transition: 'all 0.3s ease',
   }}
-  onMouseOver={e => (e.currentTarget.style.backgroundColor = '#4F46E5')} // hover effect
-  onMouseOut={e => (e.currentTarget.style.backgroundColor = '#6366F1')}
   className='combined-card'
 >
   Come Back Tomorrow
