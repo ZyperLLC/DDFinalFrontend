@@ -98,7 +98,7 @@ function DailyDraw() {
         const randomIndex = Math.floor(Math.random() * dolphinImages.length);
         setWinnerIndex(randomIndex);
         setIsDrawing(false);
-        setHeading(['🏆 Winner Picked!']);
+        setHeading(['Daily Dolphin', 'Dash Draw']);
         setShowWinnerModal(true);
         resolve();
       }, 10000);
@@ -112,18 +112,19 @@ function DailyDraw() {
     >
       {/* Winner Modal */}
       {showWinnerModal && winnerIndex !== null ? (
-        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-b from-blue-900/70 to-indigo-900/70 backdrop-blur-md z-50 p-4">
-          <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 text-center shadow-xl w-[90%] max-w-sm border border-blue-400">
-            <h2 className="text-white text-2xl font-bold mb-4">FINTALIK WINNER</h2>
+        <div className="absolute inset-0 flex items-center justify-center backdrop-blur-md z-50 p-4">
+          <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 text-center shadow-xl w-[90%] max-w-sm">
+            <h2  className=" combined-card text-white text-center font-poppins text-[40px] font-semibold leading-[120%] space-y-2"
+    style={{ fontFeatureSettings: "'liga' off, 'clig' off", fontStyle: 'normal' , color: 'white' }}>FINTALIK WINNER</h2>
             <img
               src={dolphinImages[winnerIndex]}
               alt="Winning Dolphin"
               className="w-full h-auto rounded-lg border-4 border-white mb-4"
             />
-            <p className="text-green-400 text-lg font-semibold mb-4">You won!</p>
+            <p className="text-green-400 text-lg font-semibold mb-4 combined-card">You won!</p>
             <button
               onClick={() => setShowWinnerModal(false)}
-              className="bg-indigo-500 hover:bg-indigo-600 text-white py-2 px-4 rounded-full transition-all"
+              className="combined-card text-white py-2 px-4 rounded-full transition-all"
             >
               Come Back Tomorrow
             </button>
