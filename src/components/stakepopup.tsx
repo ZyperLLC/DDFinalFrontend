@@ -48,13 +48,7 @@ export default function StakePopup({
   };
   return (
     <>
-     <motion.div
-        className="popup-content"
-        style={{zIndex:50,boxSizing:'border-box',height:'100vh',overflow:'hidden'}}
-        variants={slideUpFade}
-        initial="hidden"
-        animate="visible"
-      >
+      <div className="fixed inset-0 z-50 flex justify-center items-center" style={{ width: '100vw', maxWidth: '100vw', height: '100vh', padding: '1rem', overflow: 'hidden', boxSizing: 'border-box' }}>
         <div
           style={{
             position: 'fixed',
@@ -64,7 +58,12 @@ export default function StakePopup({
             zIndex: -1,
           }}
         ></div>
-
+         <motion.div
+        className="popup-content"
+        variants={slideUpFade}
+        initial="hidden"
+        animate="visible"
+      >
         <div
           style={{
             width: '100%',
@@ -145,7 +144,8 @@ export default function StakePopup({
             </div>
           </div>
         </div>
-      </motion.div>
+        </motion.div>
+      </div>
     </>
   );
 }
