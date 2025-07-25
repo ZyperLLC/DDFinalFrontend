@@ -132,7 +132,7 @@ function DailyDraw() {
       ) : (
         <>
           {/* Logo */}
-          <div className="flex flex-col items-center text-center mt-4 ">
+          <div className="flex flex-col items-center text-center ">
             <img src={logo} alt="Logo" className="animated-logo mb-14" style={{ width: '250px' }} />
           </div>
 
@@ -165,7 +165,7 @@ function DailyDraw() {
 
 
           {/* Carousel Section */}
-          <div className="relative w-full max-w-5xl flex items-center justify-center mb-10 overflow-hidden px-4 h-64">
+          <div className="relative w-full max-w-5xl flex items-center justify-center mb-10 overflow-hidden px-4">
              {/* Centered Frame Image */}
 <div className="absolute z-10 pointer-events-none flex items-center justify-center">
   <img
@@ -207,7 +207,7 @@ function DailyDraw() {
           </div>
 
           {/* Play Button */}
-          <Button text="Play Dolphin Dash" onClick={handlePlay} />
+          <Button text="Play Dolphin Dash" onClick={handlePlay}  className='mt-5'/>
         </>
       )}
     </div>
