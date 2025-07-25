@@ -156,6 +156,7 @@ function DailyDraw() {
     style={{
       fontFeatureSettings: "'liga' off, 'clig' off",
       fontStyle: 'normal',
+      color: 'white',
     }}
   >
     {isDrawing ? 'Please wait...' : 'Next Draw In : 14h 21m 45s'}
@@ -165,13 +166,12 @@ function DailyDraw() {
 
           {/* Carousel Section */}
           <div className="relative w-full max-w-5xl flex items-center justify-center mb-10 overflow-hidden px-4 h-64">
-            {/* Glowing Frame */}
              {/* Centered Frame Image */}
 <div className="absolute z-10 pointer-events-none flex items-center justify-center">
   <img
     src={glowFrame}
     alt="Center Frame"
-    className="w-40 h-52"
+    className="w-[184px] h-[227px]"
   />
 </div>
 
@@ -189,18 +189,19 @@ function DailyDraw() {
               }}
             >
               {[...dolphinImages, ...dolphinImages].map((img, index) => (
-                <div
-                  key={index}
-                  className={`flex-shrink-0 gap-6 w-[128px] h-[176px] transition-transform duration-300 ${
-                    winnerIndex === index ? 'scale-110 border-4 border-yellow-400' : ''
-                  }`}
-                >
-                  <img
-                    src={img}
-                    alt={`Dolphin ${index + 1}`}
-                    className="w-full h-full object-cover m-2 rounded-lg border-2 border-transparent hover:border-white transition-all duration-300"
-                  />
-                </div>
+                 <div
+  key={index}
+  className={`flex-shrink-0 flex justify-center items-center w-[92px] h-[92px] aspect-square gap-[10px] transition-transform duration-300 ${
+    winnerIndex === index ? 'scale-110 border-4 border-yellow-400' : ''
+  }`}
+>
+  <img
+    src={img}
+    alt={`Dolphin ${index + 1}`}
+    className="w-full h-full object-cover rounded-lg border-2 border-transparent hover:border-white transition-all duration-300"
+  />
+</div>
+
               ))}
             </div>
           </div>
