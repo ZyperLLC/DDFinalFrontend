@@ -4,6 +4,7 @@ import { X } from 'lucide-react';
 import background1 from '../assets/background1.jpg';
 import toast from 'react-hot-toast';
 import { useStakeNft } from '../hooks/useStakeNft';
+import Button from './Button';
 
 export default function StakePopup({
   selectedNft,
@@ -95,8 +96,7 @@ export default function StakePopup({
               src={selectedNft.image}
               alt={selectedNft.name}
               style={{
-                width: '50px',
-                maxWidth: '50px',
+                width: '100px',
                 display: 'block',
                 margin: '0 auto 1rem',
                 borderRadius: '1rem',
@@ -109,12 +109,13 @@ export default function StakePopup({
 
             <div className="mt-6 flex justify-center" style={{ width: '100%', maxWidth: '185px', margin: '1.5rem auto 0.5rem', padding: '0.5rem', background: 'rgba(255, 255, 255, 0.08)', borderRadius: '8px', backdropFilter: 'blur(6px)', textAlign: 'center' }}>
               <span style={{ color: '#32CD32', fontWeight: 'bold', fontSize: '1rem' }}>
-                {t('staking_popup.apy')}: {selectedNft.collectionName==="DOLPHIN DASH NFT COLLECTION"?"10%":"80%"}
+                {t('staking_popup.apy')}: {selectedNft.collectionName==="DOLPHIN DASH NFT COLLECTION"?"10%":"84%"}
               </span>
             </div>
 
             <div className="mt-3 flex justify-center">
-              <button
+              {/* <button
+                className='stake-button'
                 style={{
                   width: '100%',
                   maxWidth: '200px',
@@ -126,11 +127,13 @@ export default function StakePopup({
                   fontWeight: 600,
                   fontSize: '1rem',
                   cursor: 'pointer',
+                  
                 }}
                 onClick={handleStakeNft}
               >
                 {t('staking_popup.stakeButton')}
-              </button>
+              </button> */}
+              <Button onClick={handleStakeNft} text={t('staking_popup.stakeButton')}/>
             </div>
           </div>
         </div>
