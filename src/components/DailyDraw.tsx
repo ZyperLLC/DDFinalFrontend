@@ -1,5 +1,4 @@
-import { useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
 import background from '../assets/background3.png';
 import logo from '../assets/logo.jpg';
 import Button from '../components/Button';
@@ -51,31 +50,61 @@ const dolphinImages = [
 ];
 
 function DailyDraw() {
-  const navigate = useNavigate();
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  const [heading, setHeading] = useState('Daily Dolphin Dash Draw');
+  const [isDrawing, setIsDrawing] = useState(false);
+  const [scrollSpeed, setScrollSpeed] = useState(1);
+  const [winnerIndex, setWinnerIndex] = useState<number | null>(null);
+  const [showWinnerModal, setShowWinnerModal] = useState(false);
+  const scrollIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const scrollContainer = scrollRef.current;
     if (!scrollContainer) return;
 
-    let scrollAmount = 0;
-    const scrollStep = 1;
-    const scrollDelay = 16; // ~60fps
-
     scrollContainer.scrollLeft = 0;
+    let scrollAmount = 0;
 
-    const interval = setInterval(() => {
+    if (scrollIntervalRef.current) {
+      clearInterval(scrollIntervalRef.current);
+    }
+
+    scrollIntervalRef.current = setInterval(() => {
+      if (!scrollContainer) return;
+
       if (scrollContainer.scrollLeft >= scrollContainer.scrollWidth / 2) {
         scrollContainer.scrollLeft = 0;
         scrollAmount = 0;
       } else {
-        scrollAmount += scrollStep;
+        scrollAmount += scrollSpeed;
         scrollContainer.scrollLeft = scrollAmount;
       }
-    }, scrollDelay);
+    }, 16);
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => {
+      if (scrollIntervalRef.current) {
+        clearInterval(scrollIntervalRef.current);
+      }
+    };
+  }, [scrollSpeed]);
+
+  const handlePlay = () => {
+    if (isDrawing) return;
+
+    setIsDrawing(true);
+    setHeading('Drawing in Progress');
+    setScrollSpeed(5); // increase scroll speed
+
+    setTimeout(() => {
+      setScrollSpeed(0); // stop scroll
+      const randomIndex = Math.floor(Math.random() * dolphinImages.length);
+      setWinnerIndex(randomIndex);
+      setIsDrawing(false);
+      setHeading('🏆 Winner Picked!');
+      setShowWinnerModal(true);
+    }, 10000);
+  };
 
   return (
     <div
@@ -90,20 +119,20 @@ function DailyDraw() {
       {/* Heading */}
       <div className="w-full max-w-4xl mx-auto">
         <h1 className="text-3xl md:text-4xl font-bold text-center text-white mb-4">
-          Daily Dolphin <br /> Dash Draw
+          {heading}
         </h1>
       </div>
 
       {/* Timer */}
       <div className="mb-6 combined-card">
         <p className="text-white text-lg text-center">
-          Next Draw In : 14h 21m 45s
+          {isDrawing ? 'Please wait...' : 'Next Draw In : 14h 21m 45s'}
         </p>
       </div>
 
       {/* Carousel Section */}
       <div className="relative w-full max-w-5xl flex items-center justify-center mb-10 overflow-hidden px-4 h-64">
-        {/* Glowing Frame (larger than image) */}
+        {/* Glowing Frame */}
         <div
           className="absolute z-10 w-[128px] h-[192px] border-4 rounded-xl pointer-events-none"
           style={{
@@ -115,16 +144,22 @@ function DailyDraw() {
         {/* Scrollable Strip */}
         <div
           ref={scrollRef}
-          className="flex gap-6 overflow-x-hidden scroll-smooth z-0"
+          className="flex overflow-x-hidden scroll-smooth z-0 rounded-xl"
           style={{
             width: '100%',
             padding: '1.5rem 0',
+            gap: '1.5rem',
+            background: 'linear-gradient(180deg, rgba(0, 43, 255, 0.30) 0%, rgba(42, 67, 193, 0.30) 100%)',
+            backdropFilter: 'blur(5px)',
+            WebkitBackdropFilter: 'blur(5px)',
           }}
         >
           {[...dolphinImages, ...dolphinImages].map((img, index) => (
             <div
               key={index}
-              className="flex-shrink-0 w-[128px] h-[176px]"
+              className={`flex-shrink-0 w-[128px] h-[176px] transition-transform duration-300 ${
+                winnerIndex === index ? 'scale-110 border-4 border-yellow-400' : ''
+              }`}
             >
               <img
                 src={img}
@@ -137,7 +172,28 @@ function DailyDraw() {
       </div>
 
       {/* Play Button */}
-      <Button text="Play Dolphin Dash" onClick={() => navigate('/play')} />
+      <Button text="Play Dolphin Dash" onClick={handlePlay} />
+
+      {/* Winner Modal */}
+      {showWinnerModal && winnerIndex !== null && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
+          <div className="bg-gradient-to-b from-blue-900/80 to-indigo-900/80 backdrop-blur-md rounded-2xl p-6 text-center shadow-xl w-[90%] max-w-sm border border-blue-400">
+            <h2 className="text-white text-2xl font-bold mb-4">FINTALIK WINNER</h2>
+            <img
+              src={dolphinImages[winnerIndex]}
+              alt="Winning Dolphin"
+              className="w-full h-auto rounded-lg border-4 border-white mb-4"
+            />
+            <p className="text-green-400 text-lg font-semibold mb-4">You won!</p>
+            <button
+              onClick={() => setShowWinnerModal(false)}
+              className="bg-indigo-500 hover:bg-indigo-600 text-white py-2 px-4 rounded-full transition-all"
+            >
+              Come Back Tomorrow
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
