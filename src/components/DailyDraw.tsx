@@ -155,6 +155,17 @@ function DailyDraw() {
             <div className="combined-card">
               <button
                 onClick={() => setShowWinnerModal(false)}
+
+                 style={{
+                  color: 'white',
+                  textAlign: 'center',
+                  fontFeatureSettings: "'liga' off, 'clig' off",
+                  fontFamily: 'Poppins',
+                  fontSize: '24px',
+                  fontStyle: 'normal',
+                  fontWeight: 600,
+                  lineHeight: '120%',
+                }}
               >
                 Come Back Tomorrow
               </button>
