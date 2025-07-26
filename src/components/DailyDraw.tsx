@@ -162,9 +162,9 @@ function DailyDraw() {
                   textAlign: 'center',
                   fontFeatureSettings: "'liga' off, 'clig' off",
                   fontFamily: 'Poppins',
-                  fontSize: '24px',
+                  fontSize: '16px',
                   fontStyle: 'normal',
-                  fontWeight: 600,
+                  fontWeight: 400,
                   lineHeight: '120%',
                 }}
               >
@@ -180,7 +180,7 @@ function DailyDraw() {
           </div>
 
           {/* Heading */}
-          <div className="w-full max-w-4xl mx-auto text-center mb-4">
+          <div className="w-full max-w-4xl mx-auto text-center">
             <h1
               className="text-white text-center font-poppins text-[40px] font-semibold leading-[120%] space-y-2"
               style={{
@@ -212,7 +212,7 @@ function DailyDraw() {
           {/* Carousel Section */}
           <div className="relative w-full max-w-5xl flex items-center justify-center top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
             {/* Centered Frame Image */}
-            <div className="absolute z-10 pointer-events-none flex items-center justify-center mt-10 mb-12">
+            <div className="absolute z-10 pointer-events-none flex items-center justify-center ">
               <img
                 src={glowFrame}
                 alt="Center Frame"
