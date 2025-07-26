@@ -152,9 +152,10 @@ function DailyDraw() {
               <img src={lineImg2} alt="line right" className="h-1 w-16 sm:w-24 object-contain" />
             </div>
 
-            <div className="combined-card">
+
               <button
                 onClick={() => setShowWinnerModal(false)}
+                className="combined-card"
 
                  style={{
                   color: 'white',
@@ -169,7 +170,6 @@ function DailyDraw() {
               >
                 Come Back Tomorrow
               </button>
-            </div>
           </div>
         </div>
       ) : (
@@ -210,7 +210,7 @@ function DailyDraw() {
           </div>
 
           {/* Carousel Section */}
-          <div className="relative w-full max-w-5xl flex items-center justify-center mb-10 mt-10 px-4">
+          <div className="relative w-full max-w-5xl flex items-center justify-center top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
             {/* Centered Frame Image */}
             <div className="absolute z-10 pointer-events-none flex items-center justify-center mt-10 mb-12">
               <img
@@ -251,7 +251,7 @@ function DailyDraw() {
           </div>
 
           {/* Play Button */}
-          <div className="mt-16">
+          <div className="mt-16 z-20 relative">
             <Button text="Play Dolphin Dash" onClick={handlePlay} />
           </div>
         </>
