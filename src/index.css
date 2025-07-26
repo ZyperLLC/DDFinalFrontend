@@ -272,6 +272,16 @@ html, body {
   /* max-width: 480px; */
 }
 
+.combined-card3{
+  background: rgba(255, 255, 255, 0.08);
+  padding: 1rem 1.5rem;
+  margin: 0 auto 1rem;
+  border-radius: 6px;
+  width: 85%;
+  /* max-width: 480px; */
+  text-align: center;
+}
+
 
 .card-subtitle {
   font-size: 0.9rem;

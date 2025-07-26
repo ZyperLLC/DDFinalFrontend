@@ -152,7 +152,7 @@ function DailyDraw() {
               <img src={lineImg2} alt="line right" className="h-1 w-16 sm:w-24 object-contain" />
             </div>
 
-            <div className="combined-card">
+            <div className="combined-card3">
               <button
                 onClick={() => setShowWinnerModal(false)}
                 style={{
@@ -195,7 +195,7 @@ function DailyDraw() {
           </div>
 
           {/* Timer */}
-          <div className="mt-10 mb-10 combined-card">
+          <div className=" mb-10 combined-card">
             <p
               className="text-white text-center font-poppins text-[15px] font-semibold leading-[120%]"
               style={{
@@ -209,7 +209,7 @@ function DailyDraw() {
           </div>
 
           {/* Carousel Section */}
-          <div className="relative w-full max-w-5xl flex items-center justify-center mb-10 px-4">
+          <div className="relative w-full max-w-5xl flex items-center justify-center mb-10 mt-10 px-4">
             {/* Centered Frame Image */}
             <div className="absolute z-10 pointer-events-none flex items-center justify-center mt-10 mb-5">
               <img
@@ -229,6 +229,7 @@ function DailyDraw() {
                 background: 'linear-gradient(180deg, rgba(0, 43, 255, 0.30) 0%, rgba(42, 67, 193, 0.30) 100%)',
                 backdropFilter: 'blur(5px)',
                 WebkitBackdropFilter: 'blur(5px)',
+                marginTop: '10px'
               }}
             >
               {[...dolphinImages, ...dolphinImages].map((img, index) => (
@@ -249,7 +250,7 @@ function DailyDraw() {
           </div>
 
           {/* Play Button */}
-          <div className="mt-16 mb-10">
+          <div className="mt-16">
             <Button text="Play Dolphin Dash" onClick={handlePlay} />
           </div>
         </>
