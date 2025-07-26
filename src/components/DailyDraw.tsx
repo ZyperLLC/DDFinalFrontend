@@ -6,8 +6,6 @@ import glowFrame from '../assets/frame.png';
 import lineImg1 from '../assets/Line 1.png';
 import lineImg2 from '../assets/Line 2.png';
 
-
-
 import dolphin1 from '../assets/dolphins/dolphin1.jpg';
 import dolphin2 from '../assets/dolphins/dolphin2.jpg';
 import dolphin3 from '../assets/dolphins/dolphin3.jpg';
@@ -118,90 +116,108 @@ function DailyDraw() {
       {showWinnerModal && winnerIndex !== null ? (
         <div className="absolute inset-0 flex items-center justify-center backdrop-blur-md z-50 p-4">
           <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 text-center shadow-xl w-[90%] max-w-sm">
-            <h2  className=" combined-card text-white text-center font-poppins text-[40px] font-semibold leading-[120%] space-y-2"
-    style={{ fontFeatureSettings: "'liga' off, 'clig' off", fontStyle: 'normal' , color: 'white' }}>FINTALIK WINNER</h2>
+            <h2
+              className="combined-card text-white text-center font-poppins text-[40px] font-semibold leading-[120%] space-y-2"
+              style={{
+                fontFeatureSettings: "'liga' off, 'clig' off",
+                fontStyle: 'normal',
+                color: 'white',
+              }}
+            >
+              FINTALIK WINNER
+            </h2>
+
             <img
               src={dolphinImages[winnerIndex]}
               alt="Winning Dolphin"
               className="w-full h-auto rounded-lg border-4 border-white mb-4"
             />
+
             <div className="flex items-center justify-center mb-4 gap-4 combined-card">
-  <img src={lineImg1} alt="line left" className="h-1 w-16 sm:w-24 object-contain" />
-  <p
-    style={{
-      color: '#98FF3F',
-      textAlign: 'center',
-      fontFeatureSettings: "'liga' off, 'clig' off",
-      fontFamily: 'Poppins',
-      fontSize: '24px',
-      fontStyle: 'normal',
-      fontWeight: 600,
-      lineHeight: '120%',
-    }}
-  >
-    You won!
-  </p>
-  <img src={lineImg2} alt="line right" className="h-1 w-16 sm:w-24 object-contain" />
-</div>
+              <img src={lineImg1} alt="line left" className="h-1 w-16 sm:w-24 object-contain" />
+              <p
+                style={{
+                  color: '#98FF3F',
+                  textAlign: 'center',
+                  fontFeatureSettings: "'liga' off, 'clig' off",
+                  fontFamily: 'Poppins',
+                  fontSize: '24px',
+                  fontStyle: 'normal',
+                  fontWeight: 600,
+                  lineHeight: '120%',
+                }}
+              >
+                You won!
+              </p>
+              <img src={lineImg2} alt="line right" className="h-1 w-16 sm:w-24 object-contain" />
+            </div>
 
-            <button
-  onClick={() => setShowWinnerModal(false)}
-  className='combined-card'
-  style={{
-    color: '#FFF',
-  }}
->
-  Come Back Tomorrow
-</button>
-
+            <div className="combined-card">
+              <button
+                onClick={() => setShowWinnerModal(false)}
+                style={{
+                  color: '#FFF',
+                  textAlign: 'center',
+                  fontFamily: '"SF Pro", sans-serif',
+                  fontSize: '15px',
+                  fontStyle: 'normal',
+                  fontWeight: 700,
+                  padding: '0.5rem 1rem',
+                  transition: 'all 0.3s ease',
+                }}
+              >
+                Come Back Tomorrow
+              </button>
+            </div>
           </div>
         </div>
       ) : (
         <>
           {/* Logo */}
-          <div className="flex flex-col items-center text-center ">
+          <div className="flex flex-col items-center text-center">
             <img src={logo} alt="Logo" className="animated-logo mb-14" style={{ width: '250px' }} />
           </div>
 
           {/* Heading */}
-                <div className="w-full max-w-4xl mx-auto text-center mb-4">
-  <h1
-    className="text-white text-center font-poppins text-[40px] font-semibold leading-[120%] space-y-2"
-    style={{ fontFeatureSettings: "'liga' off, 'clig' off", fontStyle: 'normal' , color: 'white' }}
-  >
-    {heading.map((line, index) => (
-      <div key={index}>{line}</div>
-    ))}
-  </h1>
-</div>
-
+          <div className="w-full max-w-4xl mx-auto text-center mb-4">
+            <h1
+              className="text-white text-center font-poppins text-[40px] font-semibold leading-[120%] space-y-2"
+              style={{
+                fontFeatureSettings: "'liga' off, 'clig' off",
+                fontStyle: 'normal',
+                color: 'white',
+              }}
+            >
+              {heading.map((line, index) => (
+                <div key={index}>{line}</div>
+              ))}
+            </h1>
+          </div>
 
           {/* Timer */}
-           <div className="mb-10 combined-card">
-  <p
-    className="text-white text-center font-poppins text-[15px] font-semibold leading-[120%]"
-    style={{
-      fontFeatureSettings: "'liga' off, 'clig' off",
-      fontStyle: 'normal',
-      color: 'white',
-    }}
-  >
-    {isDrawing ? 'Please wait...' : 'Next Draw In : 14h 21m 45s'}
-  </p>
-</div>
-
+          <div className="mt-10 mb-10 combined-card">
+            <p
+              className="text-white text-center font-poppins text-[15px] font-semibold leading-[120%]"
+              style={{
+                fontFeatureSettings: "'liga' off, 'clig' off",
+                fontStyle: 'normal',
+                color: 'white',
+              }}
+            >
+              {isDrawing ? 'Please wait...' : 'Next Draw In : 14h 21m 45s'}
+            </p>
+          </div>
 
           {/* Carousel Section */}
-          <div className="relative w-full max-w-5xl flex items-center justify-center mb-10  px-4">
-             {/* Centered Frame Image */}
-<div className="absolute z-10 pointer-events-none flex items-center justify-center mt-10 mb-5">
-  <img
-    src={glowFrame}
-    alt="Center Frame"
-    className="w-[184px] h-[227px]"
-  />
-</div>
-
+          <div className="relative w-full max-w-5xl flex items-center justify-center mb-10 px-4">
+            {/* Centered Frame Image */}
+            <div className="absolute z-10 pointer-events-none flex items-center justify-center mt-10 mb-5">
+              <img
+                src={glowFrame}
+                alt="Center Frame"
+                className="w-[184px] h-[227px]"
+              />
+            </div>
 
             {/* Scrollable Strip */}
             <div
@@ -216,26 +232,25 @@ function DailyDraw() {
               }}
             >
               {[...dolphinImages, ...dolphinImages].map((img, index) => (
-                 <div
-  key={index}
-  className={`flex-shrink-0 flex justify-center items-center w-[92px] h-[92px] aspect-square gap-[16px] transition-transform duration-300 ${
-    winnerIndex === index ? 'scale-110 border-4 border-yellow-400' : ''
-  }`}
->
-  <img
-    src={img}
-    alt={`Dolphin ${index + 1}`}
-    className="w-full h-full object-cover rounded-lg border-2 border-transparent hover:border-white transition-all duration-300"
-  />
-</div>
-
+                <div
+                  key={index}
+                  className={`flex-shrink-0 flex justify-center items-center w-[92px] h-[92px] aspect-square gap-[16px] transition-transform duration-300 ${
+                    winnerIndex === index ? 'scale-110 border-4 border-yellow-400' : ''
+                  }`}
+                >
+                  <img
+                    src={img}
+                    alt={`Dolphin ${index + 1}`}
+                    className="w-full h-full object-cover rounded-lg border-2 border-transparent hover:border-white transition-all duration-300"
+                  />
+                </div>
               ))}
             </div>
           </div>
 
           {/* Play Button */}
-          <div className='mt-10'>
-             <Button text="Play Dolphin Dash" onClick={handlePlay}  />
+          <div className="mt-16 mb-10">
+            <Button text="Play Dolphin Dash" onClick={handlePlay} />
           </div>
         </>
       )}
