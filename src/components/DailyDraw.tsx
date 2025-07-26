@@ -109,7 +109,7 @@ function DailyDraw() {
 
   return (
     <div
-      className="min-h-screen w-screen flex flex-col items-center justify-center bg-cover bg-center bg-no-repeat overflow-hidden relative"
+      className="min-h-screen w-screen flex flex-col items-center justify-start pt-8 bg-cover bg-center bg-no-repeat overflow-hidden relative"
       style={{ backgroundImage: `url(${background})` }}
     >
       {/* Winner Modal */}
@@ -212,7 +212,7 @@ function DailyDraw() {
           {/* Carousel Section */}
           <div className="relative w-full max-w-5xl flex items-center justify-center ">
             {/* Centered Frame Image */}
-            <div className="absolute z-10 pointer-events-none flex items-center justify-center ">
+            <div className="absolute z-10 pointer-events-none flex items-center justify-center my-8">
               <img
                 src={glowFrame}
                 alt="Center Frame"
