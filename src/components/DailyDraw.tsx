@@ -212,7 +212,7 @@ function DailyDraw() {
           {/* Carousel Section */}
           <div className="relative w-full max-w-5xl flex items-center justify-center ">
             {/* Centered Frame Image */}
-            <div className="absolute z-10 pointer-events-none flex items-center justify-center my-8">
+            <div className="absolute z-10 pointer-events-none flex items-center justify-center mb-24">
               <img
                 src={glowFrame}
                 alt="Center Frame"
