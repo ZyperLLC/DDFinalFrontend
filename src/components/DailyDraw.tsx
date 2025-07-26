@@ -109,7 +109,7 @@ function DailyDraw() {
 
   return (
     <div
-      className="min-h-screen w-screen flex flex-col items-center justify-start pt-8 bg-cover bg-center bg-no-repeat overflow-hidden relative"
+      className="min-h-screen w-screen flex flex-col items-center justify-start pt-12 bg-cover bg-center bg-no-repeat overflow-hidden relative"
       style={{ backgroundImage: `url(${background})` }}
     >
       {/* Winner Modal */}
@@ -117,7 +117,7 @@ function DailyDraw() {
         <div className="absolute inset-0 flex items-center justify-center backdrop-blur-md z-50 p-4">
           <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 text-center shadow-xl w-[90%] max-w-sm">
             <h2
-              className="combined-card text-white text-center font-poppins text-[40px] font-semibold leading-[120%] space-y-2"
+              className="combined-card text-white text-center font-poppins text-[40px] font-semibold leading-[120%] space-y-4"
               style={{
                 fontFeatureSettings: "'liga' off, 'clig' off",
                 fontStyle: 'normal',
@@ -210,7 +210,7 @@ function DailyDraw() {
           </div>
 
           {/* Carousel Section */}
-          <div className="relative w-full max-w-5xl flex items-center justify-center ">
+          <div className="relative w-full max-w-5xl flex items-center justify-center mb-10">
             {/* Centered Frame Image */}
             <div className="absolute z-10 pointer-events-none flex items-center justify-center mb-24">
               <img
@@ -251,7 +251,7 @@ function DailyDraw() {
           </div>
 
           {/* Play Button */}
-          <div className="mt-20 z-20 relative">
+          <div className="mt-20 z-10 relative">
             <Button text="Play Dolphin Dash" onClick={handlePlay} />
           </div>
         </>
