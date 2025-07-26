@@ -196,7 +196,7 @@ function DailyDraw() {
           </div>
 
           {/* Timer */}
-          <div className=" mb-10 combined-card">
+          <div className="relative z-10 mb-10 combined-card">
             <p
               className="text-white text-center font-poppins text-[15px] font-semibold leading-[120%]"
               style={{
@@ -210,7 +210,7 @@ function DailyDraw() {
           </div>
 
           {/* Carousel Section */}
-          <div className="relative w-full max-w-5xl flex items-center justify-center top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+          <div className="relative w-full max-w-5xl flex items-center justify-center ">
             {/* Centered Frame Image */}
             <div className="absolute z-10 pointer-events-none flex items-center justify-center ">
               <img
