@@ -109,7 +109,7 @@ function DailyDraw() {
 
   return (
     <div
-      className="flex flex-col items-center justify-center bg-cover bg-center bg-no-repeat overflow-hidden relative"
+      className="min-h-screen w-screen flex flex-col items-center justify-center bg-cover bg-center bg-no-repeat overflow-hidden relative"
       style={{ backgroundImage: `url(${background})` }}
     >
       {/* Winner Modal */}
