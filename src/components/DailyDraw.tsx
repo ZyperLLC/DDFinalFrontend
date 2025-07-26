@@ -149,17 +149,7 @@ function DailyDraw() {
   className='combined-card'
   style={{
     color: '#FFF',
-    textAlign: 'center',
-    fontFamily: '"SF Pro", sans-serif',
-    fontSize: '15px',
-    fontStyle: 'normal',
-    fontWeight: 700,
-    // lineHeight: 'normal',
-    // borderRadius: '9999px',
-    padding: '0.5rem 1rem',
-    transition: 'all 0.3s ease',
   }}
-
 >
   Come Back Tomorrow
 </button>
@@ -187,7 +177,7 @@ function DailyDraw() {
 
 
           {/* Timer */}
-           <div className="mb-6 combined-card">
+           <div className="mb-10 combined-card">
   <p
     className="text-white text-center font-poppins text-[15px] font-semibold leading-[120%]"
     style={{
@@ -244,7 +234,9 @@ function DailyDraw() {
           </div>
 
           {/* Play Button */}
-          <Button text="Play Dolphin Dash" onClick={handlePlay}  className='mt-5'/>
+          <div className='mt-10'>
+             <Button text="Play Dolphin Dash" onClick={handlePlay}  />
+          </div>
         </>
       )}
     </div>
