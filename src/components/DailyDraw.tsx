@@ -1,10 +1,9 @@
+// pages/DailyDraw.tsx
 import { useEffect, useRef, useState } from 'react';
 import background from '../assets/background3.png';
 import logo from '../assets/logo.jpg';
 import Button from '../components/DrawButton';
 import glowFrame from '../assets/frame.png';
-import lineImg1 from '../assets/Line 1.png';
-import lineImg2 from '../assets/Line 2.png';
 
 import dolphin1 from '../assets/dolphins/dolphin1.jpg';
 import dolphin2 from '../assets/dolphins/dolphin2.jpg';
@@ -42,6 +41,8 @@ import dolphin33 from '../assets/dolphins/dolphin33.png';
 import dolphin34 from '../assets/dolphins/dolphin34.png';
 import dolphin35 from '../assets/dolphins/dolphin35.png';
 import dolphin36 from '../assets/dolphins/dolphin36.png';
+
+import WinnerModal from '../components/WinnerModal';
 
 const dolphinImages = [
   dolphin1, dolphin2, dolphin3, dolphin4, dolphin5, dolphin6,
@@ -109,79 +110,24 @@ function DailyDraw() {
 
   return (
     <div
-      className="min-h-screen w-screen flex flex-col items-center bg-cover bg-center bg-no-repeat overflow-hidden relative"
+      className="relative min-h-screen w-screen flex flex-col items-center bg-cover bg-center bg-no-repeat overflow-hidden"
       style={{ backgroundImage: `url(${background})` }}
     >
-      {/* Winner Modal */}
+
+    {/* Winner Modal */}
       {showWinnerModal && winnerIndex !== null ? (
-        <div className='flex  flex-col items-center justify-center'>
-        <div className="absolute inset-0 flex items-center justify-center backdrop-blur-md z-50 p-4">
-          <div className="bg-white/10 backdrop-blur-md rounded-2xl  text-center shadow-xl w-[90%] max-w-sm">
-            <h2
-              className="combined-card text-white text-center font-poppins text-[40px] font-semibold leading-[120%] space-y-4"
-              style={{
-                fontFeatureSettings: "'liga' off, 'clig' off",
-                fontStyle: 'normal',
-                color: 'white',
-              }}
-            >
-              FINTALIK WINNER
-            </h2>
-
-            <img
-              src={dolphinImages[winnerIndex]}
-              alt="Winning Dolphin"
-              className="w-[50%] h-auto rounded-lg border-4 border-white mb-4"
-            />
-
-            <div className="flex items-center justify-center mb-4 gap-4 combined-card">
-              <img src={lineImg1} alt="line left" className="h-1 w-16 sm:w-24 object-contain" />
-              <p
-                style={{
-                  color: '#98FF3F',
-                  textAlign: 'center',
-                  fontFeatureSettings: "'liga' off, 'clig' off",
-                  fontFamily: 'Poppins',
-                  fontSize: '24px',
-                  fontStyle: 'normal',
-                  fontWeight: 600,
-                  lineHeight: '120%',
-                }}
-              >
-                You won!
-              </p>
-              <img src={lineImg2} alt="line right" className="h-1 w-16 sm:w-24 object-contain" />
-            </div>
-
-
-              <button
-                onClick={() => setShowWinnerModal(false)}
-                className="combined-card"
-
-                 style={{
-                  color: 'white',
-                  textAlign: 'center',
-                  fontFeatureSettings: "'liga' off, 'clig' off",
-                  fontFamily: 'Poppins',
-                  fontSize: '16px',
-                  fontStyle: 'normal',
-                  fontWeight: 400,
-                  lineHeight: '120%',
-                }}
-              >
-                Come Back Tomorrow
-              </button>
-          </div>
-        </div>
-        </div>
+        <WinnerModal
+          winnerImage={dolphinImages[winnerIndex]}
+          onClose={() => setShowWinnerModal(false)}
+        />
       ) : (
-        < >
-          {/* Logo */}
+        <>
+         {/* Logo */}
           <div className="flex flex-col items-center text-center">
             <img src={logo} alt="Logo" className="animated-logo mb-14" style={{ width: '250px' }} />
           </div>
-
-          {/* Heading */}
+          
+            {/* Heading */}
           <div className="w-full max-w-4xl mx-auto text-center">
             <h1
               className="text-white text-center font-poppins text-[40px] font-semibold leading-[120%] space-y-2"
@@ -197,7 +143,7 @@ function DailyDraw() {
             </h1>
           </div>
 
-          {/* Timer */}
+           {/* Timer */}
           <div className="relative z-10 mb-10 combined-card">
             <p
               className="text-white text-center font-poppins text-[15px] font-semibold leading-[120%]"
@@ -212,17 +158,14 @@ function DailyDraw() {
           </div>
 
           {/* Carousel Section */}
-          <div className="relative w-full max-w-5xl flex items-center justify-center mb-12 ">
-            {/* Centered Frame Image */}
+          <div className="relative w-full max-w-5xl flex items-center justify-center mb-12">
+
+            {/* Centered Glow Frame */}
             <div className="absolute z-10 pointer-events-none flex items-center justify-center">
-              <img
-                src={glowFrame}
-                alt="Center Frame"
-                className="w-[184px] h-[227px]"
-              />
+              <img src={glowFrame} alt="Center Frame" className="w-[184px] h-[227px]" />
             </div>
 
-            {/* Scrollable Strip */}
+             {/* Dolphin Strip */}
             <div
               ref={scrollRef}
               className="flex overflow-x-hidden scroll-smooth z-0 rounded-xl gap-6"
@@ -250,15 +193,12 @@ function DailyDraw() {
                 </div>
               ))}
             </div>
-
-
           </div>
-          {/* Play Button */}
-            <Button text="Play Dolphin Dash" onClick={handlePlay} />
+
+            {/* Play Button */}
+          <Button text="Play Dolphin Dash" onClick={handlePlay} />
         </>
-
       )}
-
     </div>
   );
 }
