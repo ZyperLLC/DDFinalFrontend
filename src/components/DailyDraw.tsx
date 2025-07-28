@@ -1,10 +1,9 @@
-// pages/DailyDraw.tsx
 import { useEffect, useRef, useState } from 'react';
 import background from '../assets/background3.png';
 import logo from '../assets/logo.jpg';
-import Button from '../components/DrawButton';
 import glowFrame from '../assets/frame.png';
-
+import { motion } from 'framer-motion';
+import { slideUpFade } from '../utils/animations';
 import dolphin1 from '../assets/dolphins/dolphin1.jpg';
 import dolphin2 from '../assets/dolphins/dolphin2.jpg';
 import dolphin3 from '../assets/dolphins/dolphin3.jpg';
@@ -60,6 +59,7 @@ function DailyDraw() {
   const [scrollSpeed, setScrollSpeed] = useState(2);
   const [winnerIndex, setWinnerIndex] = useState<number | null>(null);
   const [showWinnerModal, setShowWinnerModal] = useState(false);
+  const [countdown, setCountdown] = useState(30);
   const scrollIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
@@ -88,121 +88,112 @@ function DailyDraw() {
     };
   }, [scrollSpeed]);
 
-  const handlePlay = async () => {
-    if (isDrawing) return;
+  useEffect(() => {
+    if (countdown <= 0 && !isDrawing && winnerIndex === null) {
+      handlePlay();
+    }
 
-    return new Promise<void>((resolve) => {
-      setIsDrawing(true);
-      setHeading(['Drawing in', 'Progress']);
-      setScrollSpeed(5);
+    const timer = setInterval(() => {
+      setCountdown((prev) => (prev > 0 ? prev - 1 : 0));
+    }, 1000);
 
-      setTimeout(() => {
-        setScrollSpeed(0);
-        const randomIndex = Math.floor(Math.random() * dolphinImages.length);
-        setWinnerIndex(randomIndex);
-        setIsDrawing(false);
-        setHeading(['Daily Dolphin', 'Dash Draw']);
-        setShowWinnerModal(true);
-        resolve();
-      }, 10000);
-    });
+    return () => clearInterval(timer);
+  }, [countdown, isDrawing, winnerIndex]);
+
+  const handlePlay = () => {
+    setIsDrawing(true);
+    setHeading(['Drawing in', 'Progress']);
+    setScrollSpeed(5);
+
+    setTimeout(() => {
+      setScrollSpeed(0);
+      const randomIndex = Math.floor(Math.random() * dolphinImages.length);
+      setWinnerIndex(randomIndex);
+      setIsDrawing(false);
+      setHeading(['Daily Dolphin', 'Dash Draw']);
+      setShowWinnerModal(true);
+    }, 10000); // 10s draw duration
   };
 
   return (
-    <div
-      className="relative min-h-screen w-screen flex flex-col items-center justify-center bg-cover bg-center bg-no-repeat overflow-hidden"
+    <motion.div
+    variants={slideUpFade}
+    initial="hidden"
+    animate="visible"
+      className="relative h-screen w-screen flex items-center justify-center bg-cover bg-center bg-no-repeat overflow-hidden"
       style={{ backgroundImage: `url(${background})` }}
     >
-
-    {/* Winner Modal */}
       {showWinnerModal && winnerIndex !== null ? (
         <WinnerModal
           winnerImage={dolphinImages[winnerIndex]}
-          onClose={() => setShowWinnerModal(false)}
+          onClose={() => {
+            setShowWinnerModal(false);
+            setWinnerIndex(null);
+            setCountdown(30);
+          }}
           className="flex items-center justify-center h-full w-full"
         />
       ) : (
-        <>
-         {/* Logo */}
-          <div className="flex flex-col items-center text-center">
-            <img src={logo} alt="Logo" className="animated-logo mb-14" style={{ width: '250px' }} />
-          </div>
+        <div className="flex flex-col items-center justify-between w-full h-full max-h-full overflow-hidden px-4 py-4">
+          {/* Logo */}
+          <img src={logo} alt="Logo" className="animated-logo mb-2" style={{ width: '160px' }} />
 
-            {/* Heading */}
-          <div className="w-full max-w-4xl mx-auto text-center">
-            <h1
-              className="text-white text-center font-poppins text-[40px] font-semibold leading-[120%] space-y-2"
+          {/* Heading */}
+          <h1 className="text-white text-center text-[28px] font-semibold leading-tight font-poppins">
+            {heading.map((line, index) => (
+              <div key={index}>{line}</div>
+            ))}
+          </h1>
+
+          {/* Timer */}
+          <p className="text-white text-[13px] font-medium mt-1">
+            {isDrawing ? 'Please wait...' : `Next Draw In: ${countdown}s`}
+          </p>
+
+          {/* Carousel with Dolphin Images */}
+          <div className="relative w-full max-w-5xl flex flex-col items-center justify-center mb-2 pb-2">
+            <div
+              ref={scrollRef}
+              className="flex overflow-x-hidden scroll-smooth z-0 rounded-xl gap-3"
               style={{
-                fontFeatureSettings: "'liga' off, 'clig' off",
-                fontStyle: 'normal',
-                color: 'white',
+                width: '100%',
+                padding: '0.75rem 0',
+                background: 'linear-gradient(180deg, rgba(0, 43, 255, 0.30) 0%, rgba(42, 67, 193, 0.30) 100%)',
+                backdropFilter: 'blur(5px)',
+                WebkitBackdropFilter: 'blur(5px)',
+                marginTop: '4px',
+                position: 'relative',
               }}
             >
-              {heading.map((line, index) => (
-                <div key={index}>{line}</div>
+              {[...dolphinImages, ...dolphinImages].map((img, index) => (
+                <div
+                  key={index}
+                  className="relative flex-shrink-0 w-[120px] h-[150px] flex items-center justify-center transition-transform duration-300"
+                >
+                  {/* Centered Glow Frame Behind Winner */}
+                  {scrollSpeed === 0 && winnerIndex === index && (
+                    <img
+                      src={glowFrame}
+                      alt="Glow Frame"
+                      className="absolute top-1/2 left-1/2 w-[120px] h-[150px] z-10 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+                    />
+                  )}
+
+                  {/* Dolphin Image */}
+                  <img
+                    src={img}
+                    alt={`Dolphin ${index + 1}`}
+                    className={`w-[72px] h-[72px] object-cover rounded-lg z-20 border ${
+                      winnerIndex === index ? 'border-yellow-400 scale-110' : 'border-transparent'
+                    } hover:border-white transition-all duration-300`}
+                  />
+                </div>
               ))}
-            </h1>
+            </div>
           </div>
-
-           {/* Timer */}
-          <div className="relative z-10 mb-10 combined-card">
-            <p
-              className="text-white text-center font-poppins text-[15px] font-semibold leading-[120%]"
-              style={{
-                fontFeatureSettings: "'liga' off, 'clig' off",
-                fontStyle: 'normal',
-                color: 'white',
-              }}
-            >
-              {isDrawing ? 'Please wait...' : 'Next Draw In : 14h 21m 45s'}
-            </p>
-          </div>
-
-         
-          {/* Carousel Section */}
-<div className="relative w-full max-w-5xl flex flex-col items-center justify-center mb-12 pb-16">
-  {/* Centered Glow Frame */}
-  <div className="absolute top-1/2 -translate-y-1/2 z-10 pointer-events-none">
-    <img src={glowFrame} alt="Center Frame" className="w-[184px] h-[227px]" />
-  </div>
-
-  {/* Dolphin Strip */}
-  <div
-    ref={scrollRef}
-    className="flex overflow-x-hidden scroll-smooth z-0 rounded-xl gap-6"
-    style={{
-      width: '100%',
-      padding: '1.5rem 0',
-      background: 'linear-gradient(180deg, rgba(0, 43, 255, 0.30) 0%, rgba(42, 67, 193, 0.30) 100%)',
-      backdropFilter: 'blur(5px)',
-      WebkitBackdropFilter: 'blur(5px)',
-      marginTop: '10px'
-    }}
-  >
-    {[...dolphinImages, ...dolphinImages].map((img, index) => (
-      <div
-        key={index}
-        className={`flex-shrink-0 flex justify-center items-center w-[92px] h-[92px] aspect-square gap-[16px] transition-transform duration-300 ${
-          winnerIndex === index ? 'scale-110 border-4 border-yellow-400' : ''
-        }`}
-      >
-        <img
-          src={img}
-          alt={`Dolphin ${index + 1}`}
-          className="w-full h-full object-cover rounded-lg border-2 border-transparent hover:border-white transition-all duration-300"
-        />
-      </div>
-    ))}
-  </div>
-</div>
-
-            {/* Play Button */}
-          <div className="mt-12 z-20 relative">
-              <Button text="Play Dolphin Dash" onClick={handlePlay} />
-          </div>
-        </>
+        </div>
       )}
-    </div>
+    </motion.div>
   );
 }
 
