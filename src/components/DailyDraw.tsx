@@ -210,7 +210,7 @@ function DailyDraw() {
           </div>
 
           {/* Carousel Section */}
-          <div className="relative w-full max-w-5xl flex items-center justify-center mb-10">
+          <div className="relative w-full max-w-5xl flex items-center justify-center ">
             {/* Centered Frame Image */}
             <div className="absolute z-10 pointer-events-none flex items-center justify-center">
               <img
@@ -249,9 +249,10 @@ function DailyDraw() {
               ))}
             </div>
 
-            {/* Play Button */}
-            <Button text="Play Dolphin Dash" onClick={handlePlay}  className='relative z-10 mt-12 flex items-center justify-center'/>
+
           </div>
+          {/* Play Button */}
+            <Button text="Play Dolphin Dash" onClick={handlePlay}  className='relative z-10 mt-12 flex items-center justify-center'/>
         </>
 
       )}
