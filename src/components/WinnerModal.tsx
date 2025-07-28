@@ -2,6 +2,8 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import lineImg1 from '../assets/Line 1.png';
 import lineImg2 from '../assets/Line 2.png';
+import { motion } from 'framer-motion';
+import { slideDownFade } from '../utils/slideDown';
 
 interface WinnerModalProps {
   winnerImage: string;
@@ -19,7 +21,11 @@ const WinnerModal: React.FC<WinnerModalProps> = ({ winnerImage }) => {
   };
   return (
     // Modal Overlay
-    <div className="absolute inset-0 flex items-center justify-center backdrop-blur-md z-50 p-4">
+    <motion.div
+     variants={slideDownFade}
+     initial="hidden"
+    animate="visible"
+    className="absolute inset-0 flex items-center justify-center backdrop-blur-md z-50 p-4">
       {/* Modal Content Box */}
       <div className="bg-white/10 backdrop-blur-md rounded-2xl text-center shadow-xl w-[90%] max-w-sm">
         {/* Modal Title */}
@@ -79,7 +85,7 @@ const WinnerModal: React.FC<WinnerModalProps> = ({ winnerImage }) => {
           Come Back Tomorrow
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
