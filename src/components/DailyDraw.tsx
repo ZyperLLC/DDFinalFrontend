@@ -248,10 +248,10 @@ function DailyDraw() {
                 </div>
               ))}
             </div>
-          </div>
 
-          {/* Play Button */}
-            <Button text="Play Dolphin Dash" onClick={handlePlay}  className='relative'/>
+            {/* Play Button */}
+            <Button text="Play Dolphin Dash" onClick={handlePlay}  className='mt-12'/>
+          </div>
         </>
 
       )}
