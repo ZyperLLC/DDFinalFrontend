@@ -216,7 +216,7 @@ function DailyDraw() {
               <img
                 src={glowFrame}
                 alt="Center Frame"
-                className="w-[184px] h-[227px]"
+                className="w-[184px] h-[215px]"
               />
             </div>
 
