@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import background from '../assets/background3.png';
 import logo from '../assets/logo.jpg';
 import glowFrame from '../assets/frame.png';
+import WinnerModal from '../components/WinnerModal';
 import { motion } from 'framer-motion';
 import { slideUpFade } from '../utils/animations';
 import dolphin1 from '../assets/dolphins/dolphin1.jpg';
@@ -41,8 +42,6 @@ import dolphin34 from '../assets/dolphins/dolphin34.png';
 import dolphin35 from '../assets/dolphins/dolphin35.png';
 import dolphin36 from '../assets/dolphins/dolphin36.png';
 
-import WinnerModal from '../components/WinnerModal';
-
 const dolphinImages = [
   dolphin1, dolphin2, dolphin3, dolphin4, dolphin5, dolphin6,
   dolphin7, dolphin8, dolphin9, dolphin10, dolphin11, dolphin12,
@@ -53,7 +52,7 @@ const dolphinImages = [
 ];
 
 function DailyDraw() {
-  const scrollRef = useRef<HTMLDivElement>(null);
+   const scrollRef = useRef<HTMLDivElement>(null);
   const [heading, setHeading] = useState(['Daily Dolphin', 'Dash Draw']);
   const [isDrawing, setIsDrawing] = useState(false);
   const [scrollSpeed, setScrollSpeed] = useState(2);
@@ -62,7 +61,7 @@ function DailyDraw() {
   const [countdown, setCountdown] = useState(30);
   const scrollIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
- useEffect(() => {
+  useEffect(() => {
     const scrollContainer = scrollRef.current;
     if (!scrollContainer) return;
 
@@ -118,9 +117,9 @@ function DailyDraw() {
 
   return (
     <motion.div
-      variants={slideUpFade}
-      initial="hidden"
-      animate="visible"
+    variants={slideUpFade}
+    initial="hidden"
+    animate="visible"
       className="relative h-screen w-screen flex items-center justify-center bg-cover bg-center bg-no-repeat overflow-hidden"
       style={{ backgroundImage: `url(${background})` }}
     >
