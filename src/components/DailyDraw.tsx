@@ -3,8 +3,6 @@ import background from '../assets/background3.png';
 import logo from '../assets/logo.jpg';
 import glowFrame from '../assets/frame.png';
 import WinnerModal from '../components/WinnerModal';
-import { motion } from 'framer-motion';
-import { slideUpFade } from '../utils/animations';
 import dolphin1 from '../assets/dolphins/dolphin1.jpg';
 import dolphin2 from '../assets/dolphins/dolphin2.jpg';
 import dolphin3 from '../assets/dolphins/dolphin3.jpg';
@@ -42,6 +40,8 @@ import dolphin34 from '../assets/dolphins/dolphin34.png';
 import dolphin35 from '../assets/dolphins/dolphin35.png';
 import dolphin36 from '../assets/dolphins/dolphin36.png';
 
+
+
 const dolphinImages = [
   dolphin1, dolphin2, dolphin3, dolphin4, dolphin5, dolphin6,
   dolphin7, dolphin8, dolphin9, dolphin10, dolphin11, dolphin12,
@@ -60,6 +60,7 @@ function DailyDraw() {
   const [showWinnerModal, setShowWinnerModal] = useState(false);
   const [countdown, setCountdown] = useState(30);
   const scrollIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
 
   useEffect(() => {
     const scrollContainer = scrollRef.current;
@@ -114,15 +115,13 @@ function DailyDraw() {
     }, 10000); // 10s draw duration
   };
 
-
   return (
-    <motion.div
-    variants={slideUpFade}
-    initial="hidden"
-    animate="visible"
-      className="relative h-screen w-screen flex items-center justify-center bg-cover bg-center bg-no-repeat overflow-hidden"
+    <div
+      className="relative min-h-screen w-screen flex flex-col items-center justify-center bg-cover bg-center bg-no-repeat overflow-hidden"
       style={{ backgroundImage: `url(${background})` }}
     >
+
+    {/* Winner Modal */}
       {showWinnerModal && winnerIndex !== null ? (
         <WinnerModal
           winnerImage={dolphinImages[winnerIndex]}
@@ -130,59 +129,84 @@ function DailyDraw() {
           className="flex items-center justify-center h-full w-full"
         />
       ) : (
-        <div className="flex flex-col items-center justify-between w-full h-full max-h-full overflow-hidden px-4 py-4">
-          {/* Logo */}
-          <img src={logo} alt="Logo" className="animated-logo mb-2" style={{ width: '160px' }} />
+        <>
+         {/* Logo */}
+          <div className="flex flex-col items-center text-center">
+            <img src={logo} alt="Logo" className="animated-logo mb-14" style={{ width: '250px' }} />
+          </div>
 
-          {/* Heading */}
-          <h1 className="text-white text-center text-[28px] font-semibold leading-tight font-poppins">
-            {heading.map((line, index) => (
-              <div key={index}>{line}</div>
-            ))}
-          </h1>
-
-          {/* Timer */}
-          <p className="text-white text-[13px] font-medium mt-1">
-            {isDrawing ? 'Please wait...' : `Next Draw In: ${countdown}s`}
-          </p>
-
-          {/* Carousel + Frame */}
-          <div className="relative w-full max-w-5xl flex flex-col items-center justify-center mb-2 pb-2">
-            <div className="absolute top-1/2 -translate-y-1/2 z-10 pointer-events-none">
-              <img src={glowFrame} alt="Center Frame" className="w-[120px] h-[150px]" />
-            </div>
-
-            <div
-              ref={scrollRef}
-              className="flex overflow-x-hidden scroll-smooth z-0 rounded-xl gap-3"
+            {/* Heading */}
+          <div className="w-full max-w-4xl mx-auto text-center">
+            <h1
+              className="text-white text-center font-poppins text-[40px] font-semibold leading-[120%] space-y-2"
               style={{
-                width: '100%',
-                padding: '0.75rem 0',
-                background: 'linear-gradient(180deg, rgba(0, 43, 255, 0.30) 0%, rgba(42, 67, 193, 0.30) 100%)',
-                backdropFilter: 'blur(5px)',
-                WebkitBackdropFilter: 'blur(5px)',
-                marginTop: '4px'
+                fontFeatureSettings: "'liga' off, 'clig' off",
+                fontStyle: 'normal',
+                color: 'white',
               }}
             >
-              {[...dolphinImages, ...dolphinImages].map((img, index) => (
-                <div
-                  key={index}
-                  className={`flex-shrink-0 flex justify-center items-center w-[72px] h-[72px] aspect-square transition-transform duration-300 ${
-                    winnerIndex === index ? 'scale-110 border-2 border-yellow-400' : ''
-                  }`}
-                >
-                  <img
-                    src={img}
-                    alt={`Dolphin ${index + 1}`}
-                    className="w-full h-full object-cover rounded-lg border border-transparent hover:border-white transition-all duration-300"
-                  />
-                </div>
+              {heading.map((line, index) => (
+                <div key={index}>{line}</div>
               ))}
-            </div>
+            </h1>
           </div>
-        </div>
+
+           {/* Timer */}
+          <div className="relative z-10 mb-10 combined-card">
+            <p
+              className="text-white text-center font-poppins text-[15px] font-semibold leading-[120%]"
+              style={{
+                fontFeatureSettings: "'liga' off, 'clig' off",
+                fontStyle: 'normal',
+                color: 'white',
+              }}
+            >
+              {isDrawing ? 'Please wait...' : `Next Draw In: ${countdown}s`}
+            </p>
+          </div>
+
+
+          {/* Carousel Section */}
+          <div className="relative w-full max-w-5xl flex flex-col items-center justify-center mb-12 pb-16">
+              {/* Centered Glow Frame */}
+           <div className="absolute top-1/2 -translate-y-1/2 z-10 pointer-events-none">
+               <img src={glowFrame} alt="Center Frame" className="w-[184px] h-[227px]" />
+           </div>
+
+  {/* Dolphin Strip */}
+  <div
+    ref={scrollRef}
+    className="flex overflow-x-hidden scroll-smooth z-0 rounded-xl gap-6"
+    style={{
+      width: '100%',
+      padding: '1.5rem 0',
+      background: 'linear-gradient(180deg, rgba(0, 43, 255, 0.30) 0%, rgba(42, 67, 193, 0.30) 100%)',
+      backdropFilter: 'blur(5px)',
+      WebkitBackdropFilter: 'blur(5px)',
+      marginTop: '10px'
+    }}
+  >
+    {[...dolphinImages, ...dolphinImages].map((img, index) => (
+      <div
+        key={index}
+        className={`flex-shrink-0 flex justify-center items-center w-[92px] h-[92px] aspect-square gap-[16px] transition-transform duration-300 ${
+          winnerIndex === index ? 'scale-110 border-4 border-yellow-400' : ''
+        }`}
+      >
+        <img
+          src={img}
+          alt={`Dolphin ${index + 1}`}
+          className="w-full h-full object-cover rounded-lg border-2 border-transparent hover:border-white transition-all duration-300"
+        />
+      </div>
+    ))}
+  </div>
+</div>
+
+
+        </>
       )}
-    </motion.div>
+    </div>
   );
 }
 
