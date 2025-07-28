@@ -223,7 +223,7 @@ function DailyDraw() {
             {/* Scrollable Strip */}
             <div
               ref={scrollRef}
-              className="flex overflow-x-hidden scroll-smooth z-10 rounded-xl gap-6"
+              className="flex overflow-x-hidden scroll-smooth z-0 rounded-xl gap-6"
               style={{
                 width: '100%',
                 padding: '1.5rem 0',
@@ -251,7 +251,7 @@ function DailyDraw() {
           </div>
 
           {/* Play Button */}
-          <div className="mt-20 z-10 relative">
+          <div className="mt-20 z-20 relative">
             <Button text="Play Dolphin Dash" onClick={handlePlay} />
           </div>
         </>
