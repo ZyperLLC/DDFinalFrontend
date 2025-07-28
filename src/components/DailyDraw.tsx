@@ -173,7 +173,7 @@ function DailyDraw() {
           </div>
         </div>
       ) : (
-        <>
+        <div className="flex flex-col items-center justify-start">
           {/* Logo */}
           <div className="flex flex-col items-center text-center">
             <img src={logo} alt="Logo" className="animated-logo mb-14" style={{ width: '250px' }} />
@@ -253,7 +253,7 @@ function DailyDraw() {
           {/* Play Button */}
 
             <Button text="Play Dolphin Dash" onClick={handlePlay} />
-        </>
+        </div>
 
       )}
 
