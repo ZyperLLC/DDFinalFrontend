@@ -172,41 +172,30 @@ function DailyDraw() {
 
 
           {/* Carousel Section */}
-          <div className="relative w-full max-w-5xl flex flex-col items-center justify-center mb-12 pb-16">
-              {/* Centered Glow Frame */}
-           <div className="absolute top-1/2 -translate-y-1/2 z-10 pointer-events-none">
-               <img src={glowFrame} alt="Center Frame" className="w-[184px] h-[227px]" />
-           </div>
-
-  {/* Dolphin Strip */}
- {/* Dolphin Strip with Centered Glow Frame */}
+          
 <div className="relative w-full max-w-5xl flex flex-col items-center justify-center mb-12 pb-16">
-  {/* Glow Frame fixed at center */}
+  {/* Centered Glow Frame */}
   <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-[92px] h-[92px] flex items-center justify-center">
-    <img
-      src={glowFrame}
-      alt="Glow Frame"
-      className="w-full h-full"
-    />
+    <img src={glowFrame} alt="Center Frame" className="w-full h-full" />
   </div>
 
-  {/* Scrollable Dolphin Images */}
+  {/* Dolphin Strip */}
   <div
     ref={scrollRef}
-    className="flex overflow-x-hidden scroll-smooth z-0 rounded-xl gap-6"
+    className="flex overflow-x-hidden scroll-smooth z-0 rounded-xl gap-6 px-[calc(50%-46px)]" // <-- this is key!
     style={{
       width: '100%',
       padding: '1.5rem 0',
       background: 'linear-gradient(180deg, rgba(0, 43, 255, 0.30) 0%, rgba(42, 67, 193, 0.30) 100%)',
       backdropFilter: 'blur(5px)',
       WebkitBackdropFilter: 'blur(5px)',
-      marginTop: '10px',
+      marginTop: '10px'
     }}
   >
     {[...dolphinImages, ...dolphinImages].map((img, index) => (
       <div
         key={index}
-        className={`flex-shrink-0 flex justify-center items-center w-[92px] h-[92px] transition-transform duration-300 ${
+        className={`flex-shrink-0 flex justify-center items-center w-[92px] h-[92px] aspect-square transition-transform duration-300 ${
           winnerIndex === index ? 'scale-110 border-4 border-yellow-400' : ''
         }`}
       >
@@ -220,7 +209,6 @@ function DailyDraw() {
   </div>
 </div>
 
-</div>
 
 
         </>
