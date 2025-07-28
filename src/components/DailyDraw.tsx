@@ -117,7 +117,7 @@ function DailyDraw() {
         <div className="absolute inset-0 flex items-center justify-center backdrop-blur-md z-50 p-4">
           <div className="bg-white/10 backdrop-blur-md rounded-2xl mt-5 text-center shadow-xl w-[90%] max-w-sm">
             <h2
-              className="combined-card text-white text-center font-poppins text-[40px] font-semibold leading-[120%] space-y-4"
+              className="combined-card text-white text-center mt-12 font-poppins text-[40px] font-semibold leading-[120%] space-y-4"
               style={{
                 fontFeatureSettings: "'liga' off, 'clig' off",
                 fontStyle: 'normal',
@@ -251,7 +251,7 @@ function DailyDraw() {
           </div>
 
           {/* Play Button */}
-          <div className="mt-12 z-0 ">
+          <div className="mt-12 -z-10 relative ">
             <Button text="Play Dolphin Dash" onClick={handlePlay} />
           </div>
         </>
