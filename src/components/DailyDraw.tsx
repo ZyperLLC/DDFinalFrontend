@@ -119,7 +119,7 @@ function DailyDraw() {
         <WinnerModal
           winnerImage={dolphinImages[winnerIndex]}
           onClose={() => setShowWinnerModal(false)}
-          className="flex flex-col  justify-center"
+          className="flex items-center justify-center h-full w-full"
         />
       ) : (
         <>
