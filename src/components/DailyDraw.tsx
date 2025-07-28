@@ -114,6 +114,7 @@ function DailyDraw() {
     >
       {/* Winner Modal */}
       {showWinnerModal && winnerIndex !== null ? (
+        <div className='flex  flex-col items-center justify-center'>
         <div className="absolute inset-0 flex items-center justify-center backdrop-blur-md z-50 p-4">
           <div className="bg-white/10 backdrop-blur-md rounded-2xl  text-center shadow-xl w-[90%] max-w-sm">
             <h2
@@ -172,6 +173,7 @@ function DailyDraw() {
               </button>
           </div>
         </div>
+        </div>
       ) : (
         < >
           {/* Logo */}
@@ -210,7 +212,7 @@ function DailyDraw() {
           </div>
 
           {/* Carousel Section */}
-          <div className="relative w-full max-w-5xl flex items-center justify-center ">
+          <div className="relative w-full max-w-5xl flex items-center justify-center mb-12 ">
             {/* Centered Frame Image */}
             <div className="absolute z-10 pointer-events-none flex items-center justify-center">
               <img
@@ -252,7 +254,7 @@ function DailyDraw() {
 
           </div>
           {/* Play Button */}
-            <Button text="Play Dolphin Dash" onClick={handlePlay}  className='relative z-10 mt-12 flex items-center justify-center'/>
+            <Button text="Play Dolphin Dash" onClick={handlePlay} />
         </>
 
       )}
