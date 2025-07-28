@@ -109,7 +109,7 @@ function DailyDraw() {
 
   return (
     <div
-      className="min-h-screen w-screen flex flex-col items-center justify-start bg-cover bg-center bg-no-repeat overflow-hidden relative"
+      className="min-h-screen w-screen flex flex-col items-center justify-center bg-cover bg-center bg-no-repeat overflow-hidden relative"
       style={{ backgroundImage: `url(${background})` }}
     >
       {/* Winner Modal */}
@@ -130,7 +130,7 @@ function DailyDraw() {
             <img
               src={dolphinImages[winnerIndex]}
               alt="Winning Dolphin"
-              className="w-[50%] h-auto rounded-lg border-4 border-white mb-4"
+              className="w-[60%] h-auto rounded-lg border-4 border-white mb-4"
             />
 
             <div className="flex items-center justify-center mb-4 gap-4 combined-card">
