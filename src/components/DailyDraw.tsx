@@ -109,13 +109,13 @@ function DailyDraw() {
 
   return (
     <div
-      className="min-h-screen w-screen flex flex-col items-center mt-12 justify-start bg-cover bg-center bg-no-repeat overflow-hidden relative"
+      className="min-h-screen w-screen flex flex-col items-center justify-start bg-cover bg-center bg-no-repeat overflow-hidden relative"
       style={{ backgroundImage: `url(${background})` }}
     >
       {/* Winner Modal */}
       {showWinnerModal && winnerIndex !== null ? (
-        <div className="absolute inset-0 flex items-center justify-center backdrop-blur-md z-50 p-4">
-          <div className="bg-white/10 backdrop-blur-md rounded-2xl mt-5 text-center shadow-xl w-[90%] max-w-sm">
+        <div className="absolute inset-0 flex items-center mt-12 backdrop-blur-md z-50 p-4">
+          <div className="bg-white/10 backdrop-blur-md rounded-2xl  text-center shadow-xl w-[90%] max-w-sm">
             <h2
               className="combined-card text-white text-center font-poppins text-[40px] font-semibold leading-[120%] space-y-4"
               style={{
@@ -251,7 +251,7 @@ function DailyDraw() {
           </div>
 
           {/* Play Button */}
-          <div className="mt-24 z-10 relative ">
+          <div className="mt-24 z-10 relative flex items-center  ">
             <Button text="Play Dolphin Dash" onClick={handlePlay} />
           </div>
         </>
