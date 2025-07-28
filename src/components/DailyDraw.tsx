@@ -56,7 +56,7 @@ function DailyDraw() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [heading, setHeading] = useState(['Daily Dolphin', 'Dash Draw']);
   const [isDrawing, setIsDrawing] = useState(false);
-  const [scrollSpeed, setScrollSpeed] = useState(1);
+  const [scrollSpeed, setScrollSpeed] = useState(2);
   const [winnerIndex, setWinnerIndex] = useState<number | null>(null);
   const [showWinnerModal, setShowWinnerModal] = useState(false);
   const scrollIntervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -109,7 +109,7 @@ function DailyDraw() {
 
   return (
     <div
-      className="min-h-screen w-screen flex flex-col items-center justify-start pt-12 bg-cover bg-center bg-no-repeat overflow-hidden relative"
+      className="min-h-screen w-screen flex flex-col items-center justify-start bg-cover bg-center bg-no-repeat overflow-hidden relative"
       style={{ backgroundImage: `url(${background})` }}
     >
       {/* Winner Modal */}
@@ -223,7 +223,7 @@ function DailyDraw() {
             {/* Scrollable Strip */}
             <div
               ref={scrollRef}
-              className="flex overflow-x-hidden scroll-smooth z-0 rounded-xl gap-6"
+              className="flex overflow-x-hidden scroll-smooth z-10 rounded-xl gap-6"
               style={{
                 width: '100%',
                 padding: '1.5rem 0',
