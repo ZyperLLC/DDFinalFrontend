@@ -175,7 +175,7 @@ function DailyDraw() {
          {/* Carousel Section */}
 <div className="relative w-full max-w-5xl flex flex-col items-center justify-center mb-12 pb-16">
   {/* Centered Glow Frame */}
-  <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-[92px] h-[92px] flex items-center justify-center">
+  <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-[186px] h-[227px] flex items-center justify-center">
     <img src={glowFrame} alt="Center Frame" className="w-full h-full" />
   </div>
 
