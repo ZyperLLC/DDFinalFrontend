@@ -110,7 +110,7 @@ function DailyDraw() {
 
   return (
     <div
-      className="relative min-h-screen w-screen flex flex-col items-center bg-cover bg-center bg-no-repeat overflow-hidden"
+      className="relative min-h-screen w-screen flex flex-col items-center justify-start bg-cover bg-center bg-no-repeat overflow-hidden"
       style={{ backgroundImage: `url(${background})` }}
     >
 
@@ -119,6 +119,7 @@ function DailyDraw() {
         <WinnerModal
           winnerImage={dolphinImages[winnerIndex]}
           onClose={() => setShowWinnerModal(false)}
+          className="flex flex-col items-center justify-center"
         />
       ) : (
         <>
@@ -126,7 +127,7 @@ function DailyDraw() {
           <div className="flex flex-col items-center text-center">
             <img src={logo} alt="Logo" className="animated-logo mb-14" style={{ width: '250px' }} />
           </div>
-          
+
             {/* Heading */}
           <div className="w-full max-w-4xl mx-auto text-center">
             <h1

@@ -5,7 +5,9 @@ import lineImg2 from '../assets/Line 2.png';
 interface WinnerModalProps {
   winnerImage: string;
   onClose: () => void;
+  className?: string;
 }
+
 
 
 const WinnerModal: React.FC<WinnerModalProps> = ({ winnerImage, onClose }) => {
