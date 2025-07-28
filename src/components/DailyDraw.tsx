@@ -109,7 +109,7 @@ function DailyDraw() {
 
   return (
     <div
-      className="min-h-screen w-screen flex flex-col items-center justify-center bg-cover bg-center bg-no-repeat overflow-hidden relative"
+      className="min-h-screen w-screen flex flex-col items-center bg-cover bg-center bg-no-repeat overflow-hidden relative"
       style={{ backgroundImage: `url(${background})` }}
     >
       {/* Winner Modal */}
@@ -216,7 +216,7 @@ function DailyDraw() {
               <img
                 src={glowFrame}
                 alt="Center Frame"
-                className="w-[184px] h-[215px]"
+                className="w-[184px] h-[227px]"
               />
             </div>
 
