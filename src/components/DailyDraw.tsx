@@ -172,17 +172,16 @@ function DailyDraw() {
 
 
           {/* Carousel Section */}
-          
-<div className="relative w-full max-w-5xl flex flex-col items-center justify-center mb-12 pb-16">
-  {/* Centered Glow Frame */}
-  <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-[92px] h-[92px] flex items-center justify-center">
-    <img src={glowFrame} alt="Center Frame" className="w-full h-full" />
-  </div>
+          <div className="relative w-full max-w-5xl flex flex-col items-center justify-center mb-12 pb-16">
+              {/* Centered Glow Frame */}
+           <div className="absolute top-1/2 -translate-y-1/2 z-10 pointer-events-none">
+               <img src={glowFrame} alt="Center Frame" className="w-[184px] h-[227px]" />
+           </div>
 
   {/* Dolphin Strip */}
   <div
     ref={scrollRef}
-    className="flex overflow-x-hidden scroll-smooth z-0 rounded-xl gap-6 px-[calc(50%-46px)]" // <-- this is key!
+    className="flex overflow-x-hidden scroll-smooth z-0 rounded-xl gap-6"
     style={{
       width: '100%',
       padding: '1.5rem 0',
@@ -195,7 +194,7 @@ function DailyDraw() {
     {[...dolphinImages, ...dolphinImages].map((img, index) => (
       <div
         key={index}
-        className={`flex-shrink-0 flex justify-center items-center w-[92px] h-[92px] aspect-square transition-transform duration-300 ${
+        className={`flex-shrink-0 flex justify-center items-center w-[92px] h-[92px] aspect-square gap-[16px] transition-transform duration-300 ${
           winnerIndex === index ? 'scale-110 border-4 border-yellow-400' : ''
         }`}
       >
@@ -208,7 +207,6 @@ function DailyDraw() {
     ))}
   </div>
 </div>
-
 
 
         </>
