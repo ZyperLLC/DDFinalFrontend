@@ -18,7 +18,7 @@ export default function Button({ text, onClick, className = '' }: ButtonProps) {
   return (
     <button
       onClick={handleClick}
-      className={`admin-btn w=[85%] flex items-center justify-center mt-5 gap-6 px-6 py-3 text-white font-semibold rounded ${className}`}
+      className={`admin-btn w-[85%] flex items-center justify-center mt-12 gap-6 px-6 py-3 text-white font-semibold rounded ${className}`}
     >
       {text}
     </button>
