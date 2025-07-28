@@ -62,7 +62,7 @@ function DailyDraw() {
   const [countdown, setCountdown] = useState(30);
   const scrollIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  useEffect(() => {
+ useEffect(() => {
     const scrollContainer = scrollRef.current;
     if (!scrollContainer) return;
 
@@ -115,22 +115,19 @@ function DailyDraw() {
     }, 10000); // 10s draw duration
   };
 
+
   return (
     <motion.div
-    variants={slideUpFade}
-    initial="hidden"
-    animate="visible"
+      variants={slideUpFade}
+      initial="hidden"
+      animate="visible"
       className="relative h-screen w-screen flex items-center justify-center bg-cover bg-center bg-no-repeat overflow-hidden"
       style={{ backgroundImage: `url(${background})` }}
     >
       {showWinnerModal && winnerIndex !== null ? (
         <WinnerModal
           winnerImage={dolphinImages[winnerIndex]}
-          onClose={() => {
-            setShowWinnerModal(false);
-            setWinnerIndex(null);
-            setCountdown(30);
-          }}
+          onClose={() => setShowWinnerModal(false)}
           className="flex items-center justify-center h-full w-full"
         />
       ) : (
@@ -150,8 +147,12 @@ function DailyDraw() {
             {isDrawing ? 'Please wait...' : `Next Draw In: ${countdown}s`}
           </p>
 
-          {/* Carousel with Dolphin Images */}
+          {/* Carousel + Frame */}
           <div className="relative w-full max-w-5xl flex flex-col items-center justify-center mb-2 pb-2">
+            <div className="absolute top-1/2 -translate-y-1/2 z-10 pointer-events-none">
+              <img src={glowFrame} alt="Center Frame" className="w-[120px] h-[150px]" />
+            </div>
+
             <div
               ref={scrollRef}
               className="flex overflow-x-hidden scroll-smooth z-0 rounded-xl gap-3"
@@ -161,31 +162,20 @@ function DailyDraw() {
                 background: 'linear-gradient(180deg, rgba(0, 43, 255, 0.30) 0%, rgba(42, 67, 193, 0.30) 100%)',
                 backdropFilter: 'blur(5px)',
                 WebkitBackdropFilter: 'blur(5px)',
-                marginTop: '4px',
-                position: 'relative',
+                marginTop: '4px'
               }}
             >
               {[...dolphinImages, ...dolphinImages].map((img, index) => (
                 <div
                   key={index}
-                  className="relative flex-shrink-0 w-[120px] h-[150px] flex items-center justify-center transition-transform duration-300"
+                  className={`flex-shrink-0 flex justify-center items-center w-[72px] h-[72px] aspect-square transition-transform duration-300 ${
+                    winnerIndex === index ? 'scale-110 border-2 border-yellow-400' : ''
+                  }`}
                 >
-                  {/* Centered Glow Frame Behind Winner */}
-                  {scrollSpeed === 0 && winnerIndex === index && (
-                    <img
-                      src={glowFrame}
-                      alt="Glow Frame"
-                      className="absolute top-1/2 left-1/2 w-[120px] h-[150px] z-10 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-                    />
-                  )}
-
-                  {/* Dolphin Image */}
                   <img
                     src={img}
                     alt={`Dolphin ${index + 1}`}
-                    className={`w-[72px] h-[72px] object-cover rounded-lg z-20 border ${
-                      winnerIndex === index ? 'border-yellow-400 scale-110' : 'border-transparent'
-                    } hover:border-white transition-all duration-300`}
+                    className="w-full h-full object-cover rounded-lg border border-transparent hover:border-white transition-all duration-300"
                   />
                 </div>
               ))}
