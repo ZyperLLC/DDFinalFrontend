@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import background from '../assets/background3.png';
 import logo from '../assets/logo.jpg';
-import Button from '../components/Button';
+import Button from '../components/DrawButton';
 import glowFrame from '../assets/frame.png';
 import lineImg1 from '../assets/Line 1.png';
 import lineImg2 from '../assets/Line 2.png';
@@ -109,7 +109,7 @@ function DailyDraw() {
 
   return (
     <div
-      className="min-h-screen w-screen flex flex-col items-center justify-start bg-cover bg-center bg-no-repeat overflow-hidden relative"
+      className="h-auto w-screen flex flex-col items-center justify-center bg-cover bg-center bg-no-repeat overflow-hidden relative"
       style={{ backgroundImage: `url(${background})` }}
     >
       {/* Winner Modal */}
@@ -130,7 +130,7 @@ function DailyDraw() {
             <img
               src={dolphinImages[winnerIndex]}
               alt="Winning Dolphin"
-              className="w-full h-auto rounded-lg border-4 border-white mb-4"
+              className="w-[50%] h-auto rounded-lg border-4 border-white mb-4"
             />
 
             <div className="flex items-center justify-center mb-4 gap-4 combined-card">
@@ -250,14 +250,14 @@ function DailyDraw() {
             </div>
           </div>
 
-
-        </>
-
-      )}
-      {/* Play Button */}
+          {/* Play Button */}
           <div className="mt-24 z-10 relative ">
             <Button text="Play Dolphin Dash" onClick={handlePlay} />
           </div>
+        </>
+
+      )}
+
     </div>
   );
 }
