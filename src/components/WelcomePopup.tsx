@@ -28,10 +28,10 @@ export default function WelcomePopup({ onClose }: { onClose: () => void }) {
         <h2 >{t('welcome_popup.title')}</h2>
 
         {/* Description */}
-        <ul className="space-y-2 mt-2 mb-0">
+        <ul className="mt-1 mb-0">
           {[t('welcome_popup.line1'), t('welcome_popup.line2'), t('welcome_popup.line3')].map(
             (line, index) => (
-              <li key={index} className="flex items-start gap-8">
+              <li key={index} className="flex items-start gap-4 text-md">
                 <img src={rectangle} alt="" className="w-4 h-4 mt-1" />
                 {line}
               </li>

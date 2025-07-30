@@ -28,6 +28,10 @@
     "connect_message": "To play Dolphin Dash, connect your wallet and ride the wave of daily action"
   },
 
+  "staking_popup":{
+    "apy":"APY",
+    "stakeButton":"Stake"
+  },
   "welcome_popup": {
     "title": "Welcome to Dolphin Dash!",
     "line1": "In the world of Dolphin Dash, legends are chosen daily.",

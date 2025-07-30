@@ -34,6 +34,9 @@ export const useEndRound = ()=>{
         const users = await getAllUsers();
 
         const endbetdata = await endRound(winningNumber);
+        if(!winningNumber){
+            return;
+        }
         if(endbetdata){
             toast.success("Betting Round Ended");
             const startbetdata = await startRound();

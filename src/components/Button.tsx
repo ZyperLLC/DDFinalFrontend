@@ -15,14 +15,16 @@ export default function Button({ text, onClick, className = '' }: ButtonProps) {
     try {
       setIsLoading(true);
 
-      // Trigger your custom onClick logic
-      await onClick();
+      // Wait for the onClick function to fully complete
+      const result = onClick();
 
-      // Keep button disabled for 40 seconds
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 40000);
+      if (result instanceof Promise) {
+        await result;
+      }
+
+      setIsLoading(false);
     } catch (error) {
+      console.error('Error:', error);
       setIsLoading(false);
     }
   };
@@ -31,7 +33,7 @@ export default function Button({ text, onClick, className = '' }: ButtonProps) {
     <button
       onClick={handleClick}
       disabled={isLoading}
-      className={`admin-btn flex items-center justify-center gap-2 px-6 py-3 text-white font-semibold rounded ${
+      className={`admin-btn flex items-center justify-center gap-2 px-12 py-3 text-white font-semibold rounded ${
         isLoading ? 'opacity-60 cursor-not-allowed' : ''
       } ${className}`}
     >

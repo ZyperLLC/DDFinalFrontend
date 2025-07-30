@@ -10,12 +10,12 @@ export default function StakeDolphinGrid(
   const context = useContext(UserContext);
   const [nfts, setNfts] = useState<any[]>([]);
 
-  const { fetchNFTs } = useGetCredits();
+  const { fetchNFTsOfBothCollections } = useGetCredits();
 
   useEffect(() => {
     const fetchDolphinNFTs = async () => {
       if (context?.user.walletAddress) {
-        const nfts = await fetchNFTs(context.user.walletAddress);
+        const nfts = await fetchNFTsOfBothCollections(context.user.walletAddress);
         console.log("Fetched NFTs:", nfts);
         setNfts(nfts ?? []);
       }
@@ -24,13 +24,13 @@ export default function StakeDolphinGrid(
   }, [context?.user.walletAddress]);
 
   return (
-    <div className="staking-grid-card w-full max-w-6xl mx-auto flex-grow mb-8">
+    <div className="staking-grid-card w-full mx-auto flex-grow mb-8">
       <h2 className="card-title font-semibold text-lg sm:text-xl mb-6 text-white text-center">
         {t('stakeGrid.title')}
       </h2>
 
       {nfts.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div className="nft-container">
           {nfts.map((nft, index) => (
             <div
               key={index}
@@ -40,18 +40,17 @@ export default function StakeDolphinGrid(
                   image: nft.metadata?.image,
                   name: nft.metadata?.name,
                   description: nft.metadata?.description,
+                  colllectionName:nft.collection?.name
                 })
               }
-              className="cursor-pointer rounded-xl overflow-hidden shadow-md hover:scale-105 transition-transform duration-300 bg-white bg-opacity-10"
+              className="cursor-pointer rounded-xl overflow-hidden shadow-md hover:scale-105 transition-transform duration-300 bg-white bg-opacity-10 w-full"
             >
               <img
                 src={nft.metadata?.image}
                 alt={nft.metadata?.name || `NFT ${index + 1}`}
-                className="w-full h-48 object-cover"
+                className="nft-container-image"
               />
-              <div className="p-3 text-center text-white font-medium">
-                {nft.metadata?.name || `NFT #${index + 1}`}
-              </div>
+              
             </div>
           ))}
         </div>

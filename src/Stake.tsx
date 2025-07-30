@@ -36,7 +36,7 @@ export default function Stake() {
           {context?.user.walletAddress ?
             <StakeDolphinGrid setSelectedDolphin={setSelectedDolphin}/>
               :
-              <ConnectButton/>
+            <ConnectButton/>
           }
           </motion.div>
       </div>

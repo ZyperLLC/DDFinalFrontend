@@ -27,7 +27,14 @@
     "amount": "Ingresa cantidad",
     "connect_message": "Para jugar a Dolphin Dash, conecta tu billetera y súbete a la ola de acción diaria"
   },
+<<<<<<< HEAD
 
+=======
+  "staking_popup":{
+    "apy":"APY",
+    "stakeButton":"Apostar"
+  },
+>>>>>>> origin
   "welcome_popup": {
     "title": "¡Bienvenido!",
     "line1": "En el mundo de Dolphin Dash, las leyendas se eligen a diario.",
