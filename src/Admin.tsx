@@ -197,7 +197,7 @@ export default function AdminPage() {
       initial="hidden"
       animate="visible"
       className="min-h-screen text-white p-6"
-      style={{ backgroundImage: `url(${background1})`, backgroundSize: 'cover', paddingBottom: `${NAVBAR_HEIGHT_PX}px` }}
+      style={{ backgroundImage: `url(${background1})`, backgroundSize: 'cover', paddingBottom: `${NAVBAR_HEIGHT_PX}px`, color: 'white' }}
     >
       <div className="flex flex-col items-center text-center">
         <img src={logo} alt="Logo" className="animated-logo mb-14" style={{ width: '250px' }} />
