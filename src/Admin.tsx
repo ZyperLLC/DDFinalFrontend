@@ -209,7 +209,7 @@ export default function AdminPage() {
           <Button text="End Round" onClick={handleEndRound} />
         </div>
       </div>
-
+       {/* Current Round Info */}
       <div className="flex flex-col space-y-6 max-w-3xl px-6 mt-10">
         <div className='mb-6'>
           <Accordion title="Current Round Info">
@@ -231,7 +231,7 @@ export default function AdminPage() {
             )}
           </Accordion>
         </div>
-
+          {/* Total Bets */}
         <div className='mb-6'>
           <Accordion title="Total Bets">
             <table className="admin-table w-full mb-4 text-white">
@@ -250,7 +250,7 @@ export default function AdminPage() {
             </table>
           </Accordion>
         </div>
-
+         {/* Result Mockup */}
         <div className='mb-6'>
           <Accordion title="Result Mockup">
             <input
@@ -274,11 +274,11 @@ export default function AdminPage() {
                 </tbody>
               </table>
             ) : (
-              <p className="mt-4 text-white">No matching bets for this number.</p>
+              <p className="mt-4 text-white" style={{ color: 'white' }} >No matching bets for this number.</p>
             )}
           </Accordion>
         </div>
-
+         {/* All Round Details */}
         <div className='mb-6'>
           <Accordion title="All Round Details">
             {allRounds.length > 0 ? (
@@ -288,10 +288,6 @@ export default function AdminPage() {
                     <th>Round ID</th>
                     <th>Status</th>
                     <th>Total Bets</th>
-                    <th>Total Amount</th>
-                    <th>TON Amount</th>
-                    <th>Credit Amount</th>
-                    <th>Started At</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -300,16 +296,12 @@ export default function AdminPage() {
                       <td>{round.bettingRoundNo}</td>
                       <td>{round.hasEnded ? 'Ended' : 'Ongoing'}</td>
                       <td>{round.totalBets}</td>
-                      <td>{round.totalAmountBetted.toFixed(2)}</td>
-                      <td>{round.tonAmountBetted.toFixed(2)}</td>
-                      <td>{round.creditAmountBetted.toFixed(2)}</td>
-                      <td>{round.startedAt}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             ) : (
-              <p className="mt-4">No betting rounds found.</p>
+              <p className="mt-4" style={{ color: 'white' }} >No betting rounds found.</p>
             )}
           </Accordion>
         </div>
