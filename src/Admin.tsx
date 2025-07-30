@@ -289,6 +289,23 @@ const handleEndRound = async()=>{
           )}
         </Accordion>
         </div>
+
+        {/* All Round Details*/}
+        <div className='mb-6'>
+         <Accordion title="All Round Details">
+          {currentRound ? (
+            <table className="admin-table w-full mt-4 text-white">
+              <thead><tr><th>Field</th><th>Value</th></tr></thead>
+              <tbody>
+                <tr><td>Round ID</td><td>{currentRound.bettingRoundNo}</td></tr>
+                <tr><td>Total Bets</td><td>{currentRound.totalBets}</td></tr>
+              </tbody>
+            </table>
+          ) : (
+            <p className="mt-4">No round found.</p>
+          )}
+         </Accordion>
+        </div>
       </div>
 
       <div className="fixed bottom-0 left-0 w-full" style={{ height: `${NAVBAR_HEIGHT_PX}px` }}>
