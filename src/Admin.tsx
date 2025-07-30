@@ -3,10 +3,11 @@ import { UserContext } from './Context/UserContextProvider';
 import Navbar from './components/Navbar';
 import logo from './assets/logo.jpg';
 import background1 from './assets/background1.jpg';
-import  Accordion  from './components/Accordion';
+import Accordion from './components/Accordion';
 import {
   getAllUsers,
   getLatestRound,
+  getBettingRounds
 } from './api/userApi';
 import toast from 'react-hot-toast';
 import { fromNano } from '@ton/ton';
@@ -14,7 +15,6 @@ import { useEndRound } from './hooks/useEndRound';
 import { motion } from 'framer-motion';
 import { slideUpFade } from './utils/animations';
 import Button from './components/Button';
-
 
 // Dolphin images
 import dolphin1 from './assets/dolphins/dolphin1.jpg';
@@ -77,6 +77,7 @@ export default function AdminPage() {
   const [checkedBets, setCheckedBets] = useState<any[]>([]);
   const [currentBets, setCurrentBets] = useState<any[]>([]);
   const [winningNumber, setWinningNumber] = useState<number | null>(null);
+  const [allRounds, setAllRounds] = useState<any[]>([]);
 
   const { stopCurrentRound, endBettingRound } = useEndRound();
 
@@ -97,62 +98,68 @@ export default function AdminPage() {
           const allBets: any[] = [];
           const betsToAdd: any[] = [];
 
-        allUsers.forEach((user: any) => {
-          if (user.betsPlace?.length) {
-            user.betsPlace
-              .filter((b: any) => b.betId === roundDetail.bettingRoundNo)
-              .forEach((bet: any) => {
-                if(allBets[bet.numberBettedOn]){
-                  allBets[bet.numberBettedOn] = {
-                    nftId:bet.numberBettedOn,
-                    amount:allBets[bet.numberBettedOn].amount+ Number(bet.useTon?fromNano(bet.amountBet):bet.amountBet),
-                    tonAmount:bet.useTon?allBets[bet.numberBettedOn].tonAmount+Number(fromNano(bet.amountBet)):allBets[bet.numberBettedOn].tonAmount,
-                    tokenType:bet.useTon? 'ton':'credits'
+          allUsers.forEach((user: any) => {
+            if (user.betsPlace?.length) {
+              user.betsPlace
+                .filter((b: any) => b.betId === roundDetail.bettingRoundNo)
+                .forEach((bet: any) => {
+                  if (allBets[bet.numberBettedOn]) {
+                    allBets[bet.numberBettedOn] = {
+                      nftId: bet.numberBettedOn,
+                      amount: allBets[bet.numberBettedOn].amount + Number(bet.useTon ? fromNano(bet.amountBet) : bet.amountBet),
+                      tonAmount: bet.useTon ? allBets[bet.numberBettedOn].tonAmount + Number(fromNano(bet.amountBet)) : allBets[bet.numberBettedOn].tonAmount,
+                      tokenType: bet.useTon ? 'ton' : 'credits'
+                    }
+                  } else {
+                    allBets[bet.numberBettedOn] = {
+                      nftId: bet.numberBettedOn,
+                      amount: bet.useTon ? Number(fromNano(bet.amountBet)) : Number(bet.amountBet),
+                      tonAmount: bet.useTon ? Number(fromNano(bet.amountBet)) : 0,
+                      tokenType: bet.useTon ? 'ton' : 'credits',
+                    };
                   }
-                }else{
-                  allBets[bet.numberBettedOn]={
-                    nftId: bet.numberBettedOn,
-                    amount: bet.useTon?Number(fromNano(bet.amountBet)):Number(bet.amountBet),
-                    tonAmount:bet.useTon?Number(fromNano(bet.amountBet)):0,
-                    tokenType: bet.useTon ? 'ton' : 'credits',
-                  };
-                }
-                console.log("Pushing this bet",bet);
-                betsToAdd.push({
-                  username:user.username,
-                  walletAddress:user.walletAddress,
-                  bet
+                  betsToAdd.push({
+                    username: user.username,
+                    walletAddress: user.walletAddress,
+                    bet
+                  });
                 });
-                console.log("currentbets",currentBets);
-              });
-          }
-        });
-        setUserBets(allBets);
-        setCurrentBets(betsToAdd);
-        console.log(currentBets);
-      } else {
-        setCurrentRound(null); // No round data
+            }
+          });
+          setUserBets(allBets);
+          setCurrentBets(betsToAdd);
+        } else {
+          setCurrentRound(null);
+        }
+      } catch (error) {
+        console.error('Error fetching round or user data:', error);
       }
-    } catch (error) {
-      console.error('Error fetching round or user data:', error);
-    }
-  };
+    };
 
     fetchCurrentRound();
   }, []);
 
+  useEffect(() => {
+    const fetchAllRounds = async () => {
+      try {
+        const rounds = await getBettingRounds();
+        setAllRounds(rounds);
+      } catch (error) {
+        console.error('Failed to fetch all betting rounds:', error);
+      }
+    };
 
-const handleEndRound = async()=>{
-  if(!winningNumber || winningNumber<1 || winningNumber >36){
-    toast.error("Please Enter the winning number between 1 to 36");
-    return;
+    fetchAllRounds();
+  }, []);
+
+  const handleEndRound = async () => {
+    if (!winningNumber || winningNumber < 1 || winningNumber > 36) {
+      toast.error("Please Enter the winning number between 1 to 36");
+      return;
+    }
+    await endBettingRound(winningNumber ?? 0);
+    toast.success(`Winning Number ${winningNumber}`);
   }
-  await endBettingRound(winningNumber??0);
-  toast.success(`Winning Number${winningNumber}`);
-}
-
-
-
 
   const handleCheckResult = () => {
     const num = parseInt(resultNumber, 10);
@@ -189,107 +196,123 @@ const handleEndRound = async()=>{
       variants={slideUpFade}
       initial="hidden"
       animate="visible"
-      className="min-h-screen text-white p-6" style={{ backgroundImage: `url(${background1})`, backgroundSize: 'cover', paddingBottom: `${NAVBAR_HEIGHT_PX}px` }}>
+      className="min-h-screen text-white p-6"
+      style={{ backgroundImage: `url(${background1})`, backgroundSize: 'cover', paddingBottom: `${NAVBAR_HEIGHT_PX}px` }}
+    >
       <div className="flex flex-col items-center text-center">
         <img src={logo} alt="Logo" className="animated-logo mb-14" style={{ width: '250px' }} />
-        <h1 className="text-3xl font-bold mb-6" style={{color:'white'}}>Admin Section</h1>
+        <h1 className="text-3xl font-bold mb-6" style={{ color: 'white' }}>Admin Section</h1>
 
         <div className="flex flex-wrap justify-center gap-6 mb-12 flex-col items-center">
           <Button text="Stop Betting" onClick={stopCurrentRound} />
-           <input type="number" min={1} max={36} placeholder='Type Winning No.' onChange={(e)=>setWinningNumber(Number(e.target.value))} style={{borderRadius:"10px", padding:"10px 5px", width:'90%'}}/>
-            <Button text="End Round" onClick={handleEndRound} />
+          <input type="number" min={1} max={36} placeholder='Type Winning No.' onChange={(e) => setWinningNumber(Number(e.target.value))} style={{ borderRadius: "10px", padding: "10px 5px", width: '90%' }} />
+          <Button text="End Round" onClick={handleEndRound} />
         </div>
       </div>
 
       <div className="flex flex-col space-y-6 max-w-3xl px-6 mt-10">
-
-        {/* Current Round Info */}
         <div className='mb-6'>
-         <Accordion title="Current Round Info">
-          {currentRound ? (
-            <table className="admin-table w-full mt-4 text-white">
-              <thead><tr><th>Field</th><th>Value</th></tr></thead>
+          <Accordion title="Current Round Info">
+            {currentRound ? (
+              <table className="admin-table w-full mt-4 text-white">
+                <thead><tr><th>Field</th><th>Value</th></tr></thead>
+                <tbody>
+                  <tr><td>Round ID</td><td>{currentRound.bettingRoundNo}</td></tr>
+                  <tr><td>Status</td><td>{currentRound.hasEnded ? 'Ended' : 'Ongoing'}</td></tr>
+                  <tr><td>Total Bets</td><td>{currentRound.totalBets}</td></tr>
+                  <tr><td>Total Amount</td><td>{currentRound.totalAmountBetted.toFixed(2)}</td></tr>
+                  <tr><td>TON Amount</td><td>{currentRound.tonAmountBetted.toFixed(2)}</td></tr>
+                  <tr><td>Credit Amount</td><td>{currentRound.creditAmountBetted.toFixed(2)}</td></tr>
+                  <tr><td>Start Time</td><td>{currentRound.startedAt}</td></tr>
+                </tbody>
+              </table>
+            ) : (
+              <p className="mt-4">No round found.</p>
+            )}
+          </Accordion>
+        </div>
+
+        <div className='mb-6'>
+          <Accordion title="Total Bets">
+            <table className="admin-table w-full mb-4 text-white">
+              <thead><tr><th>No.</th><th>NFT</th><th>Total</th><th>TON</th><th>Credit</th></tr></thead>
               <tbody>
-                <tr><td>Round ID</td><td>{currentRound.bettingRoundNo}</td></tr>
-                <tr><td>Status</td><td>{currentRound.hasEnded ? 'Ended' : 'Ongoing'}</td></tr>
-                <tr><td>Total Bets</td><td>{currentRound.totalBets}</td></tr>
-                <tr><td>Total Amount</td><td>{currentRound.totalAmountBetted.toFixed(2)}</td></tr>
-                <tr><td>TON Amount</td><td>{currentRound.tonAmountBetted.toFixed(2)}</td></tr>
-                <tr><td>Credit Amount</td><td>{currentRound.creditAmountBetted.toFixed(2)}</td></tr>
-                <tr><td>Start Time</td><td>{currentRound.startedAt}</td></tr>
+                {userBets.map((b: any) => (
+                  <tr key={b.nftId}>
+                    <td>{b.nftId}</td>
+                    <td><img src={dolphinImages[b.nftId]} width="40px" /></td>
+                    <td>{b.amount.toFixed(2)}</td>
+                    <td>{b.tonAmount.toFixed(2)}</td>
+                    <td>{(b.amount.toFixed(2) - b.tonAmount).toFixed(2)}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
-          ) : (
-            <p className="mt-4">No round found.</p>
-          )}
-         </Accordion>
+          </Accordion>
         </div>
 
-        {/* Total Bets */}
         <div className='mb-6'>
-         <Accordion title="Total Bets">
-          <table className="admin-table w-full mb-4 text-white">
-            <thead><tr><th>No.</th><th>NFT</th><th>Total</th><th>TON</th><th>Credit</th></tr></thead>
-            <tbody>
-              {userBets.map((b: any) => (
-                <tr key={b.nftId}>
-                  <td>{b.nftId}</td>
-                  <td><img src={dolphinImages[b.nftId]} width="40px" /></td>
-                  <td>{b.amount.toFixed(2)}</td>
-                  <td>{b.tonAmount.toFixed(2)}</td>
-                  <td>{(b.amount.toFixed(2) - b.tonAmount).toFixed(2)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </Accordion>
+          <Accordion title="Result Mockup">
+            <input
+              placeholder="Winning Number"
+              value={resultNumber}
+              onChange={e => setResultNumber(e.target.value)}
+              className="bg-gray-800 p-2 rounded text-white w-24 text-center"
+            />
+            <Button text="Check" onClick={handleCheckResult} />
+            {checkedBets.length > 0 ? (
+              <table className="admin-table w-full mt-5 text-white">
+                <thead><tr><th>Username</th><th>Amount</th><th>Token</th></tr></thead>
+                <tbody>
+                  {checkedBets.map((betObject: any, i: number) => (
+                    <tr key={i}>
+                      <td>{betObject.username}</td>
+                      <td>{betObject.bet.useTon ? fromNano(betObject.bet.amountBet) : betObject.bet.amountBet}</td>
+                      <td>{betObject.bet.useTon ? 'ton' : 'credit'}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p className="mt-4 text-white">No matching bets for this number.</p>
+            )}
+          </Accordion>
         </div>
 
-        {/* Result Mockup */}
         <div className='mb-6'>
-        <Accordion title="Result Mockup">
-          <input
-            placeholder="Winning Number"
-            value={resultNumber}
-            onChange={e => setResultNumber(e.target.value)}
-            className="bg-gray-800 p-2 rounded text-white w-24 text-center"
-          />
-           <Button text="Check" onClick={handleCheckResult} />
-          {checkedBets.length > 0 ? (
-            <table className="admin-table w-full mt-5 text-white">
-              <thead><tr><th>Username</th><th>Amount</th><th>Token</th></tr></thead>
-
-              {checkedBets.map((betObject:any)=>(
-                <tr>
-                <td>{betObject.username}</td>
-                <td>{betObject.bet.useTon?fromNano(betObject.bet.amountBet):betObject.bet.amountBet}</td>
-                <td>{betObject.bet.useTon?'ton':'credit'}</td>
-              </tr>
-              ))}
-            </table>
-          ) : (
-            <p className="mt-4 text-white">No matching bets for this number.</p>
-          )}
-        </Accordion>
+          <Accordion title="All Round Details">
+            {allRounds.length > 0 ? (
+              <table className="admin-table w-full mt-4 text-white">
+                <thead>
+                  <tr>
+                    <th>Round ID</th>
+                    <th>Status</th>
+                    <th>Total Bets</th>
+                    <th>Total Amount</th>
+                    <th>TON Amount</th>
+                    <th>Credit Amount</th>
+                    <th>Started At</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {allRounds.map((round: any) => (
+                    <tr key={round.bettingRoundNo}>
+                      <td>{round.bettingRoundNo}</td>
+                      <td>{round.hasEnded ? 'Ended' : 'Ongoing'}</td>
+                      <td>{round.totalBets}</td>
+                      <td>{round.totalAmountBetted.toFixed(2)}</td>
+                      <td>{round.tonAmountBetted.toFixed(2)}</td>
+                      <td>{round.creditAmountBetted.toFixed(2)}</td>
+                      <td>{round.startedAt}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p className="mt-4">No betting rounds found.</p>
+            )}
+          </Accordion>
         </div>
-
-          {/* All Round Details */}
-        <div className='mb-6'>
-         <Accordion title="All Round Details">
-          {currentRound ? (
-            <table className="admin-table w-full mt-4 text-white">
-              <thead><tr><th>Field</th><th>Value</th></tr></thead>
-              <tbody>
-                <tr><td>Round ID</td><td>{currentRound.bettingRoundNo}</td></tr>
-                <tr><td>Total Bets</td><td>{currentRound.totalBets}</td></tr>
-              </tbody>
-            </table>
-          ) : (
-            <p className="mt-4">No round found.</p>
-          )}
-         </Accordion>
-        </div>
-
       </div>
 
       <div className="fixed bottom-0 left-0 w-full" style={{ height: `${NAVBAR_HEIGHT_PX}px` }}>
