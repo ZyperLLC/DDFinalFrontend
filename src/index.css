@@ -272,6 +272,17 @@ html, body {
   /* max-width: 480px; */
 }
 
+.combined-card3{
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  padding: 1rem 1.5rem;
+  margin: 0 auto 1rem;
+  border-radius: 6px;
+  width: 85%;
+  /* max-width: 480px; */
+  text-align: center;
+}
+
 
 .card-subtitle {
   font-size: 0.9rem;
@@ -465,9 +476,9 @@ html, body {
 }
 
 .popup-content ul li {
-  margin-bottom: 0.5rem;
-  font-size: 0.85rem;
-  line-height: 1;
+  margin-bottom: 0.8rem;
+  font-size: 0.95rem;
+  line-height: 1.4;
 }
 
 
@@ -941,4 +952,14 @@ html, body {
   filter: blur(5px);
   pointer-events: none; /* Optional: block clicks while blurred */
   user-select: none;
+}
+
+/* Daily Draw */
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }

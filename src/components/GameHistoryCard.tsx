@@ -11,8 +11,8 @@ interface Props {
   image: string;
   cost: string;
   prize: string;
-  useTon?: boolean; // Optional, true if using TON, false if using Credits
-  betId?: string; // Optional, if you want to display or use the bet ID
+  useTon?: boolean;
+  betId?: string;
   result: 'win' | 'lose';
 }
 

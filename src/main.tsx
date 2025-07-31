@@ -8,7 +8,7 @@ import Home from './Home';
 import Stake from './Stake';
 import Profile from './Profile';
 import Friend from './Friend';
-import AdminPage from './Admin'; 
+import AdminPage from './Admin';
 
 import './index.css';
 import { Toaster } from 'react-hot-toast';

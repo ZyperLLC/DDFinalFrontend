@@ -78,9 +78,11 @@ export default function Profile() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 3;
 
-  const bets = context?.user.bets || [];
-  const totalPages = Math.ceil(bets.length / itemsPerPage);
+  // ✅ Sort bets from newest to oldest using 'createdAt'
+  const bets = [...(context?.user.bets || [])].sort((a, b) => b.betId - a.betId);
 
+
+  const totalPages = Math.ceil(bets.length / itemsPerPage);
   const paginatedBets = bets.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
@@ -153,7 +155,6 @@ export default function Profile() {
         ))}
       </SectionBox>
 
-      {/* Game History with Pagination */}
       <SectionBox title={t('profile.gameHistory')}>
         {bets.length === 0 ? (
           <p style={{ color: 'white' }} className="text-center">No games played yet</p>
