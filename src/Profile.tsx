@@ -85,7 +85,7 @@ export default function Profile() {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
-  
+  console.log(paginatedBets);
   return (
     <motion.div
       variants={slideUpFade}
