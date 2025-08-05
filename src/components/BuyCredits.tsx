@@ -82,14 +82,14 @@ export default function BuyCreditsComponent() {
                  <MostPopularBadge />
               </div>
             )}
-
+            <div className='flex flex-col justify-center items-center '>
             <h2 className="text-xl font-semibold mb-2">{offer.name} </h2>
             <p className="text-lg mb-1">Price: <span className="font-bold">{offer.price}</span></p>
             <p className="text-md mb-1">Multiplier: <span className="font-semibold">{offer.multiplier}</span></p>
             {offer.bonus && (
               <p className="text-sm italic text-gray-300 mt-2">{offer.bonus}</p>
             )}
-
+            </div>
             <div className="mt-4 flex flex-wrap justify-center gap-6 mb-12 flex-col items-center">
               <Button text="Buy Now" onClick={handleBuyClick} />
             </div>
