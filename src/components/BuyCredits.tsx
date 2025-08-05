@@ -48,10 +48,8 @@ export default function BuyCreditsComponent() {
         {offers.map((offer, idx) => (
           <motion.div
             key={idx}
-            className={`relative w-full rounded-xl p-6 shadow-lg border transition-transform transform hover:scale-105 ${
-              offer.popular
-                ? 'bg-gradient-to-br from-purple-800 to-indigo-700 border-yellow-400 shadow-yellow-500 shadow-2xl scale-105'
-                : 'bg-[#151a27] border-gray-600'
+            className={ ` section-box relative w-full rounded-xl p-6 shadow-lg border transition-transform transform hover:scale-105
+
             }`}
           >
             {offer.popular && (
