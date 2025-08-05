@@ -76,7 +76,7 @@ export default function BuyCreditsComponent() {
            className={`
                    section-box relative w-full rounded-xl p-6 shadow-lg border
                    transition-transform transform hover:scale-105
-                   ${offer.popular ? 'border-[#f72585] border-4' : 'border-0'}
+                   ${offer.popular ? 'border-[#f72585] border' : 'border-white'}
                  `}
 
           >
