@@ -4,6 +4,8 @@ import MostPopularBadge from './MostPopularBadge';
 import background1 from '../assets/background1.jpg';
 import logo from '../assets/logo.jpg';
 import { slideUpFade } from '../utils/animations';
+
+
 import Navbar from './Navbar';
 
 const offers = [
@@ -43,19 +45,18 @@ export default function BuyCreditsComponent() {
   };
 
   return (
-    <motion.div
-      variants={slideUpFade}
-      initial="hidden"
-      animate="visible"
-      className="min-h-screen text-white py-10 px-4 "
-      style={{
+    <motion.div variants={slideUpFade} initial="hidden" animate="visible"
+     className="min-h-screen text-white py-10 px-4 overflow-hidden"
+        style={{
         backgroundImage: `url(${background1})`,
-        color: '#fff',
+        color: '#fff' ,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
+
     >
-      {/* Logo */}
+
+    {/* Logo */}
       <img
         src={logo}
         alt="Logo"
@@ -68,44 +69,33 @@ export default function BuyCreditsComponent() {
       <h1 className="text-3xl font-bold text-center mb-8">Choose a Credit Pack</h1>
 
       <div className="flex flex-col items-center gap-6 max-w-md mx-auto">
-        {offers.map((offer, idx) => {
-          const isPro = offer.name === 'Pro';
+        {offers.map((offer, idx) => (
+          <motion.div
+            key={idx}
+            className={ ` section-box relative w-full rounded-xl p-6 shadow-lg border transition-transform transform hover:scale-105
 
-          return (
-            <motion.div
-              key={idx}
-              className={`
-                relative w-full rounded-xl p-6 shadow-lg border transition-transform transform hover:scale-105
-                flex flex-col items-center text-center
-                ${isPro ? 'border-purple-500 border-2 scale-105 bg-white/10' : 'border-white/20'}
-              `}
-            >
-              {offer.popular && (
-                <div className="absolute top-0 right-0 -mt-3 mr-3 bg-yellow-400 text-black px-3 py-1 text-xs font-bold rounded-full shadow-md">
-                  <MostPopularBadge />
-                </div>
-              )}
-
-              <h2 className="text-xl font-semibold mb-2">{offer.name}</h2>
-              <p className="text-lg mb-1">
-                Price: <span className="font-bold">{offer.price}</span>
-              </p>
-              <p className="text-md mb-1">
-                Multiplier: <span className="font-semibold">{offer.multiplier}</span>
-              </p>
-              {offer.bonus && (
-                <p className="text-sm italic text-gray-300 mt-2">{offer.bonus}</p>
-              )}
-
-              <div className="mt-4 flex flex-col items-center">
-                <Button text="Buy Now" onClick={handleBuyClick} />
+            }`}
+          >
+            {offer.popular && (
+              <div className="absolute top-0 right-0 -mt-3 mr-3 bg-yellow-400 text-black px-3 py-1 text-xs font-bold rounded-full shadow-md">
+                 <MostPopularBadge />
               </div>
-            </motion.div>
-          );
-        })}
-      </div>
+            )}
 
-      <Navbar />
+            <h2 className="text-xl font-semibold mb-2">{offer.name} </h2>
+            <p className="text-lg mb-1">Price: <span className="font-bold">{offer.price}</span></p>
+            <p className="text-md mb-1">Multiplier: <span className="font-semibold">{offer.multiplier}</span></p>
+            {offer.bonus && (
+              <p className="text-sm italic text-gray-300 mt-2">{offer.bonus}</p>
+            )}
+
+            <div className="mt-4 flex flex-wrap justify-center gap-6 mb-12 flex-col items-center">
+              <Button text="Buy Now" onClick={handleBuyClick} />
+            </div>
+          </motion.div>
+        ))}
+      </div>
+       <Navbar />
     </motion.div>
   );
 }
