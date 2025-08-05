@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import Button from './Button';
-import background from './assets/background1.jpg';
+
 
 const offers = [
   {
@@ -39,8 +39,8 @@ export default function BuyCreditsComponent() {
   };
 
   return (
-    <div className="min-h-screen text-white py-10 px-4 bg-cover bg-center bg-no-repeat overflow-hidden"
-     style={{ backgroundImage: `url(${background})` }}
+    <div className="min-h-screen text-white py-10 px-4 overflow-hidden"
+     style={{  color: '#fff' }}
     >
       <h1 className="text-3xl font-bold text-center mb-8">Choose a Credit Pack</h1>
 
@@ -67,7 +67,7 @@ export default function BuyCreditsComponent() {
               <p className="text-sm italic text-gray-300 mt-2">{offer.bonus}</p>
             )}
 
-            <div className="mt-4">
+            <div className="mt-4 flex flex-wrap justify-center gap-6 mb-12 flex-col items-center">
               <Button text="Buy Now" onClick={handleBuyClick} />
             </div>
           </motion.div>
