@@ -87,7 +87,7 @@ export default function BuyCreditsComponent() {
               <ul className="list-disc list-inside space-y-1 mb-2 text-left">
                 <li className="text-md font-medium">{offer.multiplier}</li>
               {offer.bonus && (
-                <p className="text-sm italic text-gray-300 mt-2">{offer.bonus}</p>
+                <li className="text-md font-medium mt-2">{offer.bonus}</li>
               )}
               </ul>
             </div>
