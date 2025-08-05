@@ -141,7 +141,7 @@ export default function Profile() {
       <LogoDisplay />
       <ConnectWalletCard />
 
-      {/* Buy Credits Button */} 
+      {/* Buy Credits Button */}
          <div className="w-full flex justify-center my-6">
             <Button
               text="Buy Credits"

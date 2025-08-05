@@ -45,14 +45,14 @@ export default function BuyCreditsComponent() {
   };
 
   return (
-    <motion.div variants={slideUpFade} initial="hidden" animate="visible"
+    <motion.div variants={slideUpFade}
      className=" text-white py-10 px-4 overflow-hidden"
         style={{
         backgroundImage: `url(${background1})`,
         color: '#fff' ,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        minHeight: '120vh',
+
       }}
 
     >
@@ -69,7 +69,7 @@ export default function BuyCreditsComponent() {
       />
       <h1 className="text-3xl font-bold text-center mb-8">Choose a Credit Pack</h1>
 
-      <div className="flex flex-col items-center gap-6 max-w-md mx-auto">
+      <div className="flex justify-center flex-col items-center gap-6 max-w-md mx-auto">
         {offers.map((offer, idx) => (
           <motion.div
             key={idx}
@@ -78,7 +78,7 @@ export default function BuyCreditsComponent() {
             }`}
           >
             {offer.popular && (
-              <div className="absolute top-0 right-0 -mt-3 mr-3 bg-yellow-400 text-black px-3 py-1 text-xs font-bold rounded-full shadow-md">
+              <div className="absolute flex flex-wrap justify-start flex-col items-center top-0 right-0 -mt-3 mr-3 bg-yellow-400 text-black px-3 py-1 text-xs font-bold rounded-full shadow-md">
                  <MostPopularBadge />
               </div>
             )}
