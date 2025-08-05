@@ -74,7 +74,7 @@ export default function BuyCreditsComponent() {
             className={`
               section-box relative w-full rounded-xl p-6 shadow-lg border
               transition-transform transform hover:scale-105
-              ${offer.popular ? 'border-[#f72585] border' : 'border-0'}
+              ${offer.popular ? 'border-[#f72585] border-2' : 'border-white border-2'}
             `}
           >
             {offer.popular && (
@@ -83,7 +83,7 @@ export default function BuyCreditsComponent() {
               </div>
             )}
             <div className="flex flex-col justify-center items-center text-center">
-              <ul className="list-disc list-inside space-y-1 mb-2">
+              <ul className="list-disc list-inside space-y-1 mb-2 text-right">
                 <li className="text-xl font-semibold">{offer.name}</li>
                 <li className="text-md font-medium">{offer.multiplier}</li>
               </ul>
