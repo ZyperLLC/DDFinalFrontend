@@ -50,6 +50,7 @@ import GameHistoryCard from './components/GameHistoryCard';
 import SectionBox from './components/SectionBox';
 import WithdrawPopup from './components/Withdrawpopup';
 import BuyCredits from './components/BuyCredits';
+import Button from './components/Button';
 
 import './index.css';
 import { UserContext } from './Context/UserContextProvider';
@@ -62,6 +63,7 @@ export default function Profile() {
   const context = useContext(UserContext);
   const isWalletConnected = !!context?.user.walletAddress;
   const [isWithdrawPopupVisible, setIsWithdrawPopupVisible] = useState(false);
+  const [showBuyCredits, setShowBuyCredits] = useState(false);
   const [enhancedBets, setEnhancedBets] = useState<
     { bet: any; startedAt: Date }[]
   >([]);
@@ -120,6 +122,9 @@ export default function Profile() {
     currentPage * itemsPerPage
   );
 
+  // Show BuyCredits if triggered
+  if (showBuyCredits) return <BuyCredits />;
+
   return (
     <motion.div
       variants={slideUpFade}
@@ -136,10 +141,15 @@ export default function Profile() {
       <LogoDisplay />
       <ConnectWalletCard />
 
-      {/* Buy Credits Button and Cards */}
-      <div className="flex justify-center mt-4">
-        <BuyCredits />
-      </div>
+      {/* Buy Credits Button */}
+         <div className="flex justify-center my-6">
+            <Button
+              text="Buy Credits"
+              onClick={() => setShowBuyCredits(true)}
+              className="bg-blue-600 hover:bg-blue-700"
+            />
+          </div>
+
 
       {isWalletConnected && (
         <div className="w-full mt-6 mb-6 px-4">

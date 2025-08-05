@@ -59,7 +59,7 @@ export default function BuyCreditsComponent() {
               </div>
             )}
 
-            <h2 className="text-xl font-semibold mb-2">{offer.name} Pack</h2>
+            <h2 className="text-xl font-semibold mb-2">{offer.name} </h2>
             <p className="text-lg mb-1">Price: <span className="font-bold">{offer.price}</span></p>
             <p className="text-md mb-1">Multiplier: <span className="font-semibold">{offer.multiplier}</span></p>
             {offer.bonus && (
