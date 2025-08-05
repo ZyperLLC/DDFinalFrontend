@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion';
 import Button from './Button';
 import MostPopularBadge from './MostPopularBadge';
-
+import background1 from './assets/background1.jpg';
+import logo from './assets/logo.jpg';
+import Navbar from './Navbar';
 
 const offers = [
   {
@@ -41,8 +43,26 @@ export default function BuyCreditsComponent() {
 
   return (
     <div className="min-h-screen text-white py-10 px-4 overflow-hidden"
-     style={{  color: '#fff' }}
+         style={{
+        backgroundImage: `url(${background1})`,
+        color: '#fff' ,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        minHeight: '100vh',
+      }}
+
     >
+
+    {/* Logo */}
+      <img
+        src={logo}
+        alt="Logo"
+        className="animated-logo"
+        style={{
+          width: '250px',
+          marginBottom: '3.5rem',
+        }}
+      />
       <h1 className="text-3xl font-bold text-center mb-8">Choose a Credit Pack</h1>
 
       <div className="flex flex-col items-center gap-6 max-w-md mx-auto">
@@ -72,6 +92,7 @@ export default function BuyCreditsComponent() {
           </motion.div>
         ))}
       </div>
+       <Navbar />
     </div>
   );
 }
