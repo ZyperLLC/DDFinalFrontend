@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
 import Button from './Button';
 import MostPopularBadge from './MostPopularBadge';
-import background1 from './assets/background1.jpg';
-import logo from './assets/logo.jpg';
+import background1 from '../assets/background1.jpg';
+import logo from '../assets/logo.jpg';
 import Navbar from './Navbar';
 
 const offers = [
