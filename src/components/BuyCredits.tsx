@@ -6,7 +6,7 @@ import logo from '../assets/logo.jpg';
 import { slideUpFade } from '../utils/animations';
 
 
-import Navbar from './Navbar';
+// import Navbar from './Navbar';
 
 const offers = [
   {
@@ -73,9 +73,12 @@ export default function BuyCreditsComponent() {
         {offers.map((offer, idx) => (
           <motion.div
             key={idx}
-            className={ ` section-box relative w-full rounded-xl p-6 shadow-lg border transition-transform transform hover:scale-105
+           className={`
+                   section-box relative w-full rounded-xl p-6 shadow-lg border
+                   transition-transform transform hover:scale-105
+                   ${offer.popular ? 'border-[#f72585] border-4' : 'border-0'}
+                 `}
 
-            }`}
           >
             {offer.popular && (
               <div className="absolute flex flex-wrap justify-start flex-col items-center top-0 right-0 -mt-3 mr-3 bg-yellow-400 text-black px-3 py-1 text-xs font-bold rounded-full shadow-md">
@@ -96,7 +99,7 @@ export default function BuyCreditsComponent() {
           </motion.div>
         ))}
       </div>
-       <Navbar />
+       {/* <Navbar /> */}
     </motion.div>
   );
 }
