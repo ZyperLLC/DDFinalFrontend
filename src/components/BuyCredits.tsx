@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import Button from './Button';
+import MostPopularBadge from './MostPopularBadge';
 
 
 const offers = [
@@ -54,7 +55,7 @@ export default function BuyCreditsComponent() {
           >
             {offer.popular && (
               <div className="absolute top-0 right-0 -mt-3 mr-3 bg-yellow-400 text-black px-3 py-1 text-xs font-bold rounded-full shadow-md">
-                Most Popular
+                 <MostPopularBadge />
               </div>
             )}
 
