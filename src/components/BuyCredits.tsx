@@ -83,7 +83,7 @@ export default function BuyCreditsComponent() {
               </div>
             )}
             <div className="flex flex-col justify-center items-center text-center">
-              <ul className="list-disc list-inside space-y-1 mb-2 text-right">
+              <ul className="list-disc list-inside space-y-1 mb-2 text-left">
                 <li className="text-xl font-semibold">{offer.name}</li>
                 <li className="text-md font-medium">{offer.multiplier}</li>
               </ul>
