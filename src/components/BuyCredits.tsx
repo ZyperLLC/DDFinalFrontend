@@ -46,12 +46,13 @@ export default function BuyCreditsComponent() {
 
   return (
     <motion.div variants={slideUpFade} initial="hidden" animate="visible"
-     className="min-h-screen text-white py-10 px-4 overflow-hidden"
+     className=" text-white py-10 px-4 overflow-hidden"
         style={{
         backgroundImage: `url(${background1})`,
         color: '#fff' ,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
+        minHeight: '120vh',
       }}
 
     >
