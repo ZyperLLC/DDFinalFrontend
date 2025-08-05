@@ -49,6 +49,7 @@ import StakedNFTCard from './components/StakedNFTCard';
 import GameHistoryCard from './components/GameHistoryCard';
 import SectionBox from './components/SectionBox';
 import WithdrawPopup from './components/Withdrawpopup';
+import BuyCredits from './components/BuyCredits';
 
 import './index.css';
 import { UserContext } from './Context/UserContextProvider';
@@ -97,7 +98,7 @@ export default function Profile() {
             console.error('Failed to fetch round for betId:', bet.betId, err);
             return {
               bet,
-              startedAt: new Date(0), // fallback
+              startedAt: new Date(0),
             };
           }
         })
@@ -134,6 +135,11 @@ export default function Profile() {
     >
       <LogoDisplay />
       <ConnectWalletCard />
+
+      {/* Buy Credits Button and Cards */}
+      <div className="flex justify-center mt-4">
+        <BuyCredits />
+      </div>
 
       {isWalletConnected && (
         <div className="w-full mt-6 mb-6 px-4">
