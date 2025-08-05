@@ -3,6 +3,9 @@ import Button from './Button';
 import MostPopularBadge from './MostPopularBadge';
 import background1 from '../assets/background1.jpg';
 import logo from '../assets/logo.jpg';
+import { slideUpFade } from '../utils/animations';
+
+
 import Navbar from './Navbar';
 
 const offers = [
@@ -42,13 +45,13 @@ export default function BuyCreditsComponent() {
   };
 
   return (
-    <div className="min-h-screen text-white py-10 px-4 overflow-hidden"
-         style={{
+    <motion.div variants={slideUpFade} initial="hidden" animate="visible"
+     className="min-h-screen text-white py-10 px-4 overflow-hidden"
+        style={{
         backgroundImage: `url(${background1})`,
         color: '#fff' ,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        minHeight: '100vh',
       }}
 
     >
@@ -93,6 +96,6 @@ export default function BuyCreditsComponent() {
         ))}
       </div>
        <Navbar />
-    </div>
+    </motion.div>
   );
 }
