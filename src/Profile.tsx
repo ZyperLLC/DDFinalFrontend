@@ -146,7 +146,7 @@ export default function Profile() {
             <Button
               text="Buy Credits"
               onClick={() => setShowBuyCredits(true)}
-              className="bg-blue-600 hover:bg-blue-700 w-full"
+              className="bg-blue-600 hover:bg-blue-700 w-80%"
             />
           </div>
 
