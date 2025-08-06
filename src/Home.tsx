@@ -154,6 +154,7 @@ function Home() {
             onDolphinClick={useCallback((index) => {
               setSelectedDolphin({ id: index, image: dolphins[index].image, name: dolphins[index].name });
             }, [])} // dolphins array is static, so no dependencies needed
+            timer={timer}
           />
           <Navbar />
         </motion.div>
