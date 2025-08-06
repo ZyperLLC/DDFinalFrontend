@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState, useCallback } from 'react';
 import logo from './assets/logo.jpg';
 import './index.css';
 
@@ -102,28 +102,40 @@ function Home() {
   const [isDolphinPopupVisible, setIsDolphinPopupVisible] = useState(false);
   // const [showDrawWrapper, setShowDrawWrapper] = useState(false);
 
-  useEffect(() => {
-    const getTimeUntilTarget = () => {
-      const now = new Date();
-      let targetTime = new Date();
-      targetTime.setUTCHours(20, 0, 0, 0);
-      if (now >= targetTime) targetTime.setUTCDate(targetTime.getUTCDate() + 1);
-      return Math.max(0, Math.floor((targetTime.getTime() - now.getTime()) / 1000));
-    };
+  const getTimeUntilTarget = useCallback(() => {
+    const now = new Date();
+    let targetTime = new Date();
+    targetTime.setUTCHours(20, 0, 0, 0);
+    if (now >= targetTime) targetTime.setUTCDate(targetTime.getUTCDate() + 1);
+    return Math.max(0, Math.floor((targetTime.getTime() - now.getTime()) / 1000));
+  }, []); // No dependencies as it only uses Date API
 
+  useEffect(() => {
+    // Set initial time
+    setTimer(getTimeUntilTarget());
+    
     const interval = setInterval(() => {
-      setTimer(getTimeUntilTarget());
+      const newTime = getTimeUntilTarget();
+      setTimer(prevTime => {
+        // Only update if time has changed
+        return prevTime !== newTime ? newTime : prevTime;
+      });
     }, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [getTimeUntilTarget]); // Only depends on memoized function
 
   useEffect(() => {
     if (selectedDolphin) setIsDolphinPopupVisible(true);
   }, [selectedDolphin]);
 
-  const handleDolphinClose = () => setIsDolphinPopupVisible(false);
-  const handleDolphinExit = () => setSelectedDolphin(null);
+  const handleDolphinClose = useCallback(() => {
+    setIsDolphinPopupVisible(false);
+  }, []); // No dependencies needed
+
+  const handleDolphinExit = useCallback(() => {
+    setSelectedDolphin(null);
+  }, []); // No dependencies needed
 
   // Show DrawWrapper if triggered
   // if (showDrawWrapper) return <DrawWrapper />;
@@ -156,9 +168,10 @@ function Home() {
 
           <DolphinGrid
             dolphins={dolphins.map((d) => d.image)}
-            onDolphinClick={(index) =>
-              setSelectedDolphin({ id: index, image: dolphins[index].image, name: dolphins[index].name })
-            }
+            onDolphinClick={useCallback((index) => {
+              setSelectedDolphin({ id: index, image: dolphins[index].image, name: dolphins[index].name });
+            }, [])} // dolphins array is static, so no dependencies needed
+            timer={timer}
           />
           <Navbar />
         </motion.div>

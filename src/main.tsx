@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './i18n';
+import TelegramAnalytics from '@telegram-apps/analytics'
 
 import App from './App';
 import Home from './Home';
@@ -15,6 +16,11 @@ import './index.css';
 import { Toaster } from 'react-hot-toast';
 import { UserProvider } from './Context/UserContextProvider';
 import { TonConnectUiProvider } from './Context/TonConnectUiContext';
+
+TelegramAnalytics.init({
+    token: import.meta.env.VITE_ANALYTICS_TOKEN,
+    appName: 'Dolphin_Dash',
+})
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
