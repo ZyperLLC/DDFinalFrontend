@@ -121,10 +121,7 @@ export default function Profile() {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
-
-  // Show BuyCredits if triggered
-  if (showBuyCredits) return <BuyCredits />;
-
+  console.log(paginatedBets);
   return (
     <motion.div
       variants={slideUpFade}
