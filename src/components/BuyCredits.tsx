@@ -13,7 +13,6 @@ const offers = [
     name: 'Basic',
     price: '$4.99',
     multiplier: ' Make your credits 1.5x',
-    bonus: '',
     popular: false,
   },
   {
@@ -78,13 +77,13 @@ export default function BuyCreditsComponent() {
             `}
           >
             {offer.popular && (
-              <div className="absolute flex flex-wrap justify-start flex-col items-center top-0 right-0 -mt-3 mr-3 bg-yellow-400 text-black px-3 py-1 text-xs font-bold rounded-full shadow-md">
+              <div className="absolute flex flex-wrap justify-start flex-col items-center top-0 right-0 -mt-3 mr-3 bg-yellow-400 text-black px-12 py-1 text-xs font-bold rounded-full shadow-md">
                 <MostPopularBadge />
               </div>
             )}
             <div className="flex flex-col justify-center items-center text-center">
             <h2 className="text-xl font-semibold">{offer.name}</h2>
-                <ul className="list-disc list-inside pr-4 space-y-1 mb-2 text-left">
+                <ul className="list-disc list-inside mb-2 text-left">
                     <li className="text-md font-medium">{offer.multiplier}</li>
                          {offer.bonus && (
                      <li className="text-md font-medium mt-2">{offer.bonus}</li>
