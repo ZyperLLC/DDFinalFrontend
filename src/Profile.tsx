@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Navbar from './components/Navbar';
 
@@ -49,8 +50,9 @@ import StakedNFTCard from './components/StakedNFTCard';
 import GameHistoryCard from './components/GameHistoryCard';
 import SectionBox from './components/SectionBox';
 import WithdrawPopup from './components/Withdrawpopup';
-import BuyCredits from './components/BuyCredits';
+// import BuyCredits from './components/BuyCredits';
 import Button from './components/Button';
+
 
 import './index.css';
 import { UserContext } from './Context/UserContextProvider';
@@ -63,7 +65,9 @@ export default function Profile() {
   const context = useContext(UserContext);
   const isWalletConnected = !!context?.user.walletAddress;
   const [isWithdrawPopupVisible, setIsWithdrawPopupVisible] = useState(false);
-  const [showBuyCredits, setShowBuyCredits] = useState(false);
+  // const [showBuyCredits, setShowBuyCredits] = useState(false);
+  const navigate = useNavigate();
+
   const [enhancedBets, setEnhancedBets] = useState<
     { bet: any; startedAt: Date }[]
   >([]);
@@ -140,11 +144,12 @@ export default function Profile() {
 
       {/* Buy Credits Button */}
          <div className="w-full flex justify-center my-6">
-            <Button
+             <Button
               text="Buy Credits"
-              onClick={() => setShowBuyCredits(true)}
-              className="bg-blue-600 hover:bg-blue-700 w-[80%]"
-            />
+             onClick={() => navigate('/buy-credits')}
+             className="bg-blue-600 hover:bg-blue-700 w-[80%]"
+             />
+
           </div>
 
 

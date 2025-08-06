@@ -9,6 +9,7 @@ import Stake from './Stake';
 import Profile from './Profile';
 import Friend from './Friend';
 import AdminPage from './Admin';
+import BuyCredits from './components/BuyCredits';
 
 import './index.css';
 import { Toaster } from 'react-hot-toast';
@@ -28,6 +29,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Route path="/profile" element={<Profile />} />
             <Route path="/friends" element={<Friend />} />
             <Route path="/admin" element={<AdminPage />} />
+            <Route path="/buy-credits" element={<BuyCredits />} />
           </Routes>
         </UserProvider>
       </TonConnectUiProvider>
