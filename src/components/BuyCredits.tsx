@@ -84,7 +84,7 @@ export default function BuyCreditsComponent() {
             )}
             <div className="flex flex-col justify-center items-center text-center">
             <h2 className="text-xl font-semibold">{offer.name}</h2>
-              <ul className="list-disc list-inside space-y-1 mb-2 text-left">
+              <ul className="list-disc list-inside space-y-1 mb-2 text-right">
                 <li className="text-md font-medium">{offer.multiplier}</li>
               {offer.bonus && (
                 <li className="text-md font-medium mt-2">{offer.bonus}</li>
