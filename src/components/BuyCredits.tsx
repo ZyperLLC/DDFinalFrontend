@@ -84,18 +84,13 @@ export default function BuyCreditsComponent() {
             )}
             <div className="flex flex-col justify-center items-center text-center">
             <h2 className="text-xl font-semibold">{offer.name}</h2>
-              <div className="space-y-1 mb-2">
-  <div className="flex justify-end items-center gap-2">
-    <span className="text-md font-medium">{offer.multiplier}</span>
-    <span className="w-2 h-2 bg-white rounded-full" />
-  </div>
-  {offer.bonus && (
-    <div className="flex justify-end items-center gap-2 mt-2">
-      <span className="text-md font-medium">{offer.bonus}</span>
-      <span className="w-2 h-2 bg-white rounded-full" />
-    </div>
-  )}
-</div>
+                <ul className="list-disc list-outside pr-4 space-y-1 mb-2 text-right">
+                    <li className="text-md font-medium">{offer.multiplier}</li>
+                         {offer.bonus && (
+                     <li className="text-md font-medium mt-2">{offer.bonus}</li>
+          )}
+              </ul>
+
 
             </div>
             <div className="mt-4 flex flex-wrap justify-center gap-6 mb-12 flex-col items-center">
