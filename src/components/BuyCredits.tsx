@@ -11,7 +11,6 @@ const offers = [
     name: 'Basic',
     price: '$4.99',
     multiplier: ' Make your credits 1.5x',
-    bonus: 'Get a random Dolphin Dash NFT (2% APY)',
     popular: false,
   },
   {
@@ -76,8 +75,8 @@ export default function BuyCreditsComponent() {
             )}
             <div className="flex flex-col justify-center items-center text-center">
             <h2 className="text-xl font-semibold">{offer.name}</h2>
-                <div className="mb-2 min-h-[4.5rem] flex flex-col justify-start gap-2 text-left">
-  <div className="flex items-center gap-4">
+                <div className="mb-2 min-h-[4.5rem] flex flex-col justify-start gap-6 text-left">
+  <div className="flex items-center gap-6">
     <span className="text-white font-bold text-lg leading-none mt-[2px]">•</span>
     <p className="text-md font-medium">{offer.multiplier}</p>
   </div>
