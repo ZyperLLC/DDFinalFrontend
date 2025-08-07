@@ -82,14 +82,14 @@ export default function BuyCreditsComponent() {
 
               <div className="mb-2 mt-4 flex flex-col justify-start text-left" style={{ gap: '1rem' }}>
                 {/* Multiplier */}
-                <div className="flex items-start" style={{ gap: '2rem' }}>
-                  <img src={rectangle} alt="bullet" className="w-4 h-4 mt-1" />
+                <div className="flex items-start gap-4 text-md" style={{ gap: '2rem' }}>
+                  <img src={rectangle} alt="bullet" className="w-4 h-4 " />
                   <p className="text-md font-medium">{offer.multiplier}</p>
                 </div>
 
                 {/* Bonus (always render for alignment) */}
-                <div className="flex items-start" style={{ gap: '2rem' }}>
-                  <img src={rectangle} alt="bullet" className="w-4 h-4 mt-1" />
+                <div className="flex items-start gap-4 text-md" style={{ gap: '2rem' }}>
+                  <img src={rectangle} alt="bullet" className="w-4 h-4" />
                   <p className="text-md font-medium">
                     {offer.name === 'Basic' ? '\u00A0' : offer.bonus}
                   </p>
