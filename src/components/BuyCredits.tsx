@@ -90,7 +90,7 @@ export default function BuyCreditsComponent() {
                 {offer.name !== 'Basic' && (
                   <div className="flex items-center gap-3 text-md">
                     <img src={rectangle} alt="bullet" className="w-4 h-4" />
-                    <p className="text-md font-medium leading-snug">{offer.bonus}</p>
+                    <p className="text-sm font-medium leading-snug">{offer.bonus}</p>
                   </div>
                 )}
               </div>
