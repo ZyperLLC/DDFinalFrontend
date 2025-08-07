@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script 
+      async 
+      src="https://tganalytics.xyz/index.js" 
+      onload="initAnalytics()" 
+      type="text/javascript"
+    ></script>
+    <script>
+      function initAnalytics() {
+        window.telegramAnalytics.init({
+          token: 'eyJhcHBfbmFtZSI6ImRvbHBoaW5kYXNoZ2FtZSIsImFwcF91cmwiOiJodHRwczovL3QubWUvRG9scGhpbkRhc2hfYm90IiwiYXBwX2RvbWFpbiI6Imh0dHBzOi8vZGRmcm9udGVuZC5uZXRsaWZ5LmFwcCJ9!r5bJqJ2YjEpX27sPFH34XuIBqyEqRC0tQF7k3qi9Efo=',
+          appName: 'dolphindashgame',
+        });
+      }
+      window.telegramAnalytics.track('test-event', { custom_data: { test: 'value' } });
+      console.log('Test event sent');
+    </script>
     <meta charset="UTF-8" />
     <link rel="icon" href="/logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <title>Dolphin Dash</title>
-    <script 
-    async 
-    src="https://tganalytics.xyz/index.js" 
-    onload="initAnalytics()" 
-    type="text/javascript"
-></script>
-<script>
-    function initAnalytics() {
-      window.telegramAnalytics.init({
-        token: 'eyJhcHBfbmFtZSI6ImRvbHBoaW5kYXNoZ2FtZSIsImFwcF91cmwiOiJodHRwczovL3QubWUvRG9scGhpbkRhc2hfYm90IiwiYXBwX2RvbWFpbiI6Imh0dHBzOi8vZGRmcm9udGVuZC5uZXRsaWZ5LmFwcCJ9!r5bJqJ2YjEpX27sPFH34XuIBqyEqRC0tQF7k3qi9Efo=',
-        appName: 'dolphindashgame',
-      });
-    }
-</script>
   </head>
   <body>
     <div id="root"></div>
