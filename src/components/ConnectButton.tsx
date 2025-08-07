@@ -59,8 +59,8 @@ export const ConnectButton = ({ whiteBg = false }: ConnectButtonProps) => {
             try{
                 let creditBalance=0;
                 if(tgWebAppData?.user?.id && tgWebAppData.user?.username){
-                    
-                    //if address is not empty , check if user is registered                    
+
+                    //if address is not empty , check if user is registered
                     const userData:User = await fetchUser(tgWebAppData?.user?.id.toString());
                     console.log("User Data:", userData);
                     if(userData!=undefined && userData!=null){
@@ -97,8 +97,8 @@ export const ConnectButton = ({ whiteBg = false }: ConnectButtonProps) => {
                     context?.setTelegramId(tgWebAppData?.user?.id.toString());
                     const bouncableAddress = toUserFriendlyAddress(address);
                     context?.setWalletAddress(bouncableAddress);
-                    context?.setTonBalance(userData.tonBalance/1000000000); 
-                    context?.setCreditBalance(userData?.creditBalance ?? creditBalance); 
+                    context?.setTonBalance(userData.tonBalance/1000000000);
+                    context?.setCreditBalance(userData?.creditBalance ?? creditBalance);
                     context?.setFriends(userData?.friends);
                     context?.setBets(userData?.betsPlace?.sort((a:Bet, b:Bet) => b.betId - a.betId) ?? []);
                     context?.setStakedNfts(userData?.stakedNFTs ?? []);
@@ -109,7 +109,7 @@ export const ConnectButton = ({ whiteBg = false }: ConnectButtonProps) => {
                 toast.error("Failed to fetch user data");
             }
         }
-     
+
   }
 
   useEffect(() => {
