@@ -12,12 +12,7 @@
     onload="initAnalytics()" 
     type="text/javascript"
 ></script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-  <script>
+<script>
     function initAnalytics() {
       window.telegramAnalytics.init({
         token: 'eyJhcHBfbmFtZSI6ImRvbHBoaW5zX2Rhc2giLCJhcHBfdXJsIjoiaHR0cHM6Ly90Lm1lL0RvbHBoaW5EYXNoX2JvdCIsImFwcF9kb21haW4iOiJodHRwczovL2RkZnJvbnRlbmQubmV0bGlmeS5hcHAvIn0=!bB4gaGRoK4X4+NxXAPWgV7BcnhW6Fb48i9LU2uPnTGE=',
@@ -25,4 +20,10 @@
       });
     }
 </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+  
 </html>
