@@ -40,7 +40,7 @@ export default function WelcomePopup({ onClose }: { onClose: () => void }) {
         </ul>
 
         {/* Connect Button*/}
-        <div className="w-full px-4 mt-1">
+        <div className="w-full px-4 mt-0 mb-2">
           <ConnectButton />
         </div>
       </motion.div>

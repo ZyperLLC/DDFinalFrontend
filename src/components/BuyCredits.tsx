@@ -79,7 +79,7 @@ export default function BuyCreditsComponent() {
               <h2 className="text-xl font-semibold">{offer.name}</h2>
 
               {/* Features */}
-              <div className="mb-2 mt-4 flex flex-col justify-start text-left gap-3 w-full">
+              <div className="mb-2 mt-1 flex flex-col justify-start text-left gap-3 w-full">
                 {/* Multiplier */}
                 <div className="flex items-start gap-4 text-md">
                   <img src={rectangle} alt="bullet" className="w-4 h-4 mt-1" />
