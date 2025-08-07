@@ -6,9 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <title>Dolphin Dash</title>
+    <script 
+    async 
+    src="https://tganalytics.xyz/index.js" 
+    onload="initAnalytics()" 
+    type="text/javascript"
+></script>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
+  <script>
+    function initAnalytics() {
+      window.telegramAnalytics.init({
+        token: 'eyJhcHBfbmFtZSI6ImRvbHBoaW5zX2Rhc2giLCJhcHBfdXJsIjoiaHR0cHM6Ly90Lm1lL0RvbHBoaW5EYXNoX2JvdCIsImFwcF9kb21haW4iOiJodHRwczovL2RkZnJvbnRlbmQubmV0bGlmeS5hcHAvIn0=!bB4gaGRoK4X4+NxXAPWgV7BcnhW6Fb48i9LU2uPnTGE=',
+        appName: 'dolphins_dash',
+      });
+    }
+</script>
 </html>
