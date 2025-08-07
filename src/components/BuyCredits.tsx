@@ -32,7 +32,7 @@ const offers = [
 
 export default function BuyCreditsComponent() {
   const handleBuyClick = async () => {
-    alert("Redirecting to payment...");
+    alert('Redirecting to payment...');
   };
 
   return (
@@ -65,11 +65,9 @@ export default function BuyCreditsComponent() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
-            className={`
-              section-box relative w-full rounded-xl p-6 shadow-lg border
-              transition-transform transform hover:scale-105
-              ${offer.popular ? 'border-[#f72585] border-2' : 'border-white border-2'}
-            `}
+            className={`section-box relative w-full rounded-xl p-6 shadow-lg border transition-transform transform hover:scale-105 ${
+              offer.popular ? 'border-[#f72585] border-2' : 'border-white border-2'
+            }`}
           >
             {offer.popular && (
               <div className="absolute flex flex-wrap justify-start flex-col items-center top-0 right-0 -mt-3 mr-3 bg-yellow-400 text-black px-12 py-1 text-xs font-bold rounded-full shadow-md">
@@ -80,20 +78,21 @@ export default function BuyCreditsComponent() {
             <div className="flex flex-col justify-center items-center text-center">
               <h2 className="text-xl font-semibold">{offer.name}</h2>
 
-              <div className="mb-2 mt-4 flex flex-col justify-start text-left" style={{ gap: '1rem' }}>
+              {/* Features */}
+              <div className="mb-2 mt-4 flex flex-col justify-start text-left gap-3 w-full">
                 {/* Multiplier */}
-                <div className="flex items-start gap-4 text-md" style={{ gap: '2rem' }}>
-                  <img src={rectangle} alt="bullet" className="w-4 h-4 " />
+                <div className="flex items-start gap-4 text-md">
+                  <img src={rectangle} alt="bullet" className="w-4 h-4 mt-1" />
                   <p className="text-md font-medium">{offer.multiplier}</p>
                 </div>
 
-                {/* Bonus (always render for alignment) */}
-                <div className="flex items-start gap-4 text-md" style={{ gap: '2rem' }}>
-                  <img src={rectangle} alt="bullet" className="w-4 h-4" />
-                  <p className="text-md font-medium">
-                    {offer.name === 'Basic' ? '\u00A0' : offer.bonus}
-                  </p>
-                </div>
+                {/* Bonus (conditionally rendered, not just hidden) */}
+                {offer.name !== 'Basic' && (
+                  <div className="flex items-start gap-4 text-md">
+                    <img src={rectangle} alt="bullet" className="w-4 h-4 mt-1" />
+                    <p className="text-md font-medium">{offer.bonus}</p>
+                  </div>
+                )}
               </div>
             </div>
 
