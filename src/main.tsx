@@ -18,7 +18,7 @@ import { TonConnectUiProvider } from './Context/TonConnectUiContext';
 
 TelegramAnalytics.init({
     token: import.meta.env.VITE_ANALYTICS_TOKEN,
-    appName: 'Dolphin_Dash',
+    appName: 'dolphins_dash',
 })
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
