@@ -3,6 +3,7 @@ import Button from './Button';
 import MostPopularBadge from './MostPopularBadge';
 import background1 from '../assets/background1.jpg';
 import logo from '../assets/logo.jpg';
+import rectangle from '../assets/Rectangle.png';
 import { slideUpFade } from '../utils/animations';
 
 const offers = [
@@ -35,16 +36,13 @@ export default function BuyCreditsComponent() {
   };
 
   return (
-    <motion.div
-      variants={slideUpFade}
-      initial="hidden"
-      animate="visible"
+    <div
       className="text-white py-10 px-4 overflow-hidden"
       style={{
         backgroundImage: `url(${background1})`,
-        color: '#fff',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
+        color: '#fff',
       }}
     >
       {/* Logo */}
@@ -81,17 +79,21 @@ export default function BuyCreditsComponent() {
 
             <div className="flex flex-col justify-center items-center text-center">
               <h2 className="text-xl font-semibold">{offer.name}</h2>
-              <div className="mb-2 min-h-[4.5rem] flex flex-col justify-start gap-2 text-left">
-                <p className="relative pl-7 text-md font-medium before:content-[''] before:absolute before:top-2 before:left-0.5 before:w-1.5 before:h-1.5 before:rounded-full before:bg-white">
-                  {offer.multiplier}
-                </p>
-                <p
-                  className={`relative pl-7 text-md font-medium before:content-[''] before:absolute before:top-2 before:left-0.5 before:w-1.5 before:h-1.5 before:rounded-full before:bg-white ${
-                    offer.name === 'Basic' ? 'invisible' : ''
-                  }`}
-                >
-                  {offer.bonus}
-                </p>
+
+              <div className="mb-2 mt-4 flex flex-col justify-start text-left" style={{ gap: '1rem' }}>
+                {/* Multiplier */}
+                <div className="flex items-start" style={{ gap: '2rem' }}>
+                  <img src={rectangle} alt="bullet" className="w-4 h-4 mt-1" />
+                  <p className="text-md font-medium">{offer.multiplier}</p>
+                </div>
+
+                {/* Bonus (always render for alignment) */}
+                <div className="flex items-start" style={{ gap: '2rem' }}>
+                  <img src={rectangle} alt="bullet" className="w-4 h-4 mt-1" />
+                  <p className="text-md font-medium">
+                    {offer.name === 'Basic' ? '\u00A0' : offer.bonus}
+                  </p>
+                </div>
               </div>
             </div>
 
@@ -101,6 +103,6 @@ export default function BuyCreditsComponent() {
           </motion.div>
         ))}
       </div>
-    </motion.div>
+    </div>
   );
 }
