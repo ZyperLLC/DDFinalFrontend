@@ -11,7 +11,7 @@ const offers = [
     name: 'Basic',
     price: '$4.99',
     multiplier: ' Make your credits 1.5x',
-    bonus: 'Get a random Dolphin Dash NFT (10% APY)',
+    bonus: 'Get a random Dolphin Dash NFT (2% APY)',
     popular: false,
   },
   {
@@ -76,16 +76,13 @@ export default function BuyCreditsComponent() {
             )}
             <div className="flex flex-col justify-center items-center text-center">
             <h2 className="text-xl font-semibold">{offer.name}</h2>
-                   <ul className="list-disc list-inside mb-2 text-left">
-  <li className="text-md font-medium">{offer.multiplier}</li>
-  <li
-    className={`text-md font-medium mt-2 ${
-      offer.name === 'Basic' ? 'hidden' : ''
-    }`}
-  >
-    {offer.bonus}
-  </li>
-</ul>
+                <ul className="list-disc list-inside mb-2 text-left">
+                    <li className="text-md font-medium">{offer.multiplier}</li>
+                         {offer.bonus && (
+                     <li className="text-md font-medium mt-2">{offer.bonus}</li>
+          )}
+              </ul>
+
 
             </div>
             <div className="mt-4 flex flex-wrap justify-center gap-6 mb-12 flex-col items-center">
