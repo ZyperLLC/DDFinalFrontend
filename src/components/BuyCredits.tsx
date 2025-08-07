@@ -5,12 +5,12 @@ import background1 from '../assets/background1.jpg';
 import logo from '../assets/logo.jpg';
 import { slideUpFade } from '../utils/animations';
 
-
 const offers = [
   {
     name: 'Basic',
     price: '$4.99',
     multiplier: ' Make your credits 1.5x',
+    bonus: 'Get a random Dolphin Dash NFT (2% APY)',
     popular: false,
   },
   {
@@ -27,7 +27,6 @@ const offers = [
     bonus: 'Get a random Dope Dolphin NFT (80% APY)',
     popular: false,
   },
-
 ];
 
 export default function BuyCreditsComponent() {
@@ -36,8 +35,7 @@ export default function BuyCreditsComponent() {
   };
 
   return (
-    <motion.div
-      variants={slideUpFade}
+    <div
       className="text-white py-10 px-4 overflow-hidden"
       style={{
         backgroundImage: `url(${background1})`,
@@ -62,6 +60,10 @@ export default function BuyCreditsComponent() {
         {offers.map((offer, idx) => (
           <motion.div
             key={idx}
+            variants={slideUpFade}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
             className={`
               section-box relative w-full rounded-xl p-6 shadow-lg border
               transition-transform transform hover:scale-105
@@ -74,26 +76,20 @@ export default function BuyCreditsComponent() {
               </div>
             )}
             <div className="flex flex-col justify-center items-center text-center">
-            <h2 className="text-xl font-semibold">{offer.name}</h2>
-                <div className="mb-2 min-h-[4.5rem] flex flex-col justify-start gap-6 text-left">
-  <div className="flex items-center gap-6">
-    <span className="text-white font-bold text-lg leading-none mt-[2px]">•</span>
-    <p className="text-md font-medium">{offer.multiplier}</p>
-  </div>
+              <h2 className="text-xl font-semibold">{offer.name}</h2>
+              <div className="mb-2 min-h-[4.5rem] flex flex-col justify-start gap-6 text-left">
+                <div className="flex items-center" style={{ gap: '2rem' }}>
+                  <span className="text-white font-bold text-lg leading-none mt-[2px]">•</span>
+                  <p className="text-md font-medium">{offer.multiplier}</p>
+                </div>
 
-  <div
-    className={`flex items-center gap-4${
-      offer.name === 'Basic' ? 'invisible' : ''
-    }`}
-  >
-    <span className="text-white font-bold text-lg leading-none mt-[2px]">•</span>
-    <p className="text-md font-medium">{offer.bonus}</p>
-  </div>
-</div>
-
-
-
-
+                {offer.name !== 'Basic' && (
+                  <div className="flex items-center" style={{ gap: '2rem' }}>
+                    <span className="text-white font-bold text-lg leading-none mt-[2px]">•</span>
+                    <p className="text-md font-medium">{offer.bonus}</p>
+                  </div>
+                )}
+              </div>
             </div>
             <div className="mt-4 flex flex-wrap justify-center gap-6 mb-12 flex-col items-center">
               <Button text={offer.price} onClick={handleBuyClick} />
@@ -101,6 +97,6 @@ export default function BuyCreditsComponent() {
           </motion.div>
         ))}
       </div>
-    </motion.div>
+    </div>
   );
 }
