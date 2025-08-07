@@ -5,28 +5,30 @@ import background1 from '../assets/background1.jpg';
 import logo from '../assets/logo.jpg';
 import { slideUpFade } from '../utils/animations';
 
+
 const offers = [
   {
     name: 'Basic',
     price: '$4.99',
-    multiplier: 'Make your credits 1.5x',
+    multiplier: ' Make your credits 1.5x',
     bonus: 'Get a random Dolphin Dash NFT (2% APY)',
     popular: false,
   },
   {
     name: 'Pro',
     price: '$9.99',
-    multiplier: 'Make your credits 1.6x',
+    multiplier: ' Make your credits 1.6x',
     bonus: 'Get a random Dolphin Dash NFT (10% APY)',
     popular: true,
   },
   {
     name: 'Elite',
     price: '$24.99',
-    multiplier: 'Make your credits 2x',
+    multiplier: ' Make your credits 2x',
     bonus: 'Get a random Dope Dolphin NFT (80% APY)',
     popular: false,
   },
+
 ];
 
 export default function BuyCreditsComponent() {
@@ -35,7 +37,8 @@ export default function BuyCreditsComponent() {
   };
 
   return (
-    <div
+    <motion.div
+      variants={slideUpFade}
       className="text-white py-10 px-4 overflow-hidden"
       style={{
         backgroundImage: `url(${background1})`,
@@ -60,10 +63,6 @@ export default function BuyCreditsComponent() {
         {offers.map((offer, idx) => (
           <motion.div
             key={idx}
-            variants={slideUpFade}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
             className={`
               section-box relative w-full rounded-xl p-6 shadow-lg border
               transition-transform transform hover:scale-105
@@ -75,35 +74,33 @@ export default function BuyCreditsComponent() {
                 <MostPopularBadge />
               </div>
             )}
-
             <div className="flex flex-col justify-center items-center text-center">
-              <h2 className="text-xl font-semibold">{offer.name}</h2>
+            <h2 className="text-xl font-semibold">{offer.name}</h2>
+                 <div className="mb-2 min-h-[4.5rem] flex flex-col justify-start gap-2 text-left">
+  <div className="mb-2 min-h-[4.5rem] flex flex-col gap-2 text-left">
+  <p className="relative pl-6 text-md font-medium before:content-[''] before:absolute before:top-2 before:left-1.5 before:w-1.5 before:h-1.5 before:rounded-full before:bg-white">
+    {offer.multiplier}
+  </p>
+  <p
+    className={`relative pl-6 text-md font-medium before:content-[''] before:absolute before:top-2 before:left-1.5 before:w-1.5 before:h-1.5 before:rounded-full before:bg-white ${
+      offer.name === 'Basic' ? 'invisible' : ''
+    }`}
+  >
+    {offer.bonus}
+  </p>
+</div>
 
-              <div className="mb-2 min-h-[4.5rem] flex flex-col justify-start text-left">
-                {/* Multiplier */}
-                <div className="flex items-start" style={{ gap: '2rem' }}>
-                  <span className="text-white font-bold text-lg leading-5 mt-[2px]">•</span>
-                  <p className="text-md font-medium">{offer.multiplier}</p>
-                </div>
+</div>
 
-                {/* Bonus or Placeholder */}
-                {offer.name !== 'Basic' ? (
-                  <div className="flex items-start mt-6" style={{ gap: '2rem' }}>
-                    <span className="text-white font-bold text-lg leading-5 mt-[2px]">•</span>
-                    <p className="text-md font-medium">{offer.bonus}</p>
-                  </div>
-                ) : (
-                  <div className="mt-6" style={{ height: '1.75rem' }}></div>
-                )}
-              </div>
+
+
             </div>
-
             <div className="mt-4 flex flex-wrap justify-center gap-6 mb-12 flex-col items-center">
               <Button text={offer.price} onClick={handleBuyClick} />
             </div>
           </motion.div>
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 }
