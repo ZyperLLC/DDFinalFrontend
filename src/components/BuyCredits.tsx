@@ -78,11 +78,11 @@ export default function BuyCreditsComponent() {
             <h2 className="text-xl font-semibold">{offer.name}</h2>
                  <div className="mb-2 min-h-[4.5rem] flex flex-col justify-start gap-2 text-left">
   <div className="mb-2 min-h-[4.5rem] flex flex-col gap-2 text-left">
-  <p className="relative pl-6 text-md font-medium before:content-[''] before:absolute before:top-2 before:left-1.5 before:w-1.5 before:h-1.5 before:rounded-full before:bg-white">
+  <p className="relative pl-6 text-md font-medium before:content-['•'] before:absolute before:top-2 before:left-1.5 before:w-1.5 before:h-1.5 before:rounded-full before:bg-white">
     {offer.multiplier}
   </p>
   <p
-    className={`relative pl-6 text-md font-medium before:content-[''] before:absolute before:top-2 before:left-1.5 before:w-1.5 before:h-1.5 before:rounded-full before:bg-white ${
+    className={`relative pl-6 text-md font-medium before:content-['•'] before:absolute before:top-2 before:left-1.5 before:w-1.5 before:h-1.5 before:rounded-full before:bg-white ${
       offer.name === 'Basic' ? 'invisible' : ''
     }`}
   >
