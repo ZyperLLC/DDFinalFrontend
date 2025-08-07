@@ -81,15 +81,15 @@ export default function BuyCreditsComponent() {
               {/* Features */}
               <div className="mb-2 mt-4 flex flex-col justify-start text-left gap-3 w-full">
                 {/* Multiplier */}
-                <div className="flex flex-col items-start gap-4 text-md w-4 h-4 mt-1">
-                  <img src={rectangle} alt="bullet" className="" />
+                <div className="flex items-center gap-3 text-md">
+                  <img src={rectangle} alt="bullet" className="w-3 h-3" />
                   <p className="text-md font-medium">{offer.multiplier}</p>
                 </div>
 
                 {/* Bonus (conditionally rendered, not just hidden) */}
                 {offer.name !== 'Basic' && (
-                  <div className="flex items-start gap-4 text-md">
-                    <img src={rectangle} alt="bullet" className="w-4 h-4 mt-1" />
+                  <div className="flex items-center gap-3 text-md">
+                    <img src={rectangle} alt="bullet" className="w-3 h-3" />
                     <p className="text-md font-medium">{offer.bonus}</p>
                   </div>
                 )}
