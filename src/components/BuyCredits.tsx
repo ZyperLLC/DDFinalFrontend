@@ -88,9 +88,9 @@ export default function BuyCreditsComponent() {
 
                 {/* Bonus (conditionally rendered, not just hidden) */}
                 {offer.name !== 'Basic' && (
-                  <div className="flex items-start gap-2 text-md">
-                    <img src={rectangle} alt="bullet" className="w-3 h-3 flex items-center " />
-                    <p className="text-md font-medium flex items-center leading-snug">{offer.bonus}</p>
+                  <div className="flex items-center gap-2 text-md">
+                    <img src={rectangle} alt="bullet" className="w-3 h-3 flex items-start " />
+                    <p className="text-md font-medium flex items-start leading-snug">{offer.bonus}</p>
                   </div>
                 )}
               </div>
