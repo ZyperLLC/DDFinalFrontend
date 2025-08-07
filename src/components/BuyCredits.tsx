@@ -75,14 +75,15 @@ export default function BuyCreditsComponent() {
             )}
             <div className="flex flex-col justify-center items-center text-center">
             <h2 className="text-xl font-semibold">{offer.name}</h2>
-                <ul className="list-disc list-inside mb-2 text-left min-h-[3.5rem]">
-                  <li className="text-md font-medium">{offer.multiplier}</li>
-                     {offer.bonus ? (
-                  <li className="text-md font-medium mt-2">{offer.bonus}</li>
-                   ) : (
-              <li className="invisible mt-2">placeholder</li>
-                 )}
-                </ul>
+                   <ul className="list-disc list-inside mb-2 text-left min-h-[4.5rem] flex flex-col justify-start gap-2">
+                        <li className="text-md font-medium">{offer.multiplier}</li>
+                                {offer.bonus ? (
+                        <li className="text-md font-medium">{offer.bonus}</li>
+                            ) : (
+                        <li className="invisible">placeholder</li>
+                )}
+                       </ul>
+
             </div>
             <div className="mt-4 flex flex-wrap justify-center gap-6 mb-12 flex-col items-center">
               <Button text={offer.price} onClick={handleBuyClick} />
