@@ -76,7 +76,7 @@ export const ConnectButton = ({ whiteBg = false }: ConnectButtonProps) => {
                             else{
                                 creditBalance = (nft.totalNfts??1) * 4.5;
                             }
-                             context?.setHoldingNFTs(true);
+                             context?.setHoldingNFTs(true)
                         }else{
                             context?.setHoldingNFTs(false);
                         }
