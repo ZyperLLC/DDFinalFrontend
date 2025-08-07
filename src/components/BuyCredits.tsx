@@ -76,18 +76,18 @@ export default function BuyCreditsComponent() {
             )}
             <div className="flex flex-col justify-center items-center text-center">
             <h2 className="text-xl font-semibold">{offer.name}</h2>
-                  <div className="mb-2 min-h-[4.5rem] flex flex-col justify-start gap-2 text-left">
-  <div className="flex items-start gap-2">
-    <span className="text-white font-bold text-lg leading-5">•</span>
+                <div className="mb-2 min-h-[4.5rem] flex flex-col justify-start gap-2 text-left">
+  <div className="flex items-center gap-4">
+    <span className="text-white font-bold text-lg leading-none mt-[2px]">•</span>
     <p className="text-md font-medium">{offer.multiplier}</p>
   </div>
 
   <div
-    className={`flex items-start gap-2 ${
+    className={`flex items-center gap-4${
       offer.name === 'Basic' ? 'invisible' : ''
     }`}
   >
-    <span className="text-white font-bold text-lg leading-5">•</span>
+    <span className="text-white font-bold text-lg leading-none mt-[2px]">•</span>
     <p className="text-md font-medium">{offer.bonus}</p>
   </div>
 </div>
