@@ -16,7 +16,7 @@ const MostPopularBadge = () => {
         bg-[length:200%_200%] relative"
     >
        <div className="rounded-full bg-black/20 px-12 py-1 text-[10px] font-semibold text-white" style={{
-        padding: "10px",
+        padding: "5px",
       }}>
            Most Popular
        </div>
