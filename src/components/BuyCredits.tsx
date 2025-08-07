@@ -6,13 +6,12 @@ import logo from '../assets/logo.jpg';
 import { slideUpFade } from '../utils/animations';
 
 
-// import Navbar from './Navbar';
-
 const offers = [
   {
     name: 'Basic',
     price: '$4.99',
     multiplier: ' Make your credits 1.5x',
+    bonus: 'Get a random Dolphin Dash NFT (10% APY)',
     popular: false,
   },
   {
@@ -29,13 +28,7 @@ const offers = [
     bonus: 'Get a random Dope Dolphin NFT (80% APY)',
     popular: false,
   },
-//   {
-//     name: 'Ultimate',
-//     price: '$49.99',
-//     multiplier: '3x',
-//     bonus: 'Includes Dope Dolphin NFT + Exclusive Benefits',
-//     popular: false,
-//   },
+
 ];
 
 export default function BuyCreditsComponent() {
@@ -98,7 +91,6 @@ export default function BuyCreditsComponent() {
           </motion.div>
         ))}
       </div>
-      {/* <Navbar /> */}
     </motion.div>
   );
 }

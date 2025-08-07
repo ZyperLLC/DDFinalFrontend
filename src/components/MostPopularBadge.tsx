@@ -15,7 +15,7 @@ const MostPopularBadge = () => {
         bg-[linear-gradient(90deg,#f72585,#7209b7)]
         bg-[length:200%_200%] relative"
     >
-       <div className="rounded-full bg-black/20 px-5 py-1 text-[10px] font-semibold text-white">
+       <div className="rounded-full bg-black/20 px-12 py-1 text-[10px] font-semibold text-white">
            Most Popular
        </div>
 
