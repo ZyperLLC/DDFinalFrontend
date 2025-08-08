@@ -462,7 +462,7 @@ html, body {
 }
 
 .popup-content h2 {
-  font-size: 1.2rem;
+  font-size: 1rem;
   margin-bottom: 0.2rem;
   margin-top: 10rem;
 }
@@ -477,8 +477,8 @@ html, body {
 
 .popup-content ul li {
   margin-bottom: 0.8rem;
-  font-size: 0.95rem;
-  line-height: 1.4;
+  font-size: 0.90rem;
+  line-height: 1;
 }
 
 
