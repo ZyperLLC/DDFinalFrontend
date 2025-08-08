@@ -1,8 +1,12 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Navbar from './components/Navbar';
 
 import background1 from './assets/background1.jpg';
+import creditIcon from './assets/credit.jpg';
+import tonSymbol from './assets/ton_symbol.jpg';
+
 import dolphin1 from './assets/dolphins/dolphin1.jpg';
 import dolphin2 from './assets/dolphins/dolphin2.jpg';
 import dolphin3 from './assets/dolphins/dolphin3.jpg';
@@ -40,26 +44,33 @@ import dolphin34 from './assets/dolphins/dolphin34.png';
 import dolphin35 from './assets/dolphins/dolphin35.png';
 import dolphin36 from './assets/dolphins/dolphin36.png';
 
-import creditIcon from './assets/credit.jpg';
-import tonSymbol from './assets/ton_symbol.jpg';
-
 import LogoDisplay from './components/LogoDisplay';
 import ConnectWalletCard from './components/ConnectWalletCard';
 import StakedNFTCard from './components/StakedNFTCard';
 import GameHistoryCard from './components/GameHistoryCard';
 import SectionBox from './components/SectionBox';
 import WithdrawPopup from './components/Withdrawpopup';
+// import BuyCredits from './components/BuyCredits';
+import Button from './components/Button';
+
 
 import './index.css';
 import { UserContext } from './Context/UserContextProvider';
 import { motion } from 'framer-motion';
 import { slideUpFade } from './utils/animations';
+import { getBettingRoundById } from './api/userApi';
 
 export default function Profile() {
   const { t } = useTranslation();
   const context = useContext(UserContext);
   const isWalletConnected = !!context?.user.walletAddress;
   const [isWithdrawPopupVisible, setIsWithdrawPopupVisible] = useState(false);
+  // const [showBuyCredits, setShowBuyCredits] = useState(false);
+  const navigate = useNavigate();
+
+  const [enhancedBets, setEnhancedBets] = useState<
+    { bet: any; startedAt: Date }[]
+  >([]);
 
   const dolphinImages: { [key: number]: string } = {
     1: dolphin1, 2: dolphin2, 3: dolphin3, 4: dolphin4, 5: dolphin5, 6: dolphin6,
@@ -74,14 +85,43 @@ export default function Profile() {
     setIsWithdrawPopupVisible(true);
   };
 
-  // Pagination logic for game history
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 3;
 
-  const bets = context?.user.bets || [];
-  const totalPages = Math.ceil(bets.length / itemsPerPage);
+  useEffect(() => {
+    const fetchBettingRounds = async () => {
+      if (!context?.user.bets) return;
 
-  const paginatedBets = bets.slice(
+      const betsWithTimestamps = await Promise.all(
+        context.user.bets.map(async (bet) => {
+          try {
+            const round = await getBettingRoundById(Number(bet.betId));
+            return {
+              bet,
+              startedAt: new Date(round.startedAt),
+            };
+          } catch (err) {
+            console.error('Failed to fetch round for betId:', bet.betId, err);
+            return {
+              bet,
+              startedAt: new Date(0),
+            };
+          }
+        })
+      );
+
+      betsWithTimestamps.sort(
+        (a, b) => b.startedAt.getTime() - a.startedAt.getTime()
+      );
+
+      setEnhancedBets(betsWithTimestamps);
+    };
+
+    fetchBettingRounds();
+  }, [context?.user.bets]);
+
+  const totalPages = Math.ceil(enhancedBets.length / itemsPerPage);
+  const paginatedBets = enhancedBets.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -101,6 +141,17 @@ export default function Profile() {
     >
       <LogoDisplay />
       <ConnectWalletCard />
+
+      {/* Buy Credits Button */}
+         <div className="w-full flex justify-center my-6">
+             <Button
+              text="Buy Credits"
+             onClick={() => navigate('/buy-credits')}
+             className="bg-blue-600 hover:bg-blue-700 w-[80%]"
+             />
+
+          </div>
+
 
       {isWalletConnected && (
         <div className="w-full mt-6 mb-6 px-4">
@@ -153,13 +204,12 @@ export default function Profile() {
         ))}
       </SectionBox>
 
-      {/* Game History with Pagination */}
       <SectionBox title={t('profile.gameHistory')}>
-        {bets.length === 0 ? (
+        {enhancedBets.length === 0 ? (
           <p style={{ color: 'white' }} className="text-center">No games played yet</p>
         ) : (
           <>
-            {paginatedBets.map((bet, index) => (
+            {paginatedBets.map(({ bet }, index) => (
               <GameHistoryCard
                 key={index}
                 image={dolphinImages[bet.numberBettedOn]}
@@ -183,8 +233,7 @@ export default function Profile() {
               {Array.from({ length: totalPages }, (_, i) => (
                 <button
                   key={i}
-                  className={`px-3 py-1 rounded ${currentPage === i + 1 ? 'bg-blue-600' : 'bg-gray-700'
-                    } hover:bg-gray-600`}
+                  className={`px-3 py-1 rounded ${currentPage === i + 1 ? 'bg-blue-600' : 'bg-gray-700'} hover:bg-gray-600`}
                   onClick={() => setCurrentPage(i + 1)}
                 >
                   {i + 1}
