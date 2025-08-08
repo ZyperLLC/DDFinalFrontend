@@ -143,14 +143,14 @@ export default function Profile() {
       <ConnectWalletCard />
 
       {/* Buy Credits Button */}
-         <div className="w-full flex justify-center my-6">
+         {/* <div className="w-full flex justify-center my-6">
              <Button
               text="Buy Credits"
              onClick={() => navigate('/buy-credits')}
              className="bg-blue-600 hover:bg-blue-700 w-[80%]"
              />
 
-          </div>
+          </div> */}
 
 
       {isWalletConnected && (
