@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Navbar from './components/Navbar';
 
@@ -51,7 +51,7 @@ import GameHistoryCard from './components/GameHistoryCard';
 import SectionBox from './components/SectionBox';
 import WithdrawPopup from './components/Withdrawpopup';
 // import BuyCredits from './components/BuyCredits';
-import Button from './components/Button';
+// import Button from './components/Button';
 
 
 import './index.css';
@@ -66,7 +66,7 @@ export default function Profile() {
   const isWalletConnected = !!context?.user.walletAddress;
   const [isWithdrawPopupVisible, setIsWithdrawPopupVisible] = useState(false);
   // const [showBuyCredits, setShowBuyCredits] = useState(false);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const [enhancedBets, setEnhancedBets] = useState<
     { bet: any; startedAt: Date }[]
