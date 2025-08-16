@@ -9,13 +9,31 @@
     ></script>
     <script>
       function initAnalytics() {
-        window.telegramAnalytics.init({
-          token: 'eyJhcHBfbmFtZSI6ImRvbHBoaW5kYXNoZ2FtZSIsImFwcF91cmwiOiJodHRwczovL3QubWUvRG9scGhpbkRhc2hfYm90IiwiYXBwX2RvbWFpbiI6Imh0dHBzOi8vZGRmcm9udGVuZC5uZXRsaWZ5LmFwcCJ9!r5bJqJ2YjEpX27sPFH34XuIBqyEqRC0tQF7k3qi9Efo=',
-          appName: 'dolphindashgame',
-        });
+        try {
+          // Initialize the analytics
+          window.telegramAnalytics.init({
+            token: 'eyJhcHBfbmFtZSI6ImRvbHBoaW5kYXNoZ2FtZSIsImFwcF91cmwiOiJodHRwczovL3QubWUvRG9scGhpbkRhc2hfYm90IiwiYXBwX2RvbWFpbiI6Imh0dHBzOi8vZGRmcm9udGVuZC5uZXRsaWZ5LmFwcCJ9!r5bJqJ2YjEpX27sPFH34XuIBqyEqRC0tQF7k3qi9Efo=',
+            appName: 'dolphindashgame',
+          });
+          
+          console.log('TGAnalytics initialized successfully');
+          
+          // Wait a bit for initialization to complete, then send test event
+          setTimeout(() => {
+            window.telegramAnalytics.track('test-event', { custom_data: { test: 'value' } });
+            console.log('Test event sent');
+          }, 1000);
+          
+        } catch (error) {
+          console.error('TGAnalytics initialization failed:', error);
+        }
       }
-      window.telegramAnalytics.track('test-event', { custom_data: { test: 'value' } });
-      console.log('Test event sent');
+
+      // Alternative: Listen for when the page is fully loaded
+      window.addEventListener('load', function() {
+        // Additional initialization if needed
+        console.log('Page fully loaded');
+      });
     </script>
     <meta charset="UTF-8" />
     <link rel="icon" href="/logo.png" />
@@ -27,5 +45,4 @@
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
-  
 </html>
