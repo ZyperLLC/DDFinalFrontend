@@ -5,6 +5,7 @@ import { contractAddress } from "../constants";
 import { Address, beginCell, Dictionary, toNano } from "@ton/ton";
 import { Bet, storeEndBetting } from "../contracts/BetGame/BetGame_BetGame";
 import { User } from "../types";
+import axios from "axios";
 
 export const useEndRound = ()=>{
     const {tonConnectUI} = useTonConnectUiContext();
@@ -48,7 +49,19 @@ export const useEndRound = ()=>{
             return;
         }
         
-
+        try{
+            await axios.post(`${import.meta.env.VITE_TG_BOT_URL}/broadcast-winning-nft`, {
+              winningNftNumber: winningNumber,
+            }, {
+              headers: {
+                'x-api-key': import.meta.env.VITE_TG_BOT_API_KEY
+              }
+            })
+            toast.success("Winning number broadcasted to bot");
+          }catch(e){
+            console.log(e);
+            toast.error("Error broadcast"+e);
+          }
         const tonWinningBets = Dictionary.empty<bigint,Bet>();
         let index = 0;
         users.map((user:User)=>{

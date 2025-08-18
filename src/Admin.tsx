@@ -53,7 +53,6 @@ import dolphin33 from './assets/dolphins/dolphin33.png';
 import dolphin34 from './assets/dolphins/dolphin34.png';
 import dolphin35 from './assets/dolphins/dolphin35.png';
 import dolphin36 from './assets/dolphins/dolphin36.png';
-import axios from 'axios';
 
 const dolphinImages: { [key: number]: any } = {
   1: dolphin1, 2: dolphin2, 3: dolphin3, 4: dolphin4, 5: dolphin5, 6: dolphin6,
@@ -159,19 +158,6 @@ export default function AdminPage() {
       return;
     }
     await endBettingRound(winningNumber ?? 0);
-    try{
-      await axios.post(`${import.meta.env.TG_BOT_URL}/broadcast-winning-nft`, {
-        winningNftNumber: winningNumber,
-      }, {
-        headers: {
-          'x-api-key': import.meta.env.TG_BOT_API_KEY
-        }
-      })
-      toast.success("Winning number broadcasted to bot");
-    }catch(e){
-      console.log(e);
-      toast.error("Failed to broadcast winning number to bot");
-    }
   }
 
   const handleCheckResult = () => {
