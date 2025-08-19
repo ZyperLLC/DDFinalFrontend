@@ -181,7 +181,7 @@ export default function Profile() {
         {/* Search and Filter Section - Updated Design */}
         <div className="flex flex-row items-center mb-6 w-full max-w-[520px] mx-auto px-4" style={{ gap: '20px' }}>
           <div className="relative" style={{ width: '75%' }}>
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 pointer-events-none" />
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 pointer-events-none z-10" />
             <input
               type="text"
               placeholder="Search"
@@ -190,7 +190,8 @@ export default function Profile() {
               className="w-full h-12 bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] rounded-2xl py-3 pl-12 pr-4 text-white placeholder-gray-400 focus:outline-none focus:border-[rgba(255,255,255,0.3)] transition-all backdrop-blur-[10px] hover:scale-105 hover:border-white"
               style={{ 
                 color: 'white',
-                fontSize: '16px'
+                fontSize: '16px',
+                paddingLeft: '48px'
               }}
             />
           </div>
@@ -234,7 +235,7 @@ export default function Profile() {
           )}
           
           {/* Navigation Buttons - Updated Design */}
-          <div className="flex flex-row items-center gap-6 mt-16 w-full">
+          <div className="flex flex-row items-center mt-16 w-full" style={{ gap: '16px' }}>
             <button
               onClick={() => alert('Prev Draw clicked')}
               className="flex-1 h-12 rounded-xl border border-[rgba(255,255,255,0.2)] text-white font-medium bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] flex items-center justify-center whitespace-nowrap focus:outline-none focus:ring-0"
