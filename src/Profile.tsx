@@ -114,8 +114,8 @@ export default function Profile() {
 
   // States to hold UI values only
   const [searchValue, setSearchValue] = useState('');
-  const [drawId, setDrawId] = useState('34');
-  const [drawDate, setDrawDate] = useState('15 Aug 2025');
+  const [drawId] = useState('34');
+  const [drawDate] = useState('15 Aug 2025');
 
   useEffect(() => {
     const fetchBettingRounds = async () => {
