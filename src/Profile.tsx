@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Navbar from './components/Navbar';
 import background1 from './assets/background1.jpg';
@@ -47,8 +46,6 @@ import StakedNFTCard from './components/StakedNFTCard';
 import GameHistoryCard from './components/GameHistoryCard';
 import SectionBox from './components/SectionBox';
 import WithdrawPopup from './components/Withdrawpopup';
-// import BuyCredits from './components/BuyCredits';
-// import Button from './components/Button';
 import './index.css';
 import { UserContext } from './Context/UserContextProvider';
 import { motion } from 'framer-motion';
@@ -184,58 +181,72 @@ export default function Profile() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-transparent border border-white rounded-2xl py-3 pl-12 pr-4 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
+              style={{ color: 'white' }}
             />
           </div>
           <button
             onClick={() => alert('Filter clicked!')}
-            className="w-full max-w-[300px] flex items-center justify-center gap-2 bg-transparent border border-white text-white rounded-2xl px-5 py-3 hover:bg-white/10 transition-colors font-semibold"
+            className="w-full max-w-[150px] flex items-center justify-center gap-2 bg-transparent border border-white text-white rounded-2xl px-5 py-3 hover:bg-white/10 transition-colors font-semibold"
+            style={{ color: 'white' }}
           >
             <Filter className="w-5 h-5" />
             Filters
           </button>
         </div>
-        {/* Bets List */}
-        {filteredBets.length === 0 ? (
-          <p className="text-center text-white">No games matched your search</p>
-        ) : (
-          <div className="flex flex-col gap-4">
-            {filteredBets.map(({ bet }, index) => (
-              <GameHistoryCard
-                key={index}
-                image={dolphinImages[bet.numberBettedOn]}
-                cost={bet.amountBet}
-                prize={bet.amountWon}
-                useTon={bet.useTon}
-                betId={bet.betId}
-                result={bet.hasWon ? 'win' : 'lose'}
-              />
-            ))}
-            {/* Navigation Buttons Below Game Cards */}
-            <div className="mt-6 flex justify-center gap-4 max-w-[500px] mx-auto">
-              <button
-                onClick={() => alert('Prev Draw clicked')}
-                className="py-3 px-6 rounded-xl border border-white text-white font-semibold bg-transparent hover:bg-white/10 transition"
-                style={{ minWidth: '120px' }}
-              >
-                ← Prev Draw
-              </button>
-              <button
-                onClick={() => alert('Jump to Round clicked')}
-                className="py-3 px-6 rounded-xl border border-white text-white font-semibold bg-transparent hover:bg-white/10 transition"
-                style={{ minWidth: '120px' }}
-              >
-                Jump to Round
-              </button>
-              <button
-                onClick={() => alert('Next Draw clicked')}
-                className="py-3 px-6 rounded-xl border border-white text-white font-semibold bg-transparent hover:bg-white/10 transition"
-                style={{ minWidth: '120px' }}
-              >
-                Next Draw →
-              </button>
+        {/* Game list & buttons */}
+        <div className="w-full max-w-[520px] mx-auto bg-[#232358] rounded-2xl p-5 sm:p-7 shadow-xl"
+            style={{ background: "rgba(35,35,88,0.92)" }}>
+          {/* Bets List */}
+          {filteredBets.length === 0 ? (
+            <p className="text-center text-white">No games matched your search</p>
+          ) : (
+            <div className="flex flex-col gap-3">
+              {/* Draw Info example, add dynamic if you want */}
+              <div className="text-white font-semibold text-lg mb-2 flex items-center gap-2">
+                Draw #34 <span className="text-white px-2">·</span> 15 Aug 2025
+              </div>
+              {filteredBets.map(({ bet }, index) => (
+                <GameHistoryCard
+                  key={index}
+                  image={dolphinImages[bet.numberBettedOn]}
+                  cost={`${bet.amountBet}`}
+                  prize={`${bet.amountWon}`}
+                  useTon={bet.useTon}
+                  betId={`${bet.betId}`}
+                  result={bet.hasWon ? 'win' : 'lose'}
+                />
+              ))}
             </div>
+          )}
+          {/* Navigation Buttons */}
+          <div className="flex flex-row items-center justify-between gap-2 mt-8">
+            <button
+              onClick={() => alert('Prev Draw clicked')}
+              className="flex-1 py-3 rounded-xl border border-white text-white font-semibold bg-transparent hover:bg-white/10 transition text-base"
+              style={{ minWidth: 0, color: 'white' }}
+            >
+              ← Prev Draw
+            </button>
+            <button
+              onClick={() => alert('Jump to Round clicked')}
+              className="flex-1 py-3 rounded-xl border-2 border-white text-white font-semibold bg-transparent hover:bg-white/10 transition text-base mx-2"
+              style={{
+                boxShadow: "0 0 0 2px #232358, 0 2px 8px rgba(0,0,0,0.08)",
+                background: 'rgba(35,35,88,0.95)',
+                color: 'white',
+              }}
+            >
+              Jump to Round
+            </button>
+            <button
+              onClick={() => alert('Next Draw clicked')}
+              className="flex-1 py-3 rounded-xl border border-white text-white font-semibold bg-transparent hover:bg-white/10 transition text-base"
+              style={{ minWidth: 0, color: 'white' }}
+            >
+              Next Draw →
+            </button>
           </div>
-        )}
+        </div>
       </SectionBox>
       <Navbar />
       {isWithdrawPopupVisible && (
