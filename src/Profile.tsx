@@ -56,6 +56,7 @@ import { slideUpFade } from './utils/animations';
 import { getBettingRoundById } from './api/userApi';
 import { Search, Filter } from "lucide-react";
 
+
 export default function Profile() {
   const { t } = useTranslation();
   const context = useContext(UserContext);
@@ -185,21 +186,20 @@ export default function Profile() {
 
       <SectionBox title={t('profile.gameHistory')}>
         {/* Search and Filter Section */}
-        <div className="flex flex-col sm:flex-row gap-4 mb-6 items-center justify-between">
-          <div className="flex-1 relative w-full sm:w-auto">
+        <div className="flex items-center gap-3 mb-6 justify-center">
+          <div className="flex-1 relative w-full max-w-[500px]">
             <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 pointer-events-none" />
             <input
               type="text"
               placeholder="Search by Bet ID"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full sm:w-[300px] bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl py-3 pl-12 pr-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
+              className="w-full bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl py-3 pl-12 pr-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
             />
           </div>
           <button
-            onClick={() => {}}
-            className={`flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl px-5 py-3 hover:bg-white/20 transition-colors text-white font-semibold cursor-default`}
-            title="Filter functionality not implemented"
+            onClick={() => alert('Filter clicked!')}
+            className="flex items-center gap-2 bg-red-500 text-white rounded-2xl px-5 py-3 hover:bg-red-600 transition-colors font-semibold"
           >
             <Filter className="w-5 h-5" />
             Filters
@@ -208,7 +208,7 @@ export default function Profile() {
 
         {/* Bets List */}
         {filteredBets.length === 0 ? (
-          <p style={{ color: 'white' }} className="text-center">No games matched your search</p>
+          <p className="text-center text-white">No games matched your search</p>
         ) : (
           <div className="flex flex-col gap-4">
             {filteredBets.map(({ bet }, index) => (
@@ -222,6 +222,28 @@ export default function Profile() {
                 result={bet.hasWon ? 'win' : 'lose'}
               />
             ))}
+
+            {/* Navigation Buttons below game cards */}
+            <div className="flex justify-between mt-6 max-w-[500px] mx-auto gap-4">
+              <button
+                onClick={() => alert('Prev Draw clicked')}
+                className="flex-1 py-3 rounded-xl bg-white/10 text-white font-semibold hover:bg-white/20 transition"
+              >
+                ← Prev Draw
+              </button>
+              <button
+                onClick={() => alert('Jump to Round clicked')}
+                className="flex-1 py-3 rounded-xl bg-white/10 text-white font-semibold hover:bg-white/20 transition"
+              >
+                Jump to Round
+              </button>
+              <button
+                onClick={() => alert('Next Draw clicked')}
+                className="flex-1 py-3 rounded-xl bg-white/10 text-white font-semibold hover:bg-white/20 transition"
+              >
+                Next Draw →
+              </button>
+            </div>
           </div>
         )}
       </SectionBox>
