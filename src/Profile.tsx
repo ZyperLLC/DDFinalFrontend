@@ -219,32 +219,33 @@ export default function Profile() {
             </div>
           )}
           {/* Navigation Buttons */}
-          <div className="flex flex-row items-center justify-center gap-4 mt-12"> {/* shifted downward with mt-12 */}
-  <button
-    onClick={() => alert('Prev Draw clicked')}
-    className="flex-1 py-3 rounded-2xl border border-transparent text-white font-semibold bg-transparent hover:bg-white/10 transition text-base"
-  >
-    ← Prev Draw
-  </button>
-
-  <button
-    onClick={() => alert('Jump to Round clicked')}
-    className="flex-1 py-3 rounded-2xl border-2 border-white text-white font-semibold bg-transparent hover:bg-white/10 transition text-base"
-    style={{
-      boxShadow: "0 0 0 2px #232358, 0 2px 8px rgba(0,0,0,0.08)",
-      background: 'rgba(35,35,88,0.95)',
-    }}
-  >
-    Jump to Round
-  </button>
-
-  <button
-    onClick={() => alert('Next Draw clicked')}
-    className="flex-1 py-3 rounded-2xl border border-transparent text-white font-semibold bg-transparent hover:bg-white/10 transition text-base"
-  >
-    Next Draw →
-  </button>
-</div>
+          <div className="flex flex-row items-center justify-between gap-2 mt-8">
+            <button
+              onClick={() => alert('Prev Draw clicked')}
+              className="flex-1 py-3 rounded-xl border border-white text-white font-semibold bg-transparent hover:bg-white/10 transition text-base"
+              style={{ minWidth: 0, color: 'white' }}
+            >
+              ← Prev Draw
+            </button>
+            <button
+              onClick={() => alert('Jump to Round clicked')}
+              className="flex-1 py-3 rounded-xl border-2 border-white text-white font-semibold bg-transparent hover:bg-white/10 transition text-base mx-2"
+              style={{
+                boxShadow: "0 0 0 2px #232358, 0 2px 8px rgba(0,0,0,0.08)",
+                background: 'rgba(35,35,88,0.95)',
+                color: 'white',
+              }}
+            >
+              Jump to Round
+            </button>
+            <button
+              onClick={() => alert('Next Draw clicked')}
+              className="flex-1 py-3 rounded-xl border border-white text-white font-semibold bg-transparent hover:bg-white/10 transition text-base"
+              style={{ minWidth: 0, color: 'white' }}
+            >
+              Next Draw →
+            </button>
+          </div>
         </div>
       </SectionBox>
       <Navbar />
