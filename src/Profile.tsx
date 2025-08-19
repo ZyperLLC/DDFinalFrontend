@@ -190,7 +190,8 @@ export default function Profile() {
               className="w-full h-12 bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] rounded-2xl py-3 pl-12 pr-4 text-white placeholder-gray-400 focus:outline-none focus:border-[rgba(255,255,255,0.3)] transition-all backdrop-blur-[10px] hover:scale-105 hover:border-white"
               style={{ 
                 color: 'white',
-                fontSize: '16px'
+                fontSize: '16px',
+                textIndent: '0px'
               }}
             />
           </div>
@@ -235,10 +236,10 @@ export default function Profile() {
           )}
           
           {/* Navigation Buttons - Fixed with proper spacing and text */}
-          <div className="flex items-center justify-between mt-8 w-full" style={{ gap: '12px' }}>
+          <div className="flex items-center justify-between mt-16 w-full" style={{ gap: '12px' }}>
             <button
               onClick={() => alert('Prev Draw clicked')}
-              className="flex-1 h-10 rounded-xl border border-[rgba(255,255,255,0.2)] text-white font-medium bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] flex items-center justify-center focus:outline-none focus:ring-0"
+              className="flex-1 h-10 rounded-2xl border border-[rgba(255,255,255,0.2)] text-white font-medium bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] flex items-center justify-center focus:outline-none focus:ring-0"
               style={{ 
                 color: 'white',
                 fontSize: '12px',
@@ -252,7 +253,7 @@ export default function Profile() {
             
             <button
               onClick={() => alert('Jump to Round clicked')}
-              className="flex-1 h-10 rounded-xl border-2 border-white text-white font-medium bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] flex items-center justify-center focus:outline-none focus:ring-0"
+              className="flex-1 h-10 rounded-2xl border-2 border-white text-white font-medium bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] flex items-center justify-center focus:outline-none focus:ring-0"
               style={{
                 color: 'white',
                 fontSize: '12px',
@@ -267,7 +268,7 @@ export default function Profile() {
             
             <button
               onClick={() => alert('Next Draw clicked')}
-              className="flex-1 h-10 rounded-xl border border-[rgba(255,255,255,0.2)] text-white font-medium bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] flex items-center justify-center focus:outline-none focus:ring-0"
+              className="flex-1 h-10 rounded-2xl border border-[rgba(255,255,255,0.2)] text-white font-medium bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] flex items-center justify-center focus:outline-none focus:ring-0"
               style={{ 
                 color: 'white',
                 fontSize: '12px',
