@@ -224,44 +224,44 @@ export default function Profile() {
                   WebkitBackdropFilter: 'blur(20px)',
                 }}
               >
-                <div className="p-2 space-y-1">
+                <div className="divide-y divide-white/20">
                   <div 
-                    className="px-4 py-3 text-white text-center font-medium rounded-lg cursor-pointer transition-all duration-200 hover:bg-white/10 hover:scale-[1.02] active:scale-[0.98]"
+                    className="px-4 py-3 cursor-pointer transition-all duration-200 hover:bg-white/15"
                     onClick={() => {
                       console.log('Wins only selected');
                       setFilterOpen(false);
                     }}
-                    style={{ fontSize: '14px' }}
+                    style={{ color: '#ffffff', fontSize: '14px', fontWeight: '500', textAlign: 'center' }}
                   >
                     Wins only
                   </div>
                   <div 
-                    className="px-4 py-3 text-white text-center font-medium rounded-lg cursor-pointer transition-all duration-200 hover:bg-white/10 hover:scale-[1.02] active:scale-[0.98]"
+                    className="px-4 py-3 cursor-pointer transition-all duration-200 hover:bg-white/15"
                     onClick={() => {
                       console.log('Loss only selected');
                       setFilterOpen(false);
                     }}
-                    style={{ fontSize: '14px' }}
+                    style={{ color: '#ffffff', fontSize: '14px', fontWeight: '500', textAlign: 'center' }}
                   >
                     Loss only
                   </div>
                   <div 
-                    className="px-4 py-3 text-white text-center font-medium rounded-lg cursor-pointer transition-all duration-200 hover:bg-white/10 hover:scale-[1.02] active:scale-[0.98]"
+                    className="px-4 py-3 cursor-pointer transition-all duration-200 hover:bg-white/15"
                     onClick={() => {
                       console.log('Specific date selected');
                       setFilterOpen(false);
                     }}
-                    style={{ fontSize: '14px' }}
+                    style={{ color: '#ffffff', fontSize: '14px', fontWeight: '500', textAlign: 'center' }}
                   >
                     Specific date
                   </div>
                   <div 
-                    className="px-4 py-3 text-white text-center font-medium rounded-lg cursor-pointer transition-all duration-200 hover:bg-white/10 hover:scale-[1.02] active:scale-[0.98]"
+                    className="px-4 py-3 cursor-pointer transition-all duration-200 hover:bg-white/15"
                     onClick={() => {
                       console.log('Specific round id selected');
                       setFilterOpen(false);
                     }}
-                    style={{ fontSize: '14px' }}
+                    style={{ color: '#ffffff', fontSize: '14px', fontWeight: '500', textAlign: 'center' }}
                   >
                     Specific round id
                   </div>
@@ -303,43 +303,42 @@ export default function Profile() {
           )}
 
           {/* Navigation Buttons */}
-          <div className="flex items-center justify-between mt-6 mx-4" style={{ gap: '12px' }}>
-            <button
-              className="flex-1 min-h-[42px] rounded-[8px] border-2 border-[rgba(255,255,255,0.3)] 
-              text-white font-medium bg-transparent 
-              hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white 
-              transition-all flex items-center justify-center 
-              focus:outline-none focus:ring-0"
-   
-              style={{ fontSize: '12px', color: 'white', whiteSpace: 'nowrap' }}
-            >
-              ← Prev Draw
-            </button>
+          {/* Navigation Buttons */}
+<div className="flex items-center justify-between mt-6 mx-4" style={{ gap: '6px' }}>
+  <button
+    className="flex-1 min-h-[46px] rounded-[8px] border-2 border-[rgba(255,255,255,0.3)] 
+    text-white font-semibold bg-transparent 
+    hover:bg-[rgba(255,255,255,0.15)] hover:scale-[1.03] hover:border-white 
+    transition-all flex items-center justify-center 
+    focus:outline-none focus:ring-0"
+    style={{ fontSize: '14px', color: 'white', whiteSpace: 'nowrap' }}
+  >
+    <span style={{ fontSize: '18px', marginRight: '4px' }}>←</span> Prev Draw
+  </button>
 
-            <button
-              className="flex-1 min-h-[42px] rounded-[8px] border-2 border-[rgba(255,255,255,0.3)] 
-              text-white font-medium bg-transparent 
-              hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white 
-              transition-all flex items-center justify-center 
-              focus:outline-none focus:ring-0"
-   
-              style={{ fontSize: '12px', color: 'white', whiteSpace: 'nowrap' }}
-            >
-              Jump to Round
-            </button>
+  <button
+    className="flex-1 min-h-[46px] rounded-[8px] border-2 border-[rgba(255,255,255,0.3)] 
+    text-white font-semibold bg-transparent 
+    hover:bg-[rgba(255,255,255,0.15)] hover:scale-[1.03] hover:border-white 
+    transition-all flex items-center justify-center 
+    focus:outline-none focus:ring-0"
+    style={{ fontSize: '14px', color: 'white', whiteSpace: 'nowrap' }}
+  >
+    Jump to Round
+  </button>
 
-            <button
-              className="flex-1 min-h-[42px] rounded-[8px] border-2 border-[rgba(255,255,255,0.3)] 
-              text-white font-medium bg-transparent 
-              hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white 
-              transition-all flex items-center justify-center 
-              focus:outline-none focus:ring-0"
-   
-              style={{ fontSize: '12px', color: 'white', whiteSpace: 'nowrap' }}
-            >
-              Next Draw →
-            </button>
-          </div>
+  <button
+    className="flex-1 min-h-[46px] rounded-[8px] border-2 border-[rgba(255,255,255,0.3)] 
+    text-white font-semibold bg-transparent 
+    hover:bg-[rgba(255,255,255,0.15)] hover:scale-[1.03] hover:border-white 
+    transition-all flex items-center justify-center 
+    focus:outline-none focus:ring-0"
+    style={{ fontSize: '14px', color: 'white', whiteSpace: 'nowrap' }}
+  >
+    Next Draw <span style={{ fontSize: '18px', marginLeft: '4px' }}>→</span>
+  </button>
+</div>
+
         </div>
       </SectionBox>
 
