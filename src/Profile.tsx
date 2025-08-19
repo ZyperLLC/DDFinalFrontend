@@ -239,60 +239,58 @@ export default function Profile() {
             </div>
           )}
 
-          {/* Navigation Buttons - Fixed with proper spacing and text */}
-          <div className="flex items-center justify-between mt-6 w-full" style={{ gap: '12px' }}>
-          <button
-onClick={() => alert('Prev Draw clicked')}
-className="flex-1 min-h-[42px] rounded-[8px] border-2 border-white text-white font-medium 
-bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] 
-hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] 
-flex items-center justify-center focus:outline-none focus:ring-0 px-4"
+          {/* Navigation Buttons inside card with safe spacing */}
+          <div className="mt-6">
+            <div className="flex items-center justify-between" style={{ gap: '12px', padding: '0 4px' }}>
+              <button
+                onClick={() => alert('Prev Draw clicked')}
+                className="flex-1 min-h-[42px] rounded-[8px] border-2 border-white text-white font-medium 
+                bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] 
+                hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] 
+                flex items-center justify-center focus:outline-none focus:ring-0 px-4"
+                style={{
+                  color: 'white',
+                  fontSize: '12px',
+                  background: 'rgba(255,255,255,0.05)',
+                  padding: '0 8px',
+                  whiteSpace: 'nowrap'
+                }}
+              >
+                ← Prev Draw
+              </button>
 
+              <button
+                onClick={() => alert('Jump to Round clicked')}
+                className="flex-1 min-h-[42px] rounded-[8px] border-2 border-white text-white font-medium 
+                bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] 
+                hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] 
+                flex items-center justify-center focus:outline-none focus:ring-0 px-4"
+                style={{
+                  fontSize: '12px',
+                  color: 'white',
+                  whiteSpace: 'nowrap'
+                }}
+              >
+                Jump to Round
+              </button>
 
-style={{
-color: 'white',
-fontSize: '12px',
-background: 'rgba(255,255,255,0.05)',
-padding: '0 8px',
-whiteSpace: 'nowrap'
-}}
->
-← Prev Draw
-</button>
-
-<button
-  onClick={() => alert('Jump to Round clicked')}
-  className="flex-1 min-h-[42px] rounded-[8px] border-2 border-white text-white font-medium 
-             bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] 
-             hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] 
-             flex items-center justify-center focus:outline-none focus:ring-0 px-4"
-  style={{
-    fontSize: '12px',
-    color: 'white',
-    whiteSpace: 'nowrap'
-  }}
->
-  Jump to Round
-</button>
-
-
-<button
-onClick={() => alert('Next Draw clicked')}
-className="flex-1 min-h-[42px] rounded-[8px] border-2 border-white text-white font-medium 
-bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] 
-hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] 
-flex items-center justify-center focus:outline-none focus:ring-0 px-4"
-style={{
-color: 'white',
-fontSize: '12px',
-background: 'rgba(255,255,255,0.05)',
-padding: '0 8px',
-whiteSpace: 'nowrap'
-}}
->
-Next Draw →
-</button>
-
+              <button
+                onClick={() => alert('Next Draw clicked')}
+                className="flex-1 min-h-[42px] rounded-[8px] border-2 border-white text-white font-medium 
+                bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] 
+                hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] 
+                flex items-center justify-center focus:outline-none focus:ring-0 px-4"
+                style={{
+                  color: 'white',
+                  fontSize: '12px',
+                  background: 'rgba(255,255,255,0.05)',
+                  padding: '0 8px',
+                  whiteSpace: 'nowrap'
+                }}
+              >
+                Next Draw →
+              </button>
+            </div>
           </div>
         </div>
       </SectionBox>
