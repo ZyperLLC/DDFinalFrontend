@@ -304,17 +304,18 @@ export default function Profile() {
 
           {/* Navigation Buttons */}
           <div className="flex items-center justify-between mt-6 mx-4" style={{ gap: '8px' }}>
-            <button
-              className="flex-1 min-h-[42px] rounded-[8px] border-2 border-[rgba(255,255,255,0.3)] 
-              text-white font-medium bg-transparent 
-              hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white 
-              transition-all flex items-center justify-center 
-              focus:outline-none focus:ring-0"
-   
-              style={{ fontSize: '12px', color: 'white', whiteSpace: 'nowrap' }}
-            >
-              ← Prev Draw
-            </button>
+          <button
+  className="flex-1 min-h-[42px] rounded-[8px] border-2 border-[rgba(255,255,255,0.3)] 
+  text-white font-medium bg-transparent 
+  hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white 
+  transition-all flex items-center justify-center gap-1
+  focus:outline-none focus:ring-0"
+  style={{ fontSize: '12px', color: 'white', whiteSpace: 'nowrap' }}
+>
+  <span style={{ fontSize: "18px", lineHeight: "1" }}>←</span>
+  Prev Draw
+</button>
+
 
             <button
               className="flex-1 min-h-[42px] rounded-[8px] border-2 border-[rgba(255,255,255,0.3)] 
@@ -329,16 +330,15 @@ export default function Profile() {
             </button>
 
             <button
-             className="flex-1 min-h-[42px] rounded-[8px] border-2 border-[rgba(255,255,255,0.3)] 
-             text-white font-medium bg-transparent 
-             hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white 
-             transition-all flex items-center justify-center 
-             focus:outline-none focus:ring-0"
-  
-              style={{ fontSize: '12px', color: 'white', whiteSpace: 'nowrap' }}
-            >
-              Next Draw →
-            </button>
+  className="flex-1 min-h-[42px] rounded-[8px] border-2 border-[rgba(255,255,255,0.3)] 
+  text-white font-medium bg-transparent 
+  hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white 
+  transition-all flex items-center justify-center gap-1
+  focus:outline-none focus:ring-0 text-[12px] whitespace-nowrap"
+>
+  Next Draw <span className="text-lg">→</span>
+</button>
+
           </div>
         </div>
       </SectionBox>
