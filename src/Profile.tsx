@@ -212,21 +212,24 @@ export default function Profile() {
       {/* Game History */}
       <SectionBox title={t('profile.gameHistory')}>
         {/* Search and Filter */}
-        <div className="flex flex-row items-center mb-6 w-full max-w-[520px] mx-auto px-4" style={{ gap: '20px' }}>
+        <div className="flex flex-row items-center mb-6 w-full max-w-[520px] mx-auto px-4 gap-4">
           <div className="relative flex-1 min-w-0">
+            <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-lg">
+              🔍
+            </div>
             <input
               type="text"
-              placeholder="🔎 Search"
+              placeholder="Search"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full h-12 bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] rounded-2xl py-3 pl-12 pr-4 text-white placeholder-gray-400 focus:outline-none focus:border-[rgba(255,255,255,0.3)] transition-all backdrop-blur-[10px] hover:scale-105 hover:border-white"
+              className="w-full h-12 bg-[rgba(255,255,255,0.1)] border-0 rounded-2xl py-3 pl-12 pr-4 text-white placeholder-gray-400 focus:outline-none transition-all backdrop-blur-[10px]"
               style={{ color: 'white', fontSize: '16px' }}
             />
           </div>
           <button
             onClick={() => alert('Filter clicked!')}
-            className="h-12 px-6 bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] text-white rounded-2xl hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white transition-all font-medium backdrop-blur-[10px] whitespace-nowrap"
-            style={{ color: 'white', fontSize: '16px', width: '120px' }}
+            className="h-12 px-6 bg-[rgba(255,255,255,0.1)] border-0 text-white rounded-2xl transition-all font-medium backdrop-blur-[10px] whitespace-nowrap"
+            style={{ color: 'white', fontSize: '16px', minWidth: '100px' }}
           >
             Filters
           </button>
@@ -260,22 +263,25 @@ export default function Profile() {
           )}
 
           {/* Navigation Buttons */}
-          <div className="flex items-center justify-between mt-6 w-full" style={{ gap: '12px' }}>
+          <div className="flex items-center justify-between mt-6 w-full gap-4">
             <button
               onClick={handlePrevDraw}
-              className="flex-1 h-10 rounded-3xl border border-[rgba(255,255,255,0.2)] text-white font-medium bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] flex items-center justify-center"
+              className="flex-1 min-w-0 px-6 py-3 rounded-2xl border border-[rgba(255,255,255,0.3)] text-white font-medium bg-[rgba(255,255,255,0.1)] transition-all backdrop-blur-[10px] flex items-center justify-center"
+              style={{ fontSize: '16px' }}
             >
               ← Prev Draw
             </button>
             <button
               onClick={handleJumpToRound}
-              className="flex-1 h-10 rounded-3xl border-2 border-white text-white font-medium bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] flex items-center justify-center"
+              className="flex-1 min-w-0 px-6 py-3 rounded-2xl border-2 border-white text-white font-medium bg-[rgba(255,255,255,0.1)] transition-all backdrop-blur-[10px] flex items-center justify-center"
+              style={{ fontSize: '16px' }}
             >
               Jump to Round
             </button>
             <button
               onClick={handleNextDraw}
-              className="flex-1 h-10 rounded-3xl border border-[rgba(255,255,255,0.2)] text-white font-medium bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] flex items-center justify-center"
+              className="flex-1 min-w-0 px-6 py-3 rounded-2xl border border-[rgba(255,255,255,0.3)] text-white font-medium bg-[rgba(255,255,255,0.1)] transition-all backdrop-blur-[10px] flex items-center justify-center"
+              style={{ fontSize: '16px' }}
             >
               Next Draw →
             </button>
