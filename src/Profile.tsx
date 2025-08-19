@@ -178,10 +178,10 @@ export default function Profile() {
       </SectionBox>
       
       <SectionBox title={t('profile.gameHistory')}>
-        {/* Search and Filter Section - Updated Design */}
-<div className="flex flex-row items-center gap-6 mb-6 w-full max-w-[520px] mx-auto px-4">
+  {/* Search and Filter Section - Updated Design */}
+<div className="flex flex-row items-center gap-4 mb-6 w-full max-w-[520px] mx-auto px-4">
   {/* Search Input */}
-  <div className="relative flex-1">
+  <div className="flex-1 relative min-w-0">
     <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 pointer-events-none" />
     <input
       type="text"
@@ -202,6 +202,7 @@ export default function Profile() {
     Filters
   </button>
 </div>
+
 
         {/* Game list & buttons */}
         <div className="w-full max-w-[520px] mx-auto bg-[#232358] rounded-2xl p-5 sm:p-7 shadow-xl"
