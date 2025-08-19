@@ -264,19 +264,19 @@ whiteSpace: 'nowrap'
 </button>
 
 <button
-onClick={() => alert('Jump to Round clicked')}
-className="flex-1 h-10 rounded-[5px] border-2 border-white text-white font-medium bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] flex items-center justify-center focus:outline-none focus:ring-0"
-style={{
-color: 'white',
-fontSize: '12px',
-background: 'rgba(255,255,255,0.08)',
-borderColor: 'white',
-padding: '0 8px',
-whiteSpace: 'nowrap'
-}}
+  onClick={() => alert('Jump to Round clicked')}
+  className="flex-1 min-h-[56px] rounded-[5px] border-2 border-white text-white font-medium 
+             bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] 
+             hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] 
+             flex items-center justify-center focus:outline-none focus:ring-0 px-4"
+  style={{
+    fontSize: '12px',
+    whiteSpace: 'nowrap'
+  }}
 >
-Jump to Round
+  Jump to Round
 </button>
+
 
 <button
 onClick={() => alert('Next Draw clicked')}
