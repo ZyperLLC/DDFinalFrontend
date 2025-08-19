@@ -200,50 +200,45 @@ export default function Profile() {
             />
           </div>
 
-          {/* Filters Button + Dropdown */}
           <div className="relative w-[25%]">
-            <button
-              onClick={() => setFilterOpen(!filterOpen)}
-              className="h-[40px] px-6 bg-transparent border border-[rgba(255,255,255,0.15)] 
-  rounded-[10px] text-white hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 
-  hover:border-white transition-all font-medium whitespace-nowrap w-full text-lg"
-              style={{
-                color: 'white',
-                fontSize: '16px',
-                width: '100%'
-              }}
-            >
-              Filters
-            </button>
+  <button
+    onClick={() => setFilterOpen(!filterOpen)}
+    className="h-[40px] px-6 bg-transparent border border-[rgba(255,255,255,0.15)] 
+    rounded-[10px] text-white hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 
+    hover:border-white transition-all font-medium whitespace-nowrap w-full text-lg"
+    style={{
+      color: 'white',
+      fontSize: '16px',
+    }}
+  >
+    Filters
+  </button>
 
-            {filterOpen && (
-              <div className="absolute mt-2 w-full bg-[rgba(0,0,0,0.9)] border border-[rgba(255,255,255,0.15)] rounded-lg shadow-lg z-10">
-                <ul className="text-white text-sm divide-y divide-[rgba(255,255,255,0.15)]">
-                  <li
-                    className="px-4 py-2 hover:bg-[rgba(255,255,255,0.1)] cursor-pointer truncate"
-                  >
-                    Wins only
-                  </li>
-                  <li
-                    className="px-4 py-2 hover:bg-[rgba(255,255,255,0.1)] cursor-pointer truncate"
-                  >
-                    Loss only
-                  </li>
-                  <li
-                    className="px-4 py-2 hover:bg-[rgba(255,255,255,0.1)] cursor-pointer truncate"
-                  >
-                    Specific date
-                  </li>
-                  <li
-                    className="px-4 py-2 hover:bg-[rgba(255,255,255,0.1)] cursor-pointer truncate"
-                  >
-                    Specific round id
-                  </li>
-                </ul>
-              </div>
-            )}
-          </div>
-        </div>
+  {/* Dropdown */}
+  <div
+    className={`absolute mt-2 w-full border border-[rgba(255,255,255,0.15)] 
+    rounded-lg shadow-lg z-10 overflow-hidden 
+    transition-all duration-300 ease-in-out
+    ${filterOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2 pointer-events-none"}`}
+    style={{ backgroundColor: "rgba(0,0,0,0.6)" }} // slightly transparent dark bg
+  >
+    <ul className="text-white text-sm divide-y divide-[rgba(255,255,255,0.15)]">
+      <li className="px-4 py-2 hover:bg-[rgba(255,255,255,0.1)] cursor-pointer whitespace-normal break-words">
+        Wins only
+      </li>
+      <li className="px-4 py-2 hover:bg-[rgba(255,255,255,0.1)] cursor-pointer whitespace-normal break-words">
+        Loss only
+      </li>
+      <li className="px-4 py-2 hover:bg-[rgba(255,255,255,0.1)] cursor-pointer whitespace-normal break-words">
+        Specific date
+      </li>
+      <li className="px-4 py-2 hover:bg-[rgba(255,255,255,0.1)] cursor-pointer whitespace-normal break-words">
+        Specific round id
+      </li>
+    </ul>
+  </div>
+</div>
+</div>
 
         {/* Game list & buttons */}
         <div className="w-full max-w-[520px] mx-auto bg-[#232358] rounded-2xl p-5 sm:p-7 shadow-xl"
