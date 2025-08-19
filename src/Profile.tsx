@@ -2,11 +2,9 @@ import { useContext, useEffect, useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Navbar from './components/Navbar';
-
 import background1 from './assets/background1.jpg';
 import creditIcon from './assets/credit.jpg';
 import tonSymbol from './assets/ton_symbol.jpg';
-
 import dolphin1 from './assets/dolphins/dolphin1.jpg';
 import dolphin2 from './assets/dolphins/dolphin2.jpg';
 import dolphin3 from './assets/dolphins/dolphin3.jpg';
@@ -43,34 +41,29 @@ import dolphin33 from './assets/dolphins/dolphin33.png';
 import dolphin34 from './assets/dolphins/dolphin34.png';
 import dolphin35 from './assets/dolphins/dolphin35.png';
 import dolphin36 from './assets/dolphins/dolphin36.png';
-
 import LogoDisplay from './components/LogoDisplay';
 import ConnectWalletCard from './components/ConnectWalletCard';
 import StakedNFTCard from './components/StakedNFTCard';
+import GameHistoryCard from './components/GameHistoryCard';
 import SectionBox from './components/SectionBox';
 import WithdrawPopup from './components/Withdrawpopup';
 // import BuyCredits from './components/BuyCredits';
 // import Button from './components/Button';
-
 import './index.css';
 import { UserContext } from './Context/UserContextProvider';
 import { motion } from 'framer-motion';
 import { slideUpFade } from './utils/animations';
 import { getBettingRoundById } from './api/userApi';
-
-import { Search, Filter, ChevronLeft, ChevronRight } from "lucide-react";
-
+import { Search, Filter } from "lucide-react";
 
 export default function Profile() {
   const { t } = useTranslation();
   const context = useContext(UserContext);
   const isWalletConnected = !!context?.user.walletAddress;
   const [isWithdrawPopupVisible, setIsWithdrawPopupVisible] = useState(false);
-
   const [enhancedBets, setEnhancedBets] = useState<
     { bet: any; startedAt: Date }[]
   >([]);
-
   const dolphinImages: { [key: number]: string } = {
     1: dolphin1, 2: dolphin2, 3: dolphin3, 4: dolphin4, 5: dolphin5, 6: dolphin6,
     7: dolphin7, 8: dolphin8, 9: dolphin9, 10: dolphin10, 11: dolphin11, 12: dolphin12,
@@ -79,18 +72,16 @@ export default function Profile() {
     25: dolphin25, 26: dolphin26, 27: dolphin27, 28: dolphin28, 29: dolphin29, 30: dolphin30,
     31: dolphin31, 32: dolphin32, 33: dolphin33, 34: dolphin34, 35: dolphin35, 36: dolphin36
   };
-
   const handleUserWithdraw = () => {
     setIsWithdrawPopupVisible(true);
   };
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 3;
+  // Search state for game history
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     const fetchBettingRounds = async () => {
       if (!context?.user.bets) return;
-
       const betsWithTimestamps = await Promise.all(
         context.user.bets.map(async (bet) => {
           try {
@@ -108,16 +99,19 @@ export default function Profile() {
           }
         })
       );
-
       betsWithTimestamps.sort(
         (a, b) => b.startedAt.getTime() - a.startedAt.getTime()
       );
-
       setEnhancedBets(betsWithTimestamps);
     };
-
     fetchBettingRounds();
   }, [context?.user.bets]);
+
+  // Filter enhancedBets based on search query (search by betId)
+  const filteredBets = enhancedBets.filter(({ bet }) => {
+    if (!searchQuery.trim()) return true;
+    return `${bet.betId}`.includes(searchQuery.trim());
+  });
 
   return (
     <motion.div
@@ -137,14 +131,17 @@ export default function Profile() {
 
       {isWalletConnected && (
         <div className="w-full mt-6 mb-6 px-4">
-          <div className="w-[80%] max-w-[360px] mx-auto rounded-[16px] shadow-[0_4px_20px_rgba(0,0,0,0.3)] backdrop-blur-[10px]" style={{
-            backgroundColor: 'rgba(255, 255, 255, 0.08)',
-            color: 'white',
-            padding: '1.25rem',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '1rem',
-          }}>
+          <div
+            className="w-[80%] max-w-[360px] mx-auto rounded-[16px] shadow-[0_4px_20px_rgba(0,0,0,0.3)] backdrop-blur-[10px]"
+            style={{
+              backgroundColor: 'rgba(255, 255, 255, 0.08)',
+              color: 'white',
+              padding: '1.25rem',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '1rem',
+            }}
+          >
             <h2 className="text-[1.5rem] font-bold text-left">{t('profile.balance')}</h2>
 
             <div className="flex justify-between items-center">
@@ -186,9 +183,47 @@ export default function Profile() {
         ))}
       </SectionBox>
 
-      {/* New GameHistory UI Replacing Old */}
       <SectionBox title={t('profile.gameHistory')}>
-        <GameHistoryUI />
+        {/* Search and Filter Section */}
+        <div className="flex flex-col sm:flex-row gap-4 mb-6 items-center justify-between">
+          <div className="flex-1 relative w-full sm:w-auto">
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 pointer-events-none" />
+            <input
+              type="text"
+              placeholder="Search by Bet ID"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full sm:w-[300px] bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl py-3 pl-12 pr-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
+            />
+          </div>
+          <button
+            onClick={() => {}}
+            className={`flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl px-5 py-3 hover:bg-white/20 transition-colors text-white font-semibold cursor-default`}
+            title="Filter functionality not implemented"
+          >
+            <Filter className="w-5 h-5" />
+            Filters
+          </button>
+        </div>
+
+        {/* Bets List */}
+        {filteredBets.length === 0 ? (
+          <p style={{ color: 'white' }} className="text-center">No games matched your search</p>
+        ) : (
+          <div className="flex flex-col gap-4">
+            {filteredBets.map(({ bet }, index) => (
+              <GameHistoryCard
+                key={index}
+                image={dolphinImages[bet.numberBettedOn]}
+                cost={`${bet.amountBet}`}
+                prize={`${bet.amountWon}`}
+                useTon={bet.useTon}
+                betId={`${bet.betId}`}
+                result={bet.hasWon ? 'win' : 'lose'}
+              />
+            ))}
+          </div>
+        )}
       </SectionBox>
 
       <Navbar />
@@ -204,124 +239,4 @@ export default function Profile() {
       )}
     </motion.div>
   );
-}
-
-
-// ✅ Extracted GameHistory UI into a sub-component used inside Profile
-function GameHistoryUI() {
-  const [currentDraw, setCurrentDraw] = useState(34)
-  const [currentDate, setCurrentDate] = useState("15 Aug 2025")
-  const [searchQuery, setSearchQuery] = useState("")
-
-  const [gameEntries, setGameEntries] = useState([
-    {
-      id: 1,
-      playerName: "Harmonix",
-      entryAmount: "0.1",
-      status: "Lose",
-      avatar: "/blue-character-orange-suit.png",
-    },
-    {
-      id: 2,
-      playerName: "Harmonix",
-      entryAmount: "0.1",
-      status: "Lose",
-      avatar: "/blue-character-orange-suit.png",
-    },
-    {
-      id: 3,
-      playerName: "Harmonix",
-      entryAmount: "0.1",
-      status: "Lose",
-      avatar: "/blue-character-orange-suit.png",
-    },
-  ])
-
-  const handlePrevDraw = () => {
-    setCurrentDraw((prev) => Math.max(1, prev - 1))
-  }
-  const handleNextDraw = () => {
-    setCurrentDraw((prev) => prev + 1)
-  }
-  const handleJumpToRound = () => {
-    console.log("Jump to round clicked")
-  }
-
-  return (
-    <div className="w-full text-white">
-      {/* Search and Filters */}
-      <div className="flex gap-4 mb-8">
-        <div className="flex-1 relative">
-          <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-          <input
-            type="text"
-            placeholder="Search"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl py-4 pl-12 pr-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
-          />
-        </div>
-        <button className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl px-6 py-4 flex items-center gap-2 hover:bg-white/20 transition-colors">
-          <Filter className="w-5 h-5" />
-          Filters
-        </button>
-      </div>
-
-      {/* Draw Info */}
-      <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-3xl p-6 mb-6">
-        <h2 className="text-2xl font-bold mb-6">
-          Draw #{currentDraw} • {currentDate}
-        </h2>
-
-        {/* Game Entries */}
-        <div className="space-y-4">
-          {gameEntries.map((entry) => (
-            <div key={entry.id} className="flex items-center justify-between p-4 bg-white/5 rounded-2xl">
-              <div className="flex items-center gap-4">
-                <img
-                  src={entry.avatar || "/placeholder.svg"}
-                  alt={entry.playerName}
-                  className="w-16 h-16 rounded-full border-2 border-yellow-400"
-                />
-                <div>
-                  <h3 className="text-xl font-semibold">{entry.playerName}</h3>
-                  <div className="flex items-center gap-1 text-gray-300">
-                    <span>Entry: {entry.entryAmount}</span>
-                    <span className="text-yellow-400">⭐</span>
-                  </div>
-                </div>
-              </div>
-              <div className="bg-red-500 hover:bg-red-600 transition-colors px-6 py-2 rounded-xl font-semibold">
-                {entry.status}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Navigation */}
-      <div className="flex gap-4 justify-center">
-        <button
-          onClick={handlePrevDraw}
-          className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl px-6 py-4 flex items-center gap-2 hover:bg-white/20 transition-colors"
-        >
-          <ChevronLeft className="w-5 h-5" />
-          Prev Draw
-        </button>
-        <button
-          onClick={handleJumpToRound}
-          className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl px-8 py-4 hover:bg-white/20 transition-colors font-semibold"
-        >
-          Jump to Round
-        </button>
-        <button
-          onClick={handleNextDraw}
-          className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl px-6 py-4 flex items-center gap-2 hover:bg-white/20 transition-colors"
-        >
-          Next Draw
-          <ChevronRight className="w-5 h-5" />
-        </button>
-      </div>
-    </div>
-  )
 }
