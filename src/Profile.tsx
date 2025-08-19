@@ -60,10 +60,7 @@ export default function Profile() {
 
   const [isWithdrawPopupVisible, setIsWithdrawPopupVisible] = useState(false);
   const [enhancedBets, setEnhancedBets] = useState<{ bet: any; startedAt: Date }[]>([]);
-  const [currentDraw, setCurrentDraw] = useState({
-    number: 34,
-    date: new Date('2025-08-15')
-  });
+  const [currentDraw] = useState({ number: 34, date: new Date('2025-08-15') });
   const [searchQuery, setSearchQuery] = useState("");
 
   const dolphinImages: { [key: number]: string } = {
@@ -118,7 +115,7 @@ export default function Profile() {
       <LogoDisplay />
       <ConnectWalletCard />
 
-      {/* Wallet Balances */}
+      {/* Wallet balances */}
       {isWalletConnected && (
         <div className="w-full mt-6 mb-6 px-4">
           <div
@@ -171,65 +168,57 @@ export default function Profile() {
         ))}
       </SectionBox>
 
-      {/* Game History - Single Transparent Card */}
-      <SectionBox title={t('profile.gameHistory')}>
-        <div
-          className="w-full max-w-[520px] mx-auto p-5 sm:p-7 rounded-2xl shadow-xl flex flex-col gap-4"
-          style={{ background: 'rgba(35,35,88,0.92)' }}
-        >
-          {/* Search and Filter */}
-          <div className="flex flex-row items-center mb-4 w-full" style={{ gap: '20px' }}>
+      {/* Game History */}
+      <SectionBox title={t('profile.gameHistory')} hideWrapper>
+        <div className="w-full max-w-[520px] mx-auto bg-[rgba(35,35,88,0.92)] rounded-2xl p-5 sm:p-7 shadow-xl flex flex-col gap-5">
+          {/* Search & Filter */}
+          <div className="flex flex-row items-center w-full gap-4">
             <input
               type="text"
               placeholder="🔎 Search"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="flex-1 h-12 bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] rounded-2xl py-3 pl-4 pr-4 text-white placeholder-gray-400 focus:outline-none focus:border-[rgba(255,255,255,0.3)] transition-all backdrop-blur-[10px] hover:scale-105 hover:border-white"
-              style={{ color: 'white', fontSize: '16px' }}
+              className="flex-1 h-12 bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] rounded-2xl py-3 pl-4 pr-4 text-white placeholder-gray-400 focus:outline-none focus:border-[rgba(255,255,255,0.3)] transition-all backdrop-blur-[10px]"
             />
             <button
               onClick={() => alert('Filter clicked!')}
-              className="h-12 px-6 bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] text-white rounded-2xl hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white transition-all font-medium backdrop-blur-[10px] whitespace-nowrap"
+              className="h-12 px-6 bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] text-white rounded-2xl hover:bg-[rgba(255,255,255,0.15)] transition-all font-medium backdrop-blur-[10px]"
             >
               Filters
             </button>
           </div>
 
-          {/* Current Draw Info */}
-          <div className="font-semibold text-xl mb-3 text-white flex items-center gap-2">
-            Draw #{currentDraw.number} <span className="px-2"> · </span>{currentDraw.date.toLocaleDateString('en-GB', {
-              day: '2-digit', month: 'short', year: 'numeric'
-            })}
+          {/* Current Draw */}
+          <div className="text-white font-semibold text-lg">
+            Draw #{currentDraw.number} · {currentDraw.date.toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric'})}
           </div>
 
-          {/* Bets */}
+          {/* Game History Cards */}
           {filteredBets.length === 0 ? (
             <p className="text-center text-white">No games matched your search</p>
           ) : (
-            <div className="flex flex-col gap-3">
-              {filteredBets.map(({ bet }, index) => (
-                <GameHistoryCard
-                  key={index}
-                  image={dolphinImages[bet.numberBettedOn]}
-                  cost={`${bet.amountBet}`}
-                  prize={`${bet.amountWon}`}
-                  useTon={bet.useTon}
-                  betId={`${bet.betId}`}
-                  result={bet.hasWon ? 'win' : 'lose'}
-                />
-              ))}
-            </div>
+            filteredBets.map(({ bet }, index) => (
+              <GameHistoryCard
+                key={index}
+                image={dolphinImages[bet.numberBettedOn]}
+                cost={`${bet.amountBet}`}
+                prize={`${bet.amountWon}`}
+                useTon={bet.useTon}
+                betId={`${bet.betId}`}
+                result={bet.hasWon ? 'win' : 'lose'}
+              />
+            ))
           )}
 
-          {/* Navigation Buttons */}
-          <div className="flex items-center justify-between mt-6 w-full" style={{ gap: '12px' }}>
-            <button className="flex-1 h-10 rounded-3xl border border-[rgba(255,255,255,0.2)] text-white font-medium bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] flex items-center justify-center">
+          {/* Navigation */}
+          <div className="flex items-center justify-between w-full mt-4 gap-2">
+            <button className="flex-1 h-10 rounded-3xl border border-[rgba(255,255,255,0.2)] text-white font-medium bg-[rgba(255,255,255,0.05)]">
               ← Prev Draw
             </button>
-            <button className="flex-1 h-10 rounded-3xl border-2 border-white text-white font-medium bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] flex items-center justify-center">
+            <button className="flex-1 h-10 rounded-3xl border-2 border-white text-white font-medium bg-[rgba(255,255,255,0.08)]">
               Jump to Round
             </button>
-            <button className="flex-1 h-10 rounded-3xl border border-[rgba(255,255,255,0.2)] text-white font-medium bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] flex items-center justify-center">
+            <button className="flex-1 h-10 rounded-3xl border border-[rgba(255,255,255,0.2)] text-white font-medium bg-[rgba(255,255,255,0.05)]">
               Next Draw →
             </button>
           </div>
