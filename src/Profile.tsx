@@ -301,8 +301,8 @@ export default function Profile() {
           <div className="flex items-center justify-between mt-6 mx-4" style={{ gap: '12px' }}>
             <button
               className="flex-1 min-h-[42px] rounded-[8px] border-2 border-white text-white font-medium 
-                         bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] 
-                         hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] 
+              bg-transparent hover:bg-[rgba(255,255,255,0.15)] 
+                         hover:scale-105 hover:border-white transition-all 
                          flex items-center justify-center focus:outline-none focus:ring-0"
               style={{ fontSize: '12px', color: 'white', whiteSpace: 'nowrap' }}
             >
@@ -321,8 +321,8 @@ export default function Profile() {
 
             <button
               className="flex-1 min-h-[42px] rounded-[8px] border-2 border-white text-white font-medium 
-                         bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] 
-                         hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] 
+                         bg-transparent hover:bg-[rgba(255,255,255,0.15)] 
+                         hover:scale-105 hover:border-white transition-all 
                          flex items-center justify-center focus:outline-none focus:ring-0"
               style={{ fontSize: '12px', color: 'white', whiteSpace: 'nowrap' }}
             >
