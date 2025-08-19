@@ -179,8 +179,8 @@ export default function Profile() {
       
       <SectionBox title={t('profile.gameHistory')}>
         {/* Search and Filter Section - Updated Design */}
-        <div className="flex flex-row items-center gap-3 mb-6 w-full max-w-[520px] mx-auto px-4">
-          <div className="relative flex-1">
+        <div className="flex flex-row items-center gap-4 mb-6 w-full max-w-[520px] mx-auto px-4">
+          <div className="relative" style={{ width: '70%' }}>
             <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 pointer-events-none" />
             <input
               type="text"
@@ -199,7 +199,8 @@ export default function Profile() {
             className="h-12 px-6 bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] text-white rounded-2xl hover:bg-[rgba(255,255,255,0.15)] transition-all font-medium backdrop-blur-[10px] whitespace-nowrap"
             style={{ 
               color: 'white',
-              fontSize: '16px'
+              fontSize: '16px',
+              width: '30%'
             }}
           >
             Filters
@@ -215,7 +216,7 @@ export default function Profile() {
           ) : (
             <div className="flex flex-col gap-3">
               {/* Draw Info example, add dynamic if you want */}
-              <div className="text-white !text-white font-semibold text-lg mb-2 flex items-center gap-2">
+              <div className="text-white font-semibold text-lg mb-2 flex items-center gap-2">
                 Draw #34 <span className="text-white px-2">·</span> 15 Aug 2025
               </div>
               {filteredBets.map(({ bet }, index) => (
@@ -233,13 +234,13 @@ export default function Profile() {
           )}
           
           {/* Navigation Buttons - Updated Design */}
-          <div className="flex flex-row items-center gap-3 mt-8 w-full">
+          <div className="flex flex-row items-center gap-4 mt-12 w-full">
             <button
               onClick={() => alert('Prev Draw clicked')}
-              className="flex-1 h-12 rounded-2xl border border-[rgba(255,255,255,0.3)] text-white font-medium bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.15)] transition-all backdrop-blur-[10px] flex items-center justify-center"
+              className="flex-1 h-12 rounded-2xl border border-[rgba(255,255,255,0.3)] text-white font-medium bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.15)] transition-all backdrop-blur-[10px] flex items-center justify-center whitespace-nowrap"
               style={{ 
                 color: 'white',
-                fontSize: '16px',
+                fontSize: '14px',
                 minWidth: '0',
                 background: 'rgba(255,255,255,0.05)'
               }}
@@ -249,10 +250,10 @@ export default function Profile() {
             
             <button
               onClick={() => alert('Jump to Round clicked')}
-              className="flex-1 h-12 rounded-2xl border-2 border-white text-white font-medium bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] transition-all backdrop-blur-[10px] flex items-center justify-center"
+              className="flex-1 h-12 rounded-2xl border-2 border-white text-white font-medium bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] transition-all backdrop-blur-[10px] flex items-center justify-center whitespace-nowrap"
               style={{
                 color: 'white',
-                fontSize: '16px',
+                fontSize: '14px',
                 minWidth: '0',
                 background: 'rgba(255,255,255,0.08)',
                 borderColor: 'rgba(255,255,255,0.5)'
@@ -263,10 +264,10 @@ export default function Profile() {
             
             <button
               onClick={() => alert('Next Draw clicked')}
-              className="flex-1 h-12 rounded-2xl border border-[rgba(255,255,255,0.3)] text-white font-medium bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.15)] transition-all backdrop-blur-[10px] flex items-center justify-center"
+              className="flex-1 h-12 rounded-2xl border border-[rgba(255,255,255,0.3)] text-white font-medium bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.15)] transition-all backdrop-blur-[10px] flex items-center justify-center whitespace-nowrap"
               style={{ 
                 color: 'white',
-                fontSize: '16px',
+                fontSize: '14px',
                 minWidth: '0',
                 background: 'rgba(255,255,255,0.05)'
               }}
