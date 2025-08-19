@@ -187,7 +187,7 @@ onClick={handleUserWithdraw}
   value={searchQuery}
   onChange={(e) => setSearchQuery(e.target.value)}
   className="w-full h-12 bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] 
-  rounded-[20px] appearance-none py-3 pl-12 pr-4 text-white placeholder-gray-400 
+  rounded-[10px] appearance-none py-3 pl-12 pr-4 text-white placeholder-gray-400 
   focus:outline-none focus:border-[rgba(255,255,255,0.3)] 
   transition-all backdrop-blur-[10px] hover:scale-105 hover:border-white"
   
