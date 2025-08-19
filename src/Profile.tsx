@@ -172,23 +172,22 @@ export default function Profile() {
       </SectionBox>
       <SectionBox title={t('profile.gameHistory')}>
         {/* Search and Filter Section */}
-<div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6 w-full max-w-[600px] mx-auto">
-  {/* Search Input */}
-  <div className="relative flex-1 w-full">
+<div className="flex flex-row items-center justify-center gap-4 mb-6">
+  <div className="relative w-full max-w-[300px]">
     <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white w-5 h-5 pointer-events-none" />
     <input
       type="text"
-      placeholder="Search by Bet ID"
+      placeholder="Search"
       value={searchQuery}
       onChange={(e) => setSearchQuery(e.target.value)}
-      className="w-full bg-transparent border border-white rounded-3xl py-4 pl-12 pr-4 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
+      className="w-full bg-transparent border border-white rounded-2xl py-3 pl-12 pr-4 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
+      style={{ color: 'white' }}
     />
   </div>
-
-  {/* Filter Button */}
   <button
     onClick={() => alert('Filter clicked!')}
-    className="w-full sm:w-auto flex items-center justify-center gap-2 bg-transparent border border-white text-white rounded-3xl px-6 py-4 hover:bg-white/10 transition-colors font-semibold"
+    className="w-full max-w-[150px] flex items-center justify-center gap-2 bg-transparent border border-white text-white rounded-2xl px-5 py-3 hover:bg-white/10 transition-colors font-semibold"
+    style={{ color: 'white' }}
   >
     Filters
   </button>
