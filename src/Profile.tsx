@@ -179,17 +179,16 @@ export default function Profile() {
       <SectionBox title={t('profile.gameHistory')}>
         {/* Search and Filter Section - Updated Design */}
         <div className="flex flex-row items-center mb-6 w-full max-w-[520px] mx-auto px-4" style={{ gap: '20px' }}>
-        <div className="relative w-[75%]">
-  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">🔎</span>
-  <input
-    type="text"
-    placeholder="Search"
-    value={searchQuery}
-    onChange={(e) => setSearchQuery(e.target.value)}
-    className="w-full h-[40px] bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] 
-    rounded-[10px] appearance-none pl-12 pr-4 text-white placeholder-gray-400 
-    focus:outline-none focus:border-[rgba(255,255,255,0.3)] 
-    transition-all"
+          <div className="relative" style={{ width: '75%' }}>
+            <input
+              type="text"
+              placeholder="🔎 Search by Dolphin name"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full h-[40px] bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] 
+  rounded-[10px] appearance-none pl-12 pr-4 text-white placeholder-gray-400 
+  focus:outline-none focus:border-[rgba(255,255,255,0.3)] 
+  transition-all backdrop-blur-[10px] "
               style={{
                 color: 'white',
                 fontSize: '16px'
