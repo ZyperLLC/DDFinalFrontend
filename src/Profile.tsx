@@ -58,11 +58,22 @@ export default function Profile() {
   const context = useContext(UserContext);
   const isWalletConnected = !!context?.user.walletAddress;
 
+  // Withdraw popup state
   const [isWithdrawPopupVisible, setIsWithdrawPopupVisible] = useState(false);
+
+  // Current bets with timestamps
   const [enhancedBets, setEnhancedBets] = useState<{ bet: any; startedAt: Date }[]>([]);
-  const [currentDraw] = useState({ number: 34, date: new Date('2025-08-15') });
+
+  // Draw info state
+  const [currentDraw, setCurrentDraw] = useState({
+    number: 34,
+    date: new Date('2025-08-15')
+  });
+
+  // Search query state
   const [searchQuery, setSearchQuery] = useState("");
 
+  // Dolphin images mapping
   const dolphinImages: { [key: number]: string } = {
     1: dolphin1, 2: dolphin2, 3: dolphin3, 4: dolphin4, 5: dolphin5, 6: dolphin6,
     7: dolphin7, 8: dolphin8, 9: dolphin9, 10: dolphin10, 11: dolphin11, 12: dolphin12,
@@ -72,8 +83,10 @@ export default function Profile() {
     31: dolphin31, 32: dolphin32, 33: dolphin33, 34: dolphin34, 35: dolphin35, 36: dolphin36
   };
 
+  // Handle withdraw button
   const handleUserWithdraw = () => setIsWithdrawPopupVisible(true);
 
+  // Fetch bets and add timestamps
   useEffect(() => {
     const fetchBettingRounds = async () => {
       if (!context?.user.bets) return;
@@ -94,6 +107,7 @@ export default function Profile() {
     fetchBettingRounds();
   }, [context?.user.bets]);
 
+  // Filter bets based on search query
   const filteredBets = enhancedBets.filter(({ bet }) => {
     if (!searchQuery.trim()) return true;
     return `${bet.betId}`.includes(searchQuery.trim());
@@ -169,56 +183,64 @@ export default function Profile() {
       </SectionBox>
 
       {/* Game History */}
-      <SectionBox title={t('profile.gameHistory')} hideWrapper>
-        <div className="w-full max-w-[520px] mx-auto bg-[rgba(35,35,88,0.92)] rounded-2xl p-5 sm:p-7 shadow-xl flex flex-col gap-5">
-          {/* Search & Filter */}
-          <div className="flex flex-row items-center w-full gap-4">
+      <SectionBox title={t('profile.gameHistory')}>
+        {/* Search and Filter */}
+        <div className="flex flex-row items-center mb-6 w-full max-w-[520px] mx-auto px-4" style={{ gap: '20px' }}>
+          <div className="relative flex-1 min-w-0">
             <input
               type="text"
               placeholder="🔎 Search"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="flex-1 h-12 bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] rounded-2xl py-3 pl-4 pr-4 text-white placeholder-gray-400 focus:outline-none focus:border-[rgba(255,255,255,0.3)] transition-all backdrop-blur-[10px]"
+              className="w-full h-12 bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] rounded-2xl py-3 pl-12 pr-4 text-white placeholder-gray-400 focus:outline-none focus:border-[rgba(255,255,255,0.3)] transition-all backdrop-blur-[10px] hover:scale-105 hover:border-white"
+              style={{ color: 'white', fontSize: '16px' }}
             />
-            <button
-              onClick={() => alert('Filter clicked!')}
-              className="h-12 px-6 bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] text-white rounded-2xl hover:bg-[rgba(255,255,255,0.15)] transition-all font-medium backdrop-blur-[10px]"
-            >
-              Filters
-            </button>
           </div>
+          <button
+            onClick={() => alert('Filter clicked!')}
+            className="h-12 px-6 bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] text-white rounded-2xl hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white transition-all font-medium backdrop-blur-[10px] whitespace-nowrap"
+            style={{ color: 'white', fontSize: '16px', width: '120px' }}
+          >
+            Filters
+          </button>
+        </div>
 
-          {/* Current Draw */}
-          <div className="text-white font-semibold text-lg">
-            Draw #{currentDraw.number} · {currentDraw.date.toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric'})}
-          </div>
-
-          {/* Game History Cards */}
+        {/* Current Draw Info */}
+        <div className="w-full max-w-[520px] mx-auto bg-[#232358] rounded-2xl p-5 sm:p-7 shadow-xl"
+             style={{ background: "rgba(35,35,88,0.92)" }}>
           {filteredBets.length === 0 ? (
             <p className="text-center text-white">No games matched your search</p>
           ) : (
-            filteredBets.map(({ bet }, index) => (
-              <GameHistoryCard
-                key={index}
-                image={dolphinImages[bet.numberBettedOn]}
-                cost={`${bet.amountBet}`}
-                prize={`${bet.amountWon}`}
-                useTon={bet.useTon}
-                betId={`${bet.betId}`}
-                result={bet.hasWon ? 'win' : 'lose'}
-              />
-            ))
+            <div className="flex flex-col gap-3">
+              <div className="font-semibold text-xl mb-2 flex items-center gap-2" style={{ color: 'white' }}>
+                Draw #{currentDraw.number} <span className="px-2"> · </span> {currentDraw.date.toLocaleDateString('en-GB', {
+                  day: '2-digit', month: 'short', year: 'numeric'
+                })}
+              </div>
+
+              {filteredBets.map(({ bet }, index) => (
+                <GameHistoryCard
+                  key={index}
+                  image={dolphinImages[bet.numberBettedOn]}
+                  cost={`${bet.amountBet}`}
+                  prize={`${bet.amountWon}`}
+                  useTon={bet.useTon}
+                  betId={`${bet.betId}`}
+                  result={bet.hasWon ? 'win' : 'lose'}
+                />
+              ))}
+            </div>
           )}
 
-          {/* Navigation */}
-          <div className="flex items-center justify-between w-full mt-4 gap-2">
-            <button className="flex-1 h-10 rounded-3xl border border-[rgba(255,255,255,0.2)] text-white font-medium bg-[rgba(255,255,255,0.05)]">
+          {/* Navigation Buttons */}
+          <div className="flex items-center justify-between mt-6 w-full" style={{ gap: '12px' }}>
+            <button className="flex-1 h-10 rounded-3xl border border-[rgba(255,255,255,0.2)] text-white font-medium bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] flex items-center justify-center">
               ← Prev Draw
             </button>
-            <button className="flex-1 h-10 rounded-3xl border-2 border-white text-white font-medium bg-[rgba(255,255,255,0.08)]">
+            <button className="flex-1 h-10 rounded-3xl border-2 border-white text-white font-medium bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] flex items-center justify-center">
               Jump to Round
             </button>
-            <button className="flex-1 h-10 rounded-3xl border border-[rgba(255,255,255,0.2)] text-white font-medium bg-[rgba(255,255,255,0.05)]">
+            <button className="flex-1 h-10 rounded-3xl border border-[rgba(255,255,255,0.2)] text-white font-medium bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] flex items-center justify-center">
               Next Draw →
             </button>
           </div>
