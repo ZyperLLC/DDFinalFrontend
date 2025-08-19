@@ -51,7 +51,7 @@ import { UserContext } from './Context/UserContextProvider';
 import { motion } from 'framer-motion';
 import { slideUpFade } from './utils/animations';
 import { getBettingRoundById } from './api/userApi';
-import { Search} from "lucide-react";
+import { Search } from "lucide-react";
 
 export default function Profile() {
   const { t } = useTranslation();
@@ -69,11 +69,14 @@ export default function Profile() {
     25: dolphin25, 26: dolphin26, 27: dolphin27, 28: dolphin28, 29: dolphin29, 30: dolphin30,
     31: dolphin31, 32: dolphin32, 33: dolphin33, 34: dolphin34, 35: dolphin35, 36: dolphin36
   };
+  
   const handleUserWithdraw = () => {
     setIsWithdrawPopupVisible(true);
   };
+  
   // Search state for game history
   const [searchQuery, setSearchQuery] = useState("");
+  
   useEffect(() => {
     const fetchBettingRounds = async () => {
       if (!context?.user.bets) return;
@@ -101,11 +104,13 @@ export default function Profile() {
     };
     fetchBettingRounds();
   }, [context?.user.bets]);
+  
   // Filter enhancedBets based on search query (search by betId)
   const filteredBets = enhancedBets.filter(({ bet }) => {
     if (!searchQuery.trim()) return true;
     return `${bet.betId}`.includes(searchQuery.trim());
   });
+  
   return (
     <motion.div
       variants={slideUpFade}
@@ -162,6 +167,7 @@ export default function Profile() {
           </div>
         </div>
       )}
+      
       <SectionBox title={t('profile.stakedNfts')}>
         {context?.user.stakedNfts?.length === 0 && (
           <p style={{ color: 'white' }} className="text-center">No Dolphin Dash NFTs staked</p>
@@ -170,28 +176,35 @@ export default function Profile() {
           <StakedNFTCard key={nft.nftAddress} contractAddress={nft.nftAddress} />
         ))}
       </SectionBox>
+      
       <SectionBox title={t('profile.gameHistory')}>
-        {/* Search and Filter Section */}
-<div className="flex flex-row items-center justify-center gap-4 mb-6">
-  <div className="relative w-full max-w-[300px]">
-    <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white w-5 h-5 pointer-events-none" />
-    <input
-      type="text"
-      placeholder="Search"
-      value={searchQuery}
-      onChange={(e) => setSearchQuery(e.target.value)}
-      className="w-full bg-transparent border border-white rounded-2xl py-3 pl-12 pr-4 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
-      style={{ color: 'white' }}
-    />
-  </div>
-  <button
-    onClick={() => alert('Filter clicked!')}
-    className="w-full max-w-[150px] flex items-center justify-center gap-2 bg-transparent border border-white text-white rounded-2xl px-5 py-3 hover:bg-white/10 transition-colors font-semibold"
-    style={{ color: 'white' }}
-  >
-    Filters
-  </button>
-</div>
+        {/* Search and Filter Section - Updated Design */}
+        <div className="flex flex-row items-center gap-3 mb-6 w-full max-w-[520px] mx-auto px-4">
+          <div className="relative flex-1">
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 pointer-events-none" />
+            <input
+              type="text"
+              placeholder="Search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full h-12 bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] rounded-2xl py-3 pl-12 pr-4 text-white placeholder-gray-400 focus:outline-none focus:border-[rgba(255,255,255,0.3)] transition-all backdrop-blur-[10px]"
+              style={{ 
+                color: 'white',
+                fontSize: '16px'
+              }}
+            />
+          </div>
+          <button
+            onClick={() => alert('Filter clicked!')}
+            className="h-12 px-6 bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] text-white rounded-2xl hover:bg-[rgba(255,255,255,0.15)] transition-all font-medium backdrop-blur-[10px] whitespace-nowrap"
+            style={{ 
+              color: 'white',
+              fontSize: '16px'
+            }}
+          >
+            Filters
+          </button>
+        </div>
 
         {/* Game list & buttons */}
         <div className="w-full max-w-[520px] mx-auto bg-[#232358] rounded-2xl p-5 sm:p-7 shadow-xl"
@@ -203,8 +216,8 @@ export default function Profile() {
             <div className="flex flex-col gap-3">
               {/* Draw Info example, add dynamic if you want */}
               <div className="text-white !text-white font-semibold text-lg mb-2 flex items-center gap-2">
-  Draw #34 <span className="text-white px-2">·</span> 15 Aug 2025
-</div>
+                Draw #34 <span className="text-white px-2">·</span> 15 Aug 2025
+              </div>
               {filteredBets.map(({ bet }, index) => (
                 <GameHistoryCard
                   key={index}
@@ -218,37 +231,52 @@ export default function Profile() {
               ))}
             </div>
           )}
-          {/* Navigation Buttons */}
-<div className="flex flex-row items-center justify-between gap-4 mt-8"> {/* increased gap from 2 → 4 */}
-  <button
-    onClick={() => alert('Prev Draw clicked')}
-    className="flex-1 py-3 rounded-2xl border border-white text-white font-semibold bg-transparent hover:bg-white transition text-base"
-    style={{ minWidth: 0, color: 'white' }}
-  >
-    ← Prev Draw
-  </button>
-  <button
-    onClick={() => alert('Jump to Round clicked')}
-    className="flex-1 py-3 rounded-2xl border-2 border-white text-white font-semibold bg-transparent hover:bg-white/10 transition text-base mx-2"
-    style={{
-      boxShadow: "0 0 0 2px #232358, 0 2px 8px rgba(0,0,0,0.08)",
-      background: 'rgba(35,35,88,0.95)',
-      color: 'white',
-    }}
-  >
-    Jump to Round
-  </button>
-  <button
-    onClick={() => alert('Next Draw clicked')}
-    className="flex-1 py-3 rounded-2xl border border-white text-white font-semibold bg-transparent hover:bg-white transition text-base"
-    style={{ minWidth: 0, color: 'white' }}
-  >
-    Next Draw →
-  </button>
-</div>
-
+          
+          {/* Navigation Buttons - Updated Design */}
+          <div className="flex flex-row items-center gap-3 mt-8 w-full">
+            <button
+              onClick={() => alert('Prev Draw clicked')}
+              className="flex-1 h-12 rounded-2xl border border-[rgba(255,255,255,0.3)] text-white font-medium bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.15)] transition-all backdrop-blur-[10px] flex items-center justify-center"
+              style={{ 
+                color: 'white',
+                fontSize: '16px',
+                minWidth: '0',
+                background: 'rgba(255,255,255,0.05)'
+              }}
+            >
+              ← Prev Draw
+            </button>
+            
+            <button
+              onClick={() => alert('Jump to Round clicked')}
+              className="flex-1 h-12 rounded-2xl border-2 border-white text-white font-medium bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] transition-all backdrop-blur-[10px] flex items-center justify-center"
+              style={{
+                color: 'white',
+                fontSize: '16px',
+                minWidth: '0',
+                background: 'rgba(255,255,255,0.08)',
+                borderColor: 'rgba(255,255,255,0.5)'
+              }}
+            >
+              Jump to Round
+            </button>
+            
+            <button
+              onClick={() => alert('Next Draw clicked')}
+              className="flex-1 h-12 rounded-2xl border border-[rgba(255,255,255,0.3)] text-white font-medium bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.15)] transition-all backdrop-blur-[10px] flex items-center justify-center"
+              style={{ 
+                color: 'white',
+                fontSize: '16px',
+                minWidth: '0',
+                background: 'rgba(255,255,255,0.05)'
+              }}
+            >
+              Next Draw →
+            </button>
+          </div>
         </div>
       </SectionBox>
+      
       <Navbar />
       {isWithdrawPopupVisible && (
         <WithdrawPopup
