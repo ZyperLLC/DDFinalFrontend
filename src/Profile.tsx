@@ -337,8 +337,9 @@ export default function Profile() {
   focus:outline-none focus:ring-0"
   style={{ fontSize: '12px', color: 'white', whiteSpace: 'nowrap' }}
 >
-  <span style={{ fontSize: "18px", lineHeight: "1" }}>→</span>
+  
   Next Draw
+  <span style={{ fontSize: "18px", lineHeight: "1" }}>→</span>
 </button>
           </div>
         </div>
