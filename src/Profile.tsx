@@ -76,6 +76,9 @@ export default function Profile() {
   // Search state for game history
   const [searchQuery, setSearchQuery] = useState("");
 
+  // Dropdown state for Filters
+  const [filterOpen, setFilterOpen] = useState(false);
+
   useEffect(() => {
     const fetchBettingRounds = async () => {
       if (!context?.user.bets) return;
@@ -195,19 +198,54 @@ export default function Profile() {
               }}
             />
           </div>
-          <button
-            onClick={() => alert('Filter clicked!')}
-            className="h-[40px] px-6 bg-transparent border border-[rgba(255,255,255,0.15)] 
+
+          {/* Filters Button + Dropdown */}
+          <div className="relative w-[25%]">
+            <button
+              onClick={() => setFilterOpen(!filterOpen)}
+              className="h-[40px] px-6 bg-transparent border border-[rgba(255,255,255,0.15)] 
   rounded-[10px] text-white hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 
-  hover:border-white transition-all font-medium whitespace-nowrap w-[25%] text-lg"
-            style={{
-              color: 'white',
-              fontSize: '16px',
-              width: '25%'
-            }}
-          >
-            Filters
-          </button>
+  hover:border-white transition-all font-medium whitespace-nowrap w-full text-lg"
+              style={{
+                color: 'white',
+                fontSize: '16px',
+                width: '100%'
+              }}
+            >
+              Filters
+            </button>
+
+            {filterOpen && (
+              <div className="absolute mt-2 w-full bg-[rgba(0,0,0,0.9)] border border-[rgba(255,255,255,0.15)] rounded-lg shadow-lg z-10">
+                <ul className="text-white text-sm">
+                  <li
+                    className="px-4 py-2 hover:bg-[rgba(255,255,255,0.1)] cursor-pointer"
+                    onClick={() => alert("Wins only")}
+                  >
+                    Wins only
+                  </li>
+                  <li
+                    className="px-4 py-2 hover:bg-[rgba(255,255,255,0.1)] cursor-pointer"
+                    onClick={() => alert("Loss only")}
+                  >
+                    Loss only
+                  </li>
+                  <li
+                    className="px-4 py-2 hover:bg-[rgba(255,255,255,0.1)] cursor-pointer"
+                    onClick={() => alert("Specific date")}
+                  >
+                    Specific date
+                  </li>
+                  <li
+                    className="px-4 py-2 hover:bg-[rgba(255,255,255,0.1)] cursor-pointer"
+                    onClick={() => alert("Specific round id")}
+                  >
+                    Specific round id
+                  </li>
+                </ul>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Game list & buttons */}
