@@ -217,50 +217,55 @@ export default function Profile() {
             {/* Dropdown */}
             {filterOpen && (
               <div
-                className="absolute top-full mt-2 w-full border border-white/20 rounded-lg shadow-xl z-50 overflow-hidden backdrop-blur-sm"
+                className="absolute top-full left-0 right-0 mt-2 border border-white/30 rounded-xl shadow-2xl z-50 overflow-hidden"
                 style={{
-                  backgroundColor: 'rgba(255,255,255,0.1)',
-                  boxShadow: '0 8px 32px rgba(0,0,0,0.4)'
+                  backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                  backdropFilter: 'blur(20px)',
+                  WebkitBackdropFilter: 'blur(20px)',
                 }}
               >
-                <ul className="list-none m-0 p-0">
-                  <li 
-                    className="px-4 py-3 text-white text-sm hover:bg-white/20 cursor-pointer border-b border-white/10 transition-all duration-200"
+                <div className="p-2 space-y-1">
+                  <div 
+                    className="px-4 py-3 text-white text-center font-medium rounded-lg cursor-pointer transition-all duration-200 hover:bg-white/10 hover:scale-[1.02] active:scale-[0.98]"
                     onClick={() => {
                       console.log('Wins only selected');
                       setFilterOpen(false);
                     }}
+                    style={{ fontSize: '14px' }}
                   >
                     Wins only
-                  </li>
-                  <li 
-                    className="px-4 py-3 text-white text-sm hover:bg-white/20 cursor-pointer border-b border-white/10 transition-all duration-200"
+                  </div>
+                  <div 
+                    className="px-4 py-3 text-white text-center font-medium rounded-lg cursor-pointer transition-all duration-200 hover:bg-white/10 hover:scale-[1.02] active:scale-[0.98]"
                     onClick={() => {
                       console.log('Loss only selected');
                       setFilterOpen(false);
                     }}
+                    style={{ fontSize: '14px' }}
                   >
                     Loss only
-                  </li>
-                  <li 
-                    className="px-4 py-3 text-white text-sm hover:bg-white/20 cursor-pointer border-b border-white/10 transition-all duration-200"
+                  </div>
+                  <div 
+                    className="px-4 py-3 text-white text-center font-medium rounded-lg cursor-pointer transition-all duration-200 hover:bg-white/10 hover:scale-[1.02] active:scale-[0.98]"
                     onClick={() => {
                       console.log('Specific date selected');
                       setFilterOpen(false);
                     }}
+                    style={{ fontSize: '14px' }}
                   >
                     Specific date
-                  </li>
-                  <li 
-                    className="px-4 py-3 text-white text-sm hover:bg-white/20 cursor-pointer transition-all duration-200"
+                  </div>
+                  <div 
+                    className="px-4 py-3 text-white text-center font-medium rounded-lg cursor-pointer transition-all duration-200 hover:bg-white/10 hover:scale-[1.02] active:scale-[0.98]"
                     onClick={() => {
                       console.log('Specific round id selected');
                       setFilterOpen(false);
                     }}
+                    style={{ fontSize: '14px' }}
                   >
                     Specific round id
-                  </li>
-                </ul>
+                  </div>
+                </div>
               </div>
             )}
           </div>
@@ -300,30 +305,36 @@ export default function Profile() {
           {/* Navigation Buttons */}
           <div className="flex items-center justify-between mt-6 mx-4" style={{ gap: '12px' }}>
             <button
-              className="flex-1 min-h-[42px] rounded-[8px] border-2  text-white font-medium 
-                         bg-transparent hover:bg-[rgba(255,255,255,0.15)] 
-                         hover:scale-105 hover:border-white transition-all  
-                         flex items-center justify-center focus:outline-none focus:ring-0"
+              className="flex-1 min-h-[42px] rounded-[8px] border-2 border-[rgba(255,255,255,0.3)] 
+              text-white font-medium bg-transparent 
+              hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white 
+              transition-all flex items-center justify-center 
+              focus:outline-none focus:ring-0"
+   
               style={{ fontSize: '12px', color: 'white', whiteSpace: 'nowrap' }}
             >
               ← Prev Draw
             </button>
 
             <button
-              className="flex-1 min-h-[42px] rounded-[8px] border-2  text-white font-medium 
-                         bg-transparent hover:bg-[rgba(255,255,255,0.15)] 
-                         hover:scale-105 hover:border-white transition-all 
-                         flex items-center justify-center focus:outline-none focus:ring-0"
+              className="flex-1 min-h-[42px] rounded-[8px] border-2 border-[rgba(255,255,255,0.3)] 
+              text-white font-medium bg-transparent 
+              hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white 
+              transition-all flex items-center justify-center 
+              focus:outline-none focus:ring-0"
+   
               style={{ fontSize: '12px', color: 'white', whiteSpace: 'nowrap' }}
             >
               Jump to Round
             </button>
 
             <button
-              className="flex-1 min-h-[42px] rounded-[8px] border-2 text-white font-medium 
-                         bg-transparent hover:bg-[rgba(255,255,255,0.15)] 
-                         hover:scale-105 hover:border-white transition-all 
-                         flex items-center justify-center focus:outline-none focus:ring-0"
+              className="flex-1 min-h-[42px] rounded-[8px] border-2 border-[rgba(255,255,255,0.3)] 
+              text-white font-medium bg-transparent 
+              hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white 
+              transition-all flex items-center justify-center 
+              focus:outline-none focus:ring-0"
+   
               style={{ fontSize: '12px', color: 'white', whiteSpace: 'nowrap' }}
             >
               Next Draw →
