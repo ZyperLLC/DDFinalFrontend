@@ -216,23 +216,23 @@ export default function Profile() {
 
   {/* Dropdown */}
   <div
-    className={`absolute mt-2 w-full border border-[rgba(255,255,255,0.15)] 
-    rounded-lg shadow-lg z-10 overflow-hidden 
+    className={`absolute mt-2 w-full border border-[rgba(255,255,255,0.2)] 
+    rounded-lg shadow-lg z-10 overflow-hidden
+    backdrop-blur-md bg-[rgba(0,0,0,0.55)]  /* 🔥 darker transparent glass */
     transition-all duration-300 ease-in-out
     ${filterOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2 pointer-events-none"}`}
-    style={{ backgroundColor: "rgba(0,0,0,0.6)" }} // slightly transparent dark bg
   >
-    <ul className="text-white text-sm divide-y divide-[rgba(255,255,255,0.15)]">
-      <li className="px-4 py-2 hover:bg-[rgba(255,255,255,0.1)] cursor-pointer whitespace-normal break-words">
+    <ul className="list-none text-white text-sm divide-y divide-[rgba(255,255,255,0.15)]">
+      <li className="px-4 py-2 hover:bg-[rgba(255,255,255,0.15)] cursor-pointer">
         Wins only
       </li>
-      <li className="px-4 py-2 hover:bg-[rgba(255,255,255,0.1)] cursor-pointer whitespace-normal break-words">
+      <li className="px-4 py-2 hover:bg-[rgba(255,255,255,0.15)] cursor-pointer">
         Loss only
       </li>
-      <li className="px-4 py-2 hover:bg-[rgba(255,255,255,0.1)] cursor-pointer whitespace-normal break-words">
+      <li className="px-4 py-2 hover:bg-[rgba(255,255,255,0.15)] cursor-pointer">
         Specific date
       </li>
-      <li className="px-4 py-2 hover:bg-[rgba(255,255,255,0.1)] cursor-pointer whitespace-normal break-words">
+      <li className="px-4 py-2 hover:bg-[rgba(255,255,255,0.15)] cursor-pointer">
         Specific round id
       </li>
     </ul>
