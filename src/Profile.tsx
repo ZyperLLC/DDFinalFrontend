@@ -51,7 +51,7 @@ import { UserContext } from './Context/UserContextProvider';
 import { motion } from 'framer-motion';
 import { slideUpFade } from './utils/animations';
 import { getBettingRoundById } from './api/userApi';
-import { Search, Filter } from "lucide-react";
+import { Search} from "lucide-react";
 
 export default function Profile() {
   const { t } = useTranslation();
@@ -172,27 +172,28 @@ export default function Profile() {
       </SectionBox>
       <SectionBox title={t('profile.gameHistory')}>
         {/* Search and Filter Section */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
-          <div className="relative w-full max-w-[300px]">
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white w-5 h-5 pointer-events-none" />
-            <input
-              type="text"
-              placeholder="Search by Bet ID"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-transparent border border-white rounded-2xl py-3 pl-12 pr-4 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
-              style={{ color: 'white' }}
-            />
-          </div>
-          <button
-            onClick={() => alert('Filter clicked!')}
-            className="w-full max-w-[150px] flex items-center justify-center gap-2 bg-transparent border border-white text-white rounded-2xl px-5 py-3 hover:bg-white/10 transition-colors font-semibold"
-            style={{ color: 'white' }}
-          >
-            <Filter className="w-5 h-5" />
-            Filters
-          </button>
-        </div>
+<div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6 w-full max-w-[600px] mx-auto">
+  {/* Search Input */}
+  <div className="relative flex-1 w-full">
+    <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white w-5 h-5 pointer-events-none" />
+    <input
+      type="text"
+      placeholder="Search by Bet ID"
+      value={searchQuery}
+      onChange={(e) => setSearchQuery(e.target.value)}
+      className="w-full bg-transparent border border-white rounded-3xl py-4 pl-12 pr-4 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
+    />
+  </div>
+
+  {/* Filter Button */}
+  <button
+    onClick={() => alert('Filter clicked!')}
+    className="w-full sm:w-auto flex items-center justify-center gap-2 bg-transparent border border-white text-white rounded-3xl px-6 py-4 hover:bg-white/10 transition-colors font-semibold"
+  >
+    Filters
+  </button>
+</div>
+
         {/* Game list & buttons */}
         <div className="w-full max-w-[520px] mx-auto bg-[#232358] rounded-2xl p-5 sm:p-7 shadow-xl"
             style={{ background: "rgba(35,35,88,0.92)" }}>
@@ -202,9 +203,9 @@ export default function Profile() {
           ) : (
             <div className="flex flex-col gap-3">
               {/* Draw Info example, add dynamic if you want */}
-              <div className="text-white font-semibold text-lg mb-2 flex items-center gap-2">
-                Draw #34 <span className="text-white px-2">·</span> 15 Aug 2025
-              </div>
+              <div className="text-white !text-white font-semibold text-lg mb-2 flex items-center gap-2">
+  Draw #34 <span className="text-white px-2">·</span> 15 Aug 2025
+</div>
               {filteredBets.map(({ bet }, index) => (
                 <GameHistoryCard
                   key={index}
