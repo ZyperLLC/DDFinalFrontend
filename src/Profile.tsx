@@ -79,8 +79,6 @@ export default function Profile() {
 
   // Dropdown state for Filters
   const [filterOpen, setFilterOpen] = useState(false);
-  const [activeFilter, setActiveFilter] = useState<string | null>(null);
-  const [roundIdQuery, setRoundIdQuery] = useState("");
 
   useEffect(() => {
     const fetchBettingRounds = async () => {
@@ -110,21 +108,10 @@ export default function Profile() {
     fetchBettingRounds();
   }, [context?.user.bets]);
 
-  // Filter bets by search + active filter
+  // Filter enhancedBets based on search query (search by betId)
   const filteredBets = enhancedBets.filter(({ bet }) => {
-    if (!searchQuery.trim() && !activeFilter) return true;
-
-    // Search by betId
-    const matchesSearch = `${bet.betId}`.includes(searchQuery.trim());
-
-    // Filter logic
-    let matchesFilter = true;
-    if (activeFilter === "wins") matchesFilter = bet.hasWon;
-    if (activeFilter === "loss") matchesFilter = !bet.hasWon;
-    if (activeFilter === "roundId" && roundIdQuery.trim())
-      matchesFilter = `${bet.betId}` === roundIdQuery.trim();
-
-    return matchesSearch && matchesFilter;
+    if (!searchQuery.trim()) return true;
+    return `${bet.betId}`.includes(searchQuery.trim());
   });
 
   return (
@@ -204,7 +191,8 @@ export default function Profile() {
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full h-[40px] bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] 
   rounded-[10px] appearance-none pl-12 pr-4 text-white placeholder-gray-400 
-  focus:outline-none focus:border-[rgba(255,255,255,0.3)] transition-all"
+  focus:outline-none focus:border-[rgba(255,255,255,0.3)] 
+  transition-all backdrop-blur-[10px] "
               style={{
                 color: 'white',
                 fontSize: '16px'
@@ -219,51 +207,39 @@ export default function Profile() {
               className="h-[40px] px-6 bg-transparent border border-[rgba(255,255,255,0.15)] 
   rounded-[10px] text-white hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 
   hover:border-white transition-all font-medium whitespace-nowrap w-full text-lg"
+              style={{
+                color: 'white',
+                fontSize: '16px',
+                width: '100%'
+              }}
             >
               Filters
             </button>
 
             {filterOpen && (
               <div className="absolute mt-2 w-full bg-[rgba(0,0,0,0.9)] border border-[rgba(255,255,255,0.15)] rounded-lg shadow-lg z-10">
-                <ul className="text-white text-sm">
+                <ul className="text-white text-sm divide-y divide-[rgba(255,255,255,0.15)]">
                   <li
-                    className="px-4 py-2 hover:bg-[rgba(255,255,255,0.1)] cursor-pointer"
-                    onClick={() => { setActiveFilter("wins"); setFilterOpen(false); }}
+                    className="px-4 py-2 hover:bg-[rgba(255,255,255,0.1)] cursor-pointer truncate"
                   >
                     Wins only
                   </li>
                   <li
-                    className="px-4 py-2 hover:bg-[rgba(255,255,255,0.1)] cursor-pointer"
-                    onClick={() => { setActiveFilter("loss"); setFilterOpen(false); }}
+                    className="px-4 py-2 hover:bg-[rgba(255,255,255,0.1)] cursor-pointer truncate"
                   >
                     Loss only
                   </li>
                   <li
-                    className="px-4 py-2 hover:bg-[rgba(255,255,255,0.1)] cursor-pointer"
-                    onClick={() => { alert("Add date picker here!"); setActiveFilter("date"); setFilterOpen(false); }}
+                    className="px-4 py-2 hover:bg-[rgba(255,255,255,0.1)] cursor-pointer truncate"
                   >
                     Specific date
                   </li>
                   <li
-                    className="px-4 py-2 hover:bg-[rgba(255,255,255,0.1)] cursor-pointer"
-                    onClick={() => setActiveFilter("roundId")}
+                    className="px-4 py-2 hover:bg-[rgba(255,255,255,0.1)] cursor-pointer truncate"
                   >
                     Specific round id
                   </li>
                 </ul>
-              </div>
-            )}
-
-            {/* Round ID input if selected */}
-            {activeFilter === "roundId" && (
-              <div className="absolute mt-14 w-full bg-[rgba(0,0,0,0.9)] border border-[rgba(255,255,255,0.15)] rounded-lg shadow-lg z-10 p-2">
-                <input
-                  type="text"
-                  placeholder="Enter round id"
-                  value={roundIdQuery}
-                  onChange={(e) => setRoundIdQuery(e.target.value)}
-                  className="w-full h-[32px] rounded bg-transparent border border-white px-2 text-white text-sm"
-                />
               </div>
             )}
           </div>
@@ -273,15 +249,17 @@ export default function Profile() {
         <div className="w-full max-w-[520px] mx-auto bg-[#232358] rounded-2xl p-5 sm:p-7 shadow-xl"
           style={{ background: "rgba(35,35,88,0.92)" }}
         >
+          {/* Bets List */}
           {filteredBets.length === 0 ? (
             <p className="text-center text-white">No games matched your search</p>
           ) : (
             <div className="flex flex-col gap-3">
+              {/* Draw Info example */}
               <div 
                 className="font-semibold mb-2 flex items-center gap-2 text-[22px]" 
                 style={{ color: 'white', padding: '15px' }}
               >
-                Draw #34 <span className="px-2"> · </span> 15 Aug 2025
+                Draw #34 <span className="px-2" style={{ color: 'white' }}> · </span> 15 Aug 2025
               </div>
 
               {filteredBets.map(({ bet }, index) => (
@@ -298,18 +276,35 @@ export default function Profile() {
             </div>
           )}
 
-          {/* Navigation */}
+          {/* Navigation Buttons */}
           <div className="flex items-center justify-between mt-6" style={{ gap: '12px' }}>
-            <button className="flex-1 min-h-[42px] rounded-[8px] border-2 border-white text-white font-medium 
-                         bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] hover:scale-105">
+            <button
+              className="flex-1 min-h-[42px] rounded-[8px] border-2 border-white text-white font-medium 
+                         bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] 
+                         hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] 
+                         flex items-center justify-center focus:outline-none focus:ring-0"
+              style={{ fontSize: '12px', color: 'white', whiteSpace: 'nowrap' }}
+            >
               ← Prev Draw
             </button>
-            <button className="flex-1 min-h-[42px] rounded-[8px] border-2 border-white text-white font-medium 
-                         bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] hover:scale-105">
+
+            <button
+              className="flex-1 min-h-[42px] rounded-[8px] border-2 border-white text-white font-medium 
+                         bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] 
+                         hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] 
+                         flex items-center justify-center focus:outline-none focus:ring-0"
+              style={{ fontSize: '12px', color: 'white', whiteSpace: 'nowrap' }}
+            >
               Jump to Round
             </button>
-            <button className="flex-1 min-h-[42px] rounded-[8px] border-2 border-white text-white font-medium 
-                         bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] hover:scale-105">
+
+            <button
+              className="flex-1 min-h-[42px] rounded-[8px] border-2 border-white text-white font-medium 
+                         bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] 
+                         hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] 
+                         flex items-center justify-center focus:outline-none focus:ring-0"
+              style={{ fontSize: '12px', color: 'white', whiteSpace: 'nowrap' }}
+            >
               Next Draw →
             </button>
           </div>
