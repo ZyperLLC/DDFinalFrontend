@@ -51,7 +51,6 @@ import { UserContext } from './Context/UserContextProvider';
 import { motion } from 'framer-motion';
 import { slideUpFade } from './utils/animations';
 import { getBettingRoundById } from './api/userApi';
-import { Search } from 'lucide-react';
 
 export default function Profile() {
   const { t } = useTranslation();
@@ -181,14 +180,13 @@ export default function Profile() {
         {/* Search and Filter Section - Updated Design */}
         <div className="flex flex-row items-center mb-6 w-full max-w-[520px] mx-auto px-4" style={{ gap: '20px' }}>
           <div className="relative" style={{ width: '75%' }}>
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white w-5 h-5 pointer-events-none" />
             <input
               type="text"
-              placeholder="Search"
+              placeholder="🔎 Search"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full h-12 bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] 
-              rounded-[10px] appearance-none pl-14 pr-4 text-white placeholder-gray-400 
+              rounded-[10px] appearance-none py-3 pl-12 pr-4 text-white placeholder-gray-400 
               focus:outline-none focus:border-[rgba(255,255,255,0.3)] 
               transition-all backdrop-blur-[10px] hover:scale-105 hover:border-white"
               style={{
