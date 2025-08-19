@@ -56,7 +56,6 @@ import { slideUpFade } from './utils/animations';
 import { getBettingRoundById } from './api/userApi';
 import { Search, Filter } from "lucide-react";
 
-
 export default function Profile() {
   const { t } = useTranslation();
   const context = useContext(UserContext);
@@ -76,10 +75,8 @@ export default function Profile() {
   const handleUserWithdraw = () => {
     setIsWithdrawPopupVisible(true);
   };
-
   // Search state for game history
   const [searchQuery, setSearchQuery] = useState("");
-
   useEffect(() => {
     const fetchBettingRounds = async () => {
       if (!context?.user.bets) return;
@@ -107,13 +104,11 @@ export default function Profile() {
     };
     fetchBettingRounds();
   }, [context?.user.bets]);
-
   // Filter enhancedBets based on search query (search by betId)
   const filteredBets = enhancedBets.filter(({ bet }) => {
     if (!searchQuery.trim()) return true;
     return `${bet.betId}`.includes(searchQuery.trim());
   });
-
   return (
     <motion.div
       variants={slideUpFade}
@@ -129,7 +124,6 @@ export default function Profile() {
     >
       <LogoDisplay />
       <ConnectWalletCard />
-
       {isWalletConnected && (
         <div className="w-full mt-6 mb-6 px-4">
           <div
@@ -144,7 +138,6 @@ export default function Profile() {
             }}
           >
             <h2 className="text-[1.5rem] font-bold text-left">{t('profile.balance')}</h2>
-
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-3">
                 <img src={creditIcon} alt="Credit" className="rounded-full" width={26} height={26} />
@@ -154,7 +147,6 @@ export default function Profile() {
                 {context?.user.creditBalance?.toFixed(3) ?? '0.00'}
               </span>
             </div>
-
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-6">
                 <img src={tonSymbol} alt="TON" className="rounded-full" width={24} height={24} />
@@ -164,7 +156,6 @@ export default function Profile() {
                 {context?.user.tonBalance?.toString().slice(0, 4) ?? '0'}
               </span>
             </div>
-
             <button
               className="w-full mt-2 py-3 rounded-[12px] font-semibold connect-wallet-button"
               onClick={handleUserWithdraw}
@@ -174,7 +165,6 @@ export default function Profile() {
           </div>
         </div>
       )}
-
       <SectionBox title={t('profile.stakedNfts')}>
         {context?.user.stakedNfts?.length === 0 && (
           <p style={{ color: 'white' }} className="text-center">No Dolphin Dash NFTs staked</p>
@@ -183,29 +173,27 @@ export default function Profile() {
           <StakedNFTCard key={nft.nftAddress} contractAddress={nft.nftAddress} />
         ))}
       </SectionBox>
-
       <SectionBox title={t('profile.gameHistory')}>
         {/* Search and Filter Section */}
-        <div className="flex items-center gap-3 mb-6 justify-center">
-          <div className="flex-1 relative w-full max-w-[500px]">
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 pointer-events-none" />
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
+          <div className="relative w-full max-w-[300px]">
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white w-5 h-5 pointer-events-none" />
             <input
               type="text"
               placeholder="Search by Bet ID"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl py-3 pl-12 pr-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
+              className="w-full bg-transparent border border-white rounded-2xl py-3 pl-12 pr-4 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
             />
           </div>
           <button
             onClick={() => alert('Filter clicked!')}
-            className="flex items-center gap-2 bg-red-500 text-white rounded-2xl px-5 py-3 hover:bg-red-600 transition-colors font-semibold"
+            className="w-full max-w-[300px] flex items-center justify-center gap-2 bg-transparent border border-white text-white rounded-2xl px-5 py-3 hover:bg-white/10 transition-colors font-semibold"
           >
             <Filter className="w-5 h-5" />
             Filters
           </button>
         </div>
-
         {/* Bets List */}
         {filteredBets.length === 0 ? (
           <p className="text-center text-white">No games matched your search</p>
@@ -222,24 +210,23 @@ export default function Profile() {
                 result={bet.hasWon ? 'win' : 'lose'}
               />
             ))}
-
-            {/* Navigation Buttons below game cards */}
-            <div className="flex justify-between mt-6 max-w-[500px] mx-auto gap-4">
+            {/* Navigation Buttons Below Game Cards */}
+            <div className="mt-10 flex flex-col items-center gap-4 max-w-[500px] mx-auto">
               <button
                 onClick={() => alert('Prev Draw clicked')}
-                className="flex-1 py-3 rounded-xl bg-white/10 text-white font-semibold hover:bg-white/20 transition"
+                className="w-full py-3 rounded-xl border border-white text-white font-semibold bg-transparent hover:bg-white/10 transition"
               >
                 ← Prev Draw
               </button>
               <button
                 onClick={() => alert('Jump to Round clicked')}
-                className="flex-1 py-3 rounded-xl bg-white/10 text-white font-semibold hover:bg-white/20 transition"
+                className="w-full py-3 rounded-xl border border-white text-white font-semibold bg-transparent hover:bg-white/10 transition"
               >
                 Jump to Round
               </button>
               <button
                 onClick={() => alert('Next Draw clicked')}
-                className="flex-1 py-3 rounded-xl bg-white/10 text-white font-semibold hover:bg-white/20 transition"
+                className="w-full py-3 rounded-xl border border-white text-white font-semibold bg-transparent hover:bg-white/10 transition"
               >
                 Next Draw →
               </button>
@@ -247,9 +234,7 @@ export default function Profile() {
           </div>
         )}
       </SectionBox>
-
       <Navbar />
-
       {isWithdrawPopupVisible && (
         <WithdrawPopup
           id={1}
