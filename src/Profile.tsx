@@ -245,11 +245,10 @@ result={bet.hasWon ? 'win' : 'lose'}
 <div className="flex items-center justify-between mt-6 w-full" style={{ gap: '12px' }}>
 <button
 onClick={() => alert('Prev Draw clicked')}
-className="flex-1 h-14 px-6 rounded-[5px] border border-[rgba(255,255,255,0.2)] 
-text-white text-lg font-medium bg-[rgba(255,255,255,0.05)] 
-hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white 
-transition-all backdrop-blur-[10px] flex items-center justify-center 
-focus:outline-none focus:ring-0"
+className="flex-1 min-h-[45px] rounded-[5px] border-2 border-white text-white font-medium 
+bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] 
+hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] 
+flex items-center justify-center focus:outline-none focus:ring-0 px-4"
 
 
 style={{
@@ -265,12 +264,13 @@ whiteSpace: 'nowrap'
 
 <button
   onClick={() => alert('Jump to Round clicked')}
-  className="flex-1 min-h-[56px] rounded-[5px] border-2 border-white text-white font-medium 
+  className="flex-1 min-h-[45px] rounded-[5px] border-2 border-white text-white font-medium 
              bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] 
              hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] 
              flex items-center justify-center focus:outline-none focus:ring-0 px-4"
   style={{
     fontSize: '12px',
+    color: 'white',
     whiteSpace: 'nowrap'
   }}
 >
@@ -280,7 +280,10 @@ whiteSpace: 'nowrap'
 
 <button
 onClick={() => alert('Next Draw clicked')}
-className="flex-1 h-10 rounded-[5px] border border-[rgba(255,255,255,0.2)] text-white font-medium bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] flex items-center justify-center focus:outline-none focus:ring-0"
+className="flex-1 min-h-[45px] rounded-[5px] border-2 border-white text-white font-medium 
+bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] 
+hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] 
+flex items-center justify-center focus:outline-none focus:ring-0 px-4"
 style={{
 color: 'white',
 fontSize: '12px',
