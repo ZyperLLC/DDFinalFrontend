@@ -182,11 +182,14 @@ onClick={handleUserWithdraw}
 <div className="flex flex-row items-center mb-6 w-full max-w-[520px] mx-auto px-4" style={{ gap: '20px' }}>
 <div className="relative" style={{ width: '75%' }}>
 <input
-type="text"
-placeholder="🔎 Search"
-value={searchQuery}
-onChange={(e) => setSearchQuery(e.target.value)}
-className="w-full h-12 bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] rounded-2xl py-3 pl-12 pr-4 text-white placeholder-gray-400 focus:outline-none focus:border-[rgba(255,255,255,0.3)] transition-all backdrop-blur-[10px] hover:scale-105 hover:border-white"
+  type="text"
+  placeholder="🔎 Search"
+  value={searchQuery}
+  onChange={(e) => setSearchQuery(e.target.value)}
+  className="w-full h-12 bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] 
+  rounded-full appearance-none py-3 pl-12 pr-4 text-white placeholder-gray-400 
+  focus:outline-none focus:border-[rgba(255,255,255,0.3)] 
+  transition-all backdrop-blur-[10px] hover:scale-105 hover:border-white"
 style={{
 color: 'white',
 fontSize: '16px'
