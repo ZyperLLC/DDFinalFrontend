@@ -239,8 +239,8 @@ export default function Profile() {
             </div>
           )}
 
-          {/* Navigation Buttons - Updated with proper edge spacing */}
-          <div className="flex items-center justify-between mt-6 w-full px-4" style={{ gap: '12px' }}>
+          {/* Navigation Buttons - Properly spaced inside the card */}
+          <div className="flex items-center justify-between mt-6 mx-4" style={{ gap: '12px' }}>
             <button
               onClick={() => alert('Prev Draw clicked')}
               className="flex-1 min-h-[42px] rounded-[8px] border-2 border-white text-white font-medium 
