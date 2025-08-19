@@ -220,7 +220,7 @@ style={{ background: "rgba(35,35,88,0.92)" }}>
 <div className="flex flex-col gap-3">
 {/* Draw Info example, add dynamic if you want */}
 <div 
-  className="font-semibold mb-2 flex items-center gap-2 text-[28px]" 
+  className="font-semibold mb-2 flex items-center gap-2 text-[18px]" 
   style={{ color: 'white' }}
 >
   Draw #34 <span className="px-2" style={{ color: 'white' }}> · </span> 15 Aug 2025
