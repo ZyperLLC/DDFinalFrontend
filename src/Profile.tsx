@@ -226,42 +226,42 @@ export default function Profile() {
               >
                 <div className="divide-y divide-white/20">
                   <div 
-                    className="px-4 py-3 cursor-pointer transition-all duration-200 hover:bg-white/15"
+                    className="px-6 py-4 cursor-pointer transition-all duration-200 hover:bg-white/15"
                     onClick={() => {
                       console.log('Wins only selected');
                       setFilterOpen(false);
                     }}
-                    style={{ color: '#ffffff', fontSize: '14px', fontWeight: '500', textAlign: 'center' }}
+                    style={{ color: '#ffffff', fontSize: '16px', fontWeight: '500', textAlign: 'center' }}
                   >
                     Wins only
                   </div>
                   <div 
-                    className="px-4 py-3 cursor-pointer transition-all duration-200 hover:bg-white/15"
+                    className="px-6 py-4 cursor-pointer transition-all duration-200 hover:bg-white/15"
                     onClick={() => {
                       console.log('Loss only selected');
                       setFilterOpen(false);
                     }}
-                    style={{ color: '#ffffff', fontSize: '14px', fontWeight: '500', textAlign: 'center' }}
+                    style={{ color: '#ffffff', fontSize: '16px', fontWeight: '500', textAlign: 'center' }}
                   >
                     Loss only
                   </div>
                   <div 
-                    className="px-4 py-3 cursor-pointer transition-all duration-200 hover:bg-white/15"
+                    className="px-6 py-4 cursor-pointer transition-all duration-200 hover:bg-white/15"
                     onClick={() => {
                       console.log('Specific date selected');
                       setFilterOpen(false);
                     }}
-                    style={{ color: '#ffffff', fontSize: '14px', fontWeight: '500', textAlign: 'center' }}
+                    style={{ color: '#ffffff', fontSize: '16px', fontWeight: '500', textAlign: 'center' }}
                   >
                     Specific date
                   </div>
                   <div 
-                    className="px-4 py-3 cursor-pointer transition-all duration-200 hover:bg-white/15"
+                    className="px-6 py-4 cursor-pointer transition-all duration-200 hover:bg-white/15"
                     onClick={() => {
                       console.log('Specific round id selected');
                       setFilterOpen(false);
                     }}
-                    style={{ color: '#ffffff', fontSize: '14px', fontWeight: '500', textAlign: 'center' }}
+                    style={{ color: '#ffffff', fontSize: '16px', fontWeight: '500', textAlign: 'center' }}
                   >
                     Specific round id
                   </div>
@@ -303,7 +303,7 @@ export default function Profile() {
           )}
 
           {/* Navigation Buttons */}
-          <div className="flex items-center justify-between mt-6 mx-4" style={{ gap: '12px' }}>
+          <div className="flex items-center justify-between mt-6 mx-4" style={{ gap: '8px' }}>
             <button
               className="flex-1 min-h-[42px] rounded-[8px] border-2 border-[rgba(255,255,255,0.3)] 
               text-white font-medium bg-transparent 
