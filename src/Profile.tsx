@@ -51,7 +51,6 @@ import { UserContext } from './Context/UserContextProvider';
 import { motion } from 'framer-motion';
 import { slideUpFade } from './utils/animations';
 import { getBettingRoundById } from './api/userApi';
-import { Search } from 'lucide-react';
 
 export default function Profile() {
   const { t } = useTranslation();
@@ -108,7 +107,7 @@ export default function Profile() {
   // Filter enhancedBets based on search query (search by betId)
   const filteredBets = enhancedBets.filter(({ bet }) => {
     if (!searchQuery.trim()) return true;
-    return `${bet.betId}`.includes(searchQuery.trim());
+    return String(bet.betId).includes(searchQuery.trim());
   });
 
   return (
@@ -178,17 +177,15 @@ export default function Profile() {
       </SectionBox>
 
       <SectionBox title={t('profile.gameHistory')}>
-        {/* Search and Filter Section - Updated Design */}
         <div className="flex flex-row items-center mb-6 w-full max-w-[520px] mx-auto px-4" style={{ gap: '20px' }}>
           <div className="relative" style={{ width: '75%' }}>
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white w-5 h-5 pointer-events-none" />
             <input
               type="text"
-              placeholder="Search"
+              placeholder="🔎 Search"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full h-12 bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] 
-              rounded-[10px] appearance-none pl-12 pr-4 text-white placeholder-gray-400 
+              rounded-[10px] appearance-none py-3 pl-12 pr-4 text-white placeholder-gray-400 
               focus:outline-none focus:border-[rgba(255,255,255,0.3)] 
               transition-all backdrop-blur-[10px] hover:scale-105 hover:border-white"
               style={{
@@ -210,16 +207,13 @@ export default function Profile() {
           </button>
         </div>
 
-        {/* Game list & buttons */}
         <div className="w-full max-w-[520px] mx-auto bg-[#232358] rounded-2xl p-5 sm:p-7 shadow-xl"
           style={{ background: "rgba(35,35,88,0.92)" }}
         >
-          {/* Bets List */}
           {filteredBets.length === 0 ? (
             <p className="text-center text-white">No games matched your search</p>
           ) : (
             <div className="flex flex-col gap-3">
-              {/* Draw Info example, add dynamic if you want */}
               <div 
                 className="font-semibold mb-2 flex items-center gap-2 text-[22px]" 
                 style={{ color: 'white', padding: '15px' }}
@@ -231,70 +225,61 @@ export default function Profile() {
                 <GameHistoryCard
                   key={index}
                   image={dolphinImages[bet.numberBettedOn]}
-                  cost={`${bet.amountBet}`}
-                  prize={`${bet.amountWon}`}
+                  cost={bet.amountBet}
+                  prize={bet.amountWon}
                   useTon={bet.useTon}
-                  betId={`${bet.betId}`}
+                  betId={bet.betId}
                   result={bet.hasWon ? 'win' : 'lose'}
                 />
               ))}
             </div>
           )}
 
-          {/* Navigation Buttons - Fixed with proper spacing and text */}
-          <div className="flex items-center justify-between mt-6 w-full" style={{ gap: '12px' }}>
-          <button
-onClick={() => alert('Prev Draw clicked')}
-className="flex-1 min-h-[42px] rounded-[8px] border-2 border-white text-white font-medium 
-bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] 
-hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] 
-flex items-center justify-center focus:outline-none focus:ring-0 px-4"
+          <div className="flex items-center justify-between mt-6 w-full px-4" style={{ gap: '12px' }}>
+            <button
+              onClick={() => alert('Prev Draw clicked')}
+              className="flex-1 min-h-[42px] rounded-[8px] border-2 border-white text-white font-medium 
+              bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] 
+              hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] 
+              flex items-center justify-center focus:outline-none focus:ring-0 px-4"
+              style={{
+                color: 'white',
+                fontSize: '14px',
+                whiteSpace: 'nowrap'
+              }}
+            >
+              ← Prev Draw
+            </button>
 
+            <button
+              onClick={() => alert('Jump to Round clicked')}
+              className="flex-1 min-h-[42px] rounded-[8px] border-2 border-white text-white font-medium 
+              bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] 
+              hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] 
+              flex items-center justify-center focus:outline-none focus:ring-0 px-4"
+              style={{
+                color: 'white',
+                fontSize: '14px',
+                whiteSpace: 'nowrap'
+              }}
+            >
+              Jump to Round
+            </button>
 
-style={{
-color: 'white',
-fontSize: '12px',
-background: 'rgba(255,255,255,0.05)',
-padding: '0 8px',
-whiteSpace: 'nowrap'
-}}
->
-← Prev Draw
-</button>
-
-<button
-  onClick={() => alert('Jump to Round clicked')}
-  className="flex-1 min-h-[42px] rounded-[8px] border-2 border-white text-white font-medium 
-             bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] 
-             hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] 
-             flex items-center justify-center focus:outline-none focus:ring-0 px-4"
-  style={{
-    fontSize: '12px',
-    color: 'white',
-    whiteSpace: 'nowrap'
-  }}
->
-  Jump to Round
-</button>
-
-
-<button
-onClick={() => alert('Next Draw clicked')}
-className="flex-1 min-h-[42px] rounded-[8px] border-2 border-white text-white font-medium 
-bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] 
-hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] 
-flex items-center justify-center focus:outline-none focus:ring-0 px-4"
-style={{
-color: 'white',
-fontSize: '12px',
-background: 'rgba(255,255,255,0.05)',
-padding: '0 8px',
-whiteSpace: 'nowrap'
-}}
->
-Next Draw →
-</button>
-
+            <button
+              onClick={() => alert('Next Draw clicked')}
+              className="flex-1 min-h-[42px] rounded-[8px] border-2 border-white text-white font-medium 
+              bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] 
+              hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] 
+              flex items-center justify-center focus:outline-none focus:ring-0 px-4"
+              style={{
+                color: 'white',
+                fontSize: '14px',
+                whiteSpace: 'nowrap'
+              }}
+            >
+              Next Draw →
+            </button>
           </div>
         </div>
       </SectionBox>
