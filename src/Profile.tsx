@@ -178,39 +178,35 @@ export default function Profile() {
       </SectionBox>
       
       <SectionBox title={t('profile.gameHistory')}>
-        {/* Search and Filter Section - Fixed Layout */}
-        <div className="w-full max-w-[520px] mx-auto px-4 mb-6">
-          <div className="flex items-center gap-3 w-full">
-            {/* Search Input Container */}
-            <div className="relative flex-1">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 pointer-events-none z-10" />
-              <input
-                type="text"
-                placeholder="Search"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full h-12 bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] rounded-2xl py-3 pl-12 pr-4 text-white placeholder-gray-400 focus:outline-none focus:border-[rgba(255,255,255,0.3)] transition-all backdrop-blur-[10px] hover:scale-105 hover:border-white"
-                style={{ 
-                  color: 'white',
-                  fontSize: '16px',
-                }}
-              />
-            </div>
-            
-            {/* Filter Button */}
-            <button
-              onClick={() => alert('Filter clicked!')}
-              className="h-12 px-4 bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] text-white rounded-2xl hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white transition-all font-medium backdrop-blur-[10px] flex-shrink-0"
+         {/* Search and Filter Section - Updated Design */}
+         <div className="flex flex-row items-center mb-6 w-full max-w-[520px] mx-auto px-4" style={{ gap: '20px' }}>
+          <div className="relative" style={{ width: '75%' }}>
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 pointer-events-none" />
+            <input
+              type="text"
+              placeholder="Search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full h-12 bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] rounded-2xl py-3 pl-12 pr-4 text-white placeholder-gray-400 focus:outline-none focus:border-[rgba(255,255,255,0.3)] transition-all backdrop-blur-[10px] hover:scale-105 hover:border-white"
               style={{ 
                 color: 'white',
-                fontSize: '16px',
-                minWidth: '80px'
+                fontSize: '16px'
               }}
-            >
-              Filters
-            </button>
+            />
           </div>
+          <button
+            onClick={() => alert('Filter clicked!')}
+            className="h-12 px-6 bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] text-white rounded-2xl hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white transition-all font-medium backdrop-blur-[10px] whitespace-nowrap"
+            style={{ 
+              color: 'white',
+              fontSize: '16px',
+              width: '25%'
+            }}
+          >
+            Filters
+          </button>
         </div>
+
 
         {/* Game list & buttons */}
         <div className="w-full max-w-[520px] mx-auto bg-[#232358] rounded-2xl p-5 sm:p-7 shadow-xl"
