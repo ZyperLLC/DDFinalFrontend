@@ -47,12 +47,10 @@ import dolphin36 from './assets/dolphins/dolphin36.png';
 import LogoDisplay from './components/LogoDisplay';
 import ConnectWalletCard from './components/ConnectWalletCard';
 import StakedNFTCard from './components/StakedNFTCard';
-import GameHistoryCard from './components/GameHistoryCard';
 import SectionBox from './components/SectionBox';
 import WithdrawPopup from './components/Withdrawpopup';
 // import BuyCredits from './components/BuyCredits';
 // import Button from './components/Button';
-
 
 import './index.css';
 import { UserContext } from './Context/UserContextProvider';
@@ -60,13 +58,14 @@ import { motion } from 'framer-motion';
 import { slideUpFade } from './utils/animations';
 import { getBettingRoundById } from './api/userApi';
 
+import { Search, Filter, ChevronLeft, ChevronRight } from "lucide-react";
+
+
 export default function Profile() {
   const { t } = useTranslation();
   const context = useContext(UserContext);
   const isWalletConnected = !!context?.user.walletAddress;
   const [isWithdrawPopupVisible, setIsWithdrawPopupVisible] = useState(false);
-  // const [showBuyCredits, setShowBuyCredits] = useState(false);
-  // const navigate = useNavigate();
 
   const [enhancedBets, setEnhancedBets] = useState<
     { bet: any; startedAt: Date }[]
@@ -120,12 +119,6 @@ export default function Profile() {
     fetchBettingRounds();
   }, [context?.user.bets]);
 
-  const totalPages = Math.ceil(enhancedBets.length / itemsPerPage);
-  const paginatedBets = enhancedBets.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
-  console.log(paginatedBets);
   return (
     <motion.div
       variants={slideUpFade}
@@ -141,17 +134,6 @@ export default function Profile() {
     >
       <LogoDisplay />
       <ConnectWalletCard />
-
-      {/* Buy Credits Button */}
-         {/* <div className="w-full flex justify-center my-6">
-             <Button
-              text="Buy Credits"
-             onClick={() => navigate('/buy-credits')}
-             className="bg-blue-600 hover:bg-blue-700 w-[80%]"
-             />
-
-          </div> */}
-
 
       {isWalletConnected && (
         <div className="w-full mt-6 mb-6 px-4">
@@ -204,52 +186,9 @@ export default function Profile() {
         ))}
       </SectionBox>
 
+      {/* New GameHistory UI Replacing Old */}
       <SectionBox title={t('profile.gameHistory')}>
-        {enhancedBets.length === 0 ? (
-          <p style={{ color: 'white' }} className="text-center">No games played yet</p>
-        ) : (
-          <>
-            {paginatedBets.map(({ bet }, index) => (
-              <GameHistoryCard
-                key={index}
-                image={dolphinImages[bet.numberBettedOn]}
-                cost={`${bet.amountBet}`}
-                prize={`${bet.amountWon}`}
-                useTon={bet.useTon}
-                betId={`${bet.betId}`}
-                result={bet.hasWon ? 'win' : 'lose'}
-              />
-            ))}
-
-            <div className="flex justify-center items-center mt-4 gap-2 text-white">
-              <button
-                className="px-3 py-1 rounded bg-gray-700 hover:bg-gray-600 disabled:opacity-50"
-                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-                disabled={currentPage === 1}
-              >
-                Previous
-              </button>
-
-              {Array.from({ length: totalPages }, (_, i) => (
-                <button
-                  key={i}
-                  className={`px-3 py-1 rounded ${currentPage === i + 1 ? 'bg-blue-600' : 'bg-gray-700'} hover:bg-gray-600`}
-                  onClick={() => setCurrentPage(i + 1)}
-                >
-                  {i + 1}
-                </button>
-              ))}
-
-              <button
-                className="px-3 py-1 rounded bg-gray-700 hover:bg-gray-600 disabled:opacity-50"
-                onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-                disabled={currentPage === totalPages}
-              >
-                Next
-              </button>
-            </div>
-          </>
-        )}
+        <GameHistoryUI />
       </SectionBox>
 
       <Navbar />
@@ -265,4 +204,124 @@ export default function Profile() {
       )}
     </motion.div>
   );
+}
+
+
+// ✅ Extracted GameHistory UI into a sub-component used inside Profile
+function GameHistoryUI() {
+  const [currentDraw, setCurrentDraw] = useState(34)
+  const [currentDate, setCurrentDate] = useState("15 Aug 2025")
+  const [searchQuery, setSearchQuery] = useState("")
+
+  const [gameEntries, setGameEntries] = useState([
+    {
+      id: 1,
+      playerName: "Harmonix",
+      entryAmount: "0.1",
+      status: "Lose",
+      avatar: "/blue-character-orange-suit.png",
+    },
+    {
+      id: 2,
+      playerName: "Harmonix",
+      entryAmount: "0.1",
+      status: "Lose",
+      avatar: "/blue-character-orange-suit.png",
+    },
+    {
+      id: 3,
+      playerName: "Harmonix",
+      entryAmount: "0.1",
+      status: "Lose",
+      avatar: "/blue-character-orange-suit.png",
+    },
+  ])
+
+  const handlePrevDraw = () => {
+    setCurrentDraw((prev) => Math.max(1, prev - 1))
+  }
+  const handleNextDraw = () => {
+    setCurrentDraw((prev) => prev + 1)
+  }
+  const handleJumpToRound = () => {
+    console.log("Jump to round clicked")
+  }
+
+  return (
+    <div className="w-full text-white">
+      {/* Search and Filters */}
+      <div className="flex gap-4 mb-8">
+        <div className="flex-1 relative">
+          <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+          <input
+            type="text"
+            placeholder="Search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl py-4 pl-12 pr-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+          />
+        </div>
+        <button className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl px-6 py-4 flex items-center gap-2 hover:bg-white/20 transition-colors">
+          <Filter className="w-5 h-5" />
+          Filters
+        </button>
+      </div>
+
+      {/* Draw Info */}
+      <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-3xl p-6 mb-6">
+        <h2 className="text-2xl font-bold mb-6">
+          Draw #{currentDraw} • {currentDate}
+        </h2>
+
+        {/* Game Entries */}
+        <div className="space-y-4">
+          {gameEntries.map((entry) => (
+            <div key={entry.id} className="flex items-center justify-between p-4 bg-white/5 rounded-2xl">
+              <div className="flex items-center gap-4">
+                <img
+                  src={entry.avatar || "/placeholder.svg"}
+                  alt={entry.playerName}
+                  className="w-16 h-16 rounded-full border-2 border-yellow-400"
+                />
+                <div>
+                  <h3 className="text-xl font-semibold">{entry.playerName}</h3>
+                  <div className="flex items-center gap-1 text-gray-300">
+                    <span>Entry: {entry.entryAmount}</span>
+                    <span className="text-yellow-400">⭐</span>
+                  </div>
+                </div>
+              </div>
+              <div className="bg-red-500 hover:bg-red-600 transition-colors px-6 py-2 rounded-xl font-semibold">
+                {entry.status}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Navigation */}
+      <div className="flex gap-4 justify-center">
+        <button
+          onClick={handlePrevDraw}
+          className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl px-6 py-4 flex items-center gap-2 hover:bg-white/20 transition-colors"
+        >
+          <ChevronLeft className="w-5 h-5" />
+          Prev Draw
+        </button>
+        <button
+          onClick={handleJumpToRound}
+          className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl px-8 py-4 hover:bg-white/20 transition-colors font-semibold"
+        >
+          Jump to Round
+        </button>
+        <button
+          onClick={handleNextDraw}
+          className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl px-6 py-4 flex items-center gap-2 hover:bg-white/20 transition-colors"
+        >
+          Next Draw
+          <ChevronRight className="w-5 h-5" />
+        </button>
+      </div>
+    </div>
+  )
 }
