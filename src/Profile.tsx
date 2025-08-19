@@ -258,7 +258,7 @@ whiteSpace: 'nowrap'
 
 <button
 onClick={() => alert('Jump to Round clicked')}
-className="flex-1 h-20 rounded-[10px] border-2 border-white text-white font-medium bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] flex items-center justify-center focus:outline-none focus:ring-0"
+className="flex-1 h-10 rounded-[5px] border-2 border-white text-white font-medium bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] flex items-center justify-center focus:outline-none focus:ring-0"
 style={{
 color: 'white',
 fontSize: '12px',
