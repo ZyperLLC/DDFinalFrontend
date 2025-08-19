@@ -217,15 +217,15 @@ export default function Profile() {
             {/* Dropdown */}
             {filterOpen && (
               <div
-                className="absolute mt-2 w-full border border-[rgba(255,255,255,0.2)] 
-        rounded-lg shadow-lg z-10 overflow-hidden backdrop-blur-md"
+                className="absolute top-full mt-2 w-full border border-white/20 rounded-lg shadow-xl z-50 overflow-hidden backdrop-blur-sm"
                 style={{
-                  backgroundColor: 'rgba(0,0,0,0.55)',
+                  backgroundColor: 'rgba(255,255,255,0.1)',
+                  boxShadow: '0 8px 32px rgba(0,0,0,0.4)'
                 }}
               >
-                <ul className="list-none text-white text-sm">
+                <ul className="list-none m-0 p-0">
                   <li 
-                    className="px-4 py-3 hover:bg-[rgba(255,255,255,0.15)] cursor-pointer border-b border-[rgba(255,255,255,0.1)] transition-colors"
+                    className="px-4 py-3 text-white text-sm hover:bg-white/20 cursor-pointer border-b border-white/10 transition-all duration-200"
                     onClick={() => {
                       console.log('Wins only selected');
                       setFilterOpen(false);
@@ -234,7 +234,7 @@ export default function Profile() {
                     Wins only
                   </li>
                   <li 
-                    className="px-4 py-3 hover:bg-[rgba(255,255,255,0.15)] cursor-pointer border-b border-[rgba(255,255,255,0.1)] transition-colors"
+                    className="px-4 py-3 text-white text-sm hover:bg-white/20 cursor-pointer border-b border-white/10 transition-all duration-200"
                     onClick={() => {
                       console.log('Loss only selected');
                       setFilterOpen(false);
@@ -243,7 +243,7 @@ export default function Profile() {
                     Loss only
                   </li>
                   <li 
-                    className="px-4 py-3 hover:bg-[rgba(255,255,255,0.15)] cursor-pointer border-b border-[rgba(255,255,255,0.1)] transition-colors"
+                    className="px-4 py-3 text-white text-sm hover:bg-white/20 cursor-pointer border-b border-white/10 transition-all duration-200"
                     onClick={() => {
                       console.log('Specific date selected');
                       setFilterOpen(false);
@@ -252,7 +252,7 @@ export default function Profile() {
                     Specific date
                   </li>
                   <li 
-                    className="px-4 py-3 hover:bg-[rgba(255,255,255,0.15)] cursor-pointer transition-colors"
+                    className="px-4 py-3 text-white text-sm hover:bg-white/20 cursor-pointer transition-all duration-200"
                     onClick={() => {
                       console.log('Specific round id selected');
                       setFilterOpen(false);
@@ -300,9 +300,9 @@ export default function Profile() {
           {/* Navigation Buttons */}
           <div className="flex items-center justify-between mt-6 mx-4" style={{ gap: '12px' }}>
             <button
-              className="flex-1 min-h-[42px] rounded-[8px] border-2 border-white text-white font-medium 
-              bg-transparent hover:bg-[rgba(255,255,255,0.15)] 
-                         hover:scale-105 hover:border-white transition-all 
+              className="flex-1 min-h-[42px] rounded-[8px] border-2  text-white font-medium 
+                         bg-transparent hover:bg-[rgba(255,255,255,0.15)] 
+                         hover:scale-105 hover:border-white transition-all  
                          flex items-center justify-center focus:outline-none focus:ring-0"
               style={{ fontSize: '12px', color: 'white', whiteSpace: 'nowrap' }}
             >
@@ -310,9 +310,9 @@ export default function Profile() {
             </button>
 
             <button
-              className="flex-1 min-h-[42px] rounded-[8px] border-2 border-white text-white font-medium 
-                         bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] 
-                         hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] 
+              className="flex-1 min-h-[42px] rounded-[8px] border-2  text-white font-medium 
+                         bg-transparent hover:bg-[rgba(255,255,255,0.15)] 
+                         hover:scale-105 hover:border-white transition-all 
                          flex items-center justify-center focus:outline-none focus:ring-0"
               style={{ fontSize: '12px', color: 'white', whiteSpace: 'nowrap' }}
             >
@@ -320,7 +320,7 @@ export default function Profile() {
             </button>
 
             <button
-              className="flex-1 min-h-[42px] rounded-[8px] border-2 border-white text-white font-medium 
+              className="flex-1 min-h-[42px] rounded-[8px] border-2 text-white font-medium 
                          bg-transparent hover:bg-[rgba(255,255,255,0.15)] 
                          hover:scale-105 hover:border-white transition-all 
                          flex items-center justify-center focus:outline-none focus:ring-0"
