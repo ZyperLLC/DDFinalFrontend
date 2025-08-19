@@ -185,10 +185,10 @@ export default function Profile() {
               placeholder="🔎 Search"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full h-28 bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] 
-              rounded-[10px] appearance-none py-3 pl-12 pr-4 text-white placeholder-gray-400 
-              focus:outline-none focus:border-[rgba(255,255,255,0.3)] 
-              transition-all backdrop-blur-[10px] hover:scale-105 hover:border-white"
+              className="w-full h-[100px] bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] 
+  rounded-[10px] appearance-none pl-12 pr-4 text-white placeholder-gray-400 
+  focus:outline-none focus:border-[rgba(255,255,255,0.3)] 
+  transition-all backdrop-blur-[10px] "
               style={{
                 color: 'white',
                 fontSize: '16px'
@@ -197,7 +197,9 @@ export default function Profile() {
           </div>
           <button
             onClick={() => alert('Filter clicked!')}
-            className="h-28 px-6 bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] rounded-[10px] text-white rounded-2xl hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white transition-all font-medium backdrop-blur-[10px] whitespace-nowrap"
+            className="h-[100px] px-6 bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] 
+  rounded-[10px] text-white hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 
+  hover:border-white transition-all font-medium backdrop-blur-[10px] whitespace-nowrap w-[25%] text-lg"
             style={{
               color: 'white',
               fontSize: '16px',
