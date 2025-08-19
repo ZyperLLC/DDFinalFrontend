@@ -47,6 +47,8 @@ import StakedNFTCard from './components/StakedNFTCard';
 import GameHistoryCard from './components/GameHistoryCard';
 import SectionBox from './components/SectionBox';
 import WithdrawPopup from './components/Withdrawpopup';
+// import BuyCredits from './components/BuyCredits';
+// import Button from './components/Button';
 import './index.css';
 import { UserContext } from './Context/UserContextProvider';
 import { motion } from 'framer-motion';
@@ -201,33 +203,33 @@ export default function Profile() {
               <GameHistoryCard
                 key={index}
                 image={dolphinImages[bet.numberBettedOn]}
-                cost={`${bet.amountBet}`}
-                prize={`${bet.amountWon}`}
+                cost={bet.amountBet}
+                prize={bet.amountWon}
                 useTon={bet.useTon}
-                betId={`${bet.betId}`}
+                betId={bet.betId}
                 result={bet.hasWon ? 'win' : 'lose'}
               />
             ))}
-            {/* Navigation Buttons – Styled like UI */}
-            <div className="mt-10 flex flex-row items-center justify-center gap-3 max-w-[500px] mx-auto">
+            {/* Navigation Buttons Below Game Cards */}
+            <div className="mt-6 flex justify-center gap-4 max-w-[500px] mx-auto">
               <button
                 onClick={() => alert('Prev Draw clicked')}
-                className="px-6 py-3 rounded-xl border border-white text-white font-semibold bg-transparent hover:bg-white/10 transition min-w-[120px]"
+                className="py-3 px-6 rounded-xl border border-white text-white font-semibold bg-transparent hover:bg-white/10 transition"
+                style={{ minWidth: '120px' }}
               >
                 ← Prev Draw
               </button>
               <button
                 onClick={() => alert('Jump to Round clicked')}
-                className="px-6 py-3 rounded-xl border-2 border-white text-white font-semibold bg-[#232358] hover:bg-white/10 transition min-w-[150px]"
-                style={{
-                  boxShadow: "0 0 0 2px #232358, 0 2px 8px rgba(0,0,0,0.08)"
-                }}
+                className="py-3 px-6 rounded-xl border border-white text-white font-semibold bg-transparent hover:bg-white/10 transition"
+                style={{ minWidth: '120px' }}
               >
                 Jump to Round
               </button>
               <button
                 onClick={() => alert('Next Draw clicked')}
-                className="px-6 py-3 rounded-xl border border-white text-white font-semibold bg-transparent hover:bg-white/10 transition min-w-[120px]"
+                className="py-3 px-6 rounded-xl border border-white text-white font-semibold bg-transparent hover:bg-white/10 transition"
+                style={{ minWidth: '120px' }}
               >
                 Next Draw →
               </button>
