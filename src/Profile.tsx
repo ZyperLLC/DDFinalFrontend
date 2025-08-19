@@ -201,44 +201,70 @@ export default function Profile() {
           </div>
 
           <div className="relative w-[25%]">
-  <button
-    onClick={() => setFilterOpen(!filterOpen)}
-    className="h-[40px] px-6 bg-transparent border border-[rgba(255,255,255,0.15)] 
-    rounded-[10px] text-white hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 
-    hover:border-white transition-all font-medium whitespace-nowrap w-full text-lg"
-    style={{
-      color: 'white',
-      fontSize: '16px',
-    }}
-  >
-    Filters
-  </button>
+            <button
+              onClick={() => setFilterOpen(!filterOpen)}
+              className="h-[40px] px-6 bg-transparent border border-[rgba(255,255,255,0.15)] 
+      rounded-[10px] text-white hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 
+      hover:border-white transition-all font-medium whitespace-nowrap w-full text-lg"
+              style={{
+                color: 'white',
+                fontSize: '16px',
+              }}
+            >
+              Filters
+            </button>
 
-  {/* Dropdown */}
-  <div
-    className={`absolute mt-2 w-full border border-[rgba(255,255,255,0.2)] 
-    rounded-lg shadow-lg z-10 overflow-hidden
-    backdrop-blur-md bg-[rgba(0,0,0,0.55)]  /* 🔥 darker transparent glass */
-    transition-all duration-300 ease-in-out
-    ${filterOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2 pointer-events-none"}`}
-  >
-    <ul className="list-none text-white text-sm divide-y divide-[rgba(255,255,255,0.15)]">
-      <li className="px-4 py-2 hover:bg-[rgba(255,255,255,0.15)] cursor-pointer">
-        Wins only
-      </li>
-      <li className="px-4 py-2 hover:bg-[rgba(255,255,255,0.15)] cursor-pointer">
-        Loss only
-      </li>
-      <li className="px-4 py-2 hover:bg-[rgba(255,255,255,0.15)] cursor-pointer">
-        Specific date
-      </li>
-      <li className="px-4 py-2 hover:bg-[rgba(255,255,255,0.15)] cursor-pointer">
-        Specific round id
-      </li>
-    </ul>
-  </div>
-</div>
-</div>
+            {/* Dropdown */}
+            {filterOpen && (
+              <div
+                className="absolute mt-2 w-full border border-[rgba(255,255,255,0.2)] 
+        rounded-lg shadow-lg z-10 overflow-hidden backdrop-blur-md"
+                style={{
+                  backgroundColor: 'rgba(0,0,0,0.55)',
+                }}
+              >
+                <ul className="list-none text-white text-sm">
+                  <li 
+                    className="px-4 py-3 hover:bg-[rgba(255,255,255,0.15)] cursor-pointer border-b border-[rgba(255,255,255,0.1)] transition-colors"
+                    onClick={() => {
+                      console.log('Wins only selected');
+                      setFilterOpen(false);
+                    }}
+                  >
+                    Wins only
+                  </li>
+                  <li 
+                    className="px-4 py-3 hover:bg-[rgba(255,255,255,0.15)] cursor-pointer border-b border-[rgba(255,255,255,0.1)] transition-colors"
+                    onClick={() => {
+                      console.log('Loss only selected');
+                      setFilterOpen(false);
+                    }}
+                  >
+                    Loss only
+                  </li>
+                  <li 
+                    className="px-4 py-3 hover:bg-[rgba(255,255,255,0.15)] cursor-pointer border-b border-[rgba(255,255,255,0.1)] transition-colors"
+                    onClick={() => {
+                      console.log('Specific date selected');
+                      setFilterOpen(false);
+                    }}
+                  >
+                    Specific date
+                  </li>
+                  <li 
+                    className="px-4 py-3 hover:bg-[rgba(255,255,255,0.15)] cursor-pointer transition-colors"
+                    onClick={() => {
+                      console.log('Specific round id selected');
+                      setFilterOpen(false);
+                    }}
+                  >
+                    Specific round id
+                  </li>
+                </ul>
+              </div>
+            )}
+          </div>
+        </div>
 
         {/* Game list & buttons */}
         <div className="w-full max-w-[520px] mx-auto bg-[#232358] rounded-2xl p-5 sm:p-7 shadow-xl"
@@ -272,7 +298,7 @@ export default function Profile() {
           )}
 
           {/* Navigation Buttons */}
-          <div className="flex items-center justify-between mt-6" style={{ gap: '12px' }}>
+          <div className="flex items-center justify-between mt-6 mx-4" style={{ gap: '12px' }}>
             <button
               className="flex-1 min-h-[42px] rounded-[8px] border-2 border-white text-white font-medium 
                          bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] 
