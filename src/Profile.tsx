@@ -234,16 +234,17 @@ export default function Profile() {
             </div>
           )}
           
-          {/* Navigation Buttons - Updated with proper spacing and text */}
-          <div className="flex items-center mt-16 w-full gap-5">
+          {/* Navigation Buttons - Fixed with proper spacing and text */}
+          <div className="flex items-center justify-between mt-8 w-full" style={{ gap: '12px' }}>
             <button
               onClick={() => alert('Prev Draw clicked')}
-              className="flex-1 h-12 rounded-xl border border-[rgba(255,255,255,0.2)] text-white font-medium bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] flex items-center justify-center focus:outline-none focus:ring-0"
+              className="flex-1 h-10 rounded-xl border border-[rgba(255,255,255,0.2)] text-white font-medium bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] flex items-center justify-center focus:outline-none focus:ring-0"
               style={{ 
                 color: 'white',
-                fontSize: '14px',
+                fontSize: '12px',
                 background: 'rgba(255,255,255,0.05)',
-                padding: '0 12px'
+                padding: '0 8px',
+                whiteSpace: 'nowrap'
               }}
             >
               ← Prev Draw
@@ -251,13 +252,14 @@ export default function Profile() {
             
             <button
               onClick={() => alert('Jump to Round clicked')}
-              className="flex-1 h-12 rounded-xl border-2 border-white text-white font-medium bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] flex items-center justify-center focus:outline-none focus:ring-0"
+              className="flex-1 h-10 rounded-xl border-2 border-white text-white font-medium bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] flex items-center justify-center focus:outline-none focus:ring-0"
               style={{
                 color: 'white',
-                fontSize: '14px',
+                fontSize: '12px',
                 background: 'rgba(255,255,255,0.08)',
                 borderColor: 'white',
-                padding: '0 12px'
+                padding: '0 8px',
+                whiteSpace: 'nowrap'
               }}
             >
               Jump to Round
@@ -265,12 +267,13 @@ export default function Profile() {
             
             <button
               onClick={() => alert('Next Draw clicked')}
-              className="flex-1 h-12 rounded-xl border border-[rgba(255,255,255,0.2)] text-white font-medium bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] flex items-center justify-center focus:outline-none focus:ring-0"
+              className="flex-1 h-10 rounded-xl border border-[rgba(255,255,255,0.2)] text-white font-medium bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] flex items-center justify-center focus:outline-none focus:ring-0"
               style={{ 
                 color: 'white',
-                fontSize: '14px',
+                fontSize: '12px',
                 background: 'rgba(255,255,255,0.05)',
-                padding: '0 12px'
+                padding: '0 8px',
+                whiteSpace: 'nowrap'
               }}
             >
               Next Draw →
