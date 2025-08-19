@@ -185,7 +185,7 @@ export default function Profile() {
               placeholder="🔎 Search"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full h-[100px] bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] 
+              className="w-full h-[60px] bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] 
   rounded-[10px] appearance-none pl-12 pr-4 text-white placeholder-gray-400 
   focus:outline-none focus:border-[rgba(255,255,255,0.3)] 
   transition-all backdrop-blur-[10px] "
@@ -197,7 +197,7 @@ export default function Profile() {
           </div>
           <button
             onClick={() => alert('Filter clicked!')}
-            className="h-[100px] px-6 bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] 
+            className="h-[60px] px-6 bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] 
   rounded-[10px] text-white hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 
   hover:border-white transition-all font-medium backdrop-blur-[10px] whitespace-nowrap w-[25%] text-lg"
             style={{
