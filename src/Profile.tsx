@@ -209,90 +209,82 @@ export default function Profile() {
         </div>
 
         {/* Game list & buttons */}
-        <div className="w-full max-w-[520px] mx-auto bg-[#232358] rounded-2xl p-5 sm:p-7 shadow-xl flex flex-col justify-between"
-          style={{ background: "rgba(35,35,88,0.92)", minHeight: "300px" }}
+        <div className="w-full max-w-[520px] mx-auto bg-[#232358] rounded-2xl p-5 sm:p-7 shadow-xl"
+          style={{ background: "rgba(35,35,88,0.92)" }}
         >
-          <div className="flex-1">
-            {/* Bets List */}
-            {filteredBets.length === 0 ? (
-              <p className="text-center text-white">No games matched your search</p>
-            ) : (
-              <div className="flex flex-col gap-3">
-                {/* Draw Info example, add dynamic if you want */}
-                <div 
-                  className="font-semibold mb-2 flex items-center gap-2 text-[22px]" 
-                  style={{ color: 'white', padding: '15px' }}
-                >
-                  Draw #34 <span className="px-2" style={{ color: 'white' }}> · </span> 15 Aug 2025
-                </div>
-
-                {filteredBets.map(({ bet }, index) => (
-                  <GameHistoryCard
-                    key={index}
-                    image={dolphinImages[bet.numberBettedOn]}
-                    cost={`${bet.amountBet}`}
-                    prize={`${bet.amountWon}`}
-                    useTon={bet.useTon}
-                    betId={`${bet.betId}`}
-                    result={bet.hasWon ? 'win' : 'lose'}
-                  />
-                ))}
+          {/* Bets List */}
+          {filteredBets.length === 0 ? (
+            <p className="text-center text-white">No games matched your search</p>
+          ) : (
+            <div className="flex flex-col gap-3">
+              {/* Draw Info example, add dynamic if you want */}
+              <div 
+                className="font-semibold mb-2 flex items-center gap-2 text-[22px]" 
+                style={{ color: 'white', padding: '15px' }}
+              >
+                Draw #34 <span className="px-2" style={{ color: 'white' }}> · </span> 15 Aug 2025
               </div>
-            )}
-          </div>
 
-          {/* Navigation Buttons pinned inside bottom of card */}
-          <div className="mt-6 pt-4 border-t border-[rgba(255,255,255,0.15)]">
-            <div className="flex items-center justify-between" style={{ gap: '12px' }}>
-              <button
-                onClick={() => alert('Prev Draw clicked')}
-                className="flex-1 min-h-[42px] rounded-[8px] border-2 border-white text-white font-medium 
-                bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] 
-                hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] 
-                flex items-center justify-center focus:outline-none focus:ring-0 px-4"
-                style={{
-                  color: 'white',
-                  fontSize: '12px',
-                  background: 'rgba(255,255,255,0.05)',
-                  padding: '0 8px',
-                  whiteSpace: 'nowrap'
-                }}
-              >
-                ← Prev Draw
-              </button>
-
-              <button
-                onClick={() => alert('Jump to Round clicked')}
-                className="flex-1 min-h-[42px] rounded-[8px] border-2 border-white text-white font-medium 
-                bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] 
-                hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] 
-                flex items-center justify-center focus:outline-none focus:ring-0 px-4"
-                style={{
-                  fontSize: '12px',
-                  color: 'white',
-                  whiteSpace: 'nowrap'
-                }}
-              >
-                Jump to Round
-              </button>
-
-              <button
-                onClick={() => alert('Next Draw clicked')}
-                className="flex-1 min-h-[42px] rounded-[8px] border-2 border-white text-white font-medium 
-                bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] 
-                hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] 
-                flex items-center justify-center focus:outline-none focus:ring-0 px-4"
-                style={{
-                  color: 'white',
-                  fontSize: '12px',
-                  background: 'rgba(255,255,255,0.05)',
-                  padding: '0 8px',
-                  whiteSpace: 'nowrap'
-                }}
-              >
-                Next Draw →
-              </button>
+              {filteredBets.map(({ bet }, index) => (
+                <GameHistoryCard
+                  key={index}
+                  image={dolphinImages[bet.numberBettedOn]}
+                  cost={`${bet.amountBet}`}
+                  prize={`${bet.amountWon}`}
+                  useTon={bet.useTon}
+                  betId={`${bet.betId}`}
+                  result={bet.hasWon ? 'win' : 'lose'}
+                />
+              ))}
             </div>
+          )}
+
+          {/* Navigation Buttons - Updated with proper edge spacing */}
+          <div className="flex items-center justify-between mt-6 w-full px-4" style={{ gap: '12px' }}>
+            <button
+              onClick={() => alert('Prev Draw clicked')}
+              className="flex-1 min-h-[42px] rounded-[8px] border-2 border-white text-white font-medium 
+                         bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] 
+                         hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] 
+                         flex items-center justify-center focus:outline-none focus:ring-0"
+              style={{
+                color: 'white',
+                fontSize: '12px',
+                whiteSpace: 'nowrap'
+              }}
+            >
+              ← Prev Draw
+            </button>
+
+            <button
+              onClick={() => alert('Jump to Round clicked')}
+              className="flex-1 min-h-[42px] rounded-[8px] border-2 border-white text-white font-medium 
+                         bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] 
+                         hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] 
+                         flex items-center justify-center focus:outline-none focus:ring-0"
+              style={{
+                fontSize: '12px',
+                color: 'white',
+                whiteSpace: 'nowrap'
+              }}
+            >
+              Jump to Round
+            </button>
+
+            <button
+              onClick={() => alert('Next Draw clicked')}
+              className="flex-1 min-h-[42px] rounded-[8px] border-2 border-white text-white font-medium 
+                         bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] 
+                         hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] 
+                         flex items-center justify-center focus:outline-none focus:ring-0"
+              style={{
+                color: 'white',
+                fontSize: '12px',
+                whiteSpace: 'nowrap'
+              }}
+            >
+              Next Draw →
+            </button>
           </div>
         </div>
       </SectionBox>
