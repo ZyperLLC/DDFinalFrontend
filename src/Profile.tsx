@@ -303,42 +303,43 @@ export default function Profile() {
           )}
 
           {/* Navigation Buttons */}
-          {/* Navigation Buttons */}
-<div className="flex items-center justify-between mt-6 mx-4" style={{ gap: '6px' }}>
-  <button
-    className="flex-1 min-h-[46px] rounded-[8px] border-2 border-[rgba(255,255,255,0.3)] 
-    text-white font-semibold bg-transparent 
-    hover:bg-[rgba(255,255,255,0.15)] hover:scale-[1.03] hover:border-white 
-    transition-all flex items-center justify-center 
-    focus:outline-none focus:ring-0"
-    style={{ fontSize: '14px', color: 'white', whiteSpace: 'nowrap' }}
-  >
-    <span style={{ fontSize: '18px', marginRight: '4px' }}>←</span> Prev Draw
-  </button>
+          <div className="flex items-center justify-between mt-6 mx-4" style={{ gap: '12px' }}>
+            <button
+              className="flex-1 min-h-[42px] rounded-[8px] border-2 border-[rgba(255,255,255,0.3)] 
+              text-white font-medium bg-transparent 
+              hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white 
+              transition-all flex items-center justify-center 
+              focus:outline-none focus:ring-0"
+   
+              style={{ fontSize: '12px', color: 'white', whiteSpace: 'nowrap' }}
+            >
+              ← Prev Draw
+            </button>
 
-  <button
-    className="flex-1 min-h-[46px] rounded-[8px] border-2 border-[rgba(255,255,255,0.3)] 
-    text-white font-semibold bg-transparent 
-    hover:bg-[rgba(255,255,255,0.15)] hover:scale-[1.03] hover:border-white 
-    transition-all flex items-center justify-center 
-    focus:outline-none focus:ring-0"
-    style={{ fontSize: '14px', color: 'white', whiteSpace: 'nowrap' }}
-  >
-    Jump to Round
-  </button>
+            <button
+              className="flex-1 min-h-[42px] rounded-[8px] border-2 border-[rgba(255,255,255,0.3)] 
+              text-white font-medium bg-transparent 
+              hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white 
+              transition-all flex items-center justify-center 
+              focus:outline-none focus:ring-0"
+   
+              style={{ fontSize: '12px', color: 'white', whiteSpace: 'nowrap' }}
+            >
+              Jump to Round
+            </button>
 
-  <button
-    className="flex-1 min-h-[46px] rounded-[8px] border-2 border-[rgba(255,255,255,0.3)] 
-    text-white font-semibold bg-transparent 
-    hover:bg-[rgba(255,255,255,0.15)] hover:scale-[1.03] hover:border-white 
-    transition-all flex items-center justify-center 
-    focus:outline-none focus:ring-0"
-    style={{ fontSize: '14px', color: 'white', whiteSpace: 'nowrap' }}
-  >
-    Next Draw <span style={{ fontSize: '18px', marginLeft: '4px' }}>→</span>
-  </button>
-</div>
-
+            <button
+             className="flex-1 min-h-[42px] rounded-[8px] border-2 border-[rgba(255,255,255,0.3)] 
+             text-white font-medium bg-transparent 
+             hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white 
+             transition-all flex items-center justify-center 
+             focus:outline-none focus:ring-0"
+  
+              style={{ fontSize: '12px', color: 'white', whiteSpace: 'nowrap' }}
+            >
+              Next Draw →
+            </button>
+          </div>
         </div>
       </SectionBox>
 
