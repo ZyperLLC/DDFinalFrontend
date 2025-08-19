@@ -245,7 +245,7 @@ result={bet.hasWon ? 'win' : 'lose'}
 <div className="flex items-center justify-between mt-6 w-full" style={{ gap: '12px' }}>
 <button
 onClick={() => alert('Prev Draw clicked')}
-className="flex-1 min-h-[45px] rounded-[5px] border-2 border-white text-white font-medium 
+className="flex-1 min-h-[42px] rounded-[8px] border-2 border-white text-white font-medium 
 bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] 
 hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] 
 flex items-center justify-center focus:outline-none focus:ring-0 px-4"
@@ -264,7 +264,7 @@ whiteSpace: 'nowrap'
 
 <button
   onClick={() => alert('Jump to Round clicked')}
-  className="flex-1 min-h-[45px] rounded-[5px] border-2 border-white text-white font-medium 
+  className="flex-1 min-h-[42px] rounded-[8px] border-2 border-white text-white font-medium 
              bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] 
              hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] 
              flex items-center justify-center focus:outline-none focus:ring-0 px-4"
@@ -280,7 +280,7 @@ whiteSpace: 'nowrap'
 
 <button
 onClick={() => alert('Next Draw clicked')}
-className="flex-1 min-h-[45px] rounded-[5px] border-2 border-white text-white font-medium 
+className="flex-1 min-h-[42px] rounded-[8px] border-2 border-white text-white font-medium 
 bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] 
 hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] 
 flex items-center justify-center focus:outline-none focus:ring-0 px-4"
