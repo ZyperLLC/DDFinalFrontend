@@ -244,11 +244,12 @@ result={bet.hasWon ? 'win' : 'lose'}
 <div className="flex items-center justify-between mt-6 w-full" style={{ gap: '12px' }}>
 <button
 onClick={() => alert('Prev Draw clicked')}
-className="flex-1 px-4 py-10 rounded-[5px] border border-[rgba(255,255,255,0.2)] 
-text-white font-medium bg-[rgba(255,255,255,0.05)] 
+className="flex-1 h-14 px-6 rounded-[5px] border border-[rgba(255,255,255,0.2)] 
+text-white text-lg font-medium bg-[rgba(255,255,255,0.05)] 
 hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white 
 transition-all backdrop-blur-[10px] flex items-center justify-center 
 focus:outline-none focus:ring-0"
+
 
 style={{
 color: 'white',
