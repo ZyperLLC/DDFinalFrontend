@@ -216,8 +216,8 @@ export default function Profile() {
           ) : (
             <div className="flex flex-col gap-3">
               {/* Draw Info example, add dynamic if you want */}
-              <div className="text-white font-semibold text-lg mb-2 flex items-center gap-2">
-                Draw #34 <span className="text-white px-2">·</span> 15 Aug 2025
+              <div className="font-semibold text-lg mb-2 flex items-center gap-2" style={{ color: 'white' }}>
+                Draw #34 <span className="px-2" style={{ color: 'white' }}>·</span> 15 Aug 2025
               </div>
               {filteredBets.map(({ bet }, index) => (
                 <GameHistoryCard
@@ -234,10 +234,10 @@ export default function Profile() {
           )}
           
           {/* Navigation Buttons - Updated Design */}
-          <div className="flex flex-row items-center gap-4 mt-12 w-full">
+          <div className="flex flex-row items-center gap-6 mt-12 w-full">
             <button
               onClick={() => alert('Prev Draw clicked')}
-              className="flex-1 h-12 rounded-2xl border border-[rgba(255,255,255,0.3)] text-white font-medium bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.15)] transition-all backdrop-blur-[10px] flex items-center justify-center whitespace-nowrap"
+              className="flex-1 h-12 rounded-xl border border-[rgba(255,255,255,0.3)] text-white font-medium bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.15)] transition-all backdrop-blur-[10px] flex items-center justify-center whitespace-nowrap focus:outline-none focus:ring-0"
               style={{ 
                 color: 'white',
                 fontSize: '14px',
@@ -250,7 +250,7 @@ export default function Profile() {
             
             <button
               onClick={() => alert('Jump to Round clicked')}
-              className="flex-1 h-12 rounded-2xl border-2 border-white text-white font-medium bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] transition-all backdrop-blur-[10px] flex items-center justify-center whitespace-nowrap"
+              className="flex-1 h-12 rounded-xl border-2 border-white text-white font-medium bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] transition-all backdrop-blur-[10px] flex items-center justify-center whitespace-nowrap focus:outline-none focus:ring-0"
               style={{
                 color: 'white',
                 fontSize: '14px',
@@ -264,7 +264,7 @@ export default function Profile() {
             
             <button
               onClick={() => alert('Next Draw clicked')}
-              className="flex-1 h-12 rounded-2xl border border-[rgba(255,255,255,0.3)] text-white font-medium bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.15)] transition-all backdrop-blur-[10px] flex items-center justify-center whitespace-nowrap"
+              className="flex-1 h-12 rounded-xl border border-[rgba(255,255,255,0.3)] text-white font-medium bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.15)] transition-all backdrop-blur-[10px] flex items-center justify-center whitespace-nowrap focus:outline-none focus:ring-0"
               style={{ 
                 color: 'white',
                 fontSize: '14px',
