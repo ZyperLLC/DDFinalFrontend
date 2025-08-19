@@ -260,22 +260,22 @@ export default function Profile() {
           )}
 
           {/* Navigation Buttons */}
-          <div className="flex items-center justify-between mt-6 w-full gap-3">
+          <div className="flex items-center justify-between mt-6 w-full" style={{ gap: '12px' }}>
             <button
               onClick={handlePrevDraw}
-              className="flex-1 min-w-0 px-4 py-3 rounded-full border border-[rgba(255,255,255,0.2)] text-white font-medium bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] flex items-center justify-center text-sm sm:text-base"
+              className="flex-1 h-10 rounded-3xl border border-[rgba(255,255,255,0.2)] text-white font-medium bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] flex items-center justify-center"
             >
               ← Prev Draw
             </button>
             <button
               onClick={handleJumpToRound}
-              className="flex-1 min-w-0 px-4 py-3 rounded-full border-2 border-white text-white font-medium bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] flex items-center justify-center text-sm sm:text-base"
+              className="flex-1 h-10 rounded-3xl border-2 border-white text-white font-medium bg-[rgba(255,255,255,0.08)] hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] flex items-center justify-center"
             >
               Jump to Round
             </button>
             <button
               onClick={handleNextDraw}
-              className="flex-1 min-w-0 px-4 py-3 rounded-full border border-[rgba(255,255,255,0.2)] text-white font-medium bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] flex items-center justify-center text-sm sm:text-base"
+              className="flex-1 h-10 rounded-3xl border border-[rgba(255,255,255,0.2)] text-white font-medium bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white transition-all backdrop-blur-[10px] flex items-center justify-center"
             >
               Next Draw →
             </button>
