@@ -334,11 +334,12 @@ export default function Profile() {
   text-white font-medium bg-transparent 
   hover:bg-[rgba(255,255,255,0.15)] hover:scale-105 hover:border-white 
   transition-all flex items-center justify-center gap-1
-  focus:outline-none focus:ring-0 text-[12px] whitespace-nowrap"
+  focus:outline-none focus:ring-0"
+  style={{ fontSize: '12px', color: 'white', whiteSpace: 'nowrap' }}
 >
-  Next Draw <span className="text-lg">→</span>
+  <span style={{ fontSize: "18px", lineHeight: "1" }}>→</span>
+  Next Draw
 </button>
-
           </div>
         </div>
       </SectionBox>
