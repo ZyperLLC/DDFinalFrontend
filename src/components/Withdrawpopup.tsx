@@ -245,4 +245,3 @@ export default function WithdrawPopup({ name, isVisible, onClose, onExit }: Prop
     </AnimatePresence>
   );
 }
-;
