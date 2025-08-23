@@ -89,7 +89,7 @@ export const useEndRound = ()=>{
             messages: [
                 {
                 address: contractAddress,
-                amount: toNano('0.005').toString(),
+                amount: toNano('0.01').toString(),
                 payload: beginCell()
                 .store(storeEndBetting({
                     $$type:'EndBetting',
