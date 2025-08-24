@@ -88,6 +88,7 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
     console.log("Bet Result:", result);
     if(result){
       toast.success("Amount placed successfully");
+      context?.setCreditBets({roundId:bets.length,numberOfBets:context?.user.creditBets?.numberOfBets?context?.user.creditBets?.numberOfBets+1:1});
       handleExitComplete();
     }
   }

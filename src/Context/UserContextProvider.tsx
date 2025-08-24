@@ -1,7 +1,7 @@
 import { createContext, useState, ReactNode } from "react";
 import { Bet, StakedNFT } from "../types";
 
-type creditBets = {
+type creditBetstype = {
   roundId:number|null,
   numberOfBets:number | null
 }
@@ -9,7 +9,7 @@ type User = {
   telegramId?: string | null;
   walletAddress?: string | null;
   tonBalance?: number | null;
-  creditBets?:creditBets|null;
+  creditBets?:creditBetstype|null;
   creditBalance?: number | null;
   holdingNFTs?:boolean|null;
   friends?: string[]; // Optional field for friends list
@@ -23,7 +23,7 @@ type UserContextType = {
   setWalletAddress: (walletAddress: string | null) => void;
   resetUser: () => void;
   setTonBalance: (tonBalance: number | null) => void;
-  setCreditBets: (creditBets: creditBets | null) => void;
+  setCreditBets: (creditBets: creditBetstype | null) => void;
   setCreditBalance: (creditBalance: number | null) => void;
   setHoldingNFTs: (holdingNFTs: boolean | null) => void;
   setFriends: (friends: string[]) => void; // Optional setter for friends list
@@ -65,7 +65,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       tonBalance,
     }));
   };
-  const setCreditBets = (creditBets: creditBets | null) => {
+  const setCreditBets = (creditBets: creditBetstype | null) => {
     setUser((prev) => ({
       ...prev,
       creditBets,
