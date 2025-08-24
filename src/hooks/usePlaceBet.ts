@@ -20,6 +20,7 @@ export const usePlaceBet = ()=>{
       try{
           const result = await placeBet(context.user.telegramId, betData);
           toast.success("Bet Placed Successfully");
+          context?.setCreditBets({roundId:betData.betId??1,numberOfBets:context?.user.creditBets?.numberOfBets?context?.user.creditBets?.numberOfBets+1:1});
           console.log("Bet Result:", result);
       }catch(err){
         toast.error("Error Occured");
