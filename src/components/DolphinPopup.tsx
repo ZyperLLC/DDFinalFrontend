@@ -31,10 +31,8 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [amount,setAmount] = useState<number|null>(null);
   const context = useContext(UserContext);
-  console.log("key",id);
 
   async function handlePlayClick(noBettedOn:number){
-    console.log("handlePlayClick called with amount:", amount, "and noBettedOn:", noBettedOn);
     console.log("Context:",context?.user);
     
     const bets = await getBettingRounds();
