@@ -69,11 +69,12 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
         toast.error("Insufficient balance, deposit to play");
         return;
       }
+      if(context?.user.creditBets?.roundId === bets.length && context?.user.creditBets?.numberOfBets === 10){
+        toast.error("You can only place 10 bets with credits per round");
+        return;
+      }
     }
-    if(context?.user.creditBets?.roundId === bets.length && context?.user.creditBets?.numberOfBets === 10 && selectedCurrency != 'TON'){
-      toast.error("You can only place 10 bets with credits per round");
-      return;
-    }
+    
     const betData: Partial<Bet> = {
       betId: bets.length,
       amountBet: selectedCurrency === 'TON'?Number(toNano(amount)):amount, // This should be set based on user input
