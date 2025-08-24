@@ -34,7 +34,7 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
 
   async function handlePlayClick(noBettedOn:number){
     console.log("Context:",context?.user);
-    
+    console.log("Selected Currency:",selectedCurrency);
     const bets = await getBettingRounds();
     console.log("Bets:", bets);
     if (!bets || bets.length === 0) {
