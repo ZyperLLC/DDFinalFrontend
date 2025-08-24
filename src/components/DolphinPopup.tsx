@@ -31,10 +31,8 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [amount,setAmount] = useState<number|null>(null);
   const context = useContext(UserContext);
-  console.log("key",id);
 
   async function handlePlayClick(noBettedOn:number){
-    console.log("handlePlayClick called with amount:", amount, "and noBettedOn:", noBettedOn);
     console.log("Context:",context?.user);
     
     const bets = await getBettingRounds();
@@ -72,6 +70,10 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
         return;
       }
     }
+    if(context?.user.creditBets?.roundId === bets.length && context?.user.creditBets?.numberOfBets === 10){
+      toast.error("You can only place 10 bets with credits per round");
+      return;
+    }
     const betData: Partial<Bet> = {
       betId: bets.length,
       amountBet: selectedCurrency === 'TON'?Number(toNano(amount)):amount, // This should be set based on user input
@@ -86,6 +88,7 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
     console.log("Bet Result:", result);
     if(result){
       toast.success("Amount placed successfully");
+      context?.setCreditBets({roundId:bets.length,numberOfBets:context?.user.creditBets?.numberOfBets?context?.user.creditBets?.numberOfBets+1:1});
       handleExitComplete();
     }
   }

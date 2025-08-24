@@ -98,6 +98,7 @@ export const ConnectButton = ({ whiteBg = false }: ConnectButtonProps) => {
                     const bouncableAddress = toUserFriendlyAddress(address);
                     context?.setWalletAddress(bouncableAddress);
                     context?.setTonBalance(userData.tonBalance/1000000000);
+                    context?.setCreditBets(userData?.creditBets ?? {roundId:null,numberOfBets:null});
                     context?.setCreditBalance(userData?.creditBalance ?? creditBalance);
                     context?.setFriends(userData?.friends);
                     context?.setBets(userData?.betsPlace?.sort((a:Bet, b:Bet) => b.betId - a.betId) ?? []);

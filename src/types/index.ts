@@ -25,7 +25,10 @@ export interface Bet {
     earn: string;
   }
   
-  
+  type creditBets = {
+    roundId:number|null,
+    numberOfBets:number | null
+  }
   // ✅ Represents a user object in the system
   export interface User {
     _id?: string;
@@ -33,6 +36,7 @@ export interface Bet {
     telegramId: string;
     walletAddress: string;
     tonBalance: number;
+    creditBets: creditBets|null;
     creditBalance: number;
     betsPlace: Bet[];
     stakedNFTs: StakedNFT[];
