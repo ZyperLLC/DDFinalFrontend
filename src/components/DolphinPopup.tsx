@@ -70,7 +70,7 @@ export default function DolphinPopup({ id,image, name, onClose, isVisible }: Pro
         return;
       }
     }
-    if(context?.user.creditBets?.roundId === bets.length && context?.user.creditBets?.numberOfBets === 10){
+    if(context?.user.creditBets?.roundId === bets.length && context?.user.creditBets?.numberOfBets === 10 && selectedCurrency != 'TON'){
       toast.error("You can only place 10 bets with credits per round");
       return;
     }
