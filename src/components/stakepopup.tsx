@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { X } from 'lucide-react';
 import background1 from '../assets/background1.jpg';
-// import toast from 'react-hot-toast';
-// import { useStakeNft } from '../hooks/useStakeNft';
-// import Button from './Button';
+import toast from 'react-hot-toast';
+import { useStakeNft } from '../hooks/useStakeNft';
+import Button from './Button';
 import { motion } from 'framer-motion';
 import { slideUpFade } from '../utils/animations';
 
@@ -16,7 +16,7 @@ export default function StakePopup({
   onClose: () => void;
 }) {
   const { t } = useTranslation();
-  // const {stakeNft} = useStakeNft();
+  const {stakeNft} = useStakeNft();
   console.log("Selected NFT in StakePopup:", selectedNft);
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -36,16 +36,16 @@ export default function StakePopup({
   }, []);
 
   
-  //Staking NFT address needs to be changed to the actual contract address
-  // const handleStakeNft = async () => {
-  //    try{
-  //     await stakeNft( selectedNft.contractAddress,import.meta.env.VITE_STAKING_CONTRACT_ADDRESS);
-  //    }
-  //     catch(err){
-  //       console.error("Error staking NFT:", err);
-  //       toast.error("Failed to stake NFT. Please try again.");
-  //     }
-  // };
+  // Staking NFT address needs to be changed to the actual contract address
+  const handleStakeNft = async () => {
+     try{
+      await stakeNft( selectedNft.contractAddress,import.meta.env.VITE_STAKING_CONTRACT_ADDRESS);
+     }
+      catch(err){
+        console.error("Error staking NFT:", err);
+        toast.error("Failed to stake NFT. Please try again.");
+      }
+  };
   return (
     <>
       <div className="fixed inset-0 z-50 flex justify-center items-center" style={{ width: '100vw', maxWidth: '100vw', height: '100vh', padding: '1rem', overflow: 'hidden', boxSizing: 'border-box' }}>
@@ -140,8 +140,8 @@ export default function StakePopup({
               >
                 {t('staking_popup.stakeButton')}
               </button> */}
-              {/* <Button onClick={handleStakeNft} text={t('staking_popup.stakeButton')}/> */}
-              <p className='text-center text-white text-sm'>STAKING IS CLOSED</p>
+              <Button onClick={handleStakeNft} text={t('staking_popup.stakeButton')}/>
+              {/* <p className='text-center text-white text-sm'>STAKING IS CLOSED</p> */}
             </div>
           </div>
         </div>
