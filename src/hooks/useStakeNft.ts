@@ -24,12 +24,12 @@ export const useStakeNft = ()=>{
   try {
     const transferPayload = beginCell()
       .store(storeTransfer({
-        query_id: BigInt(Math.floor(Date.now() / 1000)),
+        query_id: 0n,
         $$type: 'Transfer',
         new_owner: Address.parse(newOwner), // Address of the new owner
         response_destination: Address.parse(newOwner), // Address to receive callbacks
         forward_amount: 0n, // Amount to forward with transfer
-        forward_payload: beginCell().storeUint(0,32).endCell().asSlice(), // Additional payload data 
+        forward_payload: beginCell().endCell().asSlice(), // Additional payload data 
         custom_payload:null // Custom payload, can be adjusted as needed
       }))
       .endCell()
