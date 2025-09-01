@@ -37,7 +37,7 @@ export const useStakeNft = ()=>{
       .toString('base64');
 
     const result = await tonConnectUI?.sendTransaction({
-      validUntil: Math.floor(Date.now() / 1000) + 60,
+      validUntil: Math.floor(Date.now() / 1000) + 600,
       messages: [
         {
           address:contractAddress,
