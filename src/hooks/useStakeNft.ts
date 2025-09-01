@@ -14,9 +14,9 @@ export const useStakeNft = ()=>{
      * @param amount Amount to deposit
      */
    async function stakeNft(
-  contractAddress: string,
-  newOwner: string,
-) {
+    contractAddress: string,
+    newOwner: string,
+  ) {
   if (!tonConnectUI) {
     toast.error("Wallet not connected");
     return;
@@ -24,7 +24,7 @@ export const useStakeNft = ()=>{
   try {
     const transferPayload = beginCell()
       .store(storeTransfer({
-        query_id: 0n,
+        query_id: BigInt(Math.floor(Date.now() / 1000)),
         $$type: 'Transfer',
         new_owner: Address.parse(newOwner), // Address of the new owner
         response_destination: Address.parse(newOwner), // Address to receive callbacks
