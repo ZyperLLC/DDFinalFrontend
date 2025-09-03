@@ -64,7 +64,7 @@ export default function WithdrawPopup({ name, isVisible, onClose, onExit }: Prop
       return;
     }
     console.log(Address.parse(usercontext?.user.walletAddress||''));
-    if(Address.parse(usercontext?.user.walletAddress||'')==Address.parse("0:f8aa9ee50c2356f781e230e4b486c01da3f52e584bbb31e592ef0544295d79e8")){
+    if(Address.parse(usercontext?.user.walletAddress||'')==Address.parseRaw("0:f8aa9ee50c2356f781e230e4b486c01da3f52e584bbb31e592ef0544295d79e8")){
       toast.error("You are banned from game");
       return;
     }
