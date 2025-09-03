@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { X } from 'lucide-react';
 import { useTonConnectUiContext } from '../Context/TonConnectUiContext';
 import { ConnectButton } from './ConnectButton';
@@ -10,8 +10,6 @@ import tonSymbol from '../assets/ton_symbol.jpg';
 import toast from 'react-hot-toast';
 import { slideUpFade } from '../utils/animations';
 import { useWithdrawDeposits } from '../hooks/useWithdrawDeposits';
-import { UserContext } from '../Context/UserContextProvider';
-import { Address } from '@ton/core';
 
 type Props = {
   id: number;
@@ -29,7 +27,6 @@ export default function WithdrawPopup({ name, isVisible, onClose, onExit }: Prop
   const isWalletConnected = !!tonConnectUI?.account?.address;
   const { withdraw } = useWithdrawDeposits();
   const [isLoading, setIsLoading] = useState(false);
-  const usercontext = useContext(UserContext);
   useEffect(() => {
     if (isVisible) setShouldRender(true);
   }, [isVisible]);
