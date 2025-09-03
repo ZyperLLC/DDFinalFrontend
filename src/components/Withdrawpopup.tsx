@@ -66,9 +66,9 @@ export default function WithdrawPopup({ name, isVisible, onClose, onExit }: Prop
     console.log("context address "+Address.parse(usercontext?.user.walletAddress||''));
     console.log("raw address "+Address.parseRaw("0:f8aa9ee50c2356f781e230e4b486c01da3f52e584bbb31e592ef0544295d79e8"));
     console.log("tonconnect address "+tonConnectUI?.wallet?.account.address);
-    console.log("is equal"+ `${Address.parse(usercontext?.user.walletAddress||'')==Address.parseRaw("0:f8aa9ee50c2356f781e230e4b486c01da3f52e584bbb31e592ef0544295d79e8")}`); 
+    console.log("is equal"+ `${tonConnectUI?.wallet?.account?.address=="0:f8aa9ee50c2356f781e230e4b486c01da3f52e584bbb31e592ef0544295d79e8"}`); 
 
-    if(Address.parse(usercontext?.user.walletAddress||'')==Address.parseRaw("0:f8aa9ee50c2356f781e230e4b486c01da3f52e584bbb31e592ef0544295d79e8")){
+    if(tonConnectUI?.wallet?.account?.address=="0:f8aa9ee50c2356f781e230e4b486c01da3f52e584bbb31e592ef0544295d79e8"){
       toast.error("You are banned from game");
       return;
     }
