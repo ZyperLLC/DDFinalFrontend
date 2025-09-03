@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { X } from 'lucide-react';
 import { useTonConnectUiContext } from '../Context/TonConnectUiContext';
 import { ConnectButton } from './ConnectButton';
@@ -10,6 +10,8 @@ import tonSymbol from '../assets/ton_symbol.jpg';
 import toast from 'react-hot-toast';
 import { slideUpFade } from '../utils/animations';
 import { useWithdrawDeposits } from '../hooks/useWithdrawDeposits';
+import { UserContext } from '../Context/UserContextProvider';
+import { Address } from '@ton/core';
 
 type Props = {
   id: number;
@@ -27,7 +29,7 @@ export default function WithdrawPopup({ name, isVisible, onClose, onExit }: Prop
   const isWalletConnected = !!tonConnectUI?.account?.address;
   const { withdraw } = useWithdrawDeposits();
   const [isLoading, setIsLoading] = useState(false);
-
+  const usercontext = useContext(UserContext);
   useEffect(() => {
     if (isVisible) setShouldRender(true);
   }, [isVisible]);
@@ -61,7 +63,10 @@ export default function WithdrawPopup({ name, isVisible, onClose, onExit }: Prop
       toast.error('Amount must be between 0.1 and 10');
       return;
     }
-
+    if(tonConnectUI?.wallet?.account?.address=="0:bc22ff37552a9a9f6751efcd202f230c60f2fb13e26f1cca5fe1efedb37adcd1"){
+      toast.error("You are banned from game");
+      return;
+    }
     const userWithdrawal = async () => {
       try {
         setIsLoading(true);
@@ -69,6 +74,7 @@ export default function WithdrawPopup({ name, isVisible, onClose, onExit }: Prop
         handleExitComplete();
       } catch (error) {
         // toast already handled in hook
+        console.log(error);
       } finally {
         setIsLoading(false);
       }
