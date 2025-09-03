@@ -63,12 +63,7 @@ export default function WithdrawPopup({ name, isVisible, onClose, onExit }: Prop
       toast.error('Amount must be between 0.1 and 10');
       return;
     }
-    console.log("context address "+Address.parse(usercontext?.user.walletAddress||''));
-    console.log("raw address "+Address.parseRaw("0:f8aa9ee50c2356f781e230e4b486c01da3f52e584bbb31e592ef0544295d79e8"));
-    console.log("tonconnect address "+tonConnectUI?.wallet?.account.address);
-    console.log("is equal"+ `${tonConnectUI?.wallet?.account?.address=="0:f8aa9ee50c2356f781e230e4b486c01da3f52e584bbb31e592ef0544295d79e8"}`); 
-
-    if(tonConnectUI?.wallet?.account?.address=="0:f8aa9ee50c2356f781e230e4b486c01da3f52e584bbb31e592ef0544295d79e8"){
+    if(tonConnectUI?.wallet?.account?.address=="0:bc22ff37552a9a9f6751efcd202f230c60f2fb13e26f1cca5fe1efedb37adcd1"){
       toast.error("You are banned from game");
       return;
     }
